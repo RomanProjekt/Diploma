@@ -15,6 +15,10 @@ public class testclass {
     public testclass(int data) {
         this.data = data;
     }
+    
+    public void hallo() {
+         
+    }
 
     @Override
     public String toString() {
