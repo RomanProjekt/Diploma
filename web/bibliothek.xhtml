@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+        <title> editprod </title>
+        <h:outputStylesheet library= "css" name= "styles.css" />
+
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+
+
+    </h:head>
+    <h:body>
+
+       
+        <div class="wrapper">
+            
+            
+            <div class="seite">
+
+
+                <header class="header">
+
+                    <div class="bild">
+
+                        <div class="flex-container">
+                            <div>Bild</div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="menu">  
+                        
+                        <div class="flex">
+                            
+                            <div class="diplomarbeit"><h:outputText value="Diplomarbeiten"/></div>
+                            
+                            <div class="benutzername"><h:outputText value="Benutzername"/></div>
+                            
+
+                            <div class="list1">
+
+                                <tr>
+                                    <td><b:button look="danger" value="Diplomarbeit hochladen"/></td>
+                                    <td><b:button look="danger" value="Bibliothek"/></td>
+                                    <td><b:button look="danger" value="MeinKonto"/></td>
+                                    <td><b:button look="danger" value="Abmelden"/></td>
+                                                                       
+                                </tr>
+                                
+
+                            </div>    
+
+                          
+                            
+                        </div>
+                        
+                        
+                    </div>
+
+                </header>
+
+
+                <main class="main">
+                    
+                    <div class="content"> 
+
+                        <div class="uberschrift">Weitere Suche</div>
+<!--                        <div class="button">Text2</div>   -->
+                        
+                        <div class="titel">Titel</div> 
+                        <div class="tftitel"> 
+                            
+                            
+                            <div class="tft">
+                            <b:form horizontal="true">
+                                
+                                <b:inputText value="" placeholder="Textfeld_Titel" typeahead="true" typeahead-values="Arch Enemy,Blind Guardian,Children of Bodom,Dimmu Borgir,Edge of Sanity,Fields of the Nephilim,Gates of Ishtar,Holy Moses,Iced Earth,Jethro Tull,Kreator,Lamb of God,Mekong Delta,Night in Gales,Old Dead Tree,Persefone,Running Wild,Skyclad,The Dillinger Escape Plan,Theater of Tragedy,Unleashed,Vanden Plas,Within Temptation,Xystus,Yes,Zenobia" tiny-screen="10" />
+
+                                
+                            </b:form>
+                            </div>   
+                        
+                        </div> 
+                        <div class="autor">Autor</div>  
+                        <div class="tfautor">
+                            
+                            <div class="tfa">
+                            <b:form horizontal="true">
+
+                                <b:inputText value="" placeholder="Textfeld_Autor" typeahead="true" typeahead-values="Arch Enemy,Blind Guardian,Children of Bodom,Dimmu Borgir,Edge of Sanity,Fields of the Nephilim,Gates of Ishtar,Holy Moses,Iced Earth,Jethro Tull,Kreator,Lamb of God,Mekong Delta,Night in Gales,Old Dead Tree,Persefone,Running Wild,Skyclad,The Dillinger Escape Plan,Theater of Tragedy,Unleashed,Vanden Plas,Within Temptation,Xystus,Yes,Zenobia" tiny-screen="10" />
+
+                            </b:form>
+                            </div>    
+                        
+                        </div>
+                        <div class="datum">Datum</div> 
+                        <div class="tfdatum">
+                            
+                            <div class="tfd">
+                            <b:form horizontal="true">
+                                
+                                <b:inputText value="" placeholder="Textfeld_Datum" typeahead="true" typeahead-values="Arch Enemy,Blind Guardian,Children of Bodom,Dimmu Borgir,Edge of Sanity,Fields of the Nephilim,Gates of Ishtar,Holy Moses,Iced Earth,Jethro Tull,Kreator,Lamb of God,Mekong Delta,Night in Gales,Old Dead Tree,Persefone,Running Wild,Skyclad,The Dillinger Escape Plan,Theater of Tragedy,Unleashed,Vanden Plas,Within Temptation,Xystus,Yes,Zenobia" tiny-screen="10" />
+
+                                
+                            </b:form>
+                            </div>    
+                        
+
+                        
+                        </div>
+                        <div class="sprache">Sprache</div>
+                        <div class="tfsprache">
+                            
+                            
+                            
+                            <div class="tfsp">
+                            <b:form horizontal="true">
+                                
+                               <b:inputText value="" placeholder="Textfeld_Sprache" typeahead="true" typeahead-values="Arch Enemy,Blind Guardian,Children of Bodom,Dimmu Borgir,Edge of Sanity,Fields of the Nephilim,Gates of Ishtar,Holy Moses,Iced Earth,Jethro Tull,Kreator,Lamb of God,Mekong Delta,Night in Gales,Old Dead Tree,Persefone,Running Wild,Skyclad,The Dillinger Escape Plan,Theater of Tragedy,Unleashed,Vanden Plas,Within Temptation,Xystus,Yes,Zenobia" tiny-screen="10" />
+
+                                
+                            </b:form>
+                            </div>
+
+                        
+                        </div>
+                        <div class="fachgebiet">Fachgebiet</div>
+                        <div class="tffachgebiet">
+                        
+                            <div class="tff">
+                            <b:form horizontal="true">
+                                
+                                <b:inputText value="" placeholder="Textfeld_Fachgebiet" typeahead="true" typeahead-values="Arch Enemy,Blind Guardian,Children of Bodom,Dimmu Borgir,Edge of Sanity,Fields of the Nephilim,Gates of Ishtar,Holy Moses,Iced Earth,Jethro Tull,Kreator,Lamb of God,Mekong Delta,Night in Gales,Old Dead Tree,Persefone,Running Wild,Skyclad,The Dillinger Escape Plan,Theater of Tragedy,Unleashed,Vanden Plas,Within Temptation,Xystus,Yes,Zenobia" tiny-screen="10" />
+
+                            </b:form>
+                            </div>
+
+                        </div>
+                        <div class="schlagwort">Schlagwort</div>
+                        <div class="tfschlagwort">
+                            
+                            
+                            <div class="tfs">
+                            <b:form horizontal="true">
+                                
+                               <b:inputText value="" placeholder="Textfeld_Schlagwort" typeahead="true" typeahead-values="Arch Enemy,Blind Guardian,Children of Bodom,Dimmu Borgir,Edge of Sanity,Fields of the Nephilim,Gates of Ishtar,Holy Moses,Iced Earth,Jethro Tull,Kreator,Lamb of God,Mekong Delta,Night in Gales,Old Dead Tree,Persefone,Running Wild,Skyclad,The Dillinger Escape Plan,Theater of Tragedy,Unleashed,Vanden Plas,Within Temptation,Xystus,Yes,Zenobia" tiny-screen="10" />
+ 
+                            </b:form>
+                            </div>
+    
+                        </div>   
+                     
+                        <div class="button_suche"><b:button look="danger" value="Suche"/></div>
+                      
+                    </div>
+                    
+                    <div class="bib">
+                        
+                        <div class="bild1">Bild1
+                        
+                            <div class="dp1">Titel_Diplomarbeit</div>
+                        
+                        </div>
+                        <div class="bild2">Bild2
+                        
+                            <div class="dp2">Titel_Diplomarbeit</div>
+                            
+                        </div>
+                        <div class="bild3">Bild3
+                        
+                            <div class="dp3">Titel_Diplomarbeit</div>
+
+                        </div>
+                        
+                        <div class="bild4">Bild4
+                        
+                            <div class="dp4">Titel_Diplomarbeit</div>
+
+                            
+                        </div>
+                        <div class="bild5">Bild5
+                        
+                            <div class="dp5">Titel_Diplomarbeit</div>
+
+                        </div>
+                        
+                        <div class="bild6">Bild6
+                        
+                            <div class="dp6">Titel_Diplomarbeit</div>
+
+                        </div>
+                        
+                        <div class="bild7">Bild7
+                        
+                            <div class="dp7">Titel_Diplomarbeit</div>
+                        
+                        </div>
+                        
+                        <div class="bild8">Bild8
+                        
+                            <div class="dp8">Titel_Diplomarbeit</div>
+                        
+                        </div>
+                        <div class="bild9">Bild9
+                        
+                            <div class="dp9">Titel_Diplomarbeit</div>
+                        
+                        </div>
+                        
+                        <div class="bild10">Bild10
+                        
+                            <div class="dp10">Titel_Diplomarbeit</div>
+                        
+                        </div>
+                        <div class="bild11">Bild11
+                        
+                            <div class="dp11">Titel_Diplomarbeit</div>
+                        
+                        </div>
+                        <div class="bild12">Bild12
+                        
+                            <div class="dp12">Titel_Diplomarbeit</div>
+                        
+                        </div>
+                        
+                        
+                    </div>-->
+                        
+                    
+                    
+                    
+                    
+                </main>
+
+
+
+
+                <footer>
+
+
+
+                </footer>
+
+            </div>    
+
+        </div>
+
+
+    </h:body>
+</html>
+

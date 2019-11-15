@@ -1,0 +1,545 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12.11.2019, 16:51:00
+    Author     : hp
+*/
+
+.wrapper {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    
+    
+}
+
+.seite {
+    
+    display: flex;
+    flex-wrap: wrap;
+
+    position: relative;
+    background-color: blueviolet;
+    
+    width: 1500px;
+    height: 2000px;
+    margin: 0 auto 0 auto;
+    border: 1px solid black;
+        
+}
+
+
+
+
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  background-color: DodgerBlue;
+  width: 100%;
+  z-index: 1;
+  
+  
+}
+
+.flex-container > div {
+  background-color: #f1f1f1;
+  width: 50px;
+  margin: 0 0px;
+  
+  
+  text-align: center;
+  line-height: 50px;
+  font-size: 25px;
+}
+
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: orange;
+  position: absolute;
+  
+  margin: 50px 0 0 0;
+  width: 100%;
+  height: 50px;
+  
+  
+}
+
+/*.flex > liste {
+    width: 100%;
+}*/
+
+.liste {
+    margin: 0px 0px 0px 100px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 25px;
+}
+
+.list1 {
+    margin: auto 0px auto 400px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 25px;
+}
+
+.benutzername {
+    
+    margin: auto 0px auto 200px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 25px;
+}
+
+.diplomarbeit {
+    
+    margin: auto 0px auto 10px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 25px;
+    
+}
+
+
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: greenyellow;
+  position: absolute;
+  margin: 100px 0 0 0;
+  width: 300px;
+  height: 800px;
+/*  z-index: 1;*/
+    
+}
+
+.content > div {
+  
+  width: 100%;
+  height: 50px;
+  
+  position: absolute;
+  text-align: center;
+  line-height: 50px;
+  font-size: 25px;
+
+  
+}
+
+.uberschrift {
+    
+    position: absolute;
+    margin: 0 0 0 0;
+    
+}
+
+/*.button {
+    
+    position: absolute;
+    margin: 100px 0 0 0;
+    
+}*/
+
+.titel {
+    
+    position: absolute;
+    margin: 50px 0 0 0;
+    
+}
+
+.tftitel {
+    position: absolute;
+    margin: 100px 0 0 0;
+    
+}
+
+.tft {
+    
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    margin: 0 0 0 25px;
+    
+}
+
+
+.autor {
+    position: absolute;
+    margin: 150px 0 0 0;
+    
+}
+
+.tfautor {
+    
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    margin: 200px 0 0 0;
+    
+}
+
+.tfa {
+    
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    margin: 0 0 0 25px;
+}
+
+.datum {
+    
+    position: absolute;
+    margin: 250px 0 0 0;
+    
+}
+
+.tfdatum {
+    
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    margin: 300px 0 0 0;
+    
+}
+
+.tfd {
+    
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    margin: 0 0 0 25px;
+    
+}
+
+.sprache {
+    
+    position: absolute;
+    margin: 350px 0 0 0;
+    
+    
+}
+
+.tfsprache {
+    
+    width: 100%;
+    height: 50px;
+    
+    position: absolute;
+    margin: 400px 0 0 0;
+    
+    
+}
+
+.tfsp {
+    
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    margin: 0 0 0 25px;
+    
+}
+
+.fachgebiet {
+    
+    position: absolute;
+    margin: 450px 0 0 0;
+    
+}
+
+
+.tffachgebiet {
+    
+    width: 100%;
+    height: 50px;
+    
+    position: absolute;
+    margin: 500px 0 0 0;
+    
+}
+
+.tff {
+    
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    margin: 0 0 0 25px;
+    
+}
+
+
+.schlagwort {
+    
+    position: absolute;
+    margin: 550px 0 0 0;
+    
+}
+
+.tfschlagwort {
+    
+    width: 100%;
+    height: 50px;
+    
+    position: absolute;
+    margin: 600px 0 0 0;
+    
+}
+
+.tfs {
+    
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    margin: 0 0 0 25px;
+    
+}
+
+.button_suche {
+    
+    position: absolute;
+    margin: 700px 0 0 0;
+}
+
+
+.bib {
+ 
+  background-color: yellow;
+  position: absolute;
+  margin: 100px 0 0 300px;
+  width: 1000px;
+  height: 1900px;
+  
+    
+}
+
+
+.bib > div {
+  background-color: #f1f1f1;
+ 
+  position: absolute;
+  width: 200px;
+  height: 300px;
+  
+
+  
+}
+
+.bild1 {
+    
+    position: absolute;
+    margin: 100px 0 0 100px;
+    border: 1px solid black;
+    
+}
+
+
+.bild2 {
+    
+    position: absolute;
+    margin: 100px 0 0 400px;
+    border: 1px solid black;
+    
+}
+
+
+
+.bild3 {
+    
+    position: absolute;
+    margin: 100px 0 0 700px;
+    border: 1px solid black;
+    
+}
+
+.bild4 {
+    
+    position: absolute;
+    margin: 500px 0 0 100px;
+    border: 1px solid black;
+    
+}
+
+.bild5 {
+    
+    position: absolute;
+    margin: 500px 0 0 400px;
+    border: 1px solid black;
+    
+}
+
+
+.bild6 {
+    
+    position: absolute;
+    margin: 500px 0 0 700px;
+    border: 1px solid black;
+    
+}
+
+.bild7 {
+    
+    position: absolute;
+    margin: 900px 0 0 100px;
+    border: 1px solid black;
+    
+}
+
+.bild8 {
+    
+    position: absolute;
+    margin: 900px 0 0 400px;
+    border: 1px solid black;
+    
+}
+
+
+.bild9 {
+    
+    position: absolute;
+    margin: 900px 0 0 700px;
+    border: 1px solid black;
+    
+}
+
+
+.bild10 {
+    
+    position: absolute;
+    margin: 1300px 0 0 100px;
+    border: 1px solid black;
+    
+}
+
+.bild11 {
+    
+    position: absolute;
+    margin: 1300px 0 0 400px;
+    border: 1px solid black;
+    
+}
+
+.bild12 {
+    
+    position: absolute;
+    margin: 1300px 0 0 700px;
+    border: 1px solid black;
+    
+}
+
+.dp1 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+
+.dp2 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+
+.dp3 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+
+.dp4 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+.dp5 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+.dp6 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+.dp7 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+.dp8 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+
+.dp9 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+.dp10 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+.dp11 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+.dp12 {
+    position: absolute;
+    margin: 230px 0 0 15px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
