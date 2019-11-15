@@ -12,19 +12,19 @@ package pojo;
 public class Benutzer {
 
     private int user_id;
-    private String userName;
-    private String firstName;
-    private String lastName;
+    private String username;
+    private String firstname;
+    private String lastname;
     private String passWd;
     private String salt;
     private String role;
     private String eMail;
 
-    public Benutzer(int user_id, String userName, String firstName, String lastName, String passWd, String salt, String role, String eMail) {
+    public Benutzer(int user_id, String username, String firstname, String lastname, String passWd, String salt, String role, String eMail) {
         this.user_id = user_id;
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.passWd = passWd;
         this.salt = salt;
         this.role = role;
@@ -39,28 +39,28 @@ public class Benutzer {
         this.user_id = user_id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
-        return firstName;
+        return firstname;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstname = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return lastname;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastname = lastName;
     }
 
     public String getPassWd() {
