@@ -35,5 +35,10 @@ public class benutzerBean {
         //in die datenbank schreiben
         return null;
     }
+    
+    public Object login() {
+        //login
+        return null;
+    }
 
 }
