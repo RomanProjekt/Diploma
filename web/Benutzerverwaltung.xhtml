@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsf/core">
+    <h:head>
+
+        <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
+
+    </h:head>
+    <h:body>
+        
+        <f:view>
+            <h2>Benutzerverwaltung</h2>
+            
+            <b:dataTable value="#{benutzerverwaltungBean.benutzerList}" var="element">
+                <b:column>
+                    <c:facet name="header">Username</c:facet>
+                    #{element.username}
+                </b:column>
+                <b:column>
+                    <c:facet name="header">Firstname</c:facet>
+                    #{element.firstname}
+                </b:column>
+                <b:column>
+                    <c:facet name="header">Lastname</c:facet>
+                    #{element.lastname}
+                </b:column>
+                <b:column>
+                    <c:facet name="header">Role</c:facet>
+                    #{element.role}
+                </b:column>
+                <b:column>
+                    <c:facet name="header">E-Mail</c:facet>
+                    #{element.eMail}
+                </b:column>
+            </b:dataTable> 
+
+        </f:view>
+    </h:body>
+</html>
