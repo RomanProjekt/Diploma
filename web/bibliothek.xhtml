@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
     <h:head>
@@ -46,11 +47,14 @@
                             <div class="list1">
 
                                 <tr>
-                                    <td><b:button look="danger" value="Diplomarbeit hochladen"/></td>
-                                    <td><b:button look="danger" value="Bibliothek"/></td>
-                                    <td><b:button look="danger" value="MeinKonto"/></td>
-                                    <td><b:button look="danger" value="Abmelden"/></td>
-                                                                       
+                                    <h:form>
+                                        <td><b:button value="Diplomarbeit hochladen" outcome="bibliothek.xhtml" look="danger"/></td>
+                                        <td><b:button value="Bibliothek"  look="danger"/></td>
+                                        <td><b:button value="MeinKonto"  look="danger"/></td>
+                                        <td><b:button value="Abmelden"  look="danger"/></td>
+
+                                        
+                                    </h:form>                                  
                                 </tr>
                                 
 
@@ -154,78 +158,138 @@
                             </b:form>
                             </div>
     
-                        </div>   
+                        </div> 
+                        
+                        
                      
-                        <div class="button_suche"><b:button look="danger" value="Suche"/></div>
+                        <div class="button_suche">
+                            <td>
+                                <h:form>
+                                    <b:commandButton value="Suche" actionListener="#{bibliothekBean.suche}" look="danger"/>
+                                </h:form>
+                           
+                            </td>
+                        </div>
                       
                     </div>
                     
                     <div class="bib">
                         
-                        <div class="bild1">Bild1
-                        
-                            <div class="dp1">Titel_Diplomarbeit</div>
-                        
+                        <div class="bild1">
+
+
+
+                            <ui:repeat value="#{bibliothekBean.diplist.get(0)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
+
+
+                            <!--                            <div class="dp1">Titel_Diplomarbeit</div>-->
+
                         </div>
-                        <div class="bild2">Bild2
-                        
-                            <div class="dp2">Titel_Diplomarbeit</div>
+                        <div class="bild2">
+                            
+                            <ui:repeat value="#{bibliothekBean.diplist.get(1)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
+
+<!--                            <div class="dp2">Titel_Diplomarbeit</div>-->
                             
                         </div>
-                        <div class="bild3">Bild3
+                        <div class="bild3">
+                            
+                            
+                            <ui:repeat value="#{bibliothekBean.diplist.get(2)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
                         
-                            <div class="dp3">Titel_Diplomarbeit</div>
+<!--                            <div class="dp3">Titel_Diplomarbeit</div>-->
 
                         </div>
                         
-                        <div class="bild4">Bild4
+                        <div class="bild4">
                         
-                            <div class="dp4">Titel_Diplomarbeit</div>
+<!--                            <div class="dp4">Titel_Diplomarbeit</div>-->
+                            
+                            <ui:repeat value="#{bibliothekBean.diplist.get(3)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
 
                             
                         </div>
-                        <div class="bild5">Bild5
-                        
-                            <div class="dp5">Titel_Diplomarbeit</div>
+                        <div class="bild5">
+<!--                            <div class="dp5">Titel_Diplomarbeit</div>-->
+                            
+                            <ui:repeat value="#{bibliothekBean.diplist.get(4)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
 
                         </div>
                         
-                        <div class="bild6">Bild6
+                        <div class="bild6">
                         
-                            <div class="dp6">Titel_Diplomarbeit</div>
+<!--                            <div class="dp6">Titel_Diplomarbeit</div>-->
+                            
+                            <ui:repeat value="#{bibliothekBean.diplist.get(5)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
 
                         </div>
                         
-                        <div class="bild7">Bild7
+                        <div class="bild7">
                         
-                            <div class="dp7">Titel_Diplomarbeit</div>
-                        
-                        </div>
-                        
-                        <div class="bild8">Bild8
-                        
-                            <div class="dp8">Titel_Diplomarbeit</div>
-                        
-                        </div>
-                        <div class="bild9">Bild9
-                        
-                            <div class="dp9">Titel_Diplomarbeit</div>
+<!--                            <div class="dp7">Titel_Diplomarbeit</div>-->
+                            
+                            <ui:repeat value="#{bibliothekBean.diplist.get(6)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
                         
                         </div>
                         
-                        <div class="bild10">Bild10
+                        <div class="bild8">
                         
-                            <div class="dp10">Titel_Diplomarbeit</div>
+<!--                            <div class="dp8">Titel_Diplomarbeit</div>-->
+                            
+                            <ui:repeat value="#{bibliothekBean.diplist.get(7)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
                         
                         </div>
-                        <div class="bild11">Bild11
+                        <div class="bild9">
                         
-                            <div class="dp11">Titel_Diplomarbeit</div>
+<!--                            <div class="dp9">Titel_Diplomarbeit</div>-->
+                            
+                            <ui:repeat value="#{bibliothekBean.diplist.get(8)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
                         
                         </div>
-                        <div class="bild12">Bild12
                         
-                            <div class="dp12">Titel_Diplomarbeit</div>
+                        <div class="bild10">
+                        
+<!--                            <div class="dp10">Titel_Diplomarbeit</div>-->
+                            
+                            <ui:repeat value="#{bibliothekBean.diplist.get(9)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
+                        
+                        </div>
+                        <div class="bild11">
+                        
+<!--                            <div class="dp11">Titel_Diplomarbeit</div>-->
+                            
+                            <ui:repeat value="#{bibliothekBean.diplist.get(10)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
+                        
+                        </div>
+                        <div class="bild12">
+                        
+<!--                            <div class="dp12">Titel_Diplomarbeit</div>-->
+                            
+                            <ui:repeat value="#{bibliothekBean.diplist.get(11)}" var="dipl">
+                                <h:outputText value="#{dipl.title}"/>
+                            </ui:repeat>
                         
                         </div>
                         
