@@ -5,14 +5,17 @@
  */
 package infrastructure;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import pojo.Benutzer;
 
 /**
  *
  * @author patri
  */
-
 public class benutzerBean {
 
     private int user_id;
@@ -24,18 +27,49 @@ public class benutzerBean {
     private String role;
     private String eMail;
 
+    List<Benutzer> bList; //künstliche Datenbank, the following code is merely for testing
+
     /**
      * Creates a new instance of benutzerBean
      */
     public benutzerBean() {
-        
+        user_id = 0;
+        bList = new ArrayList<>();
     }
-    
+
     public Object register() {
+        int listsize = bList.size();
+        bList.add(new Benutzer(++user_id, userName, firstName, lastName, passWd, salt, role, eMail));
+        if (listsize != bList.size()) {
+            System.out.println("User added");
+        }
         //in die datenbank schreiben
         return null;
     }
     
     
 
+    public Object login() {
+        /* int cnt=0;
+        Iterator it = bList.iterator();
+        for(Benutzer b : bList) {
+            cnt++;
+            while(it.hasNext()) {
+                if(it.next().equals(bList.get(cnt))) {
+                    
+                }
+                
+            }
+        }
+
+         */ for (Benutzer b : bList) {
+            if (b == new Benutzer(user_id, userName, firstName, lastName, passWd, salt, role, eMail)) {
+                if( b.getPassWd() == passWd) {
+                    System.out.println("User vorhanden");
+                }
+            }
+        }
+        //login
+        return null;
+    }
 }

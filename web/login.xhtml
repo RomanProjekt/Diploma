@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        
+        <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
+        
+    </h:head>
+    <h:body>
+        <f:view>
+            <h2>Diplomarbeiten</h2>
+            <h3>Anmeldung</h3>
+            <b:form id="log" >
+
+                <h:panelGrid columns="1" cellpadding="5">
+
+                    <b:inputText label="E-Mail" labelStyle="width:80px;">
+                    </b:inputText>
+
+                    <b:inputText label="Passwort" labelStyle="width:80px;">
+                    </b:inputText>
+
+                    <b:commandButton value="Anmelden" action="#{benutzerBean.login()}" />
+
+                </h:panelGrid>
+            </b:form>
+        </f:view>
+    </h:body>
+</html>
