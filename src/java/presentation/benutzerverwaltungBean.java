@@ -33,6 +33,18 @@ public class benutzerverwaltungBean {
         this.benutzerList = benutzerList;
     }
     
+    public Object add(){
+        return null;
+    }
+    
+    public Object delete(){
+        return null;
+    }
+    
+    public Object modify(Benutzer b){
+        return null;
+    }
+    
    
     
 }

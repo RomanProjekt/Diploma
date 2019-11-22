@@ -19,30 +19,27 @@ and open the template in the editor.
         
         <f:view>
             <h2>Benutzerverwaltung</h2>
+            <b:form id="form">
             
-            <b:dataTable value="#{benutzerverwaltungBean.benutzerList}" var="element">
-                <b:column>
-                    <c:facet name="header">Username</c:facet>
-                    #{element.username}
-                </b:column>
-                <b:column>
-                    <c:facet name="header">Firstname</c:facet>
-                    #{element.firstname}
-                </b:column>
-                <b:column>
-                    <c:facet name="header">Lastname</c:facet>
-                    #{element.lastname}
-                </b:column>
-                <b:column>
-                    <c:facet name="header">Role</c:facet>
-                    #{element.role}
-                </b:column>
-                <b:column>
-                    <c:facet name="header">E-Mail</c:facet>
-                    #{element.eMail}
-                </b:column>
+            <b:dataTable value="#{benutzerverwaltungBean.benutzerList}" var="user">
+                <b:dataTableColumn label="Username" value="#{user.username}" >
+<!--                    <b:inputText value="{user.username}" rendered="{user.editable}" />
+                    <h:outputText value="{user.username}" rendered="{not user.editable}" />-->
+                </b:dataTableColumn>
+                <b:dataTableColumn value="#{user.firstname}" label="Firstname" />
+                <b:dataTableColumn value="#{user.lastname}" label="Lastname" />
+                <b:dataTableColumn value="#{user.role}" label="Role" />
+                <b:dataTableColumn value="#{user.eMail}" label="E-Mail" />
+                <b:dataTableColumn label="Löschen">
+                    <b:commandButton value="X" />
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Ändern">
+                    <b:commandButton value="Ändern" action="#{benutzerverwaltungBean.modify(user)}" />
+                </b:dataTableColumn>
+                
             </b:dataTable> 
-
+           
+            </b:form>    
         </f:view>
     </h:body>
 </html>
