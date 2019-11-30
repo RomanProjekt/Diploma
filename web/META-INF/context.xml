@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/DA_AK"/>
+<Context path="/DA_AK">
+<Resource name="jdbc/akdb"
+     auth="Container"
+     type="javax.sql.DataSource"
+     username="akdb"
+     password="htlpinkafeld"
+     driverClassName="com.mysql.jdbc.Driver"
+     url="jdbc:mysql://10.2.1.16/akdb"
+     maxWaitMillis="5000"
+     maxTotal="8"
+     maxIdle="4" />    
+</Context>

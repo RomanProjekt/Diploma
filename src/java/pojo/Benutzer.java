@@ -31,6 +31,10 @@ public class Benutzer {
         this.eMail = eMail;
     }
 
+    public Benutzer() {
+
+    }
+
     public int getUser_id() {
         return user_id;
     }

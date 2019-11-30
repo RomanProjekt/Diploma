@@ -26,5 +26,12 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <resource-ref>
+    		<description>MySQL Database Connection for DA_AK</description>
+    		<res-ref-name>jdbc/akdb</res-ref-name>
+    		<res-type>javax.sql.DataSource</res-type>
+    		<res-auth>Container</res-auth>
+    </resource-ref>
 
 </web-app>
