@@ -31,6 +31,14 @@ public class Benutzer {
         this.eMail = eMail;
     }
 
+    public Benutzer(int user_id, String username, String firstname, String lastname, String passWd) {
+        this.user_id = user_id;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.passWd = passWd;
+    }
+
     public Benutzer() {
 
     }
