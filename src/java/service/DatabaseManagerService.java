@@ -6,6 +6,7 @@
 package service;
 
 import infrastructure.BenutzerDAO;
+import java.util.ArrayList;
 import pojo.Benutzer;
 
 /**
@@ -31,6 +32,14 @@ public class DatabaseManagerService {
     public Benutzer load(String id) {
         b = benutzerDAO.read(id);
         return b;
+    }
+
+    public ArrayList<Benutzer> getAllBenutzer() {
+        return benutzerDAO.getAllBenutzer();
+    }
+
+    public int setUserData(Benutzer b) {
+        return benutzerDAO.setBenutzer(b);
     }
 
     public Benutzer getB() {

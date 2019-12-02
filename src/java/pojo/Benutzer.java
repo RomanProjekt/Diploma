@@ -19,6 +19,7 @@ public class Benutzer {
     private String salt;
     private String role;
     private String eMail;
+    private boolean editable;
 
     public Benutzer(int user_id, String username, String firstname, String lastname, String passWd, String salt, String role, String eMail) {
         this.user_id = user_id;
@@ -103,8 +104,16 @@ public class Benutzer {
         return eMail;
     }
 
+    public boolean isEditable() {
+        return editable;
+    }
+
     public void seteMail(String eMail) {
         this.eMail = eMail;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
 }

@@ -21,21 +21,28 @@ and open the template in the editor.
             <h2>Benutzerverwaltung</h2>
             <b:form id="form">
             
-            <b:dataTable value="#{benutzerverwaltungBean.benutzerList}" var="user">
-                <b:dataTableColumn label="Username" value="#{user.username}" >
-<!--                    <b:inputText value="{user.username}" rendered="{user.editable}" />
-                    <h:outputText value="{user.username}" rendered="{not user.editable}" />-->
+            <b:dataTable value="#{benutzerverwaltungBean.benutzerList}" var="benutzer">
+                
+                <b:dataTableColumn label="Username">
+                    <h:outputText value="#{benutzer.username}" rendered="#{!benutzer.editable}" />
+                    <h:inputText value="#{benutzer.username}" rendered="#{benutzer.editable}" />
                 </b:dataTableColumn>
-                <b:dataTableColumn value="#{user.firstname}" label="Firstname" />
-                <b:dataTableColumn value="#{user.lastname}" label="Lastname" />
-                <b:dataTableColumn value="#{user.role}" label="Role" />
-                <b:dataTableColumn value="#{user.eMail}" label="E-Mail" />
+                <b:dataTableColumn label="Firstname">
+                    <h:outputText value="#{benutzer.firstname}" rendered="#{!benutzer.editable}" />
+                    <h:inputText value="#{benutzer.firstname}" rendered="#{benutzer.editable}" />
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Lastname">
+                    <h:outputText value="#{benutzer.lastname}" rendered="#{!benutzer.editable}" />
+                    <h:inputText value="#{benutzer.lastname}" rendered="#{benutzer.editable}" />
+                </b:dataTableColumn>
                 <b:dataTableColumn label="Löschen">
                     <b:commandButton value="X" />
                 </b:dataTableColumn>
                 <b:dataTableColumn label="Ändern">
-                    <b:commandButton value="Ändern" action="#{benutzerverwaltungBean.modify(user)}" />
+                    <b:commandButton value="Ändern" action="#{benutzerverwaltungBean.modify(benutzer)}" rendered="#{!benutzer.editable}" />
+                    <b:commandButton value="Speichern" action="#{benutzerverwaltungBean.save(benutzer)}" rendered="#{benutzer.editable}" />
                 </b:dataTableColumn>
+                
                 
             </b:dataTable> 
                 

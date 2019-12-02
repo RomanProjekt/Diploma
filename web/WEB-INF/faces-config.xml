@@ -2,6 +2,7 @@
 <faces-config version="2.2"
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xi="http://www.w3.org/2001/XInclude"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
     <managed-bean>
@@ -13,6 +14,10 @@
         <managed-bean-name>benutzerverwaltungBean</managed-bean-name>
         <managed-bean-class>presentation.benutzerverwaltungBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+           <property-name>dbService</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>loginBean</managed-bean-name>
