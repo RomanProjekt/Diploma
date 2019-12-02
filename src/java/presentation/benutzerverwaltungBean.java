@@ -6,23 +6,31 @@
 package presentation;
 
 import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 import pojo.Benutzer;
+import service.DatabaseManagerService;
 
 /**
  *
  * @author dople
  */
 public class benutzerverwaltungBean {
+
+    private Benutzer benutzer;
     private ArrayList<Benutzer> benutzerList;
-    
-    
-    
+    private DatabaseManagerService dbService;
+    private int result;
+
     /**
      * Creates a new instance of benutzerverwaltungBean
      */
     public benutzerverwaltungBean() {
-        benutzerList = new ArrayList<>();
-        benutzerList.add(new Benutzer(1, "maxEthen", "Patrick", "Dopler", null, null, "Admin", "doplerpatrick@gmail.com"));
+
+    }
+
+    @PostConstruct
+    void init() {
+        benutzerList = dbService.getAllBenutzer();
     }
 
     public ArrayList<Benutzer> getBenutzerList() {
@@ -32,19 +40,49 @@ public class benutzerverwaltungBean {
     public void setBenutzerList(ArrayList<Benutzer> benutzerList) {
         this.benutzerList = benutzerList;
     }
-    
-    public Object add(){
+
+    public Object add() {
         return null;
     }
-    
-    public Object delete(){
+
+    public Object delete() {
         return null;
     }
-    
-    public Object modify(Benutzer b){
+
+    public Object modify(Benutzer b) {
+        b.setEditable(true);
         return null;
     }
-    
-   
-    
+
+    public Object save(Benutzer b) {
+        b.setEditable(false);
+        result = dbService.setUserData(b);
+        benutzerList = dbService.getAllBenutzer();
+        return null;
+    }
+
+    public DatabaseManagerService getDbService() {
+        return dbService;
+    }
+
+    public void setDbService(DatabaseManagerService dbService) {
+        this.dbService = dbService;
+    }
+
+    public void setBenutzer(Benutzer benutzer) {
+        this.benutzer = benutzer;
+    }
+
+    public Benutzer getBenutzer() {
+        return benutzer;
+    }
+
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
+
 }
