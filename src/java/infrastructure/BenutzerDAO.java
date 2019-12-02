@@ -42,7 +42,7 @@ public class BenutzerDAO {
         return retVal;
     }
 
-    public int setBenutzer(Benutzer b) {
+    public int updateBenutzer(Benutzer b) {
         String query = "update benutzer set vorname = ?,nachname = ?,benutzername = ?  where benutzer_id = ?";
         int result = 0;
 
@@ -54,6 +54,22 @@ public class BenutzerDAO {
             pstmt.setString(2, b.getLastname());
             pstmt.setString(3, b.getUsername());
             pstmt.setInt(4, b.getUser_id());
+            result = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        return result;
+    }
+
+    public int deleteBenutzer(int id) {
+        String query = "delete from benutzer where benutzer_id = ?";
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement(query);) {
+
+            pstmt.setInt(1, id);
             result = pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -38,8 +38,12 @@ public class DatabaseManagerService {
         return benutzerDAO.getAllBenutzer();
     }
 
-    public int setUserData(Benutzer b) {
-        return benutzerDAO.setBenutzer(b);
+    public int updateBenutzer(Benutzer b) {
+        return benutzerDAO.updateBenutzer(b);
+    }
+
+    public int deleteBenutzer(int id) {
+        return benutzerDAO.deleteBenutzer(id);
     }
 
     public Benutzer getB() {

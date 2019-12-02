@@ -45,7 +45,9 @@ public class benutzerverwaltungBean {
         return null;
     }
 
-    public Object delete() {
+    public Object delete(int id) {
+        result = dbService.deleteBenutzer(id);
+        benutzerList = dbService.getAllBenutzer();
         return null;
     }
 
@@ -56,7 +58,7 @@ public class benutzerverwaltungBean {
 
     public Object save(Benutzer b) {
         b.setEditable(false);
-        result = dbService.setUserData(b);
+        result = dbService.updateBenutzer(b);
         benutzerList = dbService.getAllBenutzer();
         return null;
     }
