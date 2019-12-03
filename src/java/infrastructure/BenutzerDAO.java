@@ -42,6 +42,29 @@ public class BenutzerDAO {
         return retVal;
     }
 
+    public int insert(Benutzer b) {
+        String query = "insert into benutzer(`benutzer_id`, `benutzername`, `vorname`, `nachname`, `email`, `passwort`, `salt`, `rolle`) values(?, ?, ?, ?, ?, ?, ?, ?)";
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement(query);) {
+            pstmt.setInt(1, b.getUser_id());
+            pstmt.setString(2, b.getUsername());
+            pstmt.setString(3, b.getFirstname());
+            pstmt.setString(4, b.getLastname());
+            pstmt.setString(5, b.geteMail());
+            pstmt.setString(6, b.getPassWd());
+            pstmt.setString(7, b.getSalt());
+            pstmt.setString(8, b.getRole());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        return result;
+    }
+
     public int updateBenutzer(Benutzer b) {
         String query = "update benutzer set vorname = ?,nachname = ?,benutzername = ?  where benutzer_id = ?";
         int result = 0;

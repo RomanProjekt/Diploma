@@ -46,6 +46,10 @@ public class DatabaseManagerService {
         return benutzerDAO.deleteBenutzer(id);
     }
 
+    public int insertBenutzer(Benutzer b) {
+        return benutzerDAO.insert(b);
+    }
+
     public Benutzer getB() {
         return b;
     }

@@ -14,53 +14,101 @@ and open the template in the editor.
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
 
+        <script language="javascript">
+            function reset() {
+                document.getElementById("iUsername").value = "";
+                document.getElementById("iPasswort").value = "";
+                document.getElementById("iFirstname").value = "";
+                document.getElementById("iLastname").value = "";
+                document.getElementById("iEmail").value = "";
+                document.getElementById("iRolle").value = "";
+            }
+        </script>
     </h:head>
     <h:body>
-        
+
         <f:view>
             <h2>Benutzerverwaltung</h2>
             <b:form id="form">
-            
+
                 <b:dataTable value="#{benutzerverwaltungBean.benutzerList}" var="benutzer">
 
                     <b:dataTableColumn label="Username">
                         <h:outputText value="#{benutzer.username}" rendered="#{!benutzer.editable}" />
                         <h:inputText value="#{benutzer.username}" rendered="#{benutzer.editable}" />
                     </b:dataTableColumn>
+
                     <b:dataTableColumn label="Firstname">
                         <h:outputText value="#{benutzer.firstname}" rendered="#{!benutzer.editable}" />
                         <h:inputText value="#{benutzer.firstname}" rendered="#{benutzer.editable}" />
                     </b:dataTableColumn>
+
                     <b:dataTableColumn label="Lastname">
                         <h:outputText value="#{benutzer.lastname}" rendered="#{!benutzer.editable}" />
                         <h:inputText value="#{benutzer.lastname}" rendered="#{benutzer.editable}" />
                     </b:dataTableColumn>
+
                     <b:dataTableColumn label="Löschen">
                         <b:commandButton value="X" action="#{benutzerverwaltungBean.delete(benutzer.user_id)}"/>
                     </b:dataTableColumn>
+
                     <b:dataTableColumn label="Ändern">
                         <b:commandButton value="Ändern" action="#{benutzerverwaltungBean.modify(benutzer)}" rendered="#{!benutzer.editable}" />
                         <b:commandButton value="Speichern" action="#{benutzerverwaltungBean.save(benutzer)}" rendered="#{benutzer.editable}" />
                     </b:dataTableColumn>
 
+                    <b:dataTableColumn label="Passwort zurücksetzen">
+                        <b:commandButton  value="Reset" />
+                    </b:dataTableColumn>
 
                 </b:dataTable> 
-                
-                #{benutzerverwaltungBean.result}
-                
-                
+                <br /><br />
+                <b:panelGrid colSpans="1,2,9" columns="3">
+                    <h:outputLabel id="oUsername" value="Username: " for="username" rendered="#{benutzerverwaltungBean.newUser}" />
+                    <b:inputText  id="iUsername"  value="#{benutzerverwaltungBean.username}" rendered="#{benutzerverwaltungBean.newUser}"/>
 
-            <h:panelGrid columns="2" cellpadding="5">
-            
-                <h:outputLabel id="oUsername" value="Username: " for="Username" />
-                <h:inputText  id="iUsername" value="#{loginBean.username}"/>
-                <h:outputLabel id="oPasswort" value="Passwort: " for="Passwort" />
-                <h:inputSecret id="iPasswort" value="#{loginBean.pw}" />
-                <h:outputText id="iMessage" value="#{loginBean.message}" />
-                <h:commandButton value="Load" action="#{loginBean.load}" />
-            </h:panelGrid>
-            
-           
+                    <b:message for="iUsername" style="color: red" />
+
+                    <h:outputLabel id="oPasswort" value="Passwort: " for="password" rendered="#{benutzerverwaltungBean.newUser}" />
+                    <b:inputSecret  id="iPasswort" value="#{benutzerverwaltungBean.password}" rendered="#{benutzerverwaltungBean.newUser}"/>
+                    <h:message for="iPasswort" style="color: red" />
+
+                    <h:outputLabel id="oFirstname" value="Vorname: " for="firstname" rendered="#{benutzerverwaltungBean.newUser}" />                
+                    <b:inputText  id="iFirstname" value="#{benutzerverwaltungBean.firstname}" rendered="#{benutzerverwaltungBean.newUser}"/>
+                    <b:message for="iFirstname" style="color: red" />
+
+                    <h:outputLabel id="oLastname" value="Nachname: " for="lastname" rendered="#{benutzerverwaltungBean.newUser}" />
+                    <b:inputText  id="iLastname" value="#{benutzerverwaltungBean.lastname}" rendered="#{benutzerverwaltungBean.newUser}"/>
+                    <b:message for="iLastname" style="color: red" />
+
+                    <h:outputLabel id="oEmail" value="E-Mail: " for="email" rendered="#{benutzerverwaltungBean.newUser}" />
+                    <b:inputText id="iEmail" value="#{benutzerverwaltungBean.email}" rendered="#{benutzerverwaltungBean.newUser}" validatorMessage="E-Mail not valid">
+                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                    </b:inputText>
+                    <b:message for="iEmail" style="color: red" />
+
+                    <h:outputLabel id="oRolle" value="Rolle: " for="rolle" rendered="#{benutzerverwaltungBean.newUser}" />
+                    <b:inputText  id="iRolle" value="#{benutzerverwaltungBean.rolle}" rendered="#{benutzerverwaltungBean.newUser}"/>
+                    <b:message for="iRolle" style="color: red" />
+                </b:panelGrid>
+
+                <b:commandButton value="Neuer Benutzer anlegen" action="#{benutzerverwaltungBean.showNewUser()}" rendered="#{!benutzerverwaltungBean.newUser}"/>
+                <b:commandButton value="Benutzer speichern" action="#{benutzerverwaltungBean.saveUser()}"  rendered="#{benutzerverwaltungBean.newUser}"/>
+                <b:button value="Benutzerdaten zurücksetzen"  onclick="reset()" rendered="#{benutzerverwaltungBean.newUser}"/>
+
+
+                <!--
+                                <h:panelGrid columns="2" cellpadding="5">
+                
+                                    <h:outputLabel id="oUsername" value="Username: " for="Username" />
+                                    <h:inputText  id="iUsername" value="{loginBean.username}"/>
+                                    <h:outputLabel id="oPasswort" value="Passwort: " for="Passwort" />
+                                    <h:inputSecret id="iPasswort" value="{loginBean.pw}" />
+                                    <h:outputText id="iMessage" value="{loginBean.message}" />
+                                    <h:commandButton value="Load" action="{loginBean.}" />
+                                </h:panelGrid>-->
+
+
             </b:form>    
         </f:view>
     </h:body>
