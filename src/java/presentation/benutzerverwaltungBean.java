@@ -28,6 +28,7 @@ public class benutzerverwaltungBean {
     private DatabaseManagerService dbService;
     private int result;
     private boolean newUser;
+    private String message;
 
     /**
      * Creates a new instance of benutzerverwaltungBean
@@ -72,17 +73,39 @@ public class benutzerverwaltungBean {
     }
 
     public Object saveUser() {
-        benutzer = new Benutzer(5, username, firstname, lastname, password, "Test", rolle, email);
-        result = dbService.insertBenutzer(benutzer);
-        if (result == 1) {
-            benutzerList = dbService.getAllBenutzer();
+        benutzer = new Benutzer(0, username, firstname, lastname, password, "Test", rolle, email);
+        try {
+            benutzer.setUser_id(benutzerList.get(benutzerList.size() - 1).getUser_id() + 1);
+
+        } catch (IndexOutOfBoundsException e) {
+            benutzer.setUser_id(1);
         }
-        newUser = false;
+        result = dbService.insertBenutzer(benutzer);
+        if (result
+                == 1) {
+            benutzerList = dbService.getAllBenutzer();
+            firstname = null;
+            username = null;
+            lastname = null;
+            email = null;
+            password = null;
+            rolle = null;
+            newUser = false;
+        } else {
+            message = "Something went wrong!";
+        }
+
         return null;
     }
 
-    public Object resetUser() {
+    public Object cancelUser() {
+        newUser = false;
+        firstname = null;
         username = null;
+        lastname = null;
+        email = null;
+        password = null;
+        rolle = null;
         return null;
     }
 
@@ -127,6 +150,14 @@ public class benutzerverwaltungBean {
         return password;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
     public void setResult(int result) {
         this.result = result;
     }
@@ -169,6 +200,14 @@ public class benutzerverwaltungBean {
 
     public void setBenutzer(Benutzer benutzer) {
         this.benutzer = benutzer;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }
