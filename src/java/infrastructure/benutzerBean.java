@@ -44,6 +44,7 @@ public class benutzerBean {
             System.out.println("User added");
         }
         //in die datenbank schreiben
+        //tryout, still testing
         return null;
     }
     
