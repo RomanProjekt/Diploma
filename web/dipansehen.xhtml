@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        
+        <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
+        
+    </h:head>
+    <h:body>
+        <f:view>
+            <h2>Diplomarbeiten herunterladen und ansehen</h2>
+            <h3></h3>
+            <b:form id="diplomarbeitansehen" >
+
+                <h:panelGrid columns="1" cellpadding="5">
+                    
+                    
+                    <b:inputText  label="Titel" value="#{dipansehenBean.buttonId}" labelStyle="width:80px;" disabled="true"></b:inputText>   
+                    
+                    <b:inputText  label="Autor" value="#{dipansehenBean.result}" labelStyle="width:80px;" disabled="true">
+                    </b:inputText>
+                    
+                    <b:inputText   label="Schule" value="#{dipansehenBean.result}" labelStyle="width:80px;" disabled="true">
+                    </b:inputText>
+
+                    <b:inputText   label="Autor" value="#{dipansehenBean.result}" labelStyle="width:80px;" disabled="true">
+                    </b:inputText>
+                    
+                    <b:commandButton value="Download" action="#{uploadBean.upload_picture()}" />
+                    <b:commandButton value="Diplomarbeit ansehen" action="#{uploadBean.upload_picture()}" />
+
+                </h:panelGrid>
+            </b:form>
+        </f:view>
+    </h:body>
+</html>

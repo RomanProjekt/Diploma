@@ -3,19 +3,89 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
+        <h:outputStylesheet library= "css" name= "suche_styles.css" />
     </h:head>
+    
     <h:body>
-        <h:link value="Registrierung" outcome="register.xhtml" /> <br/>
-        <h:link value="Anmelden" outcome="login.xhtml" /> <br/>
-        <h:link value="Bibliothek" outcome="bibliothek.xhtml" /> <br/>
-        <h:link value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" />
-        <h:form>
-            <h:commandButton action="bibliothek.xhtml" value="Bibliothek" />
+<!--        <h:link value="Registrierung" outcome="register.xhtml" /> <br/>
+              <h:link value="Anmelden" outcome="login.xhtml" /> <br/>
+              <h:link value="Bibliothek" outcome="bibliothek.xhtml" /> <br/>
+              <h:link value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" />
+              <h:form>
+              <h:commandButton action="bibliothek.xhtml" value="Bibliothek" />-->
+
+         <div class="wrapper">
             
-        </h:form>
+            
+            <div class="seite">
+
+
+                <header class="header">
+
+                    <div class="bild">
+
+                        <div class="flex-container">
+                            <div>Bild</div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="menu">  
+                        
+                        <div class="flex">
+                            
+<!--                            <div class="diplomarbeit"><h:outputText value="Diplomarbeiten"/></div>
+                            
+                            <div class="benutzername"><h:outputText value="Benutzername"/></div>-->
+                            
+
+                            <div class="list1">
+
+                                <tr>
+                                    <h:form>
+                                        <h:link value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" />
+                                        <h:link value="Registrierung" outcome="register.xhtml" />
+                                        <td><b:button value="Diplomarbeit hochladen" outcome="upload.xhtml" look="danger"/></td>
+                                        <td><b:button value="meinKonto" outcome="" look="danger"/></td>
+                                        <td><b:button value="Anmelden"  outcome="login.xhtml" look="danger"/></td>
+                                    </h:form>                                  
+                                </tr>
+ 
+                            </div>    
+  
+                        </div>
+
+                    </div>
+
+                </header>
+
+
+                <main class="main">
+
+                    <div class="bib">
+
+                        <div>
+                            <b:form>
+                                <b:inputText  value="" placeholder="Diplomarbeit suchen" label="" />
+                            </b:form> 
+                        </div>
+                    </div>
+ 
+                </main>
+
+                <footer>
+
+                </footer>
+
+            </div>    
+
+        </div>
+
     </h:body>
 </html>
 
