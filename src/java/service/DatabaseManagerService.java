@@ -6,8 +6,11 @@
 package service;
 
 import infrastructure.BenutzerDAO;
+import infrastructure.DiplomarbeitDAO;
 import java.util.ArrayList;
+import java.util.List;
 import pojo.Benutzer;
+import pojo.Diplomarbeit;
 
 /**
  *
@@ -18,6 +21,9 @@ public class DatabaseManagerService {
     
     private Benutzer b;
     private BenutzerDAO benutzerDAO;
+    
+    private DiplomarbeitDAO diplomarbeitDAO;
+    private List<Diplomarbeit> dplist;
 
     
     
@@ -67,6 +73,13 @@ public class DatabaseManagerService {
     
     
     //Diplomarbeit:
+    
+     public List<Diplomarbeit> show() {
+
+          dplist = diplomarbeitDAO.read();
+          return dplist;
+
+     }
     
     
     
