@@ -15,19 +15,18 @@ import pojo.Benutzer;
  */
 public class DatabaseManagerService {
 
-    /**
-     * Creates a new instance of DatabaseManagerService
-     */
+    
     private Benutzer b;
     private BenutzerDAO benutzerDAO;
 
-    /**
-     * Creates a new instance of databaseManagerService
-     */
+    
+    
     public DatabaseManagerService() {
         b = new Benutzer();
         benutzerDAO = new BenutzerDAO();
     }
+    
+    //Benutzer
 
     public Benutzer load(String id) {
         b = benutzerDAO.read(id);
@@ -65,4 +64,10 @@ public class DatabaseManagerService {
     public void setBenutzerDAO(BenutzerDAO benutzerDAO) {
         this.benutzerDAO = benutzerDAO;
     }
+    
+    
+    //Diplomarbeit:
+    
+    
+    
 }
