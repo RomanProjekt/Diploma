@@ -32,7 +32,7 @@ public class BenutzerDAO {
                 ResultSet rs = stmt.executeQuery("select * from benutzer where benutzername = '" + username + "'")) {
 
             if (rs.next()) {
-                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort"));
+                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort_verschlüsselt"));
             }
 
         } catch (SQLException ex) {
@@ -110,7 +110,7 @@ public class BenutzerDAO {
                 ResultSet rs = stmt.executeQuery("select * from benutzer")) {
 
             while (rs.next()) {
-                benList.add(new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort")));
+                benList.add(new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort_verschlüsselt")));
             }
 
         } catch (SQLException ex) {

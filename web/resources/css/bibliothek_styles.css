@@ -8,6 +8,12 @@ and open the template in the editor.
     Author     : hp
 */
 
+
+
+
+
+
+
 .wrapper {
     position:absolute;
     width: 100%;
@@ -27,7 +33,7 @@ and open the template in the editor.
     width: 1500px;
     height: 2000px;
     margin: 0 auto 0 auto;
-    border: 1px solid black;
+    
         
 }
 
@@ -39,7 +45,7 @@ and open the template in the editor.
   display: flex;
   flex-wrap: wrap;
   position: absolute;
-  background-color: DodgerBlue;
+  background-color: blue;
   width: 100%;
   z-index: 1;
   
@@ -133,7 +139,7 @@ and open the template in the editor.
   
 }
 
-.uberschrift {
+.uberschrift_ws {
     
     position: absolute;
     margin: 0 0 0 0;
@@ -222,24 +228,28 @@ and open the template in the editor.
     
     position: absolute;
     margin: 350px 0 0 0;
+    background-color: red;
     
     
 }
 
 .tfsprache {
     
-    width: 100%;
-    height: 50px;
+    
+    
+    width: 200px;
+    height: 100px;
     
     position: absolute;
     margin: 400px 0 0 0;
+    background-color: red;
     
     
 }
 
 .tfsp {
     
-    width: 100%;
+    width: 1600px;
     height: 50px;
     position: absolute;
     margin: 0 0 0 25px;
@@ -307,6 +317,7 @@ and open the template in the editor.
 }
 
 
+/*Gesamtbild: Diplomarbeit  + Überschrfit*/
 .bib {
  
   background-color: yellow;
@@ -320,8 +331,7 @@ and open the template in the editor.
 
 
 .bib > div {
-  background-color: #f1f1f1;
- 
+  
   position: absolute;
   width: 200px;
   height: 300px;
@@ -330,13 +340,29 @@ and open the template in the editor.
   
 }
 
+
+.uberschrift_bild {
+    
+    
+    position: absolute;
+    margin: 249px 0 0 0;
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+    
+}
+
 .bild1 {
     
+/*    background-color: white;*/
     position: absolute;
     margin: 100px 0 0 100px;
     border: 1px solid black;
     
 }
+
+
+
 
 
 .bild2 {
@@ -432,9 +458,15 @@ and open the template in the editor.
     
 }
 
+
+/*Bild der Diplomarbeit:*/
 .dp1 {
+    
+/*    background-color: red;*/
     position: absolute;
-    margin: 230px 0 0 15px;
+    margin: 0 0 0 0;
+    width: 100%;
+    height: 250px;
     
     text-align: center;
     line-height: 50px;
@@ -542,4 +574,15 @@ and open the template in the editor.
     text-align: center;
     line-height: 50px;
     font-size: 20px;
+}
+
+.seitenleiste {
+    
+    position: absolute;
+    margin: 1800px 0 0 800px;
+    
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    
 }

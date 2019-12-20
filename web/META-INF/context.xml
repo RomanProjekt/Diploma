@@ -15,7 +15,7 @@
 
    <!--
    außerhalb des HTL Netzwerkes diese URL benutzen
-    url="jdbc:mysql://193.170.45/akdb" 
+    url="jdbc:mysql://193.170.45.133/akdb" 
     
     
     url="jdbc:mysql://10.2.1.16/akdb" 
