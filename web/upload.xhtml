@@ -16,29 +16,38 @@ and open the template in the editor.
         
     </h:head>
     <h:body>
-        <f:view>
+       <f:view>
             <h2>Diplomarbeiten hochladen</h2>
             <h3></h3>
-            <b:form id="diplomarbeithochladen" >
+            <b:form id="diplomarbeithochladen" enctype="multipart/form-data">
 
                 <h:panelGrid columns="1" cellpadding="5">
                     
                     
-                    <b:inputText label="Titel" labelStyle="width:80px;">
+                    <b:inputText label="Titel" value="#{uploadBean.titel}" labelStyle="width:80px;">
                     </b:inputText>
 
-                    <b:inputText label="Autor" labelStyle="width:80px;">
+                    <b:inputText label="Autor" value="#{uploadBean.autor}" labelStyle="width:80px;">
                     </b:inputText>
                     
-                    <b:inputText label="Schule" labelStyle="width:80px;">
+                    <b:inputText label="Schule" value="#{uploadBean.schule}" labelStyle="width:80px;">
                     </b:inputText>
 
-                    <b:inputText label="Schlagwort" labelStyle="width:80px;">
+                    <b:inputText label="Schlagwort" value="#{uploadBean.schlagwort}" labelStyle="width:80px;">
                     </b:inputText>
-
-                    <b:commandButton value="Diplomarbeit hochladen" action="#{uploadBean.upload_diplomarbeit}" />
-                    <b:commandButton value="Bild hochladen" action="#{uploadBean.upload_picture}" />
                     
+                    <h5>Diplomarbeit</h5>
+                    <h:inputFile id="diplomarbeit-id" value="#{uploadBean.diplomarbeit}">
+<!--                        <f:ajax listener="#{uploadBean.save}" />-->
+                    </h:inputFile>
+                    <br></br>
+                    
+                    <h5>Bild</h5>
+                    <h:inputFile id="image-id" value="#{uploadBean.image}">
+<!--                        <f:ajax listener="#{uploadBean.save}" />-->
+                    </h:inputFile>
+                    <br></br>
+                    <b:commandButton value="Diplomarbeit hochladen" action="#{uploadBean.upload_diplomarbeit()}" />
 
                 </h:panelGrid>
             </b:form>
