@@ -29,14 +29,10 @@ import pojo.Diplomarbeit;
 //import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
 //import com.itextpdf.layout.Document;
 //import com.itextpdf.layout.element.Paragraph;
-
-
 import service.ConnectionManager;
 
 //import service.ConnectionManager;
 //testdatenbank:
-
-
 /**
  *
  * @author hp
@@ -55,12 +51,6 @@ public class DiplomarbeitDAO {
     PreparedStatement st = null;
     BufferedImage image = null;
 
-    
-    
-    
-    
-    
-    
     public List<Diplomarbeit> read() {
 
         System.out.println("Read Funktion");
@@ -199,7 +189,6 @@ public class DiplomarbeitDAO {
 //            long numberOfPages = reader.getFileLength();
 //
 //            System.out.println(numberOfPages);
-
 //                PdfDocument pdf = new PdfDocument(new PdfWriter(DEST));
 //              try (Document document = new Document(pdf)) {
 ////                  String line = "Hello! Welcome to iTextPdf";
@@ -251,7 +240,6 @@ public class DiplomarbeitDAO {
 
 //            ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //            ImageIO.write(bufImage, "jpg", baos);
-            
             rs.updateBlob(1, bisbild);
 
         } catch (SQLException ex) {
@@ -260,7 +248,6 @@ public class DiplomarbeitDAO {
         return bufImage;
     }
 
-   
     public List datendipladen() {
 
         String titel = null;
@@ -298,6 +285,36 @@ public class DiplomarbeitDAO {
         return al;
     }
 
+    //Suchleistenfunktion
+    public List Suchleiste(String key) { //title, schlagwort, autor, datum
+        List<Diplomarbeit> dipList = new ArrayList<>();
+        List<String> queryList = new ArrayList<>();
+        //diplomarbeiten in die Liste schreiben
+        queryList.add("select * from diplomarbeit where title like %key%");
+        queryList.add("select * from diplomarbeit natural join autoren where gesamtname gesamtname like %key%");
+        queryList.add("select * from diplomarbeit where datum like %key%");
+        queryList.add("select * from diplomarbeit schlagwort natural join schlagwort_diplomarbeit natural join diplomarbeit"
+                + "where diplomarbeit_da_id = da_id and id in (schlagwort_id)"
+                + "and name like %key" );
+        
+        for(String s: queryList) {
+        
+            try (
+                    Connection con = ConnectionManager.getInst().getConn();
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(s)) {
+                
+                while (rs.next()) {
+                    dipList.add((Diplomarbeit) rs);
+                }
+            } catch (SQLException e) {
+
+            }
+        }
+        
+        return dipList;
+    }
+
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
         DiplomarbeitDAO da = new DiplomarbeitDAO();
@@ -307,45 +324,27 @@ public class DiplomarbeitDAO {
 ////          da.bildauslesen();
 //           da.bildpfad();
 
-      
     }
-    
-     
-    
-    
-     
-     public void datenübertragen() {
-         
-         
-           System.out.print("Funktion geht!");
-         
-          try (
+
+    public void datenübertragen() {
+
+        System.out.print("Funktion geht!");
+
+        try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from diplomarbeit");
-                //PreparedStatement st = con.prepareStatement("update " + "diplomarbeit" + " set " + "bild" + "=" + null  + "where = da_id" + dp.getDa_id());
+                ResultSet rs = stmt.executeQuery("select * from diplomarbeit"); //PreparedStatement st = con.prepareStatement("update " + "diplomarbeit" + " set " + "bild" + "=" + null  + "where = da_id" + dp.getDa_id());
                 ) {
-              
-                
 
-              
 //                int columns = rs.getMetaData().getColumnCount();
 //                
 //                for (int i = 0; i < columns; i++) {
 //                    System.out.println(listbildpfad.get(i));
 //                }
-
-                
-
-           
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
 
-         
-     }
+    }
 
-    
-    
-
-   }
+}
