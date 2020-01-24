@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import service.ConnectionManager;
@@ -120,4 +121,22 @@ public class BenutzerDAO {
         return benList;
     }
 
+    public int getNextIdFromUser() {
+        int lastId=-1;
+        List intList = new ArrayList<>();
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select id from benutzer")) {
+
+            while (rs.next()) {
+                intList.add(rs);
+                lastId=intList.size();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        lastId=intList.size();
+        return lastId;
+    }
 }

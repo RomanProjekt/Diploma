@@ -71,6 +71,10 @@ public class DatabaseManagerService {
         this.benutzerDAO = benutzerDAO;
     }
     
+    public int getNextUserId(){
+        return benutzerDAO.getNextIdFromUser();
+    }
+    
     
     //Diplomarbeit:
     

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package infrastructure;
+package presentation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,7 +37,7 @@ public class benutzerBean {
         bList = new ArrayList<>();
     }
 
-    public Object register() {
+    public Object register() { //registerbean
         int listsize = bList.size();
         bList.add(new Benutzer(++user_id, userName, firstName, lastName, passWd, salt, role, eMail));
         if (listsize != bList.size()) {
