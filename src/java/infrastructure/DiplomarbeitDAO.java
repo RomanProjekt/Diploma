@@ -60,7 +60,7 @@ public class DiplomarbeitDAO {
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("select * from diplomarbeit")) {
             while (rs.next()) {
-                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
+                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
                 listdp.add(retVal);
             }
 
@@ -79,7 +79,7 @@ public class DiplomarbeitDAO {
         return listdp;
     }
 
-    public void einfügen(int da_id, String title, int autor_id, int sw_id, String pdf, String user_id, String datum, String bild, int download_count, int click_count) throws FileNotFoundException {
+    public void einfügen(int da_id, String title, int autor_id, int sw_id, String pdf, int user_id, String datum, String bild, int download_count, int click_count) throws FileNotFoundException {
 
         Diplomarbeit dp = new Diplomarbeit(da_id, title, autor_id, sw_id, pdf, user_id, datum, bild, download_count, click_count);
 //          System.out.println(dp.getDa_id());
@@ -102,7 +102,7 @@ public class DiplomarbeitDAO {
             pstmt.setInt(3, autor_id);
             pstmt.setInt(4, sw_id);
             pstmt.setString(5, pdf);
-            pstmt.setString(6, user_id);
+            pstmt.setInt(6, user_id);
             pstmt.setString(7, datum);
             pstmt.setString(8, bild);
             pstmt.setInt(9, download_count);
@@ -123,7 +123,7 @@ public class DiplomarbeitDAO {
 
     }
 
-    public void ändern(int da_id, String title, int autor_id, int sw_id, String pdf, String user_id, String datum, String bild, int download_count, int click_count) throws FileNotFoundException {
+    public void ändern(int da_id, String title, int autor_id, int sw_id, String pdf, int user_id, String datum, String bild, int download_count, int click_count) throws FileNotFoundException {
 
         Diplomarbeit dp = new Diplomarbeit(da_id, title, autor_id, sw_id, pdf, user_id, datum, bild, download_count, click_count);
 //          System.out.println(dp.getDa_id());
@@ -286,16 +286,18 @@ public class DiplomarbeitDAO {
     }
 
     //Suchleistenfunktion
-    public List Suchleiste(String key) { //title, schlagwort, autor, datum
+    public List Suchleiste(String key) { //id, title, schlagwort, autor, datum
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
+        Diplomarbeit help = new Diplomarbeit(20,"K",1,1,"K",1,"K","K",1,1);
         //diplomarbeiten in die Liste schreiben
-        queryList.add("select * from diplomarbeit where title like %key%");
-        queryList.add("select * from diplomarbeit natural join autoren where gesamtname like %key%");
-        queryList.add("select * from diplomarbeit where datum like %key%");
-        queryList.add("select * from diplomarbeit schlagwort natural join schlagwort_diplomarbeit natural join diplomarbeit"
-                + "where diplomarbeit_da_id = da_id and id in (schlagwort_id)"
-                + "and name like %key" );
+        queryList.add("select * from diplomarbeit where da_id like '%"+key+"%'");
+        queryList.add("select * from diplomarbeit where titel like '%"+key+"%'");
+        //queryList.add("select * from diplomarbeit natural join autoren where gesamtname like '%"+key+"%'");
+        //queryList.add("select * from diplomarbeit where datum like '%"+key+"%'");
+        //queryList.add("select * from diplomarbeit schlagwort natural join schlagwort_diplomarbeit natural join diplomarbeit"
+        //       + "where diplomarbeit_da_id = da_id and id in (schlagwort_id)"
+        //        + "and name like '%"+key+"%'" );
         
         for(String s: queryList) {
         
@@ -304,14 +306,40 @@ public class DiplomarbeitDAO {
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(s)) {
                 
-                while (rs.next()) {
-                    dipList.add((Diplomarbeit) rs);
+                while (rs.next()) { //oder mit spaltennamen
+                    
+                    /*help.setDa_id(rs.getInt(1));
+                    help.setTitle(rs.getString(2));
+                    help.setAutor_id(rs.getInt(3));
+                    help.setSw_id(rs.getInt(4)); //?? nur 1 sw id ??
+                    help.setPdf(rs.getString(5));
+                    help.setUser_id(rs.getInt(6));
+                    help.setDatum(rs.getString(7));
+                    help.setBild(rs.getString(8));
+                    help.setDownload_count(rs.getInt(9));
+                    help.setClick_count(rs.getInt(10));*/
+                    
+                    help.setDa_id(rs.getInt("da_id"));
+                    help.setTitle(rs.getString("titel"));
+                    help.setAutor_id(rs.getInt("autor_id"));
+                    help.setSw_id(rs.getInt("sw_id"));
+                    help.setPdf(rs.getString("pdf"));
+                    help.setUser_id(rs.getInt("user_id"));
+                    help.setDatum(rs.getString("datum"));
+                    help.setBild(rs.getString("bild"));
+                    help.setDownload_count(rs.getInt("download_count"));
+                    help.setClick_count(rs.getInt("click_count"));
+                    
+                    dipList.add(help);
+                    
+                    //dipList.add((Diplomarbeit) rs); //konvertieren, umschichten
+                    
                 }
             } catch (SQLException e) {
 
             }
         }
-        
+        //dipList.add(new Diplomarbeit(20,"K",1,1,"K",1,"K","K",1,1));
         return dipList;
     }
 

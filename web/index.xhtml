@@ -71,7 +71,7 @@
 
                         <div>
                           <b:form>
-                              <b:inputText  value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label="" onchange="submit"/>
+                              <b:inputText  value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label=""/>
                               
                               <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.sBool}">
                                   <f:selectItems value="#{dipSuchenBean.daList}" var="da" itemValue="#{da}" itemLabel="#{da.title}"/>

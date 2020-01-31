@@ -15,13 +15,13 @@ public class Diplomarbeit {
     private int autor_id;
     private int sw_id;
     private String pdf;
-    private String user_id;
+    private int user_id;
     private String datum;
     private String bild;
     private int download_count;
     private int click_count;
 
-    public Diplomarbeit(int da_id, String title, int autor_id, int sw_id, String pdf, String user_id, String datum, String bild, int download_count, int click_count) {
+    public Diplomarbeit(int da_id, String title, int autor_id, int sw_id, String pdf, int user_id, String datum, String bild, int download_count, int click_count) {
         this.da_id = da_id;
         this.title = title;
         this.autor_id = autor_id;
@@ -74,11 +74,11 @@ public class Diplomarbeit {
         this.pdf = pdf;
     }
 
-    public String getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 
