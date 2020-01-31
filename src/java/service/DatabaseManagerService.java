@@ -18,24 +18,20 @@ import pojo.Diplomarbeit;
  */
 public class DatabaseManagerService {
 
-    
     private Benutzer b;
     private BenutzerDAO benutzerDAO;
-    
+
     private DiplomarbeitDAO diplomarbeitDAO;
     private List<Diplomarbeit> dplist;
 
-    
-    
     public DatabaseManagerService() {
         b = new Benutzer();
         benutzerDAO = new BenutzerDAO();
     }
-    
-    //Benutzer
 
-    public Benutzer load(String id) {
-        b = benutzerDAO.read(id);
+    //Benutzer
+    public Benutzer load(String username) {
+        b = benutzerDAO.read(username);
         return b;
     }
 
@@ -70,21 +66,17 @@ public class DatabaseManagerService {
     public void setBenutzerDAO(BenutzerDAO benutzerDAO) {
         this.benutzerDAO = benutzerDAO;
     }
-    
-    public int getNextUserId(){
+
+    public int getNextUserId() {
         return benutzerDAO.getNextIdFromUser();
     }
-    
-    
+
     //Diplomarbeit:
-    
-     public List<Diplomarbeit> show() {
+    public List<Diplomarbeit> show() {
 
-          dplist = diplomarbeitDAO.read();
-          return dplist;
+        dplist = diplomarbeitDAO.read();
+        return dplist;
 
-     }
-    
-    
-    
+    }
+
 }

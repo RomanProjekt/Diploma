@@ -81,8 +81,7 @@ public class benutzerverwaltungBean {
             benutzer.setUser_id(1);
         }
         result = dbService.insertBenutzer(benutzer);
-        if (result
-                == 1) {
+        if (result == 1) {
             benutzerList = dbService.getAllBenutzer();
             firstname = null;
             username = null;
@@ -114,6 +113,7 @@ public class benutzerverwaltungBean {
         return null;
     }
 
+/////////////////////////Getter-Setter
     public DatabaseManagerService getDbService() {
         return dbService;
     }

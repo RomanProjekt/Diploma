@@ -10,6 +10,7 @@
         <managed-bean-class>infrastructure</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>benutzerverwaltungBean</managed-bean-name>
         <managed-bean-class>presentation.benutzerverwaltungBean</managed-bean-class>
@@ -19,6 +20,7 @@
            <value>#{databaseManagerService}</value>
         </managed-property>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>loginBean</managed-bean-name>
         <managed-bean-class>presentation.loginBean</managed-bean-class>
@@ -28,29 +30,50 @@
            <value>#{databaseManagerService}</value>
         </managed-property>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>databaseManagerService</managed-bean-name>
         <managed-bean-class>service.DatabaseManagerService</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>dipansehenBean</managed-bean-name>
         <managed-bean-class>presentation.dipansehenBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>bibliothekBean</managed-bean-name>
         <managed-bean-class>presentation.bibliothekBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>registerBean</managed-bean-name>
         <managed-bean-class>presentation.registerBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>dipbean</managed-bean-name>
         <managed-bean-class>presentation.dipbean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
+     <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fail</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+        
+        
 </faces-config>
