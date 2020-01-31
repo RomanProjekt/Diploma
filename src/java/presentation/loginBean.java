@@ -34,16 +34,17 @@ public class loginBean {
         b = dbService.load(username);
 
         if (b != null) {
-            if (username.equals(b.getUsername()) && pw.equals(b.getPassWd())) {
-                message = "Login succeed";
+            if (pw.equals(b.getPassWd())) {
+                dbService.setB(b);
+                return "success";
             } else {
-                message = "Login Failed";
+                message = "Username or Password are wrong!";
             }
 
         } else {
-            message = "patrick";
+            message = "Username or Password are wrong!";
         }
-        return null;
+        return "fail";
     }
 
     public Benutzer getB() {

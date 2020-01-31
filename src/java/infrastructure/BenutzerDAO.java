@@ -33,7 +33,7 @@ public class BenutzerDAO {
                 ResultSet rs = stmt.executeQuery("select * from benutzer where benutzername = '" + username + "'")) {
 
             if (rs.next()) {
-                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort_verschlüsselt"));
+                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort_verschlüsselt"), rs.getString("salt"), rs.getString("salt"), rs.getString("email"));
             }
 
         } catch (SQLException ex) {
@@ -67,7 +67,7 @@ public class BenutzerDAO {
     }
 
     public int updateBenutzer(Benutzer b) {
-        String query = "update benutzer set vorname = ?,nachname = ?,benutzername = ?  where benutzer_id = ?";
+        String query = "update benutzer set vorname = ?,nachname = ?,benutzername = ?, rolle = ?  where benutzer_id = ?";
         int result = 0;
 
         try (
@@ -77,7 +77,8 @@ public class BenutzerDAO {
             pstmt.setString(1, b.getFirstname());
             pstmt.setString(2, b.getLastname());
             pstmt.setString(3, b.getUsername());
-            pstmt.setInt(4, b.getUser_id());
+            pstmt.setString(4, b.getRole());
+            pstmt.setInt(5, b.getUser_id());
             result = pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,7 +112,7 @@ public class BenutzerDAO {
                 ResultSet rs = stmt.executeQuery("select * from benutzer")) {
 
             while (rs.next()) {
-                benList.add(new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort_verschlüsselt")));
+                benList.add(new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("rolle")));
             }
 
         } catch (SQLException ex) {
@@ -122,7 +123,7 @@ public class BenutzerDAO {
     }
 
     public int getNextIdFromUser() {
-        int lastId=-1;
+        int lastId = -1;
         List intList = new ArrayList<>();
         try (
                 Connection con = ConnectionManager.getInst().getConn();
@@ -131,12 +132,12 @@ public class BenutzerDAO {
 
             while (rs.next()) {
                 intList.add(rs);
-                lastId=intList.size();
+                lastId = intList.size();
             }
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        lastId=intList.size();
+        lastId = intList.size();
         return lastId;
     }
 }
