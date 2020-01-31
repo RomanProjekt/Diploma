@@ -70,9 +70,15 @@
                     <div class="bib">
 
                         <div>
-                            <b:form>
-                                <b:inputText  value="" placeholder="Diplomarbeit suchen" label="" />
-                            </b:form> 
+                          <b:form>
+                              <b:inputText  value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label="" onchange="submit"/>
+                              
+                              <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.sBool}">
+                                  <f:selectItems value="#{dipSuchenBean.daList}" var="da" itemValue="#{da}" itemLabel="#{da.title}"/>
+                            </b:selectOneMenu>
+                              
+                              <b:commandButton value="Suchen" action="#{dipSuchenBean.selectDA()}" />
+                          </b:form> 
                         </div>
                     </div>
  

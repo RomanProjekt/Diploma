@@ -48,4 +48,9 @@
         <managed-bean-class>presentation.registerBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>dipSuchenBean</managed-bean-name>
+        <managed-bean-class>presentation.dipSuchenBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

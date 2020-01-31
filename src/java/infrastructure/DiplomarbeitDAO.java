@@ -291,7 +291,7 @@ public class DiplomarbeitDAO {
         List<String> queryList = new ArrayList<>();
         //diplomarbeiten in die Liste schreiben
         queryList.add("select * from diplomarbeit where title like %key%");
-        queryList.add("select * from diplomarbeit natural join autoren where gesamtname gesamtname like %key%");
+        queryList.add("select * from diplomarbeit natural join autoren where gesamtname like %key%");
         queryList.add("select * from diplomarbeit where datum like %key%");
         queryList.add("select * from diplomarbeit schlagwort natural join schlagwort_diplomarbeit natural join diplomarbeit"
                 + "where diplomarbeit_da_id = da_id and id in (schlagwort_id)"

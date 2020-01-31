@@ -16,7 +16,7 @@ import pojo.Benutzer;
  *
  * @author patri
  */
-public class benutzerBean {
+public class benutzerBean { //useless, delete this
 
     private int user_id;
     private String userName;
