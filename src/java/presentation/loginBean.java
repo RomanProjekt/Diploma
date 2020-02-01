@@ -35,7 +35,7 @@ public class loginBean {
 
         if (b != null) {
             if (pw.equals(b.getPassWd())) {
-                dbService.setB(b);
+                dbService.setLoggedInBenutzer(b);
                 return "success";
             } else {
                 message = "Username or Password are wrong!";
@@ -45,6 +45,11 @@ public class loginBean {
             message = "Username or Password are wrong!";
         }
         return "fail";
+    }
+
+    public Object loggout() {
+        dbService.loggout();
+        return null;
     }
 
     public Benutzer getB() {

@@ -9,79 +9,79 @@
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
         <h:outputStylesheet library= "css" name= "suche_styles.css" />
     </h:head>
-    
+
     <h:body>
-<!--        <h:link value="Registrierung" outcome="register.xhtml" /> <br/>
-              <h:link value="Anmelden" outcome="login.xhtml" /> <br/>
-              <h:link value="Bibliothek" outcome="bibliothek.xhtml" /> <br/>
-              <h:link value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" />
-              <h:form>
-              <h:commandButton action="bibliothek.xhtml" value="Bibliothek" />-->
-
-         <div class="wrapper">
-            
-            
-            <div class="seite">
+        <!--        <h:link value="Registrierung" outcome="register.xhtml" /> <br/>
+                      <h:link value="Anmelden" outcome="login.xhtml" /> <br/>
+                      <h:link value="Bibliothek" outcome="bibliothek.xhtml" /> <br/>
+                      <h:link value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" />
+                      <h:form>
+                      <h:commandButton action="bibliothek.xhtml" value="Bibliothek" />-->
+        <ui:include src="/rec/include/navbar.xhtml" />
+        <div>
 
 
-                <header class="header">
-
-                    <div class="bild">
-
-                        <div class="flex-container">
-                            <div>Bild</div>
-                        </div>
-
-                    </div>
+            <div>
 
 
-                    <div class="menu">  
-                        
-                        <div class="flex">
-                            
-<!--                            <div class="diplomarbeit"><h:outputText value="Diplomarbeiten"/></div>
-                            
-                            <div class="benutzername"><h:outputText value="Benutzername"/></div>-->
-                            
+                <!--                <header class="header">
+                
+                                    <div class="bild">
+                
+                                        <div class="flex-container">
+                                            <div>Bild</div>
+                                        </div>
+                
+                                    </div>
+                
+                
+                                    <div class="menu">  
+                
+                                        <div class="flex">
+                
+                                                                        <div class="diplomarbeit"><h:outputText value="Diplomarbeiten"/></div>
+                                                                        
+                                                                        <div class="benutzername"><h:outputText value="Benutzername"/></div>
+                
+                
+                                            <div class="list1">
+                
+                                                <tr>
+                                                    <h:form>
+                                                        <h:link value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" />
+                                                        <h:link value="Registrierung" outcome="register.xhtml" />
+                                                        <td><b:button value="Diplomarbeit hochladen" outcome="upload.xhtml" look="danger"/></td>
+                                                        <td><b:button value="meinKonto" outcome="" look="danger"/></td>
+                                                        <td><b:button value="Anmelden"  outcome="login.xhtml" look="danger"/></td>
+                                                    </h:form>                                  
+                                                </tr>
+                
+                                            </div>    
+                
+                                        </div>
+                
+                                    </div>
+                
+                                </header>-->
 
-                            <div class="list1">
 
-                                <tr>
-                                    <h:form>
-                                        <h:link value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" />
-                                        <h:link value="Registrierung" outcome="register.xhtml" />
-                                        <td><b:button value="Diplomarbeit hochladen" outcome="upload.xhtml" look="danger"/></td>
-                                        <td><b:button value="meinKonto" outcome="" look="danger"/></td>
-                                        <td><b:button value="Anmelden"  outcome="login.xhtml" look="danger"/></td>
-                                    </h:form>                                  
-                                </tr>
- 
-                            </div>    
-  
-                        </div>
+                <main>
 
-                    </div>
-
-                </header>
-
-
-                <main class="main">
-
-                    <div class="bib">
+                    <div>
 
                         <div>
-                          <b:form>
-                              <b:inputText  value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label="" onchange="submit"/>
-                              
-                              <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.sBool}">
-                                  <f:selectItems value="#{dipSuchenBean.daList}" var="da" itemValue="#{da}" itemLabel="#{da.title}"/>
-                            </b:selectOneMenu>
-                              
-                              <b:commandButton value="Suchen" action="#{dipSuchenBean.selectDA()}" />
-                          </b:form> 
+                            <b:form>
+                                <b:inputText  value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label="" onchange="submit"/>
+
+                                <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.sBool}">
+                                    <f:selectItems value="#{dipSuchenBean.daList}" var="da" itemValue="#{da}" itemLabel="#{da.title}"/>
+                                </b:selectOneMenu>
+
+                                <b:commandButton value="Suchen" action="#{dipSuchenBean.selectDA()}" />
+                            </b:form> 
                         </div>
                     </div>
- 
+
                 </main>
 
                 <footer>

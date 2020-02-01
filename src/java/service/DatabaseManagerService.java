@@ -18,6 +18,7 @@ import pojo.Diplomarbeit;
  */
 public class DatabaseManagerService {
 
+    private Benutzer loggedInBenutzer;
     private Benutzer b;
     private BenutzerDAO benutzerDAO;
 
@@ -25,8 +26,8 @@ public class DatabaseManagerService {
     private List<Diplomarbeit> dplist;
 
     public DatabaseManagerService() {
-        b = new Benutzer();
         benutzerDAO = new BenutzerDAO();
+        loggedInBenutzer = new Benutzer();
     }
 
     //Benutzer
@@ -51,6 +52,14 @@ public class DatabaseManagerService {
         return benutzerDAO.insert(b);
     }
 
+    public boolean loggedIn() {
+        return loggedInBenutzer.getUsername() != null;
+    }
+
+    public void loggout() {
+        loggedInBenutzer = new Benutzer();
+    }
+
     public Benutzer getB() {
         return b;
     }
@@ -69,6 +78,14 @@ public class DatabaseManagerService {
 
     public int getNextUserId() {
         return benutzerDAO.getNextIdFromUser();
+    }
+
+    public Benutzer getLoggedInBenutzer() {
+        return loggedInBenutzer;
+    }
+
+    public void setLoggedInBenutzer(Benutzer loggedInBenutzer) {
+        this.loggedInBenutzer = loggedInBenutzer;
     }
 
     //Diplomarbeit:
