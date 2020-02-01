@@ -324,7 +324,7 @@ public class DiplomarbeitDAO {
                     help.setAutor_id(rs.getInt("autor_id"));
                     help.setSw_id(rs.getInt("sw_id"));
                     help.setPdf(rs.getString("pdf"));
-                    help.setUser_id(rs.getInt("user_id"));
+                    help.setUser_id(rs.getInt("benutzer_id")); //user_id heißt in der datenbank benutzer_id
                     help.setDatum(rs.getString("datum"));
                     help.setBild(rs.getString("bild"));
                     help.setDownload_count(rs.getInt("download_count"));
@@ -336,7 +336,7 @@ public class DiplomarbeitDAO {
                     
                 }
             } catch (SQLException e) {
-
+                    System.out.println("This be some Exception: "+e);
             }
         }
         //dipList.add(new Diplomarbeit(20,"K",1,1,"K",1,"K","K",1,1));
