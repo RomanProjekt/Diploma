@@ -77,18 +77,18 @@ public class bibliothekBean {
                
                
         
-                diplist.add(new Diplomarbeit(12, "Bild01", 12, 12, null, "Test", "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild02", 12, 12, null, "Test", "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild03", 12, 12, null, "Test", "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild04", 12, 12, null, "Test", "Test" , null , 12, 12));    
-                diplist.add(new Diplomarbeit(12, "Bild05", 12, 12, null, "Test", "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild06", 12, 12, null, "Test", "Test" , null , 12, 12));    
-                diplist.add(new Diplomarbeit(12, "Bild07", 12, 12, null, "Test", "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild08", 12, 12, null, "Test", "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild09", 12, 12, null, "Test", "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild010", 12, 12, null, "Test", "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild11", 12, 12, null, "Test", "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild12", 12, 12, null, "Test", "Test" , null , 12, 12));
+                diplist.add(new Diplomarbeit(12, "Bild01", 12, 12, null, 1, "Test" , null , 12, 12));
+                diplist.add(new Diplomarbeit(12, "Bild02", 12, 12, null, 1, "Test" , null , 12, 12));
+                diplist.add(new Diplomarbeit(12, "Bild03", 12, 12, null, 1, "Test" , null , 12, 12));
+                diplist.add(new Diplomarbeit(12, "Bild04", 12, 12, null, 1, "Test" , null , 12, 12));    
+                diplist.add(new Diplomarbeit(12, "Bild05", 12, 12, null, 1, "Test" , null , 12, 12));
+                diplist.add(new Diplomarbeit(12, "Bild06", 12, 12, null, 1, "Test" , null , 12, 12));    
+                diplist.add(new Diplomarbeit(12, "Bild07", 12, 12, null, 1, "Test" , null , 12, 12));
+                diplist.add(new Diplomarbeit(12, "Bild08", 12, 12, null, 1, "Test" , null , 12, 12));
+                diplist.add(new Diplomarbeit(12, "Bild09", 12, 12, null, 1, "Test" , null , 12, 12));
+                diplist.add(new Diplomarbeit(12, "Bild10", 12, 12, null, 1, "Test" , null , 12, 12));
+                diplist.add(new Diplomarbeit(12, "Bild11", 12, 12, null, 1, "Test" , null , 12, 12));
+                diplist.add(new Diplomarbeit(12, "Bild12", 12, 12, null, 1, "Test" , null , 12, 12));
     }
 
      @PostConstruct
