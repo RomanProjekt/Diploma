@@ -9,6 +9,7 @@ import infrastructure.DiplomarbeitDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.event.ActionEvent;
 import pojo.Diplomarbeit;
 
 /**
@@ -35,8 +36,17 @@ public class dipSuchenBean {
     public Object selectDA() {
         daList=obj.Suchleiste(key);
         sBool=true;
+        selectedDa = daList.get(0); //null check?
         return null;
     }
+    
+    public String displaySelectedDa() { //String navigation, or display with button? auf out of bound prüfen und basisliste bei leer?
+        return "switchda";
+    }
+    
+    //public void displaySelectedDa(ActionEvent e) {
+    //    
+    //}
     
     /*public void resetKey() {
         if(sBool == true) {
