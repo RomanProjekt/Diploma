@@ -25,138 +25,123 @@ import pojo.Diplomarbeit;
 import service.DatabaseManagerService;
 
 //import service.DatabaseManagerService;
-
 //testdatebank:
-
 //import static testdatenbank.DatabaseManagerService.dplist;
-
 public class bibliothekBean {
 
-    
     //Variablen der weiteren Suche
-     private String Titel;
-     private String autor;
-     private String date;
-     private String speech;
-     private String fachgebiet;
-     private String schlagwort;
-     private List<Diplomarbeit> diplist;
-     private List<Diplomarbeit> testdiplist;
-   
-     
-     //Variablen: Diplomarbeit
-     private int da_id;
-     private String title;
-     private int autor_id;
-     private int sw_id;
-     private Blob pdf;
-     private String user_id;
-     private String datum;
-     private String bild;
-     private int download_count;
-     private int click_count;
-     private String pfad;
-     DiplomarbeitDAO da;
-     
-    
-     
-     //DatabaseManagerService
-     public DatabaseManagerService dbService;
+    private String Titel;
+    private String autor;
+    private String date;
+    private String speech;
+    private String fachgebiet;
+    private String schlagwort;
+    private List<Diplomarbeit> diplist;
+    private List<Diplomarbeit> testdiplist;
 
-     
-     
-     public bibliothekBean() throws SQLException, FileNotFoundException {
-               dbService = new DatabaseManagerService();
-             
-               diplist = new ArrayList<>();  
-             
-               diplist =  dbService.show();
-                  
-             
-               
-               
-               
-        
-                diplist.add(new Diplomarbeit(12, "Bild01", 12, 12, null, 1, "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild02", 12, 12, null, 1, "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild03", 12, 12, null, 1, "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild04", 12, 12, null, 1, "Test" , null , 12, 12));    
-                diplist.add(new Diplomarbeit(12, "Bild05", 12, 12, null, 1, "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild06", 12, 12, null, 1, "Test" , null , 12, 12));    
-                diplist.add(new Diplomarbeit(12, "Bild07", 12, 12, null, 1, "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild08", 12, 12, null, 1, "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild09", 12, 12, null, 1, "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild10", 12, 12, null, 1, "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild11", 12, 12, null, 1, "Test" , null , 12, 12));
-                diplist.add(new Diplomarbeit(12, "Bild12", 12, 12, null, 1, "Test" , null , 12, 12));
+    //Variablen: Diplomarbeit
+    private int da_id;
+    private String title;
+    private int autor_id;
+    private int sw_id;
+    private Blob pdf;
+    private String user_id;
+    private String datum;
+    private String bild;
+    private int download_count;
+    private int click_count;
+    private String pfad;
+    DiplomarbeitDAO da;
+
+    //DatabaseManagerService
+    public DatabaseManagerService dbService;
+
+    private int seitenanzahl = 0;
+    private String message = "0";
+
+    //DatabaseManagerService
+    public DatabaseManagerService dms;
+    
+    private boolean renderer;
+
+   
+    
+    
+    //Liste aller Diplomarbeiten
+    private List<Diplomarbeit> alldiplomarbeiten;
+
+
+    public bibliothekBean() throws SQLException, FileNotFoundException {
+        dms = new DatabaseManagerService();
+        diplist = new ArrayList<>();
+        alldiplomarbeiten = new ArrayList<>();
+        diplist = dms.varread(seitenanzahl, renderer);
+        alldiplomarbeiten = dms.ListeAllDiplomarbeiten();
+
+
     }
 
-     @PostConstruct
-     void init()  {
+    @PostConstruct
+    void init() {
 
+    }
 
-     }
+    public List<Diplomarbeit> getDiplist() {
+        return diplist;
+    }
 
-    
-     public List<Diplomarbeit> getDiplist() {
-          return diplist;
-     }
+    public void setDiplist(List<Diplomarbeit> diplist) {
+        this.diplist = diplist;
+    }
 
-     public void setDiplist(List<Diplomarbeit> diplist) {
-          this.diplist = diplist;
-     }
-     
-     
     //Anfang Get- und Setmethoden, Weitere Suche
-     
+    public String getTitel() {
+        return Titel;
+    }
 
-     public String getTitel() {
-          return Titel;
-     }
+    public void setTitel(String titel) {
+        this.Titel = titel;
+    }
 
-     public void setTitel(String titel) {
-          this.Titel = titel;
-     }
+    public String getAutor() {
+        return autor;
+    }
 
-     public String getAutor() {
-          return autor;
-     }
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
 
-     public void setAutor(String autor) {
-          this.autor = autor;
-     }
+    public String getDate() {
+        return date;
+    }
 
-     public String getDate() {
-          return date;
-     }
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-     public void setDate(String date) {
-          this.date = date;
-     }
+    public String getSpeech() {
+        return speech;
+    }
 
-     public String getSpeech() {
-          return speech;
-     }
+    public void setSpeech(String speech) {
+        this.speech = speech;
+    }
 
-     public void setSpeech(String speech) {
-          this.speech = speech;
-     }
+    public String getFachgebiet() {
+        return fachgebiet;
+    }
 
-     public String getFachgebiet() {
-          return fachgebiet;
-     }
+    public void setFachgebiet(String fachgebiet) {
+        this.fachgebiet = fachgebiet;
+    }
 
-     public void setFachgebiet(String fachgebiet) {
-          this.fachgebiet = fachgebiet;
-     }
+    public String getSchlagwort() {
+        return schlagwort;
+    }
 
-     public String getSchlagwort() {
-          return schlagwort;
-     }
-
-     public void setSchlagwort(String schlagwort) {
-          this.schlagwort = schlagwort;
-     }
+    public void setSchlagwort(String schlagwort) {
+        this.schlagwort = schlagwort;
+    }
 
     public DatabaseManagerService getDbService() {
         return dbService;
@@ -165,28 +150,21 @@ public class bibliothekBean {
     public void setDbService(DatabaseManagerService dbService) {
         this.dbService = dbService;
     }
-    
-    
-    
+
     //Ende Get- und Set-Methoden, Weitere Suche
     
     
     
     //Anfang Get- und Setmethoden: Variablen Diplomarbeit
-
     public int getDa_id() {
-        
-        
         return da_id;
     }
 
     public void setDa_id(int da_id) {
         this.da_id = da_id;
     }
-    
 
     public String getTitle() {
-        title ="titel01";
         return title;
     }
 
@@ -242,8 +220,6 @@ public class bibliothekBean {
         this.bild = bild;
     }
 
-    
-
     public int getDownload_count() {
         return download_count;
     }
@@ -260,25 +236,29 @@ public class bibliothekBean {
         this.click_count = click_count;
     }
     
-    //Ende Get- und Setmethoden, Diplomarbeit
     
-    
-   
-    public Object suche(String titel, String autor, String date, String fachgebiet, String schlagwort) {
-          System.out.println(titel + autor + date + fachgebiet + schlagwort);
+     public boolean isRenderer() {
+        return renderer;
+    }
 
-          
-          return null;
-     }
-    
+    public void setRenderer(boolean renderer) {
+        this.renderer = renderer;
+    }
+
+
+    //Ende Get- und Setmethoden, Diplomarbeit
+    public Object suche(String titel, String autor, String date, String fachgebiet, String schlagwort) {
+        System.out.println(titel + autor + date + fachgebiet + schlagwort);
+
+        return null;
+    }
+
     Object listediplomarbeiten;
 
     public Object getListediplomarbeiten() {
-        
-        
-        
+
         int index = 0;
-        
+
         listediplomarbeiten = diplist.get(index);
         return listediplomarbeiten;
     }
@@ -287,23 +267,11 @@ public class bibliothekBean {
         this.listediplomarbeiten = Listediplomarbeiten;
     }
 
-    
+    public static void main(String[] args) throws SQLException, IOException {
 
-    
-    
-    
-   
-     
-    
-     
-   public static void main(String[] args) throws SQLException, IOException {
-        
-         bibliothekBean bb = new bibliothekBean();
-         
-
+        bibliothekBean bb = new bibliothekBean();
 
 //        System.out.println(bb.getDiplist().get(1).getBild());
-      
 ////         System.out.println(bb.getAutor());
 ////         System.out.println(bb.autor_id);
 ////         System.out.println(bb.getBild(0));
@@ -314,11 +282,6 @@ public class bibliothekBean {
 //         
 ////         System.out.println("Bufferimage " + bb.bildladen());
 ////         System.out.println("Bufferimage " + bb.getBi());
-   }
-   
-   
-   
-   
+    }
 
-   
 }

@@ -85,7 +85,10 @@
       <to-view-id>/dipansehen.xhtml</to-view-id> 
    </navigation-case> 
 
-</navigation-rule> 
-        
-        
+</navigation-rule>
+    <managed-bean>
+        <managed-bean-name>meinKontoBean</managed-bean-name>
+        <managed-bean-class>infrastructure.meinKontoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

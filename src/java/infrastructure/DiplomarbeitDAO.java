@@ -6,23 +6,19 @@
 package infrastructure;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import pojo.Diplomarbeit;
 
 //import com.itextpdf.kernel.pdf.*;
@@ -42,254 +38,167 @@ public class DiplomarbeitDAO {
     private Connection connection;
     List<Diplomarbeit> listdp = new ArrayList<>();
     Diplomarbeit retVal;
-
     List<String> al = new ArrayList<>();
-
     //Funktion einfügen
     FileInputStream fis = null;
     Connection cn = null;
     PreparedStatement st = null;
     BufferedImage image = null;
-
+    
+    
+    
     public List<Diplomarbeit> read() {
-
-        System.out.println("Read Funktion");
+        
+        
+        
+        ArrayList<Diplomarbeit> listdip = new ArrayList<>();
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("select * from diplomarbeit")) {
             while (rs.next()) {
-                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
-                listdp.add(retVal);
+                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getDate(8), rs.getString(9), rs.getInt(10), rs.getInt(11));
+                listdip.add(retVal);
             }
 
             int columns = rs.getMetaData().getColumnCount();
-            System.out.println("Zeilengröße Datenbank" + columns);
-            System.out.println("Listsize" + listdp.size());
+            System.out.println("ZeilengrÃ¶ÃŸe Datenbank " + columns);
+            System.out.println("Listsize " + listdip.size());
 
-            for (int i = 0; i < columns; i++) {
-                System.out.println(listdp.get(i));
+            for (int i = 0; i < listdip.size(); i++) {
+                System.out.println(listdip.get(i));
             }
+            
+            System.out.println("Listsize" + listdip.size());
 
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
-        return listdp;
+        return listdip;
     }
+    
+    
+    
 
-    public void einfügen(int da_id, String title, int autor_id, int sw_id, String pdf, int user_id, String datum, String bild, int download_count, int click_count) throws FileNotFoundException {
+    
 
-        Diplomarbeit dp = new Diplomarbeit(da_id, title, autor_id, sw_id, pdf, user_id, datum, bild, download_count, click_count);
-//          System.out.println(dp.getDa_id());
+    public void insert(String title, int user_id, int schule_id, String pdfpath, String imagepath) throws FileNotFoundException {
+        
+            int da_id = 0;
+            int click_count = 0;
+            int download_count = 0;
 
-        try (
+            try (
                 Connection con = ConnectionManager.getInst().getConn();
-                //                Statement stmt = con.createStatement();
-
-                //INSERT INTO tabellen_name (spalte1, spalte2, spalte3, etc.) VALUES ('Wert1', 'Wert2', 'Wert3', etc.)  
-
-                //ResultSet rs = stmt.executeQuery("select * from diplomarbeit")
-                //PreparedStatement st = con.prepareStatement("update " + "diplomarbeit" + " set " + "bild" + "=" + null  + "where = da_id" + dp.getDa_id());
-                PreparedStatement pstmt = con.prepareStatement("INSERT INTO diplomarbeit(da_id,title,autor_id,sw_id, pdf, user_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ?, ? ,? ,? ,?, ?, ?)");) {
-//                int columns = rs.getMetaData().getColumnCount();
-//                System.out.println(columns);
-//                System.out.println(rs);
-
-            pstmt.setInt(1, da_id);
-            pstmt.setString(2, title);
-            pstmt.setInt(3, autor_id);
-            pstmt.setInt(4, sw_id);
-            pstmt.setString(5, pdf);
-            pstmt.setInt(6, user_id);
-            pstmt.setString(7, datum);
-            pstmt.setString(8, bild);
-            pstmt.setInt(9, download_count);
-            pstmt.setInt(10, click_count);
+                PreparedStatement pstmt = 
+                con.prepareStatement("INSERT INTO diplomarbeit"
+                + "(da_id, titel, autor_id, schule_id, pdf, user_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ?, ? ,? ,? ,?, ?, ?)");) {
+               
+                pstmt.setInt(1, da_id);
+                pstmt.setString(2, title);
+                pstmt.setInt(3, 0);
+                pstmt.setInt(4, schule_id);
+                pstmt.setString(5, pdfpath);
+                pstmt.setInt(6, user_id);
+                pstmt.setDate(7, Date.valueOf(LocalDate.now()));
+                pstmt.setString(8, imagepath);
+                pstmt.setInt(9, download_count);
+                pstmt.setInt(10, click_count);
+            
             pstmt.executeUpdate();
             pstmt.close();
 
-            //while (rs.next()) {
-//
-//                  retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBlob(5), rs.getString(6), rs.getString(7), rs.getBlob(8), rs.getInt(9), rs.getInt(10));
-//                  listdp.add(retVal);
-//
-//              }
-            // update tbl set imgColumn = 'imgFile?' where keyColumn = 'keyValue?':
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
 
     }
+    
 
-    public void ändern(int da_id, String title, int autor_id, int sw_id, String pdf, int user_id, String datum, String bild, int download_count, int click_count) throws FileNotFoundException {
-
-        Diplomarbeit dp = new Diplomarbeit(da_id, title, autor_id, sw_id, pdf, user_id, datum, bild, download_count, click_count);
-//          System.out.println(dp.getDa_id());
-
-        try (
+    
+    public void update(int da_id, int autor_id) {
+        
+         try (
                 Connection con = ConnectionManager.getInst().getConn();
-                Statement stmt = con.createStatement();
-                //                ResultSet rs = stmt.executeQuery("select * from diplomarbeit")
-                PreparedStatement st = con.prepareStatement("update " + "diplomarbeit" + " set " + "bild" + "=" + null + "where = da_id" + dp.getDa_id());) {
-//                int columns = rs.getMetaData().getColumnCount();
-//                System.out.println(columns);
-//                System.out.println(rs);
-//                
-//              while (rs.next()) {
-//
-//                  retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBlob(5), rs.getString(6), rs.getString(7), rs.getBlob(8), rs.getInt(9), rs.getInt(10));
-//                  listdp.add(retVal);
-//
-//              }
+                PreparedStatement pstmt = 
+                con.prepareStatement("UPDATE diplomarbeit SET autor_id = ? WHERE da_id =" + da_id )) {
 
-            // update tbl set imgColumn = 'imgFile?' where keyColumn = 'keyValue?':
-            File fl = new File("C:/Users/hp/Desktop/A_AK/web/resources/picture/bild01.jpg");
-            fis = new FileInputStream(fl);
-
-            st.setBinaryStream(1, fis, (int) fl.length()); // imgFile
-//                  st.setString(2, args[6]); // keyValue
-            st.executeUpdate();
-            System.out.println(fl.length() + " Bytes successfully loaded.");
+                pstmt.setInt(1, autor_id);
+                
+                pstmt.executeUpdate();
+                pstmt.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
-
+            
     }
-
-    public static final String DEST = "test02.pdf";
-
-    public void auslesen() throws IOException {
-
-        //https://www.torsten-horn.de/techdocs/java-sql.htm
-        try (
-                Connection con = ConnectionManager.getInst().getConn();
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from diplomarbeit")) {
-
-            rs.next();
-            int da_id = rs.getInt(1);
-            String title = rs.getString(2);
-
-            System.out.println(da_id + " " + title);
-
-//                Blob pdf = rs.getBlob(5);
-//                BufferedInputStream bis = new BufferedInputStream(pdf.getBinaryStream());
-//                BufferedImage bufpdf = ImageIO.read(bis);
-//                
-//                System.out.println(bufpdf);
-            StringBuilder buff = new StringBuilder();
-
-//            PdfReader reader = new PdfReader("test02.pdf");
-//
-//            System.out.println(reader.toString());
-//
-//            long numberOfPages = reader.getFileLength();
-//
-//            System.out.println(numberOfPages);
-//                PdfDocument pdf = new PdfDocument(new PdfWriter(DEST));
-//              try (Document document = new Document(pdf)) {
-////                  String line = "Hello! Welcome to iTextPdf";
-////                  document.add(new Paragraph(line));
-//
-//                    System.out.println(document);
-//              }
-//                JLabel imageLabel = new JLabel( new ImageIcon(bufImage) );
-//                JScrollPane jsp = new JScrollPane(imageLabel);
-//                Blob bild = rs.getBlob(8);
-//                BufferedInputStream bisbild = new BufferedInputStream(bild.getBinaryStream());
-//                BufferedImage bufImage = ImageIO.read(bisbild);
-//                
-//                System.out.println(bufImage);
-//                
-//                
-//                
-//                System.out.println(da_id);
-//                System.out.println(title);
-            //da_id,title,autor_id,sw_id, pdf, user_id, datum, bild, download_count, click_count
-//                int columns = rs.getMetaData().getColumnCount();
-//                System.out.println(columns);
-//                
-//                BufferedInputStream bis = new BufferedInputStream( rs.getBinaryStream("bild") );
-//                BufferedImage bufImage = ImageIO.read(bis);
-        } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.clos
-
-    }
-
-    public BufferedImage bildauslesen() throws IOException {
-        BufferedImage bufImage = null;
+    
+    
+   
+    
+    public Diplomarbeit getDiplomarbeit(int id) {
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select bild from diplomarbeit") //                PreparedStatement st = con.prepareStatement("update " + "diplomarbeit" + " set " + "bild" + "=" + null  + "where = da_id" + dp.getDa_id());
-                ) {
-
-            rs.next();
-            Blob bild = rs.getBlob(1);
-            System.out.println(bild);
-
-            BufferedInputStream bisbild = new BufferedInputStream(bild.getBinaryStream());
-            bufImage = ImageIO.read(bisbild);
-
-            System.out.println(bufImage);
-
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            ImageIO.write(bufImage, "jpg", baos);
-            rs.updateBlob(1, bisbild);
+                ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id = " + id)) {
+            
+                while(rs.next()) {
+                    retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getDate(8), rs.getString(9), rs.getInt(10), rs.getInt(11));
+                }
+                
+                System.out.println(retVal);
+            
+           
 
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); co
-        return bufImage;
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return retVal;
+        
+    }
+    
+    
+    
+    
+    
+     //Testfunktionen
+     public static void main(String[] args) throws FileNotFoundException {
+        DiplomarbeitDAO dao = new DiplomarbeitDAO();
+        
+        //Update-Metode hat funktioniert
+//        dao.update(2091, 5000, 2000);
+        
+        //Insert-Methode hat funktioniert
+//        dao.insert("string", 0, 0, "string", "string");
+        
+        //getDiplomarbeit hat (nicht) funktioniert
+        dao.getDiplomarbeit(20);
     }
 
-    public List datendipladen() {
+  
+  
 
-        String titel = null;
+   
+    
 
-        try (
-                Connection con = ConnectionManager.getInst().getConn();
-                Statement stmt = con.createStatement();
-                //Id   2006
 
-                ResultSet rs = stmt.executeQuery("select * from diplomarbeit where id =" + titel);
-                //PreparedStatement st = con.prepareStatement("update " + "diplomarbeit" + " set " + "bild" + "=" + null  + "where = da_id" + dp.getDa_id());
-                PreparedStatement pstmt = con.prepareStatement("INSERT INTO diplomarbeit(da_id,title,autor_id,sw_id, pdf, user_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ?, ? ,? ,? ,?, ?, ?)");) {
+    
+    
 
-            rs.next();
-            String vtitel = rs.getString(1);
-            String vautor = rs.getString(2);
-            String vschule = rs.getString(1);
-            String vdatum = rs.getString(1);
+    
 
-            al.add(vtitel);
-            al.add(vautor);
-            al.add(vschule);
-            al.add(vdatum);
-
-//               while (rs.next()) {
-//
-//                  retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBlob(5), rs.getString(6), rs.getString(7), rs.getBlob(8), rs.getInt(9), rs.getInt(10));
-//                listdp.add(retVal);
-//
-//                }
-        } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); con.c
-
-        return al;
-    }
+    
 
     //Suchleistenfunktion
     public List Suchleiste(String key) { //id, title, schlagwort, autor, datum
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
-        Diplomarbeit help = new Diplomarbeit(20,"K",1,1,"K",1,"K","K",1,1);
+        Diplomarbeit help = new Diplomarbeit(20,"K",1,1,1,"K",1,new Date(2020-12-12),"K",1,1);
         //diplomarbeiten in die Liste schreiben
         queryList.add("select * from diplomarbeit where da_id like '%"+key+"%'");
         queryList.add("select * from diplomarbeit where titel like '%"+key+"%'");
@@ -325,7 +234,7 @@ public class DiplomarbeitDAO {
                     help.setSw_id(rs.getInt("sw_id"));
                     help.setPdf(rs.getString("pdf"));
                     help.setUser_id(rs.getInt("benutzer_id")); //user_id heißt in der datenbank benutzer_id
-                    help.setDatum(rs.getString("datum"));
+                    help.setDatum(rs.getDate(2020-12-20));
                     help.setBild(rs.getString("bild"));
                     help.setDownload_count(rs.getInt("download_count"));
                     help.setClick_count(rs.getInt("click_count"));
@@ -342,37 +251,7 @@ public class DiplomarbeitDAO {
         //dipList.add(new Diplomarbeit(20,"K",1,1,"K",1,"K","K",1,1));
         return dipList;
     }
-
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-
-        DiplomarbeitDAO da = new DiplomarbeitDAO();
-//         //da.einfügen(12, "Bild01", 12, 12, null , "Test", "Test" , null , 12, 12);
-//        da.auslesen();
-//        da.read();
-////          da.bildauslesen();
-//           da.bildpfad();
-
-    }
-
-    public void datenübertragen() {
-
-        System.out.print("Funktion geht!");
-
-        try (
-                Connection con = ConnectionManager.getInst().getConn();
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from diplomarbeit"); //PreparedStatement st = con.prepareStatement("update " + "diplomarbeit" + " set " + "bild" + "=" + null  + "where = da_id" + dp.getDa_id());
-                ) {
-
-//                int columns = rs.getMetaData().getColumnCount();
-//                
-//                for (int i = 0; i < columns; i++) {
-//                    System.out.println(listbildpfad.get(i));
-//                }
-        } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
+    
+    
 
 }

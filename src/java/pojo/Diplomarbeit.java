@@ -5,6 +5,8 @@
  */
 package pojo;
 
+import java.sql.Date;
+
 /**
  *
  * @author patri
@@ -14,18 +16,27 @@ public class Diplomarbeit {
     private String title;
     private int autor_id;
     private int sw_id;
+    private int schule_id;
     private String pdf;
     private int user_id;
-    private String datum;
+    private Date datum;
     private String bild;
     private int download_count;
     private int click_count;
+    
+    
+    
+    //Default Konstruktor
+    public Diplomarbeit() {
+        
+    }
 
-    public Diplomarbeit(int da_id, String title, int autor_id, int sw_id, String pdf, int user_id, String datum, String bild, int download_count, int click_count) {
+    public Diplomarbeit(int da_id, String title, int autor_id, int sw_id, int schule_id, String pdf, int user_id, Date datum, String bild, int download_count, int click_count) {
         this.da_id = da_id;
         this.title = title;
         this.autor_id = autor_id;
         this.sw_id = sw_id;
+        this.schule_id = schule_id;
         this.pdf = pdf;
         this.user_id = user_id;
         this.datum = datum;
@@ -33,6 +44,8 @@ public class Diplomarbeit {
         this.download_count = download_count;
         this.click_count = click_count;
     }
+
+    
 
     public int getDa_id() {
         return da_id;
@@ -82,13 +95,22 @@ public class Diplomarbeit {
         this.user_id = user_id;
     }
 
-    public String getDatum() {
+    public int getSchule_id() {
+        return schule_id;
+    }
+
+    public void setSchule_id(int schule_id) {
+        this.schule_id = schule_id;
+    }
+
+    public Date getDatum() {
         return datum;
     }
 
-    public void setDatum(String datum) {
+    public void setDatum(Date datum) {
         this.datum = datum;
     }
+    
 
     public String getBild() {
         return bild;
