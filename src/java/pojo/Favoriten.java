@@ -10,6 +10,7 @@ package pojo;
  * @author patri
  */
 public class Favoriten {
+    
     private int user_id;
     private int da_id;
 
