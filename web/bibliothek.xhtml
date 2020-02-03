@@ -10,9 +10,7 @@
     <h:head>
         <title> Diplomarbeiten-Bibliothek </title>
         <h:outputStylesheet library= "css" name= "bibliothek_styles.css" />
-
-
-
+        <h:outputStylesheet library="css" name="table-style.css"  />
     </h:head>
     <h:body>
 
@@ -28,7 +26,11 @@
                     <div class="bild">
 
                         <div class="flex-container">
-                            <h:graphicImage id="bild01" width="60" height="50" value="/titel1.jpg"/>
+                            <h:form>
+                                <h:commandLink id="link_to_index" action="index.xhtml">
+                                    <h:graphicImage  id="ak_image" width="60" height="50" value="/resources/images/ak_logo/ak_logo.jpg"/>
+                                </h:commandLink>
+                            </h:form>
                         </div>
 
                     </div>
@@ -40,17 +42,17 @@
 
                             <div class="diplomarbeit"><h:outputText value="Diplomarbeiten"/></div>
 
-                            <div class="benutzername"><h:outputText value=""/></div>
+                            <div class="benutzername"><h:outputText value="#{benutzerBean.userName}"/> </div>
 
 
-                            <div class="list1">
+                            <div class="buttonleiste">
 
                                 <tr>
                                     <h:form>
-                                        <td><b:button value="Diplomarbeit hochladen" outcome="upload.xhtml" look="danger"/></td>
-                                        <td><b:button value="Bibliothek" outcome="bibliothek.xhtml" look="danger"/></td>
-                                        <td><b:button value="MeinKonto"  outcome="meinKonto.xhtml" look="danger"/></td>
-                                        <td><b:button value="Abmelden"  outcome="bibliothek.xhtml" look="danger"/></td>
+                                        <td><b:button  value="Diplomarbeit hochladen" outcome="upload.xhtml" look="danger"/></td>
+                                        <td><b:button  value="Bibliothek" outcome="bibliothek.xhtml" look="danger"/></td>
+                                        <td><b:button  value="MeinKonto"  outcome="meinKonto.xhtml" look="danger"/></td>
+                                        <td><b:button  value="Abmelden"  outcome="bibliothek.xhtml" look="danger"/></td>
                                     </h:form>                                  
                                 </tr>
 
@@ -72,7 +74,7 @@
                     <div class="content"> 
 
                         <div class="uberschrift_ws">Weitere Suche</div>
-                        <!--                        <div class="button">Text2</div>   -->
+                       
 
                         <div class="titel">Titel</div> 
                         <div class="tftitel"> 
@@ -81,7 +83,7 @@
                             <div class="tft">
                                 <b:form horizontal="true">
 
-                                    <b:inputText value="#{bibliothekBean.titel}" placeholder="Textfeld_Titel" typeahead="true" typeahead-values="Arch Enemy,Blind Guardian,Children of Bodom,Dimmu Borgir,Edge of Sanity,Fields of the Nephilim,Gates of Ishtar,Holy Moses,Iced Earth,Jethro Tull,Kreator,Lamb of God,Mekong Delta,Night in Gales,Old Dead Tree,Persefone,Running Wild,Skyclad,The Dillinger Escape Plan,Theater of Tragedy,Unleashed,Vanden Plas,Within Temptation,Xystus,Yes,Zenobia" tiny-screen="10" />
+                                    <b:inputText value="#{bibliothekBean.titel}" placeholder="Textfeld_Titel" typeahead="true" typeahead-values="" tiny-screen="10" />
 
 
                                 </b:form>
@@ -144,7 +146,7 @@
                             <div class="tff">
                                 <b:form horizontal="true">
 
-                                    <b:inputText value="#{bibliothekBean.fachgebiet}" placeholder="Textfeld_Fachgebiet" typeahead="true" typeahead-values="Arch Enemy,Blind Guardian,Children of Bodom,Dimmu Borgir,Edge of Sanity,Fields of the Nephilim,Gates of Ishtar,Holy Moses,Iced Earth,Jethro Tull,Kreator,Lamb of God,Mekong Delta,Night in Gales,Old Dead Tree,Persefone,Running Wild,Skyclad,The Dillinger Escape Plan,Theater of Tragedy,Unleashed,Vanden Plas,Within Temptation,Xystus,Yes,Zenobia" tiny-screen="10" />
+                                    <b:inputText value="#{bibliothekBean.fachgebiet}" placeholder="Textfeld_Fachgebiet" typeahead="true" typeahead-values="" tiny-screen="10" />
 
                                 </b:form>
                             </div>
@@ -177,286 +179,118 @@
 
                     </div>
 
+
                     <div class="bib">
+                        
+                        <div class="sortierleiste">
+                            <b:form horizontal="true">
+                                <b:formGroup>
+                                    <b:selectOneMenu style="margin-top: 10px; margin-left: 5px " value="#{selectOneMenuBean.type}" colMd="2" required="true"  labelColMd="2">
+                                        <f:selectItem itemLabel="Sortieren nach" itemValue="" />
+                                        <f:selectItem itemLabel="A-Z" itemValue="1" />
+                                        <f:selectItem itemLabel="Z-A" itemValue="2" />  
+                                    </b:selectOneMenu>    
+                                </b:formGroup>
+                            </b:form>  
+                        </div>
+                        
+                        
+                        <table class="order-table">
+                            <tr>
+                                <th class="order-table-header"></th>	
+                            </tr>
+                            <tbody>
+                                <ui:repeat var="var" value="#{bibliothekBean.diplist}" varStatus="status">
+                                    <h:panelGroup rendered="#{status.even}">
+                                        <tr>
+                                            <td class="order-table-even-row">
 
-                        <ui:repeat  value="#{bibliothekBean.diplist}" var="pfad">
-                            
-                            <div class="bild1">
-
-                                <div class="dp1">                        
-                                    <h:form id="dp1">
-
-                                        <h:commandLink id="link"  action="dipansehen.xhtml" actionListener="#{dipansehenBean.print}" >
-                                            <h:graphicImage  width="200" height="250" value="#{pfad.bild}"/>
-                                        </h:commandLink>
-
-                                    </h:form>        
-                                </div>    
-
-
-                                <div class="uberschrift_bild">
-
-                                    <h:outputText value="#{pfad.title}"/>
-
-                                </div>   
+                                                <tr>
+                                                    <td class="order-table-even-row">
+                                                        <h:form>
+                                                            <h:commandLink action="#{dipansehenBean.werteanzeigen(var.da_id)}">
+                                                                <h:graphicImage  class="image" value = "#{var.bild}"/>
+                                                            </h:commandLink>
+                                                        </h:form>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="order-table-even-row1">#{var.title}</td>
+                                                </tr>    
 
 
-                            </div>
-                        </ui:repeat> 
-
-
-
-                        <div class="bild2">
-
-                            <div class="dp1">                        
-                                <h:form id="dp2">
-                                    <ui:repeat id="bild" value="#{bibliothekBean.diplist.get(5)}" var="pfad">
-                                        <h:commandLink id="link"  action="dipansehen.xhtml" actionListener="#{dipansehenBean.print}" >
-                                            <h:graphicImage width="200" height="250" value="#{pfad.bild}"/>
-                                        </h:commandLink>
-                                    </ui:repeat>
-                                </h:form>      
-                            </div>    
-
-                            <div class="uberschrift_bild">
-                                <ui:repeat value="#{bibliothekBean.diplist.get(1)}" var="dipl">
-                                    <h:outputText value="#{dipl.title}"/>
+                                            </td>
+                                        </tr>
+                                    </h:panelGroup>
                                 </ui:repeat>
-                            </div>    
+                            </tbody>
+                        </table>
 
 
-                        </div>
-                        <div class="bild3">
+                        <table class="order-table1">
+                            <tr>
+                                <th class="order-table-header"></th>	
+                            </tr>
+                            <tbody>
+                                <ui:repeat var="var" value="#{bibliothekBean.diplist}" varStatus="status">
+                                    <h:panelGroup rendered="#{status.odd}">
+                                        <tr>
+                                            <td class="order-table-even-row">
 
-
-                            <div class="dp1">                        
-                                <h:form>
-                                    <ui:repeat value="#{bibliothekBean.diplist.get(2)}" var="pfad">
-                                        <h:commandLink  action="dipansehen.xhtml"> 
-                                            <h:graphicImage width="200" height="250" value="#{pfad.bild}"/>
-                                        </h:commandLink>
-                                    </ui:repeat>
-                                </h:form>        
-                            </div>    
-
-                            <div class="uberschrift_bild">
-                                <ui:repeat value="#{bibliothekBean.diplist.get(2)}" var="dipl">
-                                    <h:outputText value="#{dipl.title}"/>
+                                                <tr>
+                                                    <td class="order-table-even-row">
+                                                        <h:form>
+                                                            <h:commandLink action="#{dipansehenBean.werteanzeigen(var.da_id)}">
+                                                                <h:graphicImage class="image"  value = "#{var.bild}"/>
+                                                            </h:commandLink>
+                                                        </h:form>
+                                                    </td>   
+                                                </tr>
+                                                <tr>
+                                                    <td class="order-table-even-row1">#{var.title}</td>
+                                                </tr>      
+                                            </td>
+                                        </tr>
+                                    </h:panelGroup>
                                 </ui:repeat>
-                            </div>   
 
-
-                        </div>
-
-                        <div class="bild4">
-
-
-                            <div class="dp1">                        
-                                <h:form>                                  
-                                    <h:commandLink action="dipansehen.xhtml"> 
-                                        <h:graphicImage width="200" height="250" value=""/>
-                                    </h:commandLink>           
-                                </h:form>        
-                            </div>    
-
-
-                            <div class="uberschrift_bild">
-                                <ui:repeat value="#{bibliothekBean.diplist.get(3)}" var="dipl">
-                                    <h:outputText value="#{dipl.title}"/>
-                                </ui:repeat>
-                            </div>
-
-
-
-                        </div>
-                        <div class="bild5">
-
-
-
-                            <div class="dp1">                        
-                                <h:form>                                  
-                                    <h:commandLink action="dipansehen.xhtml"> 
-                                        <h:graphicImage width="200" height="250" value=""/>
-                                    </h:commandLink>           
-                                </h:form>        
-                            </div>    
-
-                            <div class="uberschrift_bild">
-                                <ui:repeat value="#{bibliothekBean.diplist.get(4)}" var="dipl">
-                                    <h:outputText value="#{dipl.title}"/>
-                                </ui:repeat>
-                            </div>
-
-                        </div>
-
-                        <div class="bild6">
-
-
-
-                            <div class="dp1">                        
-                                <h:form>                                  
-                                    <h:commandLink action="dipansehen.xhtml"> 
-                                        <h:graphicImage width="200" height="250" value=""/>
-                                    </h:commandLink>           
-                                </h:form>        
-                            </div>    
-
-
-                            <div class="uberschrift_bild">
-                                <ui:repeat value="#{bibliothekBean.diplist.get(5)}" var="dipl">
-                                    <h:outputText value="#{dipl.title}"/>
-                                </ui:repeat>
-                            </div>
-
-                        </div>
-
-                        <div class="bild7">
-
-
-                            <div class="dp1">                        
-                                <h:form>                                  
-                                    <h:commandLink action="dipansehen.xhtml"> 
-                                        <h:graphicImage width="200" height="250" value=""/>
-                                    </h:commandLink>           
-                                </h:form>        
-                            </div>    
-
-
-                            <div class="uberschrift_bild">
-                                <ui:repeat value="#{bibliothekBean.diplist.get(6)}" var="dipl">
-                                    <h:outputText value="#{dipl.title}"/>
-                                </ui:repeat>
-                            </div>
-
-                        </div>
-
-                        <div class="bild8">
-
-
-
-                            <div class="dp1">                        
-                                <h:form>                                  
-                                    <h:commandLink action="dipansehen.xhtml"> 
-                                        <h:graphicImage width="200" height="250" value=""/>
-                                    </h:commandLink>           
-                                </h:form>
-
-                            </div>    
-
-
-                            <div class="uberschrift_bild">
-                                <ui:repeat value="#{bibliothekBean.diplist.get(7)}" var="dipl">
-                                    <h:outputText value="#{dipl.title}"/>
-                                </ui:repeat>
-                            </div>
-
-                        </div>
-                        <div class="bild9">
-
-
-                            <div class="dp1">                        
-                                <h:form>                                  
-                                    <h:commandLink action="dipansehen.xhtml"> 
-                                        <h:graphicImage width="200" height="250" value=""/>
-                                    </h:commandLink>           
-                                </h:form>        
-                            </div>    
-
-
-                            <div class="uberschrift_bild">
-                                <ui:repeat value="#{bibliothekBean.diplist.get(8)}" var="dipl">
-                                    <h:outputText value="#{dipl.title}"/>
-                                </ui:repeat>
-                            </div>
-
-                        </div>
-
-                        <div class="bild10">
-
-
-                            <div class="dp1">                        
-                                <h:form>                                  
-                                    <h:commandLink action="dipansehen.xhtml"> 
-                                        <h:graphicImage width="200" height="250" value=""/>
-                                    </h:commandLink>           
-                                </h:form>        
-                            </div>    
-
-
-                            <div class="uberschrift_bild">
-                                <ui:repeat value="#{bibliothekBean.diplist.get(9)}" var="dipl">
-                                    <h:outputText value="#{dipl.title}"/>
-                                </ui:repeat>
-                            </div>
-
-                        </div>
-                        <div class="bild11">
-
-
-                            <div class="dp1">                        
-                                <h:form>                                  
-                                    <h:commandLink action="dipansehen.xhtml"> 
-                                        <h:graphicImage width="200" height="250" value=""/>
-                                    </h:commandLink>           
-                                </h:form>        
-                            </div>    
-
-
-                            <div class="uberschrift_bild">
-                                <ui:repeat value="#{bibliothekBean.diplist.get(10)}" var="dipl">
-                                    <h:outputText value="#{dipl.title}"/>
-                                </ui:repeat>
-                            </div>
-
-                        </div>
-                        <div class="bild12">
-
-
-                            <div class="dp1">                        
-                                <h:form>                                  
-                                    <h:commandLink action="dipansehen.xhtml"> 
-                                        <h:graphicImage width="200" height="250" value=""/>
-                                    </h:commandLink>           
-                                </h:form>        
-                            </div>    
-
-
-                            <div class="uberschrift_bild">
-                                <ui:repeat value="#{bibliothekBean.diplist.get(11)}" var="dipl">
-                                    <h:outputText value="#{dipl.title}"/>
-                                </ui:repeat>
-                            </div>
-
-                        </div>
-
-
-                        <div>
-
-                            <h:form>
-                                <div class="seitenleiste">
-                                    <b:commandButton value="Zurück" action="testxhtml.xhtml"  look="danger"/>
-                                    <b:commandButton value="Weiter" action="testxhtml.xhtml"  look="danger"/>
-                                    <h:outputText value="Seitenanzahl"/>
-                                </div>
-                            </h:form>
-
-                        </div>
-
-
+                            </tbody>
+                        </table>    
                     </div>
-
-
-
-
 
                 </main>
 
 
 
 
-                <footer>
+                <footer class="seitenleiste">
 
 
+                    <h:form enctype="multipart/form-data">
+
+                        <div class="seitenanzahl_leiste">
+
+                            <h:commandButton id="hinunterzählen" style="margin-right: 50px" value="Zurück"  actionListener="#{bibliothekBean.hinunterzählen(actionEvent)}"/>
+
+                            <h:commandLink  id="hallo" style="margin-right: 50px" value="0" actionListener="#{bibliothekBean.verlinken(actionEvent)}" rendered="#{true}" ></h:commandLink>
+                            <h:commandLink  id="abc" style="margin-right: 50px" value="1" actionListener="#{bibliothekBean.verlinken(actionEvent)}" rendered="#{true}" ></h:commandLink>
+
+
+                            <h:commandLink value="2" actionListener="#{bibliothekBean.verlinken(actionEvent)}" rendered="#{false}" ></h:commandLink>
+                            <h:commandLink value="3" actionListener="#{bibliothekBean.verlinken(actionEvent)}" rendered="#{false}" ></h:commandLink>
+
+
+                            <h:commandLink value="#{bibliothekBean.message}" rendered="#{false}" ></h:commandLink>
+                            <h:commandLink value="#{bibliothekBean.message}" rendered="#{false}" ></h:commandLink>
+
+                            <h:commandButton id="hochzählen" style="margin-right: 50px" value="Weiter"  actionListener="#{bibliothekBean.hochzählen(actionEvent)}"/>
+                            <h:commandLink action="#{bibliothekBean.message}" ></h:commandLink>
+                            <h:outputText value="Seitenanzahl: #{bibliothekBean.message}"/>
+                        </div>
+
+
+
+                    </h:form>
 
                 </footer>
 

@@ -10,6 +10,7 @@ package pojo;
  * @author patri
  */
 public class SW_DA {
+    
     private int sw_id;
     private int da_id;
 
