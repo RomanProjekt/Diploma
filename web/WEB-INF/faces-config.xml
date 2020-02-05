@@ -5,11 +5,7 @@
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
-    <managed-bean>
-        <managed-bean-name>benutzerBean</managed-bean-name>
-        <managed-bean-class>infrastructure</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+  
     
     <managed-bean>
         <managed-bean-name>benutzerverwaltungBean</managed-bean-name>
@@ -24,6 +20,26 @@
     <managed-bean>
         <managed-bean-name>loginBean</managed-bean-name>
         <managed-bean-class>presentation.loginBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+           <property-name>dbService</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>meinKontoBean</managed-bean-name>
+        <managed-bean-class>presentation.meinKontoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+           <property-name>dbService</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
+    </managed-bean>
+    
+      <managed-bean>
+        <managed-bean-name>registerBean</managed-bean-name>
+        <managed-bean-class>presentation.registerBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
            <property-name>dbService</property-name>
@@ -50,12 +66,6 @@
     </managed-bean>
     
     <managed-bean>
-        <managed-bean-name>registerBean</managed-bean-name>
-        <managed-bean-class>presentation.registerBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    
-    <managed-bean>
         <managed-bean-name>dipSuchenBean</managed-bean-name>
         <managed-bean-class>presentation.dipSuchenBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
@@ -74,6 +84,17 @@
         </navigation-case>
     </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>/register.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fail</from-outcome>
+            <to-view-id>/register.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
   
 
 <navigation-rule> 
@@ -86,9 +107,5 @@
    </navigation-case> 
 
 </navigation-rule>
-    <managed-bean>
-        <managed-bean-name>meinKontoBean</managed-bean-name>
-        <managed-bean-class>infrastructure.meinKontoBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+    
 </faces-config>

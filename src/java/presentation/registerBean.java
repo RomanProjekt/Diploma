@@ -16,7 +16,7 @@ import service.DatabaseManagerService;
 public class registerBean {
 
     private Benutzer b;
-    private DatabaseManagerService dbms;
+    private DatabaseManagerService dbService;
     private String username;
     private String firstName;
     private String lastName;
@@ -30,12 +30,17 @@ public class registerBean {
     void init() {
 
     }
-    
+
     public Object register() {
-        int id = dbms.getNextUserId();
-        b = new Benutzer(id, username, firstName, lastName, pw);
-        dbms.insertBenutzer(b);
-        return null;
+
+        b = new Benutzer(0, username, firstName, lastName, pw, "salt", "User", email);
+        int result = dbService.insertBenutzer(b);
+        if (result == 1) {
+            b = dbService.load(username);
+            dbService.setLoggedInBenutzer(b);
+            return "success";
+        }
+        return "fail";
     }
 
     public Benutzer getB() {
@@ -46,12 +51,12 @@ public class registerBean {
         this.b = b;
     }
 
-    public DatabaseManagerService getDbms() {
-        return dbms;
+    public DatabaseManagerService getDbService() {
+        return dbService;
     }
 
-    public void setDbms(DatabaseManagerService dbms) {
-        this.dbms = dbms;
+    public void setDbService(DatabaseManagerService dbService) {
+        this.dbService = dbService;
     }
 
     public String getUsername() {

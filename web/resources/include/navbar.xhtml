@@ -9,22 +9,28 @@
     </h:head>
     <h:body>
         <ui:composition>
+            <h:outputStylesheet library= "css" name= "Test.css" />
 
-            <b:navBar brand="Diplomarbeiten" fluid="true" >
-                <b:image value="/rec/images/AKBurgenland.svg" height="55px" width="110px" onclick="index.xhtml" />
+            <nav class="navbar" >
 
-                <h:outputLabel value="#{databaseManagerService.loggedInBenutzer.username}"  rendered="#{databaseManagerService.loggedIn()}" />
-                <b:button value="Mein Konto" outcome="meinKonto.xhtml" rendered="#{databaseManagerService.loggedIn()}" /> 
-                <b:button value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" />
-                <b:button value="Diplomarbeit hochladen" outcome="upload.xhtml" />
-                <b:button value="Anmelden"  outcome="login.xhtml" rendered="#{!databaseManagerService.loggedIn()}" />
+                <a class="navbar-brand" href="#">Diplomarbeiten</a>
 
-                <b:form>
-                    <b:commandButton value="Abmelden" action="#{loginBean.loggout()}" rendered="#{databaseManagerService.loggedIn()}" />
-                </b:form>
+                <b:image value="/resources/images/AKBurgenland.svg" height="55px" width="110px" onclick="index.xhtml" />
+                <div id="navbar" class="navbar" >
+                    <h:outputLabel value="#{databaseManagerService.loggedInBenutzer.username}"  rendered="#{databaseManagerService.loggedIn()}" />
+                    <b:button value="Mein Konto" outcome="meinKonto.xhtml" rendered="#{databaseManagerService.loggedIn()}" /> 
+                    <b:button value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" />
+                    <b:button value="Diplomarbeit hochladen" outcome="upload.xhtml" />
+                    <b:button value="Anmelden"  outcome="login.xhtml" rendered="#{!databaseManagerService.loggedIn()}" />
 
-            </b:navBar>
+                    <b:form class="navbar-form" >
+                        <div >
+                            <b:commandButton value="Abmelden" action="#{loginBean.loggout()}" rendered="#{databaseManagerService.loggedIn()}" />
+                        </div>
+                    </b:form>
+                </div>
+
+            </nav>
         </ui:composition>
     </h:body>
 </html>
-

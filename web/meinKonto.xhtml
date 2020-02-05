@@ -3,44 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-          <f:view>
+        <ui:include src="/resources/include/navbar.xhtml" />
+        <f:view>
             <h2>Mein Konto</h2>
-            <h3></h3>
-            <b:form id="reg" >
+            <div class="userdata">
+                <b:panelGrid columns="2" >
+                    <h:outputLabel value="Vorname" />
+                    <h:outputLabel value="#{meinKontoBean.loggedInUser.firstname}" />
 
-                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel value="Nachname" />
+                    <h:outputLabel value="#{meinKontoBean.loggedInUser.lastname}" />
 
-                    <b:inputText label="Benutzername" value="#{meinKontoBean.username}" labelStyle="width:80px;">
-                    </b:inputText>
+                    <h:outputLabel value="Benutzername" />
+                    <h:outputLabel value="#{meinKontoBean.loggedInUser.username}" />
 
-                    <b:label value=""></b:label>
+                    <h:outputLabel value="E-Mail" />
+                    <h:outputLabel value="#{meinKontoBean.loggedInUser.geteMail()}" />
 
-                    <b:inputText label="Vorname" value="#{meinKontoBean.firstname}" labelStyle="width:80px;">
-                    </b:inputText>
+                </b:panelGrid>
+            </div>
+            <div class="favoriten" >
+                <b:dataTable>
 
-                    <b:inputText label="Nachname" value="#{meinKontoBean.lastname}" labelStyle="width:80px;">
-                    </b:inputText>
+                </b:dataTable>
+            </div>
 
-                    <b:inputText label="E-Mail" value="#{meinKontoBean.email}" labelStyle="width:80px;">
-                    </b:inputText>
+            <div class="uploadedDA">
+                <b:dataTable>
 
-                  
 
-                    <b:inputText label="Passwort" value="#{meinKontoBean.passWd}" labelStyle="width:80px;">
-                    </b:inputText>
-
-                    <b:inputText label="Bestätigen" value="#{meinKontoBean.bestätigtespassWd}" labelStyle="width:80px;">
-                    </b:inputText>
-                    
-                    <b:commandButton value="Speichern" actionListener="#{meinKontoBean.speichern()}" />
-
-                </h:panelGrid>
-            </b:form>
+                </b:dataTable>
+            </div>
         </f:view>
     </h:body>
 </html>

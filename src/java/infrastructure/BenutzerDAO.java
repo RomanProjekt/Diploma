@@ -33,7 +33,7 @@ public class BenutzerDAO {
                 ResultSet rs = stmt.executeQuery("select * from benutzer where benutzername = '" + username + "'")) {
 
             if (rs.next()) {
-                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort_verschlüsselt"), rs.getString("salt"), rs.getString("salt"), rs.getString("email"));
+                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort"), rs.getString("salt"), rs.getString("rolle"), rs.getString("email"));
             }
 
         } catch (SQLException ex) {
@@ -44,20 +44,20 @@ public class BenutzerDAO {
     }
 
     public int insert(Benutzer b) {
-        String query = "insert into benutzer(`benutzer_id`, `benutzername`, `vorname`, `nachname`, `email`, `passwort`, `salt`, `rolle`) values(?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "insert into benutzer(`benutzer_id`, `benutzername`, `vorname`, `nachname`, `email`, `passwort`, `salt`, `rolle`) values(NULL, ?, ?, ?, ?, ?, ?, ?)";
         int result = 0;
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt = con.prepareStatement(query);) {
-            pstmt.setInt(1, b.getUser_id());
-            pstmt.setString(2, b.getUsername());
-            pstmt.setString(3, b.getFirstname());
-            pstmt.setString(4, b.getLastname());
-            pstmt.setString(5, b.geteMail());
-            pstmt.setString(6, b.getPassWd());
-            pstmt.setString(7, b.getSalt());
-            pstmt.setString(8, b.getRole());
+
+            pstmt.setString(1, b.getUsername());
+            pstmt.setString(2, b.getFirstname());
+            pstmt.setString(3, b.getLastname());
+            pstmt.setString(4, b.geteMail());
+            pstmt.setString(5, b.getPassWd());
+            pstmt.setString(6, b.getSalt());
+            pstmt.setString(7, b.getRole());
 
             result = pstmt.executeUpdate();
         } catch (SQLException ex) {

@@ -5,8 +5,6 @@
  */
 package service;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 import pojo.Benutzer;
@@ -117,8 +115,6 @@ public class DatabaseManagerService {
         this.loggedInBenutzer = loggedInBenutzer;
     }
 
-    
-    
     //Diplomarbeit
     public List<Diplomarbeit> getDplist() {
         return dplist;
@@ -146,8 +142,6 @@ public class DatabaseManagerService {
         return dip;
     }
 
-    
-    
     //Autor
     public AutorDAO getAutorDAO() {
         return autorDAO;
@@ -183,7 +177,6 @@ public class DatabaseManagerService {
         this.dip = dip;
     }
 
-    
     //FavoritenDAO
     public FavoritenDAO getFavDAO() {
         return favDAO;
@@ -193,7 +186,6 @@ public class DatabaseManagerService {
         this.favDAO = favDAO;
     }
 
-    
     //SW_DA_DAO
     public SW_DA_DAO getSchlagwort_verknuepfungDAO() {
         return schlagwort_verknuepfungDAO;
@@ -202,13 +194,11 @@ public class DatabaseManagerService {
     public void setSchlagwort_verknuepfungDAO(SW_DA_DAO schlagwort_verknuepfungDAO) {
         this.schlagwort_verknuepfungDAO = schlagwort_verknuepfungDAO;
     }
-    
+
     public List<SW_DA> getAllSW_DA_Verknuepfung() {
         return this.schlagwort_verknuepfungDAO.getAllSW_DA_Verknüpfungen();
     }
 
-    
-    
     //Schule
     public SchuleDAO getSchuleDAO() {
         return schuleDAO;
@@ -221,11 +211,6 @@ public class DatabaseManagerService {
     public List<Schule> getListevonSchulen() {
         return this.schuleDAO.read();
     }
-    
-    
-    
-    
-    
 
     public List<Diplomarbeit> varread(int seitenanzahl, boolean renderer) {
 
@@ -273,8 +258,6 @@ public class DatabaseManagerService {
         }
         return varlist;
     }
-    
-    
 
     //Diplomarbeit hochladen:
     public void hochladen(String title, String autor, String schule, List<String> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
@@ -316,11 +299,6 @@ public class DatabaseManagerService {
         favDAO.insert();
     }
 
-    
-    
-    
-    
-    
     //Testfunktionen
     public void test() {
 //       int var_sw_id = this.getAllSW_DA_Verknüpfung().get(this.getAllSW_DA_Verknüpfung().size()-1).getSw_id();
