@@ -1,0 +1,83 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20.12.2019, 20:25:04
+    Author     : dople
+*/
+
+/*.navbar-form .form-group nav-header {
+  width: calc(100% - 50px);
+  display: inline-block;
+  vertical-align: top;
+}*/
+
+.navbar {
+    background-color: lightgray;
+   
+ 
+}
+
+
+.navbar form a{
+    float: left;
+    color: #464a56;
+    text-align: center;
+    padding: 14px 10px;
+    text-decoration: none;
+    font-size: 17px;
+
+}
+
+.navbar form ul{
+    position: relative;
+    list-style: none;
+    color: #464a56;
+    text-decoration: none;
+    display: inline-block;
+    float: right;
+    margin: auto;
+    
+}
+
+.navbar form ul li{
+    display: inline;
+
+}
+
+.navbar form .navLink:hover{
+    background-color: lightcoral;
+}
+
+
+/*    
+
+.navbar .pillLinks {
+    align-content: center;
+    text-align: center;
+    display: inline-block;
+    height: 50px;
+}
+.navbar .navbar-brand a{
+    text-align: center;
+}
+
+
+.navbar .navLink .link{
+    
+    font-size: 15px;
+    color: #464a56;
+    display: inline-block;
+    border-color: white;
+    border-width: 3px;
+
+
+    text-transform: uppercase;
+    
+}
+    
+.navbar .navLink a:hover{
+    background-color: lightcoral;
+}*/
