@@ -42,12 +42,10 @@ public class uploadBean {
     List<Diplomarbeit> listdiplomarbeit;
 
     private String result;
-    
+
     private String bilddatei_fail;
     private String pdfdabei_fail;
     private String titel_fail;
-    
-    
 
     public uploadBean() {
         dms = new DatabaseManagerService();
@@ -164,15 +162,7 @@ public class uploadBean {
     public void setTitel_fail(String titel_fail) {
         this.titel_fail = titel_fail;
     }
-    
-    
-    
-    
-    
-    
-    
 
-    
     //Anzeigen von einem Bild
     public void pfadbild() {
         //Bild anzeigen im HTML Dokument
@@ -189,7 +179,7 @@ public class uploadBean {
         String varautor = getAutor();
         String varschule = getSchule();
         String varschlagwort = getSchlagwort();
-        
+
         Part varimage = getImage();
 
         if (diplomarbeit != null) {
@@ -197,7 +187,6 @@ public class uploadBean {
             if (varimage != null) {
 
 //                boolean isgleich = this.titel_vergleichen(vartitel);
-                
                 if (true) {
                     //1. Speichern des Bildes
                     this.saveImage(vartitel, varimage);
@@ -215,7 +204,7 @@ public class uploadBean {
                     this.autor = "";
                     this.schule = "";
                     this.schlagwort = "";
-                    
+
                 } else {
                     this.titel_fail = "Titel bitte ändern!";
                 }
@@ -228,36 +217,28 @@ public class uploadBean {
         } else {
             this.pdfdabei_fail = "PDF-Datei nicht gefunden!";
         }
-        
 
-
-        
-        
     }
 
     public void saveImage(String change_filename, Part varimage) {
 
         FileImageOutputStream outputStream;
-        
+
         //f_name = bild1 , filename = diplomarbeit
         String bild_name = varimage.getSubmittedFileName();
 //        String safe_name = this.dateiformatieren(change_filename, bild_name);
-        
 
         try (InputStream in = varimage.getInputStream()) {
 
             //Absoluten Pfad + neuen Titelnamen oder alten Titelnamen
 //          File f = new File("/Users/hp/Desktop/" + safe_name);
-            
-            
-            
             //Muss am Server geänder werden!!!!
             File f = new File("\\Users\\hp\\Desktop\\DA_AK\\web\\resources\\images\\" + bild_name);
-            
+
             //Pfad zum Suchen des aktuellen Bildes:
             String server_pfad = "/resources/images/" + bild_name;
             aktuellerimagepfad(server_pfad);
-            
+
             f.createNewFile();
             outputStream = new FileImageOutputStream(f);
             byte[] buffer = new byte[1024];
@@ -272,8 +253,6 @@ public class uploadBean {
 
     }
 
-        
-
     //Funktion pdf-Datei hochladen
     public void savePdfFile(String filename) throws FileNotFoundException, IOException {
 
@@ -285,7 +264,7 @@ public class uploadBean {
             //Absoluten Pfad + neuen Titelnamen oder alten Titelnamen
             //Muss am Wespace geändert werden!!!
             String server_pdf_pfad = "/Users/hp/Desktop/DA_AK/web/resources/pdf/";
-            
+
             f = new File(server_pdf_pfad + filename + ".pdf");
             //"/Users/hp/Desktop/"
             aktuellerpdfpfad(f.getPath());
@@ -325,32 +304,23 @@ public class uploadBean {
         return istgleich;
 
     }
-    
-    
+
     public String dateiformatieren(String filename, String bild_name) {
-        
+
         String[] name = bild_name.split(Pattern.quote("."));
         System.out.println(Arrays.toString(name));
-        String bildformat = name[name.length-1];
-        
+        String bildformat = name[name.length - 1];
+
         String r_filename = filename + "." + bildformat;
         System.out.println(r_filename);
-        
+
         return r_filename;
-        
-        
+
     }
-    
-    
-    
-    
+
     public static void main(String[] args) {
         uploadBean u = new uploadBean();
         u.dateiformatieren("diplomarbeit", "bild.jpg");
     }
-
-   
-    
-    
 
 }
