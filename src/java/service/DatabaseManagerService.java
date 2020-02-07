@@ -93,7 +93,7 @@ public class DatabaseManagerService {
 
     public Object isAdminRedirect() {
         if (!"Admin".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() == null) {
-            return "access-denied";
+            return "unauthorized.xhtml";
         }
         return null;
     }
