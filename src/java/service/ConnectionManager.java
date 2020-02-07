@@ -9,26 +9,31 @@ package service;
  *
  * @author dople
  */
+import com.mysql.cj.jdbc.MysqlDataSource;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.*;
 import javax.sql.DataSource;
 
+
+
 public class ConnectionManager {
 
     private static final String DATASOURCE = "jdbc/akdb";
     private static ConnectionManager connMgrInst = null;
     private DataSource ds = null;
+    MysqlDataSource dataSource;
+
 
     public static synchronized ConnectionManager getInst() {
         if (connMgrInst == null) {
             connMgrInst = new ConnectionManager();
         }
-
         return connMgrInst;
     }
 
+    
     private ConnectionManager() {
         try {
             Context ctx;
@@ -50,4 +55,6 @@ public class ConnectionManager {
 
         return retVal;
     }
+      
+    
 }

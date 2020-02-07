@@ -28,7 +28,7 @@
                         <div class="flex-container">
                             <h:form>
                                 <h:commandLink id="link_to_index" action="index.xhtml">
-                                    <h:graphicImage  id="ak_image" width="60" height="50" value="/resources/images/ak_logo/ak_logo.jpg"/>
+                                    <h:graphicImage  id="ak_image" width="100" height="50" value="/resources/images/AK-Logo.png"/>
                                 </h:commandLink>
                             </h:form>
                         </div>
@@ -42,7 +42,7 @@
 
                             <div class="diplomarbeit"><h:outputText value="Diplomarbeiten"/></div>
 
-                            <div class="benutzername"><h:outputText value="#{benutzerBean.userName}"/> </div>
+                            <div class="benutzername"><h:outputText value="Username"/> </div>
 
 
                             <div class="buttonleiste">
@@ -159,7 +159,7 @@
                             <div class="tfs">
                                 <b:form horizontal="true">
 
-                                    <b:inputText value="#{bibliothekBean.schlagwort}" placeholder="Textfeld_Schlagwort" typeahead="true" typeahead-values="Arch Enemy,Blind Guardian,Children of Bodom,Dimmu Borgir,Edge of Sanity,Fields of the Nephilim,Gates of Ishtar,Holy Moses,Iced Earth,Jethro Tull,Kreator,Lamb of God,Mekong Delta,Night in Gales,Old Dead Tree,Persefone,Running Wild,Skyclad,The Dillinger Escape Plan,Theater of Tragedy,Unleashed,Vanden Plas,Within Temptation,Xystus,Yes,Zenobia" tiny-screen="10" />
+                                    <b:inputText value="#{bibliothekBean.schlagwort}" placeholder="Textfeld_Schlagwort" typeahead="true" typeahead-values="" tiny-screen="10" />
 
                                 </b:form>
                             </div>
@@ -209,16 +209,14 @@
                                                     <td class="order-table-even-row">
                                                         <h:form>
                                                             <h:commandLink action="#{dipansehenBean.werteanzeigen(var.da_id)}">
-                                                                <h:graphicImage  class="image" value = "#{var.bild}"/>
+                                                                <h:graphicImage  class="image" value ="#{var.bild}"/>
                                                             </h:commandLink>
                                                         </h:form>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="order-table-even-row1">#{var.title}</td>
-                                                </tr>    
-
-
+                                                </tr>
                                             </td>
                                         </tr>
                                     </h:panelGroup>
@@ -247,8 +245,10 @@
                                                     </td>   
                                                 </tr>
                                                 <tr>
-                                                    <td class="order-table-even-row1">#{var.title}</td>
-                                                </tr>      
+                                                    <td class="order-table-even-row1">#{var.title}</td>   
+                                                </tr>
+                                                
+                                                
                                             </td>
                                         </tr>
                                     </h:panelGroup>

@@ -57,18 +57,36 @@
         <managed-bean-name>dipansehenBean</managed-bean-name>
         <managed-bean-class>presentation.dipansehenBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+           <property-name>dms</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
     </managed-bean>
     
     <managed-bean>
         <managed-bean-name>bibliothekBean</managed-bean-name>
         <managed-bean-class>presentation.bibliothekBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+           <property-name>dms</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
     </managed-bean>
     
     <managed-bean>
         <managed-bean-name>dipSuchenBean</managed-bean-name>
         <managed-bean-class>presentation.dipSuchenBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>uploadBean</managed-bean-name>
+        <managed-bean-class>presentation.uploadBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+           <property-name>dms</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
     </managed-bean>
     
      <navigation-rule>

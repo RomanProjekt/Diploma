@@ -27,12 +27,7 @@ import pojo.Diplomarbeit;
 //import com.itextpdf.layout.element.Paragraph;
 import service.ConnectionManager;
 
-//import service.ConnectionManager;
-//testdatenbank:
-/**
- *
- * @author hp
- */
+
 public class DiplomarbeitDAO {
 
     private Connection connection;
@@ -48,29 +43,17 @@ public class DiplomarbeitDAO {
     
     
     public List<Diplomarbeit> read() {
-        
-        
-        
-        ArrayList<Diplomarbeit> listdip = new ArrayList<>();
 
+        ArrayList<Diplomarbeit> listdip = new ArrayList<>();
+        
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("select * from diplomarbeit")) {
             while (rs.next()) {
-                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getDate(8), rs.getString(9), rs.getInt(10), rs.getInt(11));
+                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
                 listdip.add(retVal);
-            }
-
-            int columns = rs.getMetaData().getColumnCount();
-            System.out.println("ZeilengrÃ¶ÃŸe Datenbank " + columns);
-            System.out.println("Listsize " + listdip.size());
-
-            for (int i = 0; i < listdip.size(); i++) {
-                System.out.println(listdip.get(i));
-            }
-            
-            System.out.println("Listsize" + listdip.size());
+            }   
 
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,16 +72,17 @@ public class DiplomarbeitDAO {
             int da_id = 0;
             int click_count = 0;
             int download_count = 0;
+            int autor_id = 0;
 
             try (
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt = 
                 con.prepareStatement("INSERT INTO diplomarbeit"
-                + "(da_id, titel, autor_id, schule_id, pdf, user_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ?, ? ,? ,? ,?, ?, ?)");) {
+                + "(da_id, titel, autor_id, schule_id, pdf, benutzer_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ? ,? ,? ,?, ?, ?, ?)");) {
                
                 pstmt.setInt(1, da_id);
                 pstmt.setString(2, title);
-                pstmt.setInt(3, 0);
+                pstmt.setInt(3, autor_id);              
                 pstmt.setInt(4, schule_id);
                 pstmt.setString(5, pdfpath);
                 pstmt.setInt(6, user_id);
@@ -123,10 +107,9 @@ public class DiplomarbeitDAO {
          try (
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt = 
-                con.prepareStatement("UPDATE diplomarbeit SET autor_id = ? WHERE da_id =" + da_id )) {
+                con.prepareStatement("UPDATE diplomarbeit SET autor_id = ?  WHERE da_id = " + da_id )) {
 
                 pstmt.setInt(1, autor_id);
-                
                 pstmt.executeUpdate();
                 pstmt.close();
 
@@ -147,10 +130,9 @@ public class DiplomarbeitDAO {
                 ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id = " + id)) {
             
                 while(rs.next()) {
-                    retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getDate(8), rs.getString(9), rs.getInt(10), rs.getInt(11));
+                    retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getDate(8), rs.getString(9), rs.getInt(10), rs.getInt(11));
                 }
-                
-                System.out.println(retVal);
+              
             
            
 
@@ -163,22 +145,30 @@ public class DiplomarbeitDAO {
     }
     
     
-    
-    
-    
-     //Testfunktionen
-     public static void main(String[] args) throws FileNotFoundException {
-        DiplomarbeitDAO dao = new DiplomarbeitDAO();
+    public int delete(int id) {
         
-        //Update-Metode hat funktioniert
-//        dao.update(2091, 5000, 2000);
+        String query = "delete from diplomarbeit where da_id = ?";
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement(query);) {
+
+            pstmt.setInt(1, id);
+            result = pstmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
         
-        //Insert-Methode hat funktioniert
-//        dao.insert("string", 0, 0, "string", "string");
+        return result;
         
-        //getDiplomarbeit hat (nicht) funktioniert
-        dao.getDiplomarbeit(20);
     }
+    
+    
+    
+    
+   
 
   
   
@@ -198,7 +188,7 @@ public class DiplomarbeitDAO {
     public List Suchleiste(String key) { //id, title, schlagwort, autor, datum
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
-        Diplomarbeit help = new Diplomarbeit(20,"K",1,1,1,"K",1,new Date(2020-12-12),"K",1,1);
+        Diplomarbeit help = new Diplomarbeit(20,"K",1,1,"K",1,new Date(2020-12-12),"K",1,1);
         //diplomarbeiten in die Liste schreiben
         queryList.add("select * from diplomarbeit where da_id like '%"+key+"%'");
         queryList.add("select * from diplomarbeit where titel like '%"+key+"%'");
@@ -231,7 +221,6 @@ public class DiplomarbeitDAO {
                     help.setDa_id(rs.getInt("da_id"));
                     help.setTitle(rs.getString("titel"));
                     help.setAutor_id(rs.getInt("autor_id"));
-                    help.setSw_id(rs.getInt("sw_id"));
                     help.setPdf(rs.getString("pdf"));
                     help.setUser_id(rs.getInt("benutzer_id")); //user_id heißt in der datenbank benutzer_id
                     help.setDatum(rs.getDate(2020-12-20));

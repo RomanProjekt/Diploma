@@ -11,12 +11,12 @@ package pojo;
  */
 public class Schule {
     
-        private int schule_id;
-    private String schule;
+    private int schule_id;
+    private String name;
 
     public Schule(int schule_id, String schule) {
         this.schule_id = schule_id;
-        this.schule = schule;
+        this.name = schule;
     }
 
     public int getSchule_id() {
@@ -27,13 +27,15 @@ public class Schule {
         this.schule_id = schule_id;
     }
 
-    public String getSchule() {
-        return schule;
+    public String getName() {
+        return name;
     }
 
-    public void setSchule(String schule) {
-        this.schule = schule;
+    public void setName(String name) {
+        this.name = name;
     }
+
+    
 }
 
     

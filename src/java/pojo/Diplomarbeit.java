@@ -15,7 +15,6 @@ public class Diplomarbeit {
     private int da_id;
     private String title;
     private int autor_id;
-    private int sw_id;
     private int schule_id;
     private String pdf;
     private int user_id;
@@ -31,11 +30,13 @@ public class Diplomarbeit {
         
     }
 
-    public Diplomarbeit(int da_id, String title, int autor_id, int sw_id, int schule_id, String pdf, int user_id, Date datum, String bild, int download_count, int click_count) {
+
+    
+    public Diplomarbeit(int da_id, String title, int autor_id, int schule_id, String pdf, int user_id, Date datum, String bild, int download_count, int click_count) {
         this.da_id = da_id;
         this.title = title;
         this.autor_id = autor_id;
-        this.sw_id = sw_id;
+        
         this.schule_id = schule_id;
         this.pdf = pdf;
         this.user_id = user_id;
@@ -44,6 +45,8 @@ public class Diplomarbeit {
         this.download_count = download_count;
         this.click_count = click_count;
     }
+
+   
 
     
 
@@ -71,13 +74,13 @@ public class Diplomarbeit {
         this.autor_id = autor_id;
     }
 
-    public int getSw_id() {
-        return sw_id;
-    }
-
-    public void setSw_id(int sw_id) {
-        this.sw_id = sw_id;
-    }
+//    public int getSw_id() {
+//        return sw_id;
+//    }
+//
+//    public void setSw_id(int sw_id) {
+//        this.sw_id = sw_id;
+//    }
 
     public String getPdf() {
         return pdf;
@@ -135,6 +138,13 @@ public class Diplomarbeit {
     public void setClick_count(int click_count) {
         this.click_count = click_count;
     }
+
+    @Override
+    public String toString() {
+        return "Diplomarbeit{" + "da_id=" + da_id + ", title=" + title + ", autor_id=" + autor_id + ", schule_id=" + schule_id + ", pdf=" + pdf + ", user_id=" + user_id + ", datum=" + datum + ", bild=" + bild + ", download_count=" + download_count + ", click_count=" + click_count + '}';
+    }
+    
+    
     
     
 }

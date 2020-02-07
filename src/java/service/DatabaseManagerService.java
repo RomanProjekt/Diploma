@@ -159,14 +159,16 @@ public class DatabaseManagerService {
     public SchlagwortDAO getSchlagwDAO() {
         return schlagwDAO;
     }
-
+    
     public void setSchlagwDAO(SchlagwortDAO schlagwDAO) {
         this.schlagwDAO = schlagwDAO;
     }
 
     public List<Schlagwort> getAllSchlagwörter() {
-        return schlagwDAO.getAllSchlagwörter();
+        return schlagwDAO.read();
     }
+    
+   
 
     //Schlagwort-Verknüpfungstabelle
     public Diplomarbeit getDip() {
@@ -177,6 +179,10 @@ public class DatabaseManagerService {
         this.dip = dip;
     }
 
+    public Autor getAutor(int id) {
+        return autorDAO.read(id);
+    }
+    
     //FavoritenDAO
     public FavoritenDAO getFavDAO() {
         return favDAO;
@@ -198,6 +204,8 @@ public class DatabaseManagerService {
     public List<SW_DA> getAllSW_DA_Verknuepfung() {
         return this.schlagwort_verknuepfungDAO.getAllSW_DA_Verknüpfungen();
     }
+    
+    
 
     //Schule
     public SchuleDAO getSchuleDAO() {
@@ -260,9 +268,9 @@ public class DatabaseManagerService {
     }
 
     //Diplomarbeit hochladen:
-    public void hochladen(String title, String autor, String schule, List<String> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
+    public void hochladen(String title, String autor_name, String schule, List<String> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
 
-        //UserID ist falsch und noch nicht mÃ¶glich!!!
+        
         int var_user_id = this.getB().getUser_id();
 
         schuleDAO.insert(schule);
@@ -273,24 +281,22 @@ public class DatabaseManagerService {
         diplomarbeitDAO.insert(title, var_user_id, schule_id, pdfpath, imagepath);
 
         int var_da_id = this.ListeAllDiplomarbeiten().get(this.ListeAllDiplomarbeiten().size() - 1).getDa_id();
+        
 
         //2. Erstellen eines Autor-Tabelle
-        autorDAO.insert(autor, var_da_id);
+        autorDAO.insert(autor_name, var_da_id);
 
-        int var_autor_id = this.getAllAutor().get(this.getAllAutor().size() - 1).getAutor_id();
+        Autor autor = this.getAutor(var_da_id);
+        System.out.println("Autor id adsfadsfasdfsf" + autor);
 
-        //4. Erstellen eine VerknÃ¼pfungstabelle-Schlagwort
-        //schlagwort_id, da_id
-        //3. Erstellen eines Schlagwort-Tab
         schlagwDAO.insert(schlagwoerter);
-
-        //Auslesen der SchlagwÃ¶rter
-        List<Schlagwort> schlagwortliste = schlagwDAO.read();
+        
+        List<Schlagwort> schlagwortliste = this.getAllSchlagwörter().subList(this.getAllSchlagwörter().size()-2, this.getAllSchlagwörter().size());
 
         schlagwort_verknuepfungDAO.insert(schlagwortliste, var_da_id);
 
         //5.Update Diplomarbeit
-        diplomarbeitDAO.update(var_da_id, var_autor_id);
+        diplomarbeitDAO.update(var_da_id, autor.getAutor_id());
 
     }
 
@@ -298,22 +304,16 @@ public class DatabaseManagerService {
     public void insertFavouriten() {
         favDAO.insert();
     }
-
-    //Testfunktionen
-    public void test() {
-//       int var_sw_id = this.getAllSW_DA_Verknüpfung().get(this.getAllSW_DA_Verknüpfung().size()-1).getSw_id();
-        int var_autor_id = this.getAllAutor().get(this.getAllAutor().size() - 1).getAutor_id();
-        int schule_id = this.getListevonSchulen().get(this.getListevonSchulen().size() - 1).getSchule_id();
-//        System.out.println(var_sw_id + " " + var_autor_id + " " + schule_id);
+    
+    //Diplomarbeit löschen
+    public void deleteDiplomarbeit(int id) {
+        diplomarbeitDAO.delete(id);
     }
-
-    //Testfuntktionen
-    public static void main(String[] args) throws FileNotFoundException {
+    
+    public static void main(String[] args) {
         DatabaseManagerService dms = new DatabaseManagerService();
-//       System.out.println(dms.ListeAllDiplomarbeiten().size());
-//       System.out.println(dms.getAllAutor().size());
-        System.out.println(dms.varread(1, true));
-
+        dms.ListeAllDiplomarbeiten();
     }
+  
 
 }
