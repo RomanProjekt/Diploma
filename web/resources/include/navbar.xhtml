@@ -10,29 +10,22 @@
     </h:head>
     <h:body>
         <ui:composition>
-
-
-
-
             <nav class="navbar">
-
-
                 <h:form >
 
-
                     <h:link class="brand" outcome="index.xhtml">Diplomarbeiten</h:link>
-                    <b:image value="/resources/images/AK-Logo.png" height="50px" width="120px"  onclick="index.xhtml" />
+                    <b:image class="logo" value="/resources/images/AK-Logo.png" height="50px" width="120px"  onclick="index.xhtml" />
                     <ul class="navGroup" >
-                        <li><h:link class="navLink" outcome="upload.xhtml">Hochladen</h:link></li>
+                        <li><h:outputLabel value="#{databaseManagerService.loggedInBenutzer.username}" rendered="#{databaseManagerService.loggedIn()}" /></li>
+                        <li><h:link class="navLink" value="Hochladen" outcome="upload.xhtml" rendered="#{!databaseManagerService.isUser()}" /></li>
 
-                        <li><h:link class="navLink" outcome="login.xhtml" rendered="#{!databaseManagerService.loggedIn()}">Anmelden</h:link></li>
-                        <li><h:link class="navLink" outcome="meinKonto.xhtml" rendered="#{databaseManagerService.loggedIn()}" value="Mein Konto" /></li>
-                        <li><h:commandLink class="navLink" action="#{loginBean.loggout}" rendered="#{databaseManagerService.loggedIn()}" value="Abmelden" /></li>
+                        <li><h:link class="navLink" value="Anmelden" outcome="login.xhtml" rendered="#{!databaseManagerService.loggedIn()}" /></li>
+                        <li><h:link class="navLink" value="Registrieren" outcome="register.xhtml" rendered="#{!databaseManagerService.loggedIn()}" /> </li>
+                        <li><h:link class="navLink" value="Mein Konto"  outcome="meinKonto.xhtml" rendered="#{databaseManagerService.loggedIn()}" /></li>
+                        <li><h:commandLink class="navLink" value="Abmelden" action="#{loginBean.loggout}" rendered="#{databaseManagerService.loggedIn()}"  /></li>
                     </ul>
 
                 </h:form>
-
-
             </nav>
         </ui:composition>
     </h:body>

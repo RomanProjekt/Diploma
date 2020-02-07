@@ -1,0 +1,31 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 07.02.2020, 14:10:43
+    Author     : dople
+*/
+
+.login {
+    position: relative;
+    margin: auto;
+    width: 300px;
+    text-align: center;  
+}
+
+.login form .form-group label{
+    text-align: left;
+}
+
+.login form .cButton{
+    margin: 0 4px;
+
+}
+
+.login form .cLink {
+    display: inline-block;
+    position: relative;
+    margin-top: 5px;
+}
