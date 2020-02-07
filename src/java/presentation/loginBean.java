@@ -7,6 +7,8 @@ package presentation;
 
 import pojo.Benutzer;
 import javax.annotation.PostConstruct;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import service.DatabaseManagerService;
 
@@ -45,25 +47,52 @@ public class loginBean {
 
     }
 
+    private String previousPage = null;
+
+    public void checkF5() {
+
+        UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+        String id = viewRoot.getViewId();
+        if (previousPage != null && (previousPage.equals(id))) {
+            message = null;
+            username = null;
+            pw = null;
+        }
+        previousPage = id;
+    }
+
     public Object load() {
+        message = null;
         b = dbService.load(username);
 
         if (b != null) {
             if (pw.equals(b.getPassWd())) {
                 dbService.setLoggedInBenutzer(b);
+                username = null;
+                pw = null;
+
                 return "success";
             } else {
-                message = "Username or Password are wrong!";
+                message = "Benutzername oder Passwort sind falsch!";
             }
 
         } else {
-            message = "Username or Password are wrong!";
+            message = "Benutzername oder Passwort sind falsch";
         }
         return "fail";
     }
 
     public Object loggout() {
         dbService.loggout();
+        return null;
+    }
+
+    public String onLoad() {
+
+        message = null;
+        pw = null;
+        username = null;
+
         return null;
     }
 

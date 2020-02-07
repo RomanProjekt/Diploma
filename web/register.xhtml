@@ -14,41 +14,40 @@ and open the template in the editor.
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
         <h:outputStylesheet library= "css" name= "Test.css" />
+        <h:outputStylesheet library= "css" name= "register.css" />
 
     </h:head>
     <h:body>
         <ui:include src="/resources/include/navbar.xhtml" />
         <f:view>
-            <h2>Diplomarbeiten</h2>
-            <h3>Registrierung</h3>
-            <b:form id="reg" >
+            <div class="register">
+                <h3>Registrierung</h3>
+                <b:form id="reg"  >
 
-                <h:panelGrid columns="2" cellpadding="5">
 
-                    <b:inputText label="Benutzername" value="#{registerBean.username}" labelStyle="width:80px;">
+
+                    <b:inputText placeholder="Benutzername" value="#{registerBean.username}" required="true" requiredMessage="" />
+                    <b:inputSecret placeholder="Passwort" value="#{registerBean.pw}" required="true" requiredMessage="" />
+
+
+                    <b:inputText placeholder="Vorname" value="#{registerBean.firstName}" required="true" requiredMessage="" />
+
+                    <b:inputText placeholder="Nachname" value="#{registerBean.lastName}" required="true" requiredMessage="" />
+
+                    <b:inputText placeholder="E-Mail" id="eMail" value="#{registerBean.email}" required="true" requiredMessage="" validator-message="Keine Gültige E-Mail Adresse" > 
+                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
                     </b:inputText>
-
-                    <b:label value=""></b:label>
-
-                    <b:inputText label="Vorname" value="#{registerBean.firstName}" labelStyle="width:80px;">
-                    </b:inputText>
-
-                    <b:inputText label="Nachname" value="#{registerBean.lastName}" labelStyle="width:80px;">
-                    </b:inputText>
-
-                    <b:inputText label="E-Mail" value="#{registerBean.email}" labelStyle="width:80px;">
-                    </b:inputText>
-
-                    <b:label value=""></b:label>
+                    <h:message for="eMail" style="color: red" />
+                    <br />
 
 
-                    <b:inputText label="Passwort" value="#{registerBean.pw}" labelStyle="width:80px;">
-                    </b:inputText>
+
 
                     <b:commandButton value="Registrierung" action="#{registerBean.register()}" />
 
-                </h:panelGrid>
-            </b:form>
+
+                </b:form>
+            </div>
         </f:view>
     </h:body>
 </html>

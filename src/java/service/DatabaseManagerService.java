@@ -87,6 +87,18 @@ public class DatabaseManagerService {
         loggedInBenutzer = new Benutzer();
     }
 
+    public boolean isUser() {
+        return "User".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() == null;
+    }
+
+    public Object isAdminRedirect() {
+        if (!"Admin".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() == null) {
+            return "access-denied";
+        }
+        return null;
+    }
+
+    ////Getter-Setter
     public Benutzer getB() {
         return b;
     }

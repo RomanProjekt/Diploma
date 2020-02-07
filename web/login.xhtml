@@ -14,30 +14,33 @@ and open the template in the editor.
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
         <h:outputStylesheet library= "css" name= "Test.css" />
+        <h:outputStylesheet library="css" name="login.css" />
 
     </h:head>
+    <f:metadata>
+<!--        <f:event type="preRenderView" listener="#{loginBean.onLoad()}" />-->
+        <f:viewAction action="#{loginBean.checkF5()}" onPostback="true" />
+    </f:metadata>
     <h:body>
         <ui:include src="/resources/include/navbar.xhtml" />
-        <f:view>
-            <h2>Diplomarbeiten</h2>
-            <h3>Anmeldung</h3>
-            <b:form id="log" >
+        <f:view >
+            <div class="login">
+                <h3>Anmeldung</h3>
+                <b:form id="log" >
 
-                <h:panelGrid columns="1" cellpadding="5">
+                    <b:inputText placeholder="Username" value="#{loginBean.username}" labelStyle="width:80px;" required="true" requiredMessage="" />
+                    <b:inputSecret placeholder="Passwort" value="#{loginBean.pw}"  labelStyle="width:80px;" required="true" requiredMessage="" />
 
-                    <b:inputText label="Username" value="#{loginBean.username}" labelStyle="width:80px;">
-                    </b:inputText >
 
-                    <b:inputText label="Passwort" value="#{loginBean.pw}" labelStyle="width:80px;">
-                    </b:inputText>
+                    <b:commandButton class="cButton" value="Anmelden" action="#{loginBean.load()}" />
+                    <b:commandButton class="cButton" value="Registrieren" action="register.xhtml" />
+                    <br />
+                    <b:commandLink class="cLink" value="Passwort vergessen" ></b:commandLink>
 
-                    <b:commandButton value="Anmelden" action="#{loginBean.load()}" />
-                    <b:commandButton value="Registrieren" action="register.xhtml" />
-                    <b:commandLink value="Passwort zurücksetzen" ></b:commandLink>
-
-                </h:panelGrid>
-                <h:outputText value="#{loginBean.message}" />
-            </b:form>
+                    <br />
+                    <h:outputText value="#{loginBean.message}" style="color: red" />
+                </b:form>
+            </div>
         </f:view>
     </h:body>
 </html>

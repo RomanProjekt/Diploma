@@ -28,6 +28,9 @@ and open the template in the editor.
             }
         </script>
     </h:head>
+    <f:metadata>
+        <f:viewAction action="#{databaseManagerService.isAdminRedirect()}" />
+    </f:metadata>
     <h:body>
         <ui:include src="/resources/include/navbar.xhtml" />
         <f:view>
