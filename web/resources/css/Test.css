@@ -60,33 +60,3 @@ and open the template in the editor.
     background-color: lightcoral;
 }
 
-
-/*    
-
-.navbar .pillLinks {
-    align-content: center;
-    text-align: center;
-    display: inline-block;
-    height: 50px;
-}
-.navbar .navbar-brand a{
-    text-align: center;
-}
-
-
-.navbar .navLink .link{
-    
-    font-size: 15px;
-    color: #464a56;
-    display: inline-block;
-    border-color: white;
-    border-width: 3px;
-
-
-    text-transform: uppercase;
-    
-}
-    
-.navbar .navLink a:hover{
-    background-color: lightcoral;
-}*/

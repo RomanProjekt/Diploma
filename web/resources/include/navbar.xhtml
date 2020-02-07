@@ -3,13 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
 
     </h:head>
     <h:body>
         <ui:composition>
+            <f:metadata>
+                <f:viewAction action="#{databaseManagerService.stillLoggedIn()}" onPostback="true" />
+            </f:metadata>
             <nav class="navbar">
                 <h:form >
 
@@ -17,6 +21,8 @@
                     <b:image class="logo" value="/resources/images/AK-Logo.png" height="50px" width="120px"  onclick="index.xhtml" />
                     <ul class="navGroup" >
                         <li><h:outputLabel value="#{databaseManagerService.loggedInBenutzer.username}" rendered="#{databaseManagerService.loggedIn()}" /></li>
+                        <li><h:link class="navLink" value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" rendered="#{databaseManagerService.isAdmin()}" /></li>
+                        <li><h:link class="navLink" value="Bibliothek" outcome="bibliothek.xhtml"    /></li>
                         <li><h:link class="navLink" value="Hochladen" outcome="upload.xhtml" rendered="#{!databaseManagerService.isUser()}" /></li>
 
                         <li><h:link class="navLink" value="Anmelden" outcome="login.xhtml" rendered="#{!databaseManagerService.loggedIn()}" /></li>

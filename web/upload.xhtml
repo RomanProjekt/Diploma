@@ -8,40 +8,47 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        
+
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
         <h:outputStylesheet library= "css" name= "bibliothek_styles.css" />
-        
+        <h:outputStylesheet library= "css" name= "Test.css" />
+
     </h:head>
+    <f:metadata>
+        <f:viewAction action="#{databaseManagerService.isUserRedirect()}" />
+    </f:metadata>
     <h:body>
-       <f:view>
+        <ui:include src="/resources/include/navbar.xhtml" />
+        <f:view>
+
             <h2>Diplomarbeiten hochladen</h2>
             <h3></h3>
             <b:form id="diplomarbeithochladen" enctype="multipart/form-data">
 
                 <h:panelGrid columns="1" cellpadding="5">
-                    
-                    
+
+
                     <b:inputText label="Titel" value="#{uploadBean.titel}" labelStyle="width:80px;">
                     </b:inputText>
                     <h:outputText value="#{uploadBean.titel_fail}"></h:outputText>
 
                     <b:inputText label="Autor" value="#{uploadBean.autor}" labelStyle="width:80px;">
                     </b:inputText>
-                    
+
                     <b:inputText label="Schule" value="#{uploadBean.schule}" labelStyle="width:80px;">
                     </b:inputText>
 
                     <b:inputText label="Schlagwort" value="#{uploadBean.schlagwort}" labelStyle="width:80px;">
                     </b:inputText>
-                    
+
                     <h5>Diplomarbeit</h5>
                     <h:inputFile id="diplomarbeit-id" value="#{uploadBean.diplomarbeit}"></h:inputFile>
                     <h:outputText value="#{uploadBean.pdfdabei_fail}"></h:outputText>
                     <br></br>
-                    
+
                     <h5>Bild</h5>
                     <h:inputFile id="image-id" value="#{uploadBean.image}"></h:inputFile>
                     <h:outputText value="#{uploadBean.bilddatei_fail}"></h:outputText>

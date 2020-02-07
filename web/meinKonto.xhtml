@@ -8,39 +8,47 @@
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet library= "css" name= "Test.css" />
+        <h:outputStylesheet library= "css" name= "meinKonto.css" />
     </h:head>
     <h:body>
         <ui:include src="/resources/include/navbar.xhtml" />
 
-        <f:view>/>
-            <h2>Mein Konto</h2>
-            <div class="userdata">
-                <b:panelGrid columns="2" >
-                    <h:outputLabel value="Vorname" />
-                    <h:outputLabel value="#{meinKontoBean.loggedInUser.firstname}" />
+        <f:view>
+            <div class="meinKonto" >
 
-                    <h:outputLabel value="Nachname" />
-                    <h:outputLabel value="#{meinKontoBean.loggedInUser.lastname}" />
+                <h2>Mein Konto</h2>
+                <div class="userdata">
+                    <b:form>
+                        <b:panelGrid columns="2"  styleClass="panelGrid" >
 
-                    <h:outputLabel value="Benutzername" />
-                    <h:outputLabel value="#{meinKontoBean.loggedInUser.username}" />
+                            <h:outputLabel class="lable" value="Vorname" />
+                            <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.firstname}" />
 
-                    <h:outputLabel value="E-Mail" />
-                    <h:outputLabel value="#{meinKontoBean.loggedInUser.geteMail()}" />
+                            <h:outputLabel class="lable" value="Nachname" />
+                            <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.lastname}" />
 
-                </b:panelGrid>
-            </div>
-            <div class="favoriten" >
-                <b:dataTable>
+                            <h:outputLabel class="lable" value="Benutzername" />
+                            <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.username}" />
 
-                </b:dataTable>
-            </div>
+                            <h:outputLabel class="lable" value="E-Mail" />
+                            <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.geteMail()}" />
 
-            <div class="uploadedDA">
-                <b:dataTable>
+                        </b:panelGrid>
+                        <b:commandButton value="Nutzerdaten Ändern" />
+                    </b:form>
+                </div>
+                <div class="favoriten" >
+                    <b:dataTable>
+
+                    </b:dataTable>
+                </div>
+
+                <div class="uploadedDA">
+                    <b:dataTable>
 
 
-                </b:dataTable>
+                    </b:dataTable>
+                </div>
             </div>
         </f:view>
     </h:body>
