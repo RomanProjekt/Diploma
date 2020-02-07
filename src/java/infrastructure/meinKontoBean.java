@@ -18,17 +18,17 @@ public class meinKontoBean {
     private String username;
     private String firstname;
     private String lastname;
-
     private String passWd;
-    private String bestÃ¤tigtespassWd;
-    private boolean isgleich;
-
     private String salt;
     private String role;
     private String email;
+    private String vergleichpassWd;
+    private boolean isgleich;
 
     private DatabaseManagerService dms;
 
+    
+    
     public meinKontoBean() {
     }
 
@@ -101,13 +101,22 @@ public class meinKontoBean {
         this.email = email;
     }
 
-    public String getBestÃ¤tigtespassWd() {
-        return bestÃ¤tigtespassWd;
+    public DatabaseManagerService getDms() {
+        return dms;
     }
 
-    public void setBestÃ¤tigtespassWd(String bestÃ¤tigtespassWd) {
-        this.bestÃ¤tigtespassWd = bestÃ¤tigtespassWd;
+    public void setDms(DatabaseManagerService dms) {
+        this.dms = dms;
     }
+
+    public String getVergleichpassWd() {
+        return vergleichpassWd;
+    }
+
+    public void setVergleichpassWd(String vergleichpassWd) {
+        this.vergleichpassWd = vergleichpassWd;
+    }
+    
 
     public boolean isIsgleich() {
         return isgleich;
@@ -117,8 +126,18 @@ public class meinKontoBean {
         this.isgleich = isgleich;
     }
 
+    
+    
+    
+    
+    
+    public Object updateBenutzer() {
+        return null;
+    }
+    
+
     public boolean vergleichenPasswort() {
-        isgleich = this.passWd.equals(this.bestÃ¤tigtespassWd);
+        isgleich = this.passWd.equals(this.vergleichpassWd);
         return isgleich;
     }
 
@@ -141,5 +160,5 @@ public class meinKontoBean {
         return null;
 
     }
-
+    
 }

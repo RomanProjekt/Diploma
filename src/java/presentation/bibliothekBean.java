@@ -6,21 +6,13 @@
 package presentation;
 
 import infrastructure.DiplomarbeitDAO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Blob;
-import java.util.List;
 import javax.annotation.PostConstruct;
-import pojo.Diplomarbeit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionListener;
-import javax.faces.event.PhaseId;
-
+import javax.faces.event.ActionEvent;
 import pojo.Diplomarbeit;
 import service.DatabaseManagerService;
 
@@ -36,9 +28,7 @@ public class bibliothekBean {
     private String speech;
     private String fachgebiet;
     private String schlagwort;
-    private List<Diplomarbeit> diplist;
-    private List<Diplomarbeit> testdiplist;
-
+    
     //Variablen: Diplomarbeit
     private int da_id;
     private String title;
@@ -60,23 +50,27 @@ public class bibliothekBean {
     private String message = "0";
 
     //DatabaseManagerService
-    public DatabaseManagerService dms;
-    
+    private DatabaseManagerService dms;
     private boolean renderer;
 
-   
+    private String aktuellerBenutzer;
     
     
     //Liste aller Diplomarbeiten
     private List<Diplomarbeit> alldiplomarbeiten;
+    private List<Diplomarbeit> diplist;
 
 
     public bibliothekBean() throws SQLException, FileNotFoundException {
         dms = new DatabaseManagerService();
         diplist = new ArrayList<>();
         alldiplomarbeiten = new ArrayList<>();
+        
         diplist = dms.varread(seitenanzahl, renderer);
         alldiplomarbeiten = dms.ListeAllDiplomarbeiten();
+//      diplist.add(new Diplomarbeit(12, "Bild01", 12, 12, 12, null, 12, new Date(2020-12-01), null, 12, 12));
+
+        
 
 
     }
@@ -235,9 +229,42 @@ public class bibliothekBean {
     public void setClick_count(int click_count) {
         this.click_count = click_count;
     }
+
+    public DiplomarbeitDAO getDa() {
+        return da;
+    }
+
+    public void setDa(DiplomarbeitDAO da) {
+        this.da = da;
+    }
+
+    public DatabaseManagerService getDms() {
+        return dms;
+    }
+
+    public void setDms(DatabaseManagerService dms) {
+        this.dms = dms;
+    }
+
+    public List<Diplomarbeit> getAlldiplomarbeiten() {
+        return alldiplomarbeiten;
+    }
+
+    public void setAlldiplomarbeiten(List<Diplomarbeit> alldiplomarbeiten) {
+        this.alldiplomarbeiten = alldiplomarbeiten;
+    }
     
-    
-     public boolean isRenderer() {
+    //
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    //Variable renderer ist für den aus- und einblenden von der Zählerleiste
+    public boolean isRenderer() {
         return renderer;
     }
 
@@ -245,43 +272,133 @@ public class bibliothekBean {
         this.renderer = renderer;
     }
 
+    public String getPfad() {
+        return pfad;
+    }
 
-    //Ende Get- und Setmethoden, Diplomarbeit
+    public void setPfad(String pfad) {
+        this.pfad = pfad;
+    }
+
+    public int getSeitenanzahl() {
+        return seitenanzahl;
+    }
+
+    public void setSeitenanzahl(int seitenanzahl) {
+        this.seitenanzahl = seitenanzahl;
+    }
+
+    public String getAktuellerBenutzer() {
+        return aktuellerBenutzer;
+    }
+
+    public void setAktuellerBenutzer(String aktuellerBenutzer) {
+        this.aktuellerBenutzer = aktuellerBenutzer;
+    }
+    
+    
+    public void aktullerBenutzer() {
+        dms.getLoggedInBenutzer();
+    }
+
+
+ 
+//    //Hinzugefügt
+//    Object listediplomarbeiten;
+//
+//    public Object getListediplomarbeiten() {
+//
+//        int index = 0;
+//
+//        listediplomarbeiten = diplist.get(index);
+//        return listediplomarbeiten;
+//    }
+//
+//    public void setListediplomarbeiten(Object Listediplomarbeiten) {
+//        this.listediplomarbeiten = Listediplomarbeiten;
+//    }
+    
+    
+    public Object hochzählen(ActionEvent actionEvent) {
+
+        int maxszahl = 0;
+        
+
+        if (alldiplomarbeiten.size() % 10 == 0) {
+            maxszahl = (int) alldiplomarbeiten.size() / 10-1;
+            System.out.println(maxszahl);
+            
+        } else {
+            
+            if(alldiplomarbeiten.size() % 10 <= 4) {
+                maxszahl = (alldiplomarbeiten.size() / 10);
+                System.out.println(maxszahl);
+            } 
+            else if(alldiplomarbeiten.size() % 10 >= 5) {
+                 maxszahl = alldiplomarbeiten.size() / 10;
+                 System.out.println(maxszahl);
+            }
+
+        }
+
+        if (alldiplomarbeiten.size() > 0) {
+
+            if (seitenanzahl < maxszahl) {
+                this.seitenanzahl = this.seitenanzahl + 1;
+                this.message = String.valueOf(seitenanzahl);
+                this.diplist = dms.varread(seitenanzahl, renderer);
+            }
+
+        }
+        
+        return null;
+
+    }
+
+    public Object hinunterzählen(ActionEvent actionEvent) {
+
+        if (seitenanzahl != 0) {
+            seitenanzahl = seitenanzahl - 1;
+            message = String.valueOf(seitenanzahl);
+            diplist = dms.varread(seitenanzahl, renderer);
+            
+        } else {
+            seitenanzahl = 0;
+            message = String.valueOf(seitenanzahl);
+            diplist = dms.varread(seitenanzahl, renderer);
+
+        }
+        
+        return null;
+
+    }
+    
+    
+     //Ende Get- und Setmethoden, Diplomarbeit
     public Object suche(String titel, String autor, String date, String fachgebiet, String schlagwort) {
         System.out.println(titel + autor + date + fachgebiet + schlagwort);
-
         return null;
     }
+    
+    
+    public void verlinken(ActionEvent event) {
+        
+       renderer = true;
+        
+//      if("hallo".equals(event.getActionCommand())) {
+//          int aktuellesanzahl = event.getID();
+//          this.diplist = dms.varread(aktuellesanzahl, renderer);
+//          
+//      }
+       
+    }   
+        
+    
+    
+    
+    
+  
+    
 
-    Object listediplomarbeiten;
-
-    public Object getListediplomarbeiten() {
-
-        int index = 0;
-
-        listediplomarbeiten = diplist.get(index);
-        return listediplomarbeiten;
-    }
-
-    public void setListediplomarbeiten(Object Listediplomarbeiten) {
-        this.listediplomarbeiten = Listediplomarbeiten;
-    }
-
-    public static void main(String[] args) throws SQLException, IOException {
-
-        bibliothekBean bb = new bibliothekBean();
-
-//        System.out.println(bb.getDiplist().get(1).getBild());
-////         System.out.println(bb.getAutor());
-////         System.out.println(bb.autor_id);
-////         System.out.println(bb.getBild(0));
-////         System.out.println(bb.getBild(0));
-////         System.out.println(bb.getBild(0));
-//         
-////         System.out.println(bb.getDiplist());
-//         
-////         System.out.println("Bufferimage " + bb.bildladen());
-////         System.out.println("Bufferimage " + bb.getBi());
-    }
 
 }

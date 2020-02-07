@@ -13,9 +13,12 @@ public class Schlagwort {
     private int tag_id;
     private String word;
 
+
+    
     public Schlagwort(int tag_id, String word) {
         this.tag_id = tag_id;
         this.word = word;
+       
     }
 
     public int getTag_id() {

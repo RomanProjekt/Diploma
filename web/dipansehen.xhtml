@@ -25,7 +25,8 @@ and open the template in the editor.
                     
                     <h:graphicImage value = "#{dipansehenBean.imagepath}" height="50px" width="50px" alt="Image not found"/>
                     
-                    <b:inputText  label="Titel" value="#{dipansehenBean.titel}" labelStyle="width:80px;" disabled="true"></b:inputText>   
+                    <b:inputText  label="Titel" value="#{dipansehenBean.titel}" labelStyle="width:80px;" disabled="true">
+                    </b:inputText>   
                     
                     <b:inputText  label="Autor" value="#{dipansehenBean.autor}" labelStyle="width:80px;" disabled="true">
                     </b:inputText>
@@ -39,6 +40,7 @@ and open the template in the editor.
                     <b:commandButton value="Download" action="#{dipansehenBean.download()}" />
                     <b:commandButton value="Diplomarbeit ansehen" action="#{dipansehenBean.diplomarbeitansehen()}" />
                     <b:commandButton value="Favouriten speichern" actionListener="#{dipansehenBean.speichern(event)}"/>
+                    <b:commandButton value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}"/>
                     <br></br>                  
                     <b:commandButton value="Back" action="bibliothek.xhtml" />
 

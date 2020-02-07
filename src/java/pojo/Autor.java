@@ -12,9 +12,9 @@ package pojo;
 public class Autor {
     private int autor_id;
     private String fullName;
-    private String da_id;
+    private int da_id;
 
-    public Autor(int autor_id, String fullName, String da_id) {
+    public Autor(int autor_id, String fullName, int da_id) {
         this.autor_id = autor_id;
         this.fullName = fullName;
         this.da_id = da_id;
@@ -36,12 +36,19 @@ public class Autor {
         this.fullName = fullName;
     }
 
-    public String getDa_id() {
+    public int getDa_id() {
         return da_id;
     }
 
-    public void setDa_id(String da_id) {
+    public void setDa_id(int da_id) {
         this.da_id = da_id;
     }
+
+    @Override
+    public String toString() {
+        return "Autor{" + "autor_id=" + autor_id + ", fullName=" + fullName + ", da_id=" + da_id + '}';
+    }
+
+    
     
 }

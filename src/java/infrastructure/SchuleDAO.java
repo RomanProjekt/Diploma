@@ -23,7 +23,7 @@ import service.ConnectionManager;
  */
 public class SchuleDAO {
 
-    int schule_id = 0;
+    int schule_id;
 
     public List<Schule> read() {
 
@@ -54,20 +54,26 @@ public class SchuleDAO {
 
         return listd_schule;
     }
+    
+    
+    
 
     public void insert(String schule) {
+        
+        
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt
                 = con.prepareStatement("INSERT INTO schule"
-                        + "(schule_id, schule_name) VALUES (?, ?)");) {
+                        + "(schule_id, name) VALUES (?, ?)");) {
 
-            pstmt.setInt(1, schule_id++);
+            pstmt.setInt(1, schule_id);
             pstmt.setString(2, schule);
 
             pstmt.executeUpdate();
             pstmt.close();
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -21,32 +21,23 @@ import service.ConnectionManager;
 
 public class SchlagwortDAO {
     
-    private int tag_id;
+    int tag_id;
+    
+
     
     
     public List<Schlagwort> read() {
-
         
         List<Schlagwort> listd_schlagwort = new ArrayList<>();
-        
+
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from schule")) {
+                ResultSet rs = stmt.executeQuery("select * from schlagwort")) {
             while (rs.next()) {
                 Schlagwort retVal = new Schlagwort(rs.getInt(1), rs.getString(2));
                 listd_schlagwort.add(retVal);
             }
-
-            int columns = rs.getMetaData().getColumnCount();
-            System.out.println("ZeilengrÃ¶ÃŸe Datenbank" + columns);
-            System.out.println("Listsize" + listd_schlagwort.size());
-
-            for (int i = 0; i < listd_schlagwort.size(); i++) {
-                System.out.println(listd_schlagwort.get(i));
-            }
-            
-            System.out.println("Listsize" + listd_schlagwort.size());
 
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,28 +51,27 @@ public class SchlagwortDAO {
     
     
     
-    public void insert(List<String> schlagwort) {
+    public void insert(List<String> schlagwoerter) {
+
+        for(int i = 0; i < schlagwoerter.size(); i++) {
+            insert_schlagwort(this.tag_id, schlagwoerter.get(i));
+        }
         
-        
-        for(int i = 0; i < schlagwort.size(); i++) {
-            insert_schlagwort(i, tag_id, schlagwort);
-        }    
     }
     
     
-    public void insert_schlagwort(int i, int sw_id, List<String> schlagwort) {
+    public void insert_schlagwort(int tag_id, String schlagwort) {
         
          
          try (
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt
                 = con.prepareStatement("INSERT INTO schlagwort"
-                        + "(tag_id, word, sw_id) VALUES (?, ?, ?)");) {
+                        + "(id, name) VALUES (?, ?)");) {
 
-                pstmt.setInt(1, tag_id);
-                pstmt.setString(2, schlagwort.get(i));
-                pstmt.setInt(3, sw_id);        
-            
+                pstmt.setInt(1, this.tag_id);
+                pstmt.setString(2, schlagwort);
+
 
             pstmt.executeUpdate();
             pstmt.close();
@@ -111,7 +101,7 @@ public class SchlagwortDAO {
             }
 
             int columns = rs.getMetaData().getColumnCount();
-            System.out.println("ZeilengrÃ¶ÃŸe Datenbank " + columns);
+            System.out.println("Zeilengr Datenbank " + columns);
             System.out.println("Listsize " + listschlagwort.size());
 
             for (int i = 0; i < listschlagwort.size(); i++) {
@@ -125,14 +115,7 @@ public class SchlagwortDAO {
         return listschlagwort;
         
     }
-    
-    
-    
-    //Testfunktionen
-    public static void main(String[] args) {
-    }
-    
-    
+      
     
 }
 

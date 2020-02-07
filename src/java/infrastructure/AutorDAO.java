@@ -22,32 +22,26 @@ import service.ConnectionManager;
  */
 public class AutorDAO {
     
-  
+    int autor_id;
+    
 
     public List<Autor> getAllAutor() {
 
+        Autor retVal;
         List<Autor> listautor = new ArrayList<>();;
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from autor")) {
+                ResultSet rs = stmt.executeQuery("select * from autoren")) {
             while (rs.next()) {
-                Autor retVal = new Autor(rs.getInt(1), rs.getString(2), rs.getString(3));
+                retVal = new Autor(rs.getInt(1), rs.getString(2), rs.getInt(3));
                 listautor.add(retVal);
 
             }
 
-//            int columns = rs.getMetaData().getColumnCount();
-//            System.out.println("ZeilengrÃ¶ÃŸe Datenbank " + columns);
-//            System.out.println("Listsize " + listautor.size());
-//
-//            for (int i = 0; i < listautor.size(); i++) {
-//                System.out.println(listautor.get(i).getFullName());
-//            }
-
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AutorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return listautor;
@@ -55,46 +49,48 @@ public class AutorDAO {
     
     
 
-    public Autor read(int autor_id) {
-        Autor retVal = null;
+    public Autor read(int da_id) {
 
+        Autor retVal = null;
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select autor_id, fullname, da_id from diplomarbeit" + "WHERE auto_id =" + autor_id)) {
-            if (rs.next()) {
-                retVal = new Autor(rs.getInt(1), rs.getString(2), rs.getString(3));
+                ResultSet rs = stmt.executeQuery("SELECT * FROM autoren WHERE da_id = " + da_id)) {
+            while (rs.next()) {
+                 retVal = new Autor(rs.getInt(1), rs.getString(2), rs.getInt(3)); 
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AutorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return retVal;
 
     }
+    
+    
+    
+    
 
-    public int insert(String fullname, int da_id) {
-
-        int autor_id = 0;
+    public void insert(String fullname, int da_id) {
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt
-                = con.prepareStatement("INSERT INTO autor"
-                        + "(autor_id, fullname, da_id) VALUES (?, ?, ?)");) {
+                = con.prepareStatement("INSERT INTO autoren"
+                        + "(id, fullname, da_id) VALUES (?, ?, ?)");) {
 
-            pstmt.setInt(1, autor_id++);
+            pstmt.setInt(1, autor_id);
             pstmt.setString(2, fullname);
             pstmt.setInt(3, da_id);
             pstmt.executeUpdate();
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AutorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
 
-        return autor_id;
+        
 
     }
     

@@ -59,9 +59,19 @@ and open the template in the editor.
 .order-table-even-row1{
     
         font-size: 25px;    
-	text-align:center;
         padding-bottom: 25px;	  
 }
+
+.order-table-even-row2{
+        
+        font-size: 25px;    
+/*	text-align:center;*/
+       
+        
+        
+}
+
+
 
 .image {
     height: 250px; 

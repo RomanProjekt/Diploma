@@ -26,6 +26,7 @@ and open the template in the editor.
                     
                     <b:inputText label="Titel" value="#{uploadBean.titel}" labelStyle="width:80px;">
                     </b:inputText>
+                    <h:outputText value="#{uploadBean.titel_fail}"></h:outputText>
 
                     <b:inputText label="Autor" value="#{uploadBean.autor}" labelStyle="width:80px;">
                     </b:inputText>
@@ -37,17 +38,17 @@ and open the template in the editor.
                     </b:inputText>
                     
                     <h5>Diplomarbeit</h5>
-                    <h:inputFile id="diplomarbeit-id" value="#{uploadBean.diplomarbeit}">
-<!--                        <f:ajax listener="#{uploadBean.save}" />-->
-                    </h:inputFile>
+                    <h:inputFile id="diplomarbeit-id" value="#{uploadBean.diplomarbeit}"></h:inputFile>
+                    <h:outputText value="#{uploadBean.pdfdabei_fail}"></h:outputText>
                     <br></br>
                     
                     <h5>Bild</h5>
-                    <h:inputFile id="image-id" value="#{uploadBean.image}">
-<!--                        <f:ajax listener="#{uploadBean.save}" />-->
-                    </h:inputFile>
+                    <h:inputFile id="image-id" value="#{uploadBean.image}"></h:inputFile>
+                    <h:outputText value="#{uploadBean.bilddatei_fail}"></h:outputText>
                     <br></br>
                     <b:commandButton value="Diplomarbeit hochladen" action="#{uploadBean.upload_diplomarbeit()}" />
+                    <br></br>
+                    <b:commandButton value="Back" action="index.xhtml" />
 
                 </h:panelGrid>
             </b:form>
