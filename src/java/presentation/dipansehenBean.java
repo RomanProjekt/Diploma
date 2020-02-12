@@ -49,7 +49,7 @@ public class dipansehenBean {
 
     @PostConstruct
     void init() {
-        dms = new DatabaseManagerService();
+
     }
 
     public DatabaseManagerService getDms() {
@@ -276,8 +276,12 @@ public class dipansehenBean {
     }
 
     //Favouriten
-    public void speichern(ActionEvent event) {
-        dms.insertFavouriten();
+    public void speichern() {
+        int b_id = dms.getLoggedInBenutzer().getUser_id();
+        int res = dms.insertFavouriten(aktDip.getDa_id(), b_id);
+        if (res == 1) {
+            titel = "Success";
+        };
     }
 
     public void löschenDiplomarbeit(ActionEvent event) {

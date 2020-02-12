@@ -54,6 +54,7 @@ public class DatabaseManagerService {
         schlagwort_verknuepfungDAO = new SW_DA_DAO();
         schuleDAO = new SchuleDAO();
         diplomarbeitDAO = new DiplomarbeitDAO();
+        favDAO = new FavoritenDAO();
 
     }
 
@@ -333,8 +334,8 @@ public class DatabaseManagerService {
     }
 
     //Favouriten einfügen
-    public void insertFavouriten() {
-        favDAO.insert();
+    public int insertFavouriten(int dp_id, int b_id) {
+        return this.favDAO.insert(dp_id, b_id);
     }
 
     //Diplomarbeit löschen

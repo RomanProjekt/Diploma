@@ -6,6 +6,7 @@
 package infrastructure;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,13 +17,10 @@ import java.util.logging.Logger;
 import pojo.Diplomarbeit;
 import service.ConnectionManager;
 
-
-
 public class FavoritenDAO {
-    
-    
-        public List<Diplomarbeit> read() {
-        
+
+    public List<Diplomarbeit> read() {
+
         ArrayList<Diplomarbeit> listfav_dip = new ArrayList<>();
 
         try (
@@ -41,7 +39,7 @@ public class FavoritenDAO {
             for (int i = 0; i < listfav_dip.size(); i++) {
                 System.out.println(listfav_dip.get(i));
             }
-            
+
             System.out.println("Listsize" + listfav_dip.size());
 
         } catch (SQLException ex) {
@@ -49,16 +47,25 @@ public class FavoritenDAO {
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return listfav_dip;
-        
+
     }
-    
-    
-    
-    public void insert() {
-        //Test
+
+    public int insert(int dp_id, int b_id) {
+        String query = "insert into favoriten(`benutzer_id`, `da_id`) values(?, ?)";
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement(query);) {
+
+            pstmt.setInt(1, b_id);
+            pstmt.setInt(2, dp_id);
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        return result;
     }
-    
+
 }
-
-    
-
