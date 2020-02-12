@@ -28,6 +28,7 @@ public class dipansehenBean {
 
     DiplomarbeitDAO dao = new DiplomarbeitDAO();
 
+    private Diplomarbeit aktDip;
     private String titel;
     private String autor;
     private String schule;
@@ -38,13 +39,10 @@ public class dipansehenBean {
     private String buttonId;
     private String result;
     private String imagepath;
-    
+
     private String bildnamegleich;
     private String pdfnamegleich;
 
-    
-    
-    
     public dipansehenBean() {
 
     }
@@ -158,27 +156,24 @@ public class dipansehenBean {
         this.pdfnamegleich = pdfnamegleich;
     }
 
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    public Diplomarbeit getAktDip() {
+        return aktDip;
+    }
+
+    public void setAktDip(Diplomarbeit aktDip) {
+        this.aktDip = aktDip;
+    }
 
     //Funktionen
-    public String werteanzeigen(int id) {
-        auslesenWerte(id);
-        this.aktuelle_id = id;
+    public String werteanzeigen(Diplomarbeit dip) {
+        this.aktDip = dip;
+        this.autor = dms.getOneAutor(aktDip.getDa_id()).getFullName();
+        this.schule = dms.getOneSchule(aktDip.getSchule_id()).getName();
         return "dipansehen.xhtml";
     }
 
     public void auslesenWerte(int id) {
 
-        
         if (imagepath != null) {
             imagepath = imagepath_auslesen(id);
         }
@@ -239,9 +234,7 @@ public class dipansehenBean {
 
     //Diplomarbeitn ansehen
     public void diplomarbeitansehen() {
-        
-        
-        
+
         String pdf_pfad = "C:\\Users\\hp\\Desktop\\DA_AK\\web\\resources\\pdf\\";
 
         try {
@@ -286,15 +279,9 @@ public class dipansehenBean {
     public void speichern(ActionEvent event) {
         dms.insertFavouriten();
     }
-    
+
     public void löschenDiplomarbeit(ActionEvent event) {
         dms.deleteDiplomarbeit(this.aktuelle_id);
     }
-    
-    
-    
-    
-
-  
 
 }

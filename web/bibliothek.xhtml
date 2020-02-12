@@ -74,7 +74,7 @@
                     <div class="content"> 
 
                         <div class="uberschrift_ws">Weitere Suche</div>
-                       
+
 
                         <div class="titel">Titel</div> 
                         <div class="tftitel"> 
@@ -181,7 +181,7 @@
 
 
                     <div class="bib">
-                        
+
                         <div class="sortierleiste">
                             <b:form horizontal="true">
                                 <b:formGroup>
@@ -193,8 +193,8 @@
                                 </b:formGroup>
                             </b:form>  
                         </div>
-                        
-                        
+
+
                         <table class="order-table">
                             <tr>
                                 <th class="order-table-header"></th>	
@@ -208,7 +208,7 @@
                                                 <tr>
                                                     <td class="order-table-even-row">
                                                         <h:form>
-                                                            <h:commandLink action="#{dipansehenBean.werteanzeigen(var.da_id)}">
+                                                            <h:commandLink action="#{dipansehenBean.werteanzeigen(var)}">
                                                                 <h:graphicImage  class="image" value ="#{var.bild}"/>
                                                             </h:commandLink>
                                                         </h:form>
@@ -238,7 +238,7 @@
                                                 <tr>
                                                     <td class="order-table-even-row">
                                                         <h:form>
-                                                            <h:commandLink action="#{dipansehenBean.werteanzeigen(var.da_id)}">
+                                                            <h:commandLink action="#{dipansehenBean.werteanzeigen(var)}">
                                                                 <h:graphicImage class="image"  value = "#{var.bild}"/>
                                                             </h:commandLink>
                                                         </h:form>
@@ -247,8 +247,8 @@
                                                 <tr>
                                                     <td class="order-table-even-row1">#{var.title}</td>   
                                                 </tr>
-                                                
-                                                
+
+
                                             </td>
                                         </tr>
                                     </h:panelGroup>

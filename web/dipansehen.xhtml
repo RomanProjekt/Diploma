@@ -11,9 +11,9 @@ and open the template in the editor.
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        
+
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
-        
+
     </h:head>
     <h:body>
         <f:view>
@@ -22,21 +22,21 @@ and open the template in the editor.
             <b:form id="diplomarbeitansehen" >
 
                 <h:panelGrid columns="1" cellpadding="5">
-                    
-                    <h:graphicImage value = "#{dipansehenBean.imagepath}" height="50px" width="50px" alt="Image not found"/>
-                    
-                    <b:inputText  label="Titel" value="#{dipansehenBean.titel}" labelStyle="width:80px;" disabled="true">
+
+                    <h:graphicImage value = "#{dipansehenBean.aktDip.bild}" height="50px" width="50px" alt="Image not found"/> 
+
+                    <b:inputText  label="Titel" value="#{dipansehenBean.aktDip.title}" labelStyle="width:80px;" disabled="true">
                     </b:inputText>   
-                    
+
                     <b:inputText  label="Autor" value="#{dipansehenBean.autor}" labelStyle="width:80px;" disabled="true">
                     </b:inputText>
-                    
+
                     <b:inputText   label="Schule" value="#{dipansehenBean.schule}" labelStyle="width:80px;" disabled="true">
                     </b:inputText>
 
-                    <b:inputText   label="Datum" value="#{dipansehenBean.date}" labelStyle="width:80px;" disabled="true">
+                    <b:inputText   label="Datum" value="#{dipansehenBean.aktDip.datum}" labelStyle="width:80px;" disabled="true">
                     </b:inputText>
-                    
+
                     <b:commandButton value="Download" action="#{dipansehenBean.download()}" />
                     <b:commandButton value="Diplomarbeit ansehen" action="#{dipansehenBean.diplomarbeitansehen()}" />
                     <b:commandButton value="Favouriten speichern" actionListener="#{dipansehenBean.speichern(event)}"/>

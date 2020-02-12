@@ -54,13 +54,24 @@ public class SchuleDAO {
 
         return listd_schule;
     }
-    
-    
-    
+
+    public Schule readOne(int id) {
+        Schule retVal = null;
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from schule where schule_id = " + id)) {
+            while (rs.next()) {
+                retVal = new Schule(rs.getInt(1), rs.getString(2));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return retVal;
+    }
 
     public void insert(String schule) {
-        
-        
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
@@ -73,7 +84,6 @@ public class SchuleDAO {
 
             pstmt.executeUpdate();
             pstmt.close();
-            
 
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,5 +99,3 @@ public class SchuleDAO {
     }
 
 }
-
-

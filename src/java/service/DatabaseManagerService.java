@@ -99,7 +99,7 @@ public class DatabaseManagerService {
     }
 
     public boolean isAdmin() {
-        return "Admin".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() == null;
+        return "Admin".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() != null;
     }
 
     public Object isAdminRedirect() {
@@ -185,6 +185,10 @@ public class DatabaseManagerService {
         return autorDAO.getAllAutor();
     }
 
+    public Autor getOneAutor(int id) {
+        return autorDAO.read(id);
+    }
+
     //Schlagwort
     public SchlagwortDAO getSchlagwDAO() {
         return schlagwDAO;
@@ -244,6 +248,10 @@ public class DatabaseManagerService {
 
     public List<Schule> getListevonSchulen() {
         return this.schuleDAO.read();
+    }
+
+    public Schule getOneSchule(int id) {
+        return this.schuleDAO.readOne(id);
     }
 
     public List<Diplomarbeit> varread(int seitenanzahl, boolean renderer) {
