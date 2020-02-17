@@ -27,6 +27,7 @@ public class meinKontoBean {
     private String role;
     private String email;
     private List<Diplomarbeit> favList;
+    private String message;
 
     private DatabaseManagerService dbService;
 
@@ -42,6 +43,16 @@ public class meinKontoBean {
         return favList.isEmpty();
     }
 
+    public void deletefav(Diplomarbeit dip) {
+        if (dbService.deleteFav(dip) == 1) {
+            favList = dbService.getFavList();
+            message = "";
+        } else {
+            message = "Something went wrong";
+        }
+    }
+
+    //Getter-Setter
     public int getUser_id() {
         return user_id;
     }
@@ -132,6 +143,14 @@ public class meinKontoBean {
 
     public void setFavList(List<Diplomarbeit> favList) {
         this.favList = favList;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }

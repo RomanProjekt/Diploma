@@ -69,4 +69,22 @@ public class FavoritenDAO {
         return result;
     }
 
+    public int deleteOne(Diplomarbeit dip, int b_id) {
+        String query = "delete from favoriten where benutzer_id = ? and da_id = ?";
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement(query);) {
+
+            pstmt.setInt(1, b_id);
+            pstmt.setInt(2, dip.getDa_id());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        return result;
+    }
+
 }

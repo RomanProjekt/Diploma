@@ -41,24 +41,39 @@
                         <b:commandButton value="Nutzerdaten Ändern" />
                     </b:form>
                 </div>
-                <div class="favoriten" >
-                    <h3>Ihre Favoriten</h3>
-                    <b:dataTable value="#{meinKontoBean.favList}" var="diplomarbeit"  rendered="#{!meinKontoBean.favIsEmpty()}">
-                        <b:dataTableColumn label="Titel">
-                            <h:outputText value="#{diplomarbeit.title}" />
-                        </b:dataTableColumn>
-                    </b:dataTable>
-                    <h:outputLabel rendered="#{meinKontoBean.favIsEmpty()}">Sie haben noch keine Favoriten hinzugefügt</h:outputLabel>
-                </div>
-
-                <div class="uploadedDA">
-                    <h:outputLabel rendered="#{!databaseManagerService.isUser()}" >Ihre Diplomarbeiten</h:outputLabel>
-
-                    <b:dataTable rendered="#{!databaseManagerService.isUser()}" >
+                <b:form>
 
 
-                    </b:dataTable>
-                </div>
+                    <div class="favoriten" >
+                        <h3>Ihre Favoriten</h3>
+                        <b:dataTable   value="#{meinKontoBean.favList}" var="diplomarbeit"  rendered="#{!meinKontoBean.favIsEmpty()}">
+                            <b:dataTableColumn label="Logo" >
+                                <h:graphicImage value="#{diplomarbeit.bild}" height="50px" width="50px" />
+                            </b:dataTableColumn>
+                            <b:dataTableColumn label="Titel">
+                                <h:outputText value="#{diplomarbeit.title}" />
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="">
+                                <b:commandButton value="Ansehen" action="#{dipansehenBean.werteanzeigen(diplomarbeit)}" />
+                            </b:dataTableColumn>
+                            <b:dataTableColumn label="">
+                                <b:commandButton value="Löschen" action="#{meinKontoBean.deletefav(diplomarbeit)}" />
+                            </b:dataTableColumn>
+                        </b:dataTable>
+                        <h:outputLabel rendered="#{meinKontoBean.favIsEmpty()}">Sie haben noch keine Favoriten hinzugefügt</h:outputLabel>
+                    </div>
+                    <br />
+                    #{meinKontoBean.message}
+                    <div class="uploadedDA">
+                        <h:outputLabel styleClass="test" rendered="#{!databaseManagerService.isUser()}" >Ihre Diplomarbeiten</h:outputLabel>
+
+                        <b:dataTable rendered="#{!databaseManagerService.isUser()}" >
+
+
+                        </b:dataTable>
+                    </div>
+                </b:form>
             </div>
         </f:view>
     </h:body>

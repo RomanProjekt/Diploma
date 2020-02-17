@@ -342,6 +342,10 @@ public class DatabaseManagerService {
         return favDAO.getFavList(loggedInBenutzer.getUser_id());
     }
 
+    public int deleteFav(Diplomarbeit dip) {
+        return favDAO.deleteOne(dip, loggedInBenutzer.getUser_id());
+    }
+
     //Diplomarbeit löschen
     public void deleteDiplomarbeit(int id) {
         diplomarbeitDAO.delete(id);

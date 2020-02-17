@@ -84,7 +84,7 @@ public class loginBean {
 
     public Object loggout() {
         dbService.loggout();
-        return null;
+        return "index.xhtml";
     }
 
     public String onLoad() {
