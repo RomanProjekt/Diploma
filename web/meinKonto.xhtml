@@ -10,6 +10,10 @@
         <h:outputStylesheet library= "css" name= "Test.css" />
         <h:outputStylesheet library= "css" name= "meinKonto.css" />
     </h:head>
+    <f:metadata>
+        <f:viewAction action="#{databaseManagerService.stillLoggedIn()}" />
+        <f:viewAction action="#{meinKontoBean.init()}" />
+    </f:metadata>
     <h:body>
         <ui:include src="/resources/include/navbar.xhtml" />
 
@@ -38,13 +42,19 @@
                     </b:form>
                 </div>
                 <div class="favoriten" >
-                    <b:dataTable>
-
+                    <h3>Ihre Favoriten</h3>
+                    <b:dataTable value="#{meinKontoBean.favList}" var="diplomarbeit"  rendered="#{!meinKontoBean.favIsEmpty()}">
+                        <b:dataTableColumn label="Titel">
+                            <h:outputText value="#{diplomarbeit.title}" />
+                        </b:dataTableColumn>
                     </b:dataTable>
+                    <h:outputLabel rendered="#{meinKontoBean.favIsEmpty()}">Sie haben noch keine Favoriten hinzugefügt</h:outputLabel>
                 </div>
 
                 <div class="uploadedDA">
-                    <b:dataTable>
+                    <h:outputLabel rendered="#{!databaseManagerService.isUser()}" >Ihre Diplomarbeiten</h:outputLabel>
+
+                    <b:dataTable rendered="#{!databaseManagerService.isUser()}" >
 
 
                     </b:dataTable>

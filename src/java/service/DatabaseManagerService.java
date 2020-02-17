@@ -100,7 +100,7 @@ public class DatabaseManagerService {
     }
 
     public boolean isAdmin() {
-        return "Admin".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() != null;
+        return "Admin".equals(loggedInBenutzer.getRole()) && loggedInBenutzer.getRole() != null;
     }
 
     public Object isAdminRedirect() {
@@ -336,6 +336,10 @@ public class DatabaseManagerService {
     //Favouriten einfügen
     public int insertFavouriten(int dp_id, int b_id) {
         return this.favDAO.insert(dp_id, b_id);
+    }
+
+    public List<Diplomarbeit> getFavList() {
+        return favDAO.getFavList(loggedInBenutzer.getUser_id());
     }
 
     //Diplomarbeit löschen

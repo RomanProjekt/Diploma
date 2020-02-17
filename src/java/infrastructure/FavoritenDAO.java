@@ -19,29 +19,30 @@ import service.ConnectionManager;
 
 public class FavoritenDAO {
 
-    public List<Diplomarbeit> read() {
+    public List<Diplomarbeit> getFavList(int id) {
 
         ArrayList<Diplomarbeit> listfav_dip = new ArrayList<>();
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from favoriten")) {
+                ResultSet rs = stmt.executeQuery("select diplomarbeit.da_id, titel, autor_id, schule_id, pdf, diplomarbeit.benutzer_id, datum, bild, download_count, click_count "
+                        + "from favoriten join diplomarbeit on favoriten.da_id = diplomarbeit.da_id "
+                        + "where favoriten.benutzer_id = " + id)) {
             while (rs.next()) {
                 Diplomarbeit retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
                 listfav_dip.add(retVal);
             }
 
-            int columns = rs.getMetaData().getColumnCount();
-            System.out.println("ZeilengrÃ¶ÃŸe Datenbank " + columns);
-            System.out.println("Listsize " + listfav_dip.size());
-
-            for (int i = 0; i < listfav_dip.size(); i++) {
-                System.out.println(listfav_dip.get(i));
-            }
-
-            System.out.println("Listsize" + listfav_dip.size());
-
+//            int columns = rs.getMetaData().getColumnCount();
+//            System.out.println("ZeilengrÃ¶ÃŸe Datenbank " + columns);
+//            System.out.println("Listsize " + listfav_dip.size());
+//
+//            for (int i = 0; i < listfav_dip.size(); i++) {
+//                System.out.println(listfav_dip.get(i));
+//            }
+//
+//            System.out.println("Listsize" + listfav_dip.size());
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement

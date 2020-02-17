@@ -5,9 +5,11 @@
  */
 package presentation;
 
+import java.util.List;
 import javax.annotation.PostConstruct;
 import pojo.Benutzer;
 import service.DatabaseManagerService;
+import pojo.Diplomarbeit;
 
 /**
  *
@@ -24,6 +26,7 @@ public class meinKontoBean {
     private String salt;
     private String role;
     private String email;
+    private List<Diplomarbeit> favList;
 
     private DatabaseManagerService dbService;
 
@@ -32,7 +35,11 @@ public class meinKontoBean {
 
     @PostConstruct
     public void init() {
-        loggedInUser = dbService.getLoggedInBenutzer();
+        favList = dbService.getFavList();
+    }
+
+    public boolean favIsEmpty() {
+        return favList.isEmpty();
     }
 
     public int getUser_id() {
@@ -117,6 +124,14 @@ public class meinKontoBean {
 
     public void setLoggedInUser(Benutzer loggedInUser) {
         this.loggedInUser = loggedInUser;
+    }
+
+    public List<Diplomarbeit> getFavList() {
+        return favList;
+    }
+
+    public void setFavList(List<Diplomarbeit> favList) {
+        this.favList = favList;
     }
 
 }
