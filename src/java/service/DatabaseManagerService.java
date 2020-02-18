@@ -309,7 +309,7 @@ public class DatabaseManagerService {
     //Diplomarbeit hochladen:
     public void hochladen(String title, String autor_name, String schule, List<String> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
 
-        int var_user_id = this.getB().getUser_id();
+        int var_user_id = this.getLoggedInBenutzer().getUser_id();
 
         schuleDAO.insert(schule);
 
@@ -336,6 +336,12 @@ public class DatabaseManagerService {
         diplomarbeitDAO.update(var_da_id, autor.getAutor_id());
 
     }
+    
+    //Diplomarbeit löschen
+    public void deleteDiplomarbeit(int id) {
+        diplomarbeitDAO.delete(id);
+    }
+    
 
     //Redakteur Liste der DAs
     public List<Diplomarbeit> getRedList() {
@@ -355,14 +361,8 @@ public class DatabaseManagerService {
         return favDAO.deleteOne(dip, loggedInBenutzer.getUser_id());
     }
 
-    //Diplomarbeit löschen
-    public void deleteDiplomarbeit(int id) {
-        diplomarbeitDAO.delete(id);
-    }
+    
 
-    public static void main(String[] args) {
-        DatabaseManagerService dms = new DatabaseManagerService();
-        dms.ListeAllDiplomarbeiten();
-    }
+   
 
 }
