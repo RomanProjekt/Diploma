@@ -103,6 +103,10 @@ public class DatabaseManagerService {
         return "Admin".equals(loggedInBenutzer.getRole()) && loggedInBenutzer.getRole() != null;
     }
 
+    public boolean isRedakteurOrHigher() {
+        return !("User".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() == null);
+    }
+
     public Object isAdminRedirect() {
         if (!"Admin".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() == null) {
             return "unauthorized.xhtml";
@@ -331,6 +335,11 @@ public class DatabaseManagerService {
         //5.Update Diplomarbeit
         diplomarbeitDAO.update(var_da_id, autor.getAutor_id());
 
+    }
+
+    //Redakteur Liste der DAs
+    public List<Diplomarbeit> getRedList() {
+        return diplomarbeitDAO.getRedList(loggedInBenutzer.getUser_id());
     }
 
     //Favouriten einfügen

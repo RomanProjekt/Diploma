@@ -27,7 +27,6 @@ import pojo.Diplomarbeit;
 //import com.itextpdf.layout.element.Paragraph;
 import service.ConnectionManager;
 
-
 public class DiplomarbeitDAO {
 
     private Connection connection;
@@ -39,13 +38,11 @@ public class DiplomarbeitDAO {
     Connection cn = null;
     PreparedStatement st = null;
     BufferedImage image = null;
-    
-    
-    
+
     public List<Diplomarbeit> read() {
 
         ArrayList<Diplomarbeit> listdip = new ArrayList<>();
-        
+
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
@@ -53,7 +50,7 @@ public class DiplomarbeitDAO {
             while (rs.next()) {
                 retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
                 listdip.add(retVal);
-            }   
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,36 +58,31 @@ public class DiplomarbeitDAO {
 
         return listdip;
     }
-    
-    
-    
-
-    
 
     public void insert(String title, int user_id, int schule_id, String pdfpath, String imagepath) throws FileNotFoundException {
-        
-            int da_id = 0;
-            int click_count = 0;
-            int download_count = 0;
-            int autor_id = 0;
 
-            try (
+        int da_id = 0;
+        int click_count = 0;
+        int download_count = 0;
+        int autor_id = 0;
+
+        try (
                 Connection con = ConnectionManager.getInst().getConn();
-                PreparedStatement pstmt = 
-                con.prepareStatement("INSERT INTO diplomarbeit"
-                + "(da_id, titel, autor_id, schule_id, pdf, benutzer_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ? ,? ,? ,?, ?, ?, ?)");) {
-               
-                pstmt.setInt(1, da_id);
-                pstmt.setString(2, title);
-                pstmt.setInt(3, autor_id);              
-                pstmt.setInt(4, schule_id);
-                pstmt.setString(5, pdfpath);
-                pstmt.setInt(6, user_id);
-                pstmt.setDate(7, Date.valueOf(LocalDate.now()));
-                pstmt.setString(8, imagepath);
-                pstmt.setInt(9, download_count);
-                pstmt.setInt(10, click_count);
-            
+                PreparedStatement pstmt
+                = con.prepareStatement("INSERT INTO diplomarbeit"
+                        + "(da_id, titel, autor_id, schule_id, pdf, benutzer_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ? ,? ,? ,?, ?, ?, ?)");) {
+
+            pstmt.setInt(1, da_id);
+            pstmt.setString(2, title);
+            pstmt.setInt(3, autor_id);
+            pstmt.setInt(4, schule_id);
+            pstmt.setString(5, pdfpath);
+            pstmt.setInt(6, user_id);
+            pstmt.setDate(7, Date.valueOf(LocalDate.now()));
+            pstmt.setString(8, imagepath);
+            pstmt.setInt(9, download_count);
+            pstmt.setInt(10, click_count);
+
             pstmt.executeUpdate();
             pstmt.close();
 
@@ -99,54 +91,63 @@ public class DiplomarbeitDAO {
         }  //rs.close(); stmt.close(); con.clo
 
     }
-    
 
-    
     public void update(int da_id, int autor_id) {
-        
-         try (
-                Connection con = ConnectionManager.getInst().getConn();
-                PreparedStatement pstmt = 
-                con.prepareStatement("UPDATE diplomarbeit SET autor_id = ?  WHERE da_id = " + da_id )) {
 
-                pstmt.setInt(1, autor_id);
-                pstmt.executeUpdate();
-                pstmt.close();
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt
+                = con.prepareStatement("UPDATE diplomarbeit SET autor_id = ?  WHERE da_id = " + da_id)) {
+
+            pstmt.setInt(1, autor_id);
+            pstmt.executeUpdate();
+            pstmt.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
-            
+
     }
-    
-    
-   
-    
+
     public Diplomarbeit getDiplomarbeit(int id) {
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id = " + id)) {
-            
-                while(rs.next()) {
-                    retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getDate(8), rs.getString(9), rs.getInt(10), rs.getInt(11));
-                }
-              
-            
-           
+
+            while (rs.next()) {
+                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getDate(8), rs.getString(9), rs.getInt(10), rs.getInt(11));
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return retVal;
-        
+
     }
-    
-    
+
+    public List<Diplomarbeit> getRedList(int b_id) {
+        ArrayList<Diplomarbeit> dipList = new ArrayList<>();
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT da_id, titel, autor_id, schule_id, pdf, benutzer_id, datum, bild, download_count, click_count FROM diplomarbeit WHERE benutzer_id = " + b_id)) {
+
+            while (rs.next()) {
+                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return dipList;
+    }
+
     public int delete(int id) {
-        
+
         String query = "delete from diplomarbeit where da_id = ?";
         int result = 0;
 
@@ -156,57 +157,38 @@ public class DiplomarbeitDAO {
 
             pstmt.setInt(1, id);
             result = pstmt.executeUpdate();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
-        
+
         return result;
-        
+
     }
-    
-    
-    
-    
-   
-
-  
-  
-
-   
-    
-
-
-    
-    
-
-    
-
-    
 
     //Suchleistenfunktion
     public List Suchleiste(String key) { //id, title, schlagwort, autor, datum
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
-        Diplomarbeit help = new Diplomarbeit(20,"K",1,1,"K",1,new Date(2020-12-12),"K",1,1);
+        Diplomarbeit help = new Diplomarbeit(20, "K", 1, 1, "K", 1, new Date(2020 - 12 - 12), "K", 1, 1);
         //diplomarbeiten in die Liste schreiben
-        queryList.add("select * from diplomarbeit where da_id like '%"+key+"%'");
-        queryList.add("select * from diplomarbeit where titel like '%"+key+"%'");
+        queryList.add("select * from diplomarbeit where da_id like '%" + key + "%'");
+        queryList.add("select * from diplomarbeit where titel like '%" + key + "%'");
         //queryList.add("select * from diplomarbeit natural join autoren where gesamtname like '%"+key+"%'");
         //queryList.add("select * from diplomarbeit where datum like '%"+key+"%'");
         //queryList.add("select * from diplomarbeit schlagwort natural join schlagwort_diplomarbeit natural join diplomarbeit"
         //       + "where diplomarbeit_da_id = da_id and id in (schlagwort_id)"
         //        + "and name like '%"+key+"%'" );
-        
-        for(String s: queryList) {
-        
+
+        for (String s : queryList) {
+
             try (
                     Connection con = ConnectionManager.getInst().getConn();
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(s)) {
-                
+
                 while (rs.next()) { //oder mit spaltennamen
-                    
+
                     /*help.setDa_id(rs.getInt(1));
                     help.setTitle(rs.getString(2));
                     help.setAutor_id(rs.getInt(3));
@@ -217,30 +199,26 @@ public class DiplomarbeitDAO {
                     help.setBild(rs.getString(8));
                     help.setDownload_count(rs.getInt(9));
                     help.setClick_count(rs.getInt(10));*/
-                    
                     help.setDa_id(rs.getInt("da_id"));
                     help.setTitle(rs.getString("titel"));
                     help.setAutor_id(rs.getInt("autor_id"));
                     help.setPdf(rs.getString("pdf"));
                     help.setUser_id(rs.getInt("benutzer_id")); //user_id heißt in der datenbank benutzer_id
-                    help.setDatum(rs.getDate(2020-12-20));
+                    help.setDatum(rs.getDate(2020 - 12 - 20));
                     help.setBild(rs.getString("bild"));
                     help.setDownload_count(rs.getInt("download_count"));
                     help.setClick_count(rs.getInt("click_count"));
-                    
+
                     dipList.add(help);
-                    
+
                     //dipList.add((Diplomarbeit) rs); //konvertieren, umschichten
-                    
                 }
             } catch (SQLException e) {
-                    System.out.println("This be some Exception: "+e);
+                System.out.println("This be some Exception: " + e);
             }
         }
         //dipList.add(new Diplomarbeit(20,"K",1,1,"K",1,"K","K",1,1));
         return dipList;
     }
-    
-    
 
 }

@@ -28,6 +28,7 @@ public class meinKontoBean {
     private String email;
     private List<Diplomarbeit> favList;
     private String message;
+    private List<Diplomarbeit> redList;
 
     private DatabaseManagerService dbService;
 
@@ -37,6 +38,9 @@ public class meinKontoBean {
     @PostConstruct
     public void init() {
         favList = dbService.getFavList();
+        if (dbService.isRedakteurOrHigher()) {
+            redList = dbService.getRedList();
+        }
     }
 
     public boolean favIsEmpty() {
@@ -151,6 +155,14 @@ public class meinKontoBean {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public List<Diplomarbeit> getRedList() {
+        return redList;
+    }
+
+    public void setRedList(List<Diplomarbeit> redList) {
+        this.redList = redList;
     }
 
 }

@@ -64,12 +64,18 @@
                         <h:outputLabel rendered="#{meinKontoBean.favIsEmpty()}">Sie haben noch keine Favoriten hinzugefügt</h:outputLabel>
                     </div>
                     <br />
-                    #{meinKontoBean.message}
+
                     <div class="uploadedDA">
                         <h:outputLabel styleClass="test" rendered="#{!databaseManagerService.isUser()}" >Ihre Diplomarbeiten</h:outputLabel>
 
-                        <b:dataTable rendered="#{!databaseManagerService.isUser()}" >
+                        <b:dataTable value="#{meinKontoBean.redList}" var="diplomarbeit" rendered="#{!databaseManagerService.isUser()}" >
+                            <b:dataTableColumn label="Logo" >
+                                <h:graphicImage value="#{diplomarbeit.bild}" height="50px" width="50px" />
+                            </b:dataTableColumn>
 
+                            <b:dataTableColumn label="Titel">
+                                <h:outputText value="#{diplomarbeit.title}" />
+                            </b:dataTableColumn>
 
                         </b:dataTable>
                     </div>
