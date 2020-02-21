@@ -11,6 +11,9 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import service.DatabaseManagerService;
+import service.ServiceEntcryption;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 
 //import Email-zurücksetzen
 //import java.io.UnsupportedEncodingException;
@@ -64,9 +67,9 @@ public class loginBean {
     public Object load() {
         message = null;
         b = dbService.load(username);
-
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         if (b != null) {
-            if (pw.equals(b.getPassWd())) {
+            if (argon2.verify(b.getPassWd(), pw.toCharArray())) {
                 dbService.setLoggedInBenutzer(b);
                 username = null;
                 pw = null;

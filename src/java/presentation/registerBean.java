@@ -5,9 +5,18 @@
  */
 package presentation;
 
+import java.nio.charset.Charset;
+import java.util.Random;
 import pojo.Benutzer;
 import javax.annotation.PostConstruct;
 import service.DatabaseManagerService;
+import java.nio.charset.StandardCharsets.*;
+import static java.nio.charset.StandardCharsets.UTF_16;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import java.time.Duration;
+import java.time.Instant;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 
 /**
  *
@@ -22,6 +31,7 @@ public class registerBean {
     private String lastName;
     private String email;
     private String pw;
+    private String message;
 
     public registerBean() {
     }
@@ -32,14 +42,23 @@ public class registerBean {
     }
 
     public Object register() {
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String hash = argon2.hash(4, 1024 * 1024, 8, pw.toCharArray());
 
-        b = new Benutzer(0, username, firstName, lastName, pw, "salt", "User", email);
+        b = new Benutzer(0, username, firstName, lastName, hash, "salt", "User", email);
         int result = dbService.insertBenutzer(b);
         if (result == 1) {
             b = dbService.load(username);
             dbService.setLoggedInBenutzer(b);
             return "success";
         }
+        return "fail";
+    }
+
+    public String giveString() {
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String hash = argon2.hash(4, 1024 * 1024, 8, pw.toCharArray());
+        message = hash;
         return "fail";
     }
 
@@ -97,6 +116,14 @@ public class registerBean {
 
     public void setPw(String pw) {
         this.pw = pw;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }
