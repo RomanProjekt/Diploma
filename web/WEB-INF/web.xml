@@ -41,9 +41,4 @@
         <error-code>404</error-code>
         <location>/notFound.xhtml</location>
     </error-page>
-    
-    <ererror-page>
-        <error-code>500</error-code>
-        <location>/notFound.xhtml</location>
-    </ererror-page>
 </web-app>

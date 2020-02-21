@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import pojo.Benutzer;
 import service.DatabaseManagerService;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 
 /**
  *
@@ -73,13 +75,11 @@ public class benutzerverwaltungBean {
     }
 
     public Object saveUser() {
-        benutzer = new Benutzer(0, username, firstname, lastname, password, "Test", rolle, email);
-        try {
-            benutzer.setUser_id(benutzerList.get(benutzerList.size() - 1).getUser_id() + 1);
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String hash = argon2.hash(4, 1024 * 1024, 8, password.toCharArray());
 
-        } catch (IndexOutOfBoundsException e) {
-            benutzer.setUser_id(1);
-        }
+        benutzer = new Benutzer(0, username, firstname, lastname, hash, "salt", rolle, email);
+
         result = dbService.insertBenutzer(benutzer);
         if (result == 1) {
             benutzerList = dbService.getAllBenutzer();
