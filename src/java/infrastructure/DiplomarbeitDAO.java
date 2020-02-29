@@ -167,56 +167,52 @@ public class DiplomarbeitDAO {
     }
 
     //Suchleistenfunktion
-    public List Suchleiste(String key) { //id, title, schlagwort, autor, datum
+    public List Suchleiste(String key) {
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
-        Diplomarbeit help;
-        Diplomarbeit dblcheck;
         //diplomarbeiten in die Liste schreiben
         queryList.add("select * from diplomarbeit where da_id like '%" + key + "%'");
-        queryList.add("select * from diplomarbeit where title like '%" + key + "%'");
+        queryList.add("select * from diplomarbeit where titel like '%" + key + "%'");
         queryList.add("select * from diplomarbeit natural join autoren where fullname like '%"+key+"%'");
         queryList.add("select * from diplomarbeit where datum like '"+key+"-__"+"-__"+"'");
         queryList.add("select * from diplomarbeit d, schlagwort_diplomarbeit sd, schlagwort s" +
                                         "where d.da_id = sd.da_id" +
                                         "and sd.sw_id = s.id" +
-                                        "and s.name like '%"+key+"%';");
-
+                                        "and s.name like '%"+key+"%'");
+        queryList.add("select * from diplomarbeit natural join schule where name like '%" + key + "%'");
         for (String s : queryList) {
-
             try (
                     Connection con = ConnectionManager.getInst().getConn();
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(s)) {
-
-                while (rs.next()) {
-                    help = new Diplomarbeit(20, "K", 1, 1, "K", 1, new Date(2020 - 12 - 12), "K", 1, 1);
-                    help.setDa_id(rs.getInt("da_id"));
-                    help.setTitle(rs.getString("title"));
-                    help.setAutor_id(rs.getInt("autor_id"));
-                    help.setPdf(rs.getString("pdf"));
-                    help.setUser_id(rs.getInt("user_id"));
-                    help.setDatum(rs.getDate("datum"));
-                    help.setBild(rs.getString("bild"));
-                    help.setDownload_count(rs.getInt("download_count"));
-                    help.setClick_count(rs.getInt("click_count"));
-                    
-                    dblcheck = new Diplomarbeit(20, "K", 1, 1, "K", 1, new Date(2020 - 12 - 12), "K", 1, 1);
-                    dblcheck.setDa_id(help.getDa_id());
-                    //dipList.et(help.getDa_id()); //testing
-                    
-                    if(!help.equals(dblcheck)) {
-                    dipList.add(help);
+                while (rs.next()) {  
+                    Diplomarbeit help;
+                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"), 
+                    rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"), 
+                    rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
+                    int cs=0;
+                    if(!dipList.isEmpty()) {
+                    for(Diplomarbeit ar : dipList) {
+                        if(ar.getDa_id()==help.getDa_id()) {
+                            cs=0;
+                            break;
+                        }
+                        else {
+                            cs=1;
+                        }
                     }
-                    
-                    //dipList.add((Diplomarbeit) rs); //konvertieren, umschichten
+                    }
+                    else {
+                        cs=1;
+                    }
+                    if(cs==1) {
+                        dipList.add(help);
+                    }
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 System.out.println("This be some Exception: " + e);
             }
         }
-        //dipList.add(new Diplomarbeit(20, "K", 1, 1, "K", 1, new Date(2020 - 12 - 12), "K", 1, 1));
         return dipList;
     }
-
 }
