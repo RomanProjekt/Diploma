@@ -170,13 +170,17 @@ public class DiplomarbeitDAO {
     public List Suchleiste(String key) { //id, title, schlagwort, autor, datum
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
-        Diplomarbeit help = new Diplomarbeit(20, "K", 1, 1, "K", 1, new Date(2020 - 12 - 12), "K", 1, 1);
+        Diplomarbeit help;
+        Diplomarbeit dblcheck;
         //diplomarbeiten in die Liste schreiben
         queryList.add("select * from diplomarbeit where da_id like '%" + key + "%'");
         queryList.add("select * from diplomarbeit where title like '%" + key + "%'");
         queryList.add("select * from diplomarbeit natural join autoren where fullname like '%"+key+"%'");
         queryList.add("select * from diplomarbeit where datum like '"+key+"-__"+"-__"+"'");
-        queryList.add("select * from diplomarbeit schlagwort natural join diplomarbeit and name like '%"+key+"%'" );
+        queryList.add("select * from diplomarbeit d, schlagwort_diplomarbeit sd, schlagwort s" +
+                                        "where d.da_id = sd.da_id" +
+                                        "and sd.sw_id = s.id" +
+                                        "and s.name like '%"+key+"%';");
 
         for (String s : queryList) {
 
@@ -186,7 +190,7 @@ public class DiplomarbeitDAO {
                     ResultSet rs = stmt.executeQuery(s)) {
 
                 while (rs.next()) {
-
+                    help = new Diplomarbeit(20, "K", 1, 1, "K", 1, new Date(2020 - 12 - 12), "K", 1, 1);
                     help.setDa_id(rs.getInt("da_id"));
                     help.setTitle(rs.getString("title"));
                     help.setAutor_id(rs.getInt("autor_id"));
@@ -197,7 +201,9 @@ public class DiplomarbeitDAO {
                     help.setDownload_count(rs.getInt("download_count"));
                     help.setClick_count(rs.getInt("click_count"));
                     
-                    Diplomarbeit dblcheck = dipList.get(help.getDa_id()); //testing
+                    dblcheck = new Diplomarbeit(20, "K", 1, 1, "K", 1, new Date(2020 - 12 - 12), "K", 1, 1);
+                    dblcheck.setDa_id(help.getDa_id());
+                    //dipList.et(help.getDa_id()); //testing
                     
                     if(!help.equals(dblcheck)) {
                     dipList.add(help);
@@ -209,7 +215,7 @@ public class DiplomarbeitDAO {
                 System.out.println("This be some Exception: " + e);
             }
         }
-        //dipList.add(new Diplomarbeit(20,"K",1,1,"K",1,"K","K",1,1));
+        //dipList.add(new Diplomarbeit(20, "K", 1, 1, "K", 1, new Date(2020 - 12 - 12), "K", 1, 1));
         return dipList;
     }
 

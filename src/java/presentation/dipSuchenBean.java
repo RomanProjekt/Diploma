@@ -23,28 +23,35 @@ public class dipSuchenBean {
     List<Diplomarbeit> daList;
     Diplomarbeit selectedDa;
     List<Diplomarbeit> recentDaList;
-    Boolean sBool=false;
+    boolean sBool;
     //favoriten auch so?
     public dipSuchenBean() {
         
     }
     @PostConstruct
     void init() {
+        sBool=false;
         obj = new DiplomarbeitDAO();
         daList = new ArrayList<>();
         recentDaList = new ArrayList<>(); //favoriten aus der db laden?
     }
     
     public Object selectDA() {
+        if(obj!=null) {
         daList=obj.Suchleiste(key);
         sBool=true;
+        }
+        if(daList!=null) {
         selectedDa = daList.get(0); //null check?, andere select bar machen
+        }
         return null;
     }
     
     public Object recentDa() {
+        if(daList!=null) {
         for(Diplomarbeit ar : daList) {
             recentDaList.add(ar);
+        }
         }
         return null;
     }
@@ -90,14 +97,16 @@ public class dipSuchenBean {
         this.selectedDa = selectedDa;
     }
 
-    public Boolean getsBool() {
+    public boolean issBool() {
         return sBool;
     }
 
-    public void setsBool(Boolean sBool) {
+    public void setsBool(boolean sBool) {
         this.sBool = sBool;
     }
 
+    
+    
     public List<Diplomarbeit> getRecentDaList() {
         return recentDaList;
     }
