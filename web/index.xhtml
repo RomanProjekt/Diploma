@@ -34,6 +34,8 @@
                                 <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.sBool}" onclick="#{dipSuchenBean.displaySelectedDa()}">
                                     <f:selectItems value="#{dipSuchenBean.daList}" var="da" itemValue="#{da}" itemLabel="#{da.title}"/>
                                 </b:selectOneMenu>
+                                
+                                <h:outputLabel value="#{dipSuchenBean.recentDaList}" title="Recent Searches ... "/>
 
                                 <b:commandButton value="Suchen" action="#{dipSuchenBean.selectDA()}" />
                             </b:form> 
