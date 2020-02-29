@@ -17,6 +17,7 @@ import java.time.Duration;
 import java.time.Instant;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import java.util.HashMap;
 
 /**
  *
@@ -42,6 +43,8 @@ public class registerBean {
     }
 
     public Object register() {
+        HashMap<Integer, String> mape;
+        mape = new HashMap<>();
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         String hash = argon2.hash(4, 1024 * 1024, 8, pw.toCharArray());
 
@@ -52,13 +55,6 @@ public class registerBean {
             dbService.setLoggedInBenutzer(b);
             return "success";
         }
-        return "fail";
-    }
-
-    public String giveString() {
-        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        String hash = argon2.hash(4, 1024 * 1024, 8, pw.toCharArray());
-        message = hash;
         return "fail";
     }
 

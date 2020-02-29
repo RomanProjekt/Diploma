@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Diplomarbeit ändern</title>
+        <h:outputStylesheet library= "css" name= "Test.css" />
+    </h:head>
+    <h:body>
+        <ui:include src="/resources/include/navbar.xhtml" />
+        <b:form id="diplomarbeitBearbeiten" enctype="multipart/form-data" >
+
+            <h:panelGrid columns="1" cellpadding="5">
+
+
+                <b:inputText label="Titel" value="#{updateDiplomarbeit.aktDip.title}" labelStyle="width:80px;">
+                </b:inputText>
+
+                <h:dataTable value="#{updateDiplomarbeit.autList}" var="autor" border="2" cellpadding="1" cellspacing="1" >
+                    <h:column>
+                        <f:facet name="header">Autor</f:facet>
+                        <h:outputText value="#{autor.fullName}" rendered="#{!updateDiplomarbeit.autEdit}" />
+                        <h:inputText value="#{autor.fullName}" rendered="#{updateDiplomarbeit.autEdit}" /> 
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Löschen</f:facet>
+                        <b:commandButton value="X" action="#{updateDiplomarbeit.removeAutor(autor)}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" >Edit</f:facet>
+                        <b:commandButton value="Edit" action="#{updateDiplomarbeit.editAutor()}"  rendered="#{!updateDiplomarbeit.autEdit}" />
+                        <b:commandButton value="Save" action="#{updateDiplomarbeit.saveAutor(autor)}" rendered="#{updateDiplomarbeit.autEdit}" />
+                    </h:column>
+                </h:dataTable>
+                <b:inputText value="#{updateDiplomarbeit.autor}" />
+
+                <b:commandButton value="Add Tag" action="#{updateDiplomarbeit.addAutor()}"  />
+
+                <b:inputText label="Schule" value="#{updateDiplomarbeit.schule}" labelStyle="width:80px;">
+                </b:inputText>
+
+
+
+                <h:dataTable value="#{updateDiplomarbeit.schlagwortList}" var="schlagwort" border="2" cellpadding="1" cellspacing="1" >
+                    <h:column>
+                        <f:facet name="header">Schlagwort</f:facet>
+                            #{schlagwort.word}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Löschen</f:facet>
+                        <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" >Edit</f:facet>
+                        <b:commandButton value="Edit" />
+                    </h:column>
+                </h:dataTable>
+                <b:inputText value="#{updateDiplomarbeit.schlagwort}" />
+
+                <b:commandButton value="Add Tag" action="#{updateDiplomarbeit.addTag()}" /> 
+
+                <h5>Neues Diplomarbeits Dokument auswählen</h5>
+                <h:inputFile id="diplomarbeit-id" value="#{updateDiplomarbeit.aktDip.pdf}"></h:inputFile>
+
+                <br></br>
+
+                <h5>Neues Logo auswählen</h5>
+                <h:inputFile id="image-id" value="#{updateDiplomarbeit.aktDip.bild}"></h:inputFile>
+
+                <br></br>
+                <b:commandButton value="Diplomarbeit speichern" action="#{updateDiplomarbeit.save()}"  />
+                <b:commandButton value="Abbruch" /> 
+                <br></br>
+
+                <h3>Autor</h3>
+                #{updateDiplomarbeit.autList}
+                <h3>Remove Autor</h3>
+                #{updateDiplomarbeit.removeAutList}
+                <h3>Insert Autor</h3>
+                #{updateDiplomarbeit.insertAutList}
+
+
+                <h3>Schlagwort</h3>
+                #{updateDiplomarbeit.schlagwortList}
+                <h3>Remove Schlagwort</h3>
+                #{updateDiplomarbeit.removeSchlagList}
+                <h3>Insert Schlagwort</h3>
+                #{updateDiplomarbeit.insertSchlagList}
+
+
+            </h:panelGrid>
+        </b:form>
+    </h:body>
+</html>
+

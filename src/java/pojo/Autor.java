@@ -5,11 +5,14 @@
  */
 package pojo;
 
+import java.util.Objects;
+
 /**
  *
  * @author patri
  */
 public class Autor {
+
     private int autor_id;
     private String fullName;
     private int da_id;
@@ -49,6 +52,31 @@ public class Autor {
         return "Autor{" + "autor_id=" + autor_id + ", fullName=" + fullName + ", da_id=" + da_id + '}';
     }
 
-    
-    
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Autor other = (Autor) obj;
+        if (this.da_id != other.da_id) {
+            return false;
+        }
+        if (!Objects.equals(this.fullName, other.fullName)) {
+            return false;
+        }
+        return true;
+    }
+
 }
