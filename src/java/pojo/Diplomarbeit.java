@@ -6,6 +6,7 @@
 package pojo;
 
 import java.sql.Date;
+import java.util.Objects;
 
 /**
  *
@@ -141,7 +142,36 @@ public class Diplomarbeit {
 
     @Override
     public String toString() {
-        return "Diplomarbeit{" + "da_id=" + da_id + ", title=" + title + ", autor_id=" + autor_id + ", schule_id=" + schule_id + ", pdf=" + pdf + ", user_id=" + user_id + ", datum=" + datum + ", bild=" + bild + ", download_count=" + download_count + ", click_count=" + click_count + '}';
+        return "|" + title + "|";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + this.da_id;
+        hash = 73 * hash + Objects.hashCode(this.title);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Diplomarbeit other = (Diplomarbeit) obj;
+        if (this.da_id != other.da_id) {
+            return false;
+        }
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        return true;
     }
     
     

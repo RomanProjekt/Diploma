@@ -173,12 +173,10 @@ public class DiplomarbeitDAO {
         Diplomarbeit help = new Diplomarbeit(20, "K", 1, 1, "K", 1, new Date(2020 - 12 - 12), "K", 1, 1);
         //diplomarbeiten in die Liste schreiben
         queryList.add("select * from diplomarbeit where da_id like '%" + key + "%'");
-        queryList.add("select * from diplomarbeit where titel like '%" + key + "%'");
-        //queryList.add("select * from diplomarbeit natural join autoren where gesamtname like '%"+key+"%'");
-        //queryList.add("select * from diplomarbeit where datum like '%"+key+"%'");
-        //queryList.add("select * from diplomarbeit schlagwort natural join schlagwort_diplomarbeit natural join diplomarbeit"
-        //       + "where diplomarbeit_da_id = da_id and id in (schlagwort_id)"
-        //        + "and name like '%"+key+"%'" );
+        queryList.add("select * from diplomarbeit where title like '%" + key + "%'");
+        queryList.add("select * from diplomarbeit natural join autoren where fullname like '%"+key+"%'");
+        queryList.add("select * from diplomarbeit where datum like '"+key+"-__"+"-__"+"'");
+        queryList.add("select * from diplomarbeit schlagwort natural join diplomarbeit and name like '%"+key+"%'" );
 
         for (String s : queryList) {
 
@@ -187,30 +185,24 @@ public class DiplomarbeitDAO {
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(s)) {
 
-                while (rs.next()) { //oder mit spaltennamen
+                while (rs.next()) {
 
-                    /*help.setDa_id(rs.getInt(1));
-                    help.setTitle(rs.getString(2));
-                    help.setAutor_id(rs.getInt(3));
-                    help.setSw_id(rs.getInt(4)); //?? nur 1 sw id ??
-                    help.setPdf(rs.getString(5));
-                    help.setUser_id(rs.getInt(6));
-                    help.setDatum(rs.getString(7));
-                    help.setBild(rs.getString(8));
-                    help.setDownload_count(rs.getInt(9));
-                    help.setClick_count(rs.getInt(10));*/
                     help.setDa_id(rs.getInt("da_id"));
-                    help.setTitle(rs.getString("titel"));
+                    help.setTitle(rs.getString("title"));
                     help.setAutor_id(rs.getInt("autor_id"));
                     help.setPdf(rs.getString("pdf"));
-                    help.setUser_id(rs.getInt("benutzer_id")); //user_id heißt in der datenbank benutzer_id
-                    help.setDatum(rs.getDate(2020 - 12 - 20));
+                    help.setUser_id(rs.getInt("user_id"));
+                    help.setDatum(rs.getDate("datum"));
                     help.setBild(rs.getString("bild"));
                     help.setDownload_count(rs.getInt("download_count"));
                     help.setClick_count(rs.getInt("click_count"));
-
+                    
+                    Diplomarbeit dblcheck = dipList.get(help.getDa_id()); //testing
+                    
+                    if(!help.equals(dblcheck)) {
                     dipList.add(help);
-
+                    }
+                    
                     //dipList.add((Diplomarbeit) rs); //konvertieren, umschichten
                 }
             } catch (SQLException e) {

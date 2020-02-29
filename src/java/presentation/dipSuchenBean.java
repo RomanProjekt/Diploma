@@ -22,8 +22,9 @@ public class dipSuchenBean {
     DiplomarbeitDAO obj;
     List<Diplomarbeit> daList;
     Diplomarbeit selectedDa;
+    List<Diplomarbeit> recentDaList;
     Boolean sBool=false;
-    
+    //favoriten auch so?
     public dipSuchenBean() {
         
     }
@@ -31,18 +32,28 @@ public class dipSuchenBean {
     void init() {
         obj = new DiplomarbeitDAO();
         daList = new ArrayList<>();
+        recentDaList = new ArrayList<>(); //favoriten aus der db laden?
     }
     
     public Object selectDA() {
         daList=obj.Suchleiste(key);
         sBool=true;
-        selectedDa = daList.get(0); //null check?
+        selectedDa = daList.get(0); //null check?, andere select bar machen
         return null;
     }
     
-    public String displaySelectedDa() { //String navigation, or display with button? auf out of bound prüfen und basisliste bei leer?
-        return "switchda";
+    public Object recentDa() {
+        for(Diplomarbeit ar : daList) {
+            recentDaList.add(ar);
+        }
+        return null;
     }
+    
+    
+    public String displaySelectedDa() { //String navigation, or display with button? auf out of bound prüfen und basisliste bei leer?
+        return "switchda";              //listener für click action
+    }
+    
     
     //public void displaySelectedDa(ActionEvent e) {
     //    
@@ -85,6 +96,14 @@ public class dipSuchenBean {
 
     public void setsBool(Boolean sBool) {
         this.sBool = sBool;
+    }
+
+    public List<Diplomarbeit> getRecentDaList() {
+        return recentDaList;
+    }
+
+    public void setRecentDaList(List<Diplomarbeit> recentDaList) {
+        this.recentDaList = recentDaList;
     }
     
     
