@@ -186,8 +186,24 @@ public class DatabaseManagerService {
         this.autorDAO = autorDAO;
     }
 
+    public void updateAutors(List<Autor> autor) {
+        this.autorDAO.updateAutors(autor);
+    }
+
+    public void deleteAutor(int autId) {
+        this.autorDAO.deleteAutor(autId);
+    }
+
+    public void insertAutor(Autor autor) {
+        this.autorDAO.insert(autor.getFullName(), autor.getDa_id());
+    }
+
     public List<Autor> getAllAutor() {
         return autorDAO.getAllAutor();
+    }
+
+    public List<Autor> getAllAutor(int id) {
+        return autorDAO.getAllAutor(id);
     }
 
     public Autor getOneAutor(int id) {
@@ -205,6 +221,10 @@ public class DatabaseManagerService {
 
     public List<Schlagwort> getAllSchlagwörter() {
         return schlagwDAO.read();
+    }
+
+    public List<Schlagwort> getAllSchlagwoerter(int id) {
+        return schlagwDAO.getAllSchlagwoerter(id);
     }
 
     //Schlagwort-Verknüpfungstabelle
@@ -336,12 +356,11 @@ public class DatabaseManagerService {
         diplomarbeitDAO.update(var_da_id, autor.getAutor_id());
 
     }
-    
+
     //Diplomarbeit löschen
     public void deleteDiplomarbeit(int id) {
         diplomarbeitDAO.delete(id);
     }
-    
 
     //Redakteur Liste der DAs
     public List<Diplomarbeit> getRedList() {
@@ -360,9 +379,5 @@ public class DatabaseManagerService {
     public int deleteFav(Diplomarbeit dip) {
         return favDAO.deleteOne(dip, loggedInBenutzer.getUser_id());
     }
-
-    
-
-   
 
 }

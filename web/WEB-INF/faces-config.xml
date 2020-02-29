@@ -89,16 +89,27 @@
         </managed-property>
     </managed-bean>
     
+    <managed-bean>
+        <managed-bean-name>updateDiplomarbeit</managed-bean-name>
+        <managed-bean-class>presentation.updateDiplomarbeit</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope> 
+        <managed-property>
+           <property-name>dbService</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
+    </managed-bean>
+    
      <navigation-rule>
         <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
-            
+            <redirect />
         </navigation-case>
         <navigation-case>
             <from-outcome>fail</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
     </navigation-rule>
     
@@ -107,6 +118,7 @@
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
         <navigation-case>
             <from-outcome>fail</from-outcome>
@@ -120,10 +132,11 @@
           
             <from-outcome>access-denied</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
     </navigation-rule>
-  
-
+    
+   
 <navigation-rule> 
    <from-view-id>index.xhtml</from-view-id> 
    

@@ -86,7 +86,7 @@ public class loginBean {
 
     public Object loggout() {
         dbService.loggout();
-        return "index.xhtml";
+        return "index.xhtml?faces-redirect=true";
     }
 
     public String onLoad() {

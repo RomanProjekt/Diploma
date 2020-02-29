@@ -17,17 +17,12 @@ import java.util.logging.Logger;
 import pojo.Schlagwort;
 import service.ConnectionManager;
 
-
-
 public class SchlagwortDAO {
-    
-    int tag_id;
-    
 
-    
-    
+    int tag_id;
+
     public List<Schlagwort> read() {
-        
+
         List<Schlagwort> listd_schlagwort = new ArrayList<>();
 
         try (
@@ -46,32 +41,43 @@ public class SchlagwortDAO {
         return listd_schlagwort;
     }
 
-    
-    
-    
-    
-    
+    public List<Schlagwort> getAllSchlagwoerter(int id) {
+        List<Schlagwort> listd_schlagwort = new ArrayList<>();
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select id, name, sw_id, da_id from schlagwort join schlagwort_diplomarbeit on schlagwort.id = schlagwort_diplomarbeit.sw_id where da_id = " + id)) {
+            while (rs.next()) {
+                Schlagwort retVal = new Schlagwort(rs.getInt(1), rs.getString(2));
+                listd_schlagwort.add(retVal);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return listd_schlagwort;
+    }
+
     public void insert(List<String> schlagwoerter) {
 
-        for(int i = 0; i < schlagwoerter.size(); i++) {
+        for (int i = 0; i < schlagwoerter.size(); i++) {
             insert_schlagwort(this.tag_id, schlagwoerter.get(i));
         }
-        
+
     }
-    
-    
+
     public void insert_schlagwort(int tag_id, String schlagwort) {
-        
-         
-         try (
+
+        try (
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt
                 = con.prepareStatement("INSERT INTO schlagwort"
                         + "(id, name) VALUES (?, ?)");) {
 
-                pstmt.setInt(1, this.tag_id);
-                pstmt.setString(2, schlagwort);
-
+            pstmt.setInt(1, this.tag_id);
+            pstmt.setString(2, schlagwort);
 
             pstmt.executeUpdate();
             pstmt.close();
@@ -79,15 +85,11 @@ public class SchlagwortDAO {
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
-        
-    }
-    
-    
-    
 
-    
+    }
+
     public List<Schlagwort> getAllSchlagwörter() {
-        
+
         List<Schlagwort> listschlagwort = new ArrayList<>();;
 
         try (
@@ -113,11 +115,7 @@ public class SchlagwortDAO {
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return listschlagwort;
-        
+
     }
-      
-    
+
 }
-
-    
-
