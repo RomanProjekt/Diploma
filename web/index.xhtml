@@ -31,16 +31,21 @@
                             <b:form>
                                 <b:inputText  value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label=""/>
 
-                                <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="true" onclick="#{dipSuchenBean.displaySelectedDa()}">
-                                    <f:selectItems value="#{dipSuchenBean.daList}" var="da" itemValue="#{da}"
-                                                   itemLabel="Nr: #{da.da_id} Titel: #{da.title} Autor: #{da.autor_id}"/>
-                                </b:selectOneMenu>
+                                <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="true" onchange="submit">
+                                    <f:selectItems value="#{dipSuchenBean.daList}" var="da"
+                                                   itemValue="#{da}" itemLabel="Nr: #{da.da_id} Titel: #{da.title} Autor: #{da.autor_id}" />
+                                    </b:selectOneMenu>
                                 
-                                <h:outputLabel value="#{dipSuchenBean.recentDaList}" title="Recent Searches ... "/>
+                                <b:dataTable value="#{dipSuchenBean.recentDaList}" var="dip" >
+                                    <b:dataTableColumn value="#{dip.da_id}" />
+                                </b:dataTable>
                                 
-
+                                <br/>
                                 <b:commandButton value="Suchen" action="#{dipSuchenBean.selectDA()}" />
+                                <br/>
                                 <b:commandButton value="More" action="#{dipSuchenBean.recentDa()}" />
+                                <br/>
+                                <b:commandButton value="Details" action="#{dipansehenBean.werteanzeigen(dipSuchenBean.selectedDa)}"/>
                             </b:form> 
                         </div>
                     </div>

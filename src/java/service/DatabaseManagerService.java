@@ -168,6 +168,7 @@ public class DatabaseManagerService {
     }
 
     public List<Diplomarbeit> ListeAllDiplomarbeiten() {
+        //if wohers kommt? von dipSuchenBean die Liste?
         dplist = diplomarbeitDAO.read();
         return dplist;
     }

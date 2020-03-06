@@ -170,10 +170,10 @@ public class DiplomarbeitDAO {
     public List Suchleiste(String key) {
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
-        //diplomarbeiten in die Liste schreiben
         queryList.add("select * from diplomarbeit where da_id like '%" + key + "%'");
         queryList.add("select * from diplomarbeit where titel like '%" + key + "%'");
         queryList.add("select * from diplomarbeit natural join autoren where fullname like '%"+key+"%'");
+        queryList.add("select * from diplomarbeit natural join autoren id like '%"+key+"%'");
         queryList.add("select * from diplomarbeit where datum like '"+key+"-__"+"-__"+"'");
         queryList.add("select * from diplomarbeit d, schlagwort_diplomarbeit sd, schlagwort s" +
                                         "where d.da_id = sd.da_id" +

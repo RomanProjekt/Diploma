@@ -49,6 +49,7 @@ public class dipSuchenBean {
     }
 
     public Object recentDa() {
+        recentDaList.clear();
         if (!daList.isEmpty()) {
             for (Diplomarbeit ar : daList) {
                 recentDaList.add(ar);
@@ -59,6 +60,7 @@ public class dipSuchenBean {
 
     public String displaySelectedDa() { //String navigation, or display with button? auf out of bound prüfen und basisliste bei leer?
         return "switchda";              //listener für click action
+                                        //new, weiter an bibliothek
     }
 
     //public void displaySelectedDa(ActionEvent e) {
