@@ -13,39 +13,66 @@ and open the template in the editor.
     <h:head>
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
+        <h:outputStylesheet library= "css" name= "dipansehen_styles.css" />
+        <h:outputStylesheet library= "css" name= "Test.css" />
 
     </h:head>
     <h:body>
-        <f:view>
-            <h2>Diplomarbeiten herunterladen und ansehen</h2>
-            <h3></h3>
-            <b:form id="diplomarbeitansehen" >
+         <ui:include src="/resources/include/navbar.xhtml" />  
 
-                <h:panelGrid columns="1" cellpadding="5">
 
-                    <h:graphicImage value = "#{dipansehenBean.aktDip.bild}" height="50px" width="50px" alt="Image not found"/> 
+        <div class="main">
+            <f:view>
 
-                    <b:inputText  label="Titel" value="#{dipansehenBean.aktDip.title}" labelStyle="width:80px;" disabled="true">
-                    </b:inputText>   
+                <div class="ueberschrift">
+                    <h2>Diplomarbeiten herunterladen und ansehen</h2>
+                </div>
 
-                    <b:inputText  label="Autor" value="#{dipansehenBean.autor}" labelStyle="width:80px;" disabled="true">
-                    </b:inputText>
 
-                    <b:inputText   label="Schule" value="#{dipansehenBean.schule}" labelStyle="width:80px;" disabled="true">
-                    </b:inputText>
 
-                    <b:inputText   label="Datum" value="#{dipansehenBean.aktDip.datum}" labelStyle="width:80px;" disabled="true">
-                    </b:inputText>
 
-                    <b:commandButton value="Download" action="#{dipansehenBean.download()}" />
-                    <b:commandButton value="Diplomarbeit ansehen" action="#{dipansehenBean.diplomarbeitansehen()}" />
-                    <b:commandButton value="Favouriten speichern" actionListener="#{dipansehenBean.speichern}"/>
-                    <b:commandButton value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}"/>
-                    <br></br>                  
-                    <b:commandButton value="Back" action="bibliothek.xhtml" />
+                <div class="anzeigefelder">
 
-                </h:panelGrid>
-            </b:form>
-        </f:view>
+
+                    <b:form id="diplomarbeitansehen" >
+
+                        <h:panelGrid columns="1" cellpadding="5">
+
+ 
+                            <b:inputText  label="Titel" value="#{dipansehenBean.aktDip.title}" labelStyle="width:80px;" disabled="true">
+                            </b:inputText>   
+
+                            <b:inputText  label="Autor" value="#{dipansehenBean.autor}" labelStyle="width:80px;" disabled="true">
+                            </b:inputText>
+
+                            <b:inputText   label="Schule" value="#{dipansehenBean.schule}" labelStyle="width:80px;" disabled="true">
+                            </b:inputText>
+
+                            <b:inputText   label="Datum" value="#{dipansehenBean.aktDip.datum}" labelStyle="width:80px;" disabled="true">
+                            </b:inputText>
+
+                            <b:commandButton value="Download" action="#{dipansehenBean.download()}"/>
+                            <br></br>
+                            <b:commandButton value="Diplomarbeit ansehen" action="#{dipansehenBean.diplomarbeitansehen()}" />
+                            <br></br>
+                            <b:commandButton value="Favouriten speichern" actionListener="#{dipansehenBean.speichern}"/>
+                            <br></br>
+                            <b:commandButton value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}"/>
+                            <br></br>                  
+                            <b:commandButton value="Back" action="bibliothek.xhtml" />
+
+                        </h:panelGrid>
+                    </b:form>
+                </div>
+                
+                
+                <div class="diplomarbeit">
+                    <h:form>
+                        <h:graphicImage value = "#{dipansehenBean.aktDip.bild}" height="500px" width="500px" alt="Image not found"/> 
+                    </h:form>
+                </div>
+
+            </f:view>
+        </div>
     </h:body>
 </html>

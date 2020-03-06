@@ -11,294 +11,249 @@
         <title> Diplomarbeiten-Bibliothek </title>
         <h:outputStylesheet library= "css" name= "bibliothek_styles.css" />
         <h:outputStylesheet library="css" name="table-style.css"  />
+        <h:outputStylesheet library= "css" name= "Test.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     </h:head>
-    <h:body>
+    <h:body class="body" >
+
+        <ui:include src="/resources/include/navbar.xhtml" /> 
+        <ui:include src="/resources/include/footer.xhtml" /> 
+
+       
+
+            <div class="content">        
+
+                <div class="uberschrift_ws">Weitere Suche</div>
 
 
-        <div class="wrapper">
+                <div class="titel">Titel</div> 
+                <div class="tftitel"> 
 
 
-            <div class="seite">
+                    <div class="tft">
+                        <b:form horizontal="true">
+
+                            <b:inputText value="#{bibliothekBean.titel}" placeholder="Textfeld_Titel" typeahead="true" typeahead-values="" tiny-screen="10" />
 
 
-                <header class="header">
+                        </b:form>
+                    </div>   
 
-                    <div class="bild">
+                </div> 
+                <div class="autor">Autor</div>  
+                <div class="tfautor">
 
-                        <div class="flex-container">
-                            <h:form>
-                                <h:commandLink id="link_to_index" action="index.xhtml">
-                                    <h:graphicImage  id="ak_image" width="100" height="50" value="/resources/images/AK-Logo.png"/>
-                                </h:commandLink>
-                            </h:form>
-                        </div>
+                    <div class="tfa">
+                        <b:form horizontal="true">
 
+                            <b:inputText value="#{bibliothekBean.autor}" placeholder="Textfeld_Autor" typeahead="true" typeahead-values="" tiny-screen="10" />
+
+                        </b:form>
+                    </div>    
+
+                </div>
+                <div class="datum">Datum</div> 
+                <div class="tfdatum">
+
+                    <div class="tfd">
+                        <b:form horizontal="true">
+
+                            <b:inputText value="#{bibliothekBean.date}" placeholder="Textfeld_Datum" typeahead="true" typeahead-values="" tiny-screen="10" />
+
+
+                        </b:form>
+                    </div>    
+                </div>
+
+                <div class="sprache">Sprache</div>
+                <div class="tfsprache">
+                    <div class="tfsp">
+                        <b:form horizontal="true">
+                            <b:formGroup>
+                                <b:selectOneMenu  value="#{selectOneMenuBean.type}" colMd="2" required="true"  labelColMd="2">
+                                    <f:selectItem itemLabel="Sprache auswählen" itemValue="" />
+                                    <f:selectItem itemLabel="Deutsch" itemValue="1" />
+                                    <f:selectItem itemLabel="Englisch" itemValue="2" />  
+                                </b:selectOneMenu>    
+                            </b:formGroup>
+                        </b:form>  
+                    </div>
+                </div>
+
+                <div class="fachgebiet">Fachgebiet</div>
+                <div class="tffachgebiet">
+
+                    <div class="tff">
+                        <b:form horizontal="true">
+
+                            <b:inputText value="#{bibliothekBean.fachgebiet}" placeholder="Textfeld_Fachgebiet" typeahead="true" typeahead-values="" tiny-screen="10" />
+
+                        </b:form>
                     </div>
 
-
-                    <div class="menu">  
-
-                        <div class="flex">
-
-                            <div class="diplomarbeit"><h:outputText value="Diplomarbeiten"/></div>
-
-                            <div class="benutzername"><h:outputText value="Username"/> </div>
+                </div>
+                <div class="schlagwort">Schlagwort</div>
+                <div class="tfschlagwort">
 
 
-                            <div class="buttonleiste">
+                    <div class="tfs">
+                        <b:form horizontal="true">
 
+                            <b:inputText value="#{bibliothekBean.schlagwort}" placeholder="Textfeld_Schlagwort" typeahead="true" typeahead-values="" tiny-screen="10" />
+
+                        </b:form>
+                    </div>
+
+                </div> 
+
+
+
+                <div class="button_suche">
+                    <td>
+                        <h:form>
+                            <b:commandButton value="Suche" actionListener="#{bibliothekBean.suche}" look="danger"/>
+                        </h:form>
+
+                    </td>
+                </div>
+
+
+            </div>            
+
+
+
+            <main class="main">
+                
+            
+            
+            <div class="bib">
+
+                <div class="sortierleiste">
+                    <b:form horizontal="true">
+                        <b:formGroup>
+                            <b:selectOneMenu style="margin-top: 10px; margin-left: 5px " value="#{selectOneMenuBean.type}" colMd="2" required="true"  labelColMd="2">
+                                <f:selectItem itemLabel="Sortieren nach" itemValue="" />
+                                <f:selectItem itemLabel="A-Z" itemValue="1" />
+                                <f:selectItem itemLabel="Z-A" itemValue="2" />  
+                            </b:selectOneMenu>    
+                        </b:formGroup>
+                    </b:form>  
+                </div>
+
+
+                <table class="order-table">
+                    <tr>
+                        <th class="order-table-header"></th>	
+                    </tr>
+                    <tbody>
+                        <ui:repeat var="var" value="#{bibliothekBean.diplist}" varStatus="status">
+                            <h:panelGroup rendered="#{status.even}">
                                 <tr>
-                                    <h:form>
-                                        <td><b:button  value="Diplomarbeit hochladen" outcome="upload.xhtml" look="danger"/></td>
-                                        <td><b:button  value="Bibliothek" outcome="bibliothek.xhtml" look="danger"/></td>
-                                        <td><b:button  value="MeinKonto"  outcome="meinKonto.xhtml" look="danger"/></td>
-                                        <td><b:button  value="Abmelden"  outcome="bibliothek.xhtml" look="danger"/></td>
-                                    </h:form>                                  
+                                    <td class="order-table-even-row">
+
+                                        <tr>
+                                            <td class="order-table-even-row">
+                                                <h:form>
+                                                    <h:commandLink action="#{dipansehenBean.werteanzeigen(var)}">
+                                                        <h:graphicImage  class="image" value ="#{var.bild}"/>
+                                                    </h:commandLink>
+                                                </h:form>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="order-table-even-row1">#{var.title}</td>
+                                        </tr>
+                                    </td>
                                 </tr>
+                            </h:panelGroup>
+                        </ui:repeat>
+                    </tbody>
+                </table>
 
 
-                            </div>    
+                <table class="order-table1">
+                    <tr>
+                        <th class="order-table-header"></th>	
+                    </tr>
+                    <tbody>
+                        <ui:repeat var="var" value="#{bibliothekBean.diplist}" varStatus="status">
+                            <h:panelGroup rendered="#{status.odd}">
+                                <tr>
+                                    <td class="order-table-even-row">
 
-
-
-                        </div>
-
-
-                    </div>
-
-                </header>
-
-
-                <main class="main">
-
-                    <div class="content"> 
-
-                        <div class="uberschrift_ws">Weitere Suche</div>
-
-
-                        <div class="titel">Titel</div> 
-                        <div class="tftitel"> 
-
-
-                            <div class="tft">
-                                <b:form horizontal="true">
-
-                                    <b:inputText value="#{bibliothekBean.titel}" placeholder="Textfeld_Titel" typeahead="true" typeahead-values="" tiny-screen="10" />
-
-
-                                </b:form>
-                            </div>   
-
-                        </div> 
-                        <div class="autor">Autor</div>  
-                        <div class="tfautor">
-
-                            <div class="tfa">
-                                <b:form horizontal="true">
-
-                                    <b:inputText value="#{bibliothekBean.autor}" placeholder="Textfeld_Autor" typeahead="true" typeahead-values="" tiny-screen="10" />
-
-                                </b:form>
-                            </div>    
-
-                        </div>
-                        <div class="datum">Datum</div> 
-                        <div class="tfdatum">
-
-                            <div class="tfd">
-                                <b:form horizontal="true">
-
-                                    <b:inputText value="#{bibliothekBean.date}" placeholder="Textfeld_Datum" typeahead="true" typeahead-values="" tiny-screen="10" />
-
-
-                                </b:form>
-                            </div>    
-
-
-
-                        </div>
-
-                        <div class="sprache">Sprache</div>
-
-
-                        <div class="tfsprache">
-
-
-
-                            <div class="tfsp">
-                                <b:form horizontal="true">
-                                    <b:formGroup>
-                                        <b:selectOneMenu value="#{selectOneMenuBean.type}" colMd="2" required="true"  labelColMd="2">
-                                            <f:selectItem itemLabel="Sprache auswählen" itemValue="" />
-                                            <f:selectItem itemLabel="Deutsch" itemValue="1" />
-                                            <f:selectItem itemLabel="Englisch" itemValue="2" />  
-                                        </b:selectOneMenu>    
-                                    </b:formGroup>
-                                </b:form>  
-                            </div>
-
-
-                        </div>
-
-                        <div class="fachgebiet">Fachgebiet</div>
-                        <div class="tffachgebiet">
-
-                            <div class="tff">
-                                <b:form horizontal="true">
-
-                                    <b:inputText value="#{bibliothekBean.fachgebiet}" placeholder="Textfeld_Fachgebiet" typeahead="true" typeahead-values="" tiny-screen="10" />
-
-                                </b:form>
-                            </div>
-
-                        </div>
-                        <div class="schlagwort">Schlagwort</div>
-                        <div class="tfschlagwort">
-
-
-                            <div class="tfs">
-                                <b:form horizontal="true">
-
-                                    <b:inputText value="#{bibliothekBean.schlagwort}" placeholder="Textfeld_Schlagwort" typeahead="true" typeahead-values="" tiny-screen="10" />
-
-                                </b:form>
-                            </div>
-
-                        </div> 
-
-
-
-                        <div class="button_suche">
-                            <td>
-                                <h:form>
-                                    <b:commandButton value="Suche" actionListener="#{bibliothekBean.suche}" look="danger"/>
-                                </h:form>
-
-                            </td>
-                        </div>
-
-                    </div>
-
-
-                    <div class="bib">
-
-                        <div class="sortierleiste">
-                            <b:form horizontal="true">
-                                <b:formGroup>
-                                    <b:selectOneMenu style="margin-top: 10px; margin-left: 5px " value="#{selectOneMenuBean.type}" colMd="2" required="true"  labelColMd="2">
-                                        <f:selectItem itemLabel="Sortieren nach" itemValue="" />
-                                        <f:selectItem itemLabel="A-Z" itemValue="1" />
-                                        <f:selectItem itemLabel="Z-A" itemValue="2" />  
-                                    </b:selectOneMenu>    
-                                </b:formGroup>
-                            </b:form>  
-                        </div>
-
-
-                        <table class="order-table">
-                            <tr>
-                                <th class="order-table-header"></th>	
-                            </tr>
-                            <tbody>
-                                <ui:repeat var="var" value="#{bibliothekBean.diplist}" varStatus="status">
-                                    <h:panelGroup rendered="#{status.even}">
                                         <tr>
                                             <td class="order-table-even-row">
-
-                                                <tr>
-                                                    <td class="order-table-even-row">
-                                                        <h:form>
-                                                            <h:commandLink action="#{dipansehenBean.werteanzeigen(var)}">
-                                                                <h:graphicImage  class="image" value ="#{var.bild}"/>
-                                                            </h:commandLink>
-                                                        </h:form>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="order-table-even-row1">#{var.title}</td>
-                                                </tr>
-                                            </td>
+                                                <h:form>
+                                                    <h:commandLink action="#{dipansehenBean.werteanzeigen(var)}">
+                                                        <h:graphicImage class="image"  value = "#{var.bild}"/>
+                                                    </h:commandLink>
+                                                </h:form>
+                                            </td>   
                                         </tr>
-                                    </h:panelGroup>
-                                </ui:repeat>
-                            </tbody>
-                        </table>
-
-
-                        <table class="order-table1">
-                            <tr>
-                                <th class="order-table-header"></th>	
-                            </tr>
-                            <tbody>
-                                <ui:repeat var="var" value="#{bibliothekBean.diplist}" varStatus="status">
-                                    <h:panelGroup rendered="#{status.odd}">
                                         <tr>
-                                            <td class="order-table-even-row">
-
-                                                <tr>
-                                                    <td class="order-table-even-row">
-                                                        <h:form>
-                                                            <h:commandLink action="#{dipansehenBean.werteanzeigen(var)}">
-                                                                <h:graphicImage class="image"  value = "#{var.bild}"/>
-                                                            </h:commandLink>
-                                                        </h:form>
-                                                    </td>   
-                                                </tr>
-                                                <tr>
-                                                    <td class="order-table-even-row1">#{var.title}</td>   
-                                                </tr>
-
-
-                                            </td>
+                                            <td class="order-table-even-row1">#{var.title}</td>   
                                         </tr>
-                                    </h:panelGroup>
-                                </ui:repeat>
-
-                            </tbody>
-                        </table>    
-                    </div>
-
-                </main>
 
 
+                                    </td>
+                                </tr>
+                            </h:panelGroup>
+                        </ui:repeat>
+
+                    </tbody>
+                </table> 
 
 
-                <footer class="seitenleiste">
 
 
-                    <h:form enctype="multipart/form-data">
-
-                        <div class="seitenanzahl_leiste">
-
-                            <h:commandButton id="hinunterzählen" style="margin-right: 50px" value="Zurück"  actionListener="#{bibliothekBean.hinunterzählen(actionEvent)}"/>
-
-                            <h:commandLink  id="hallo" style="margin-right: 50px" value="0" actionListener="#{bibliothekBean.verlinken(actionEvent)}" rendered="#{true}" ></h:commandLink>
-                            <h:commandLink  id="abc" style="margin-right: 50px" value="1" actionListener="#{bibliothekBean.verlinken(actionEvent)}" rendered="#{true}" ></h:commandLink>
 
 
-                            <h:commandLink value="2" actionListener="#{bibliothekBean.verlinken(actionEvent)}" rendered="#{false}" ></h:commandLink>
-                            <h:commandLink value="3" actionListener="#{bibliothekBean.verlinken(actionEvent)}" rendered="#{false}" ></h:commandLink>
 
 
-                            <h:commandLink value="#{bibliothekBean.message}" rendered="#{false}" ></h:commandLink>
-                            <h:commandLink value="#{bibliothekBean.message}" rendered="#{false}" ></h:commandLink>
 
-                            <h:commandButton id="hochzählen" style="margin-right: 50px" value="Weiter"  actionListener="#{bibliothekBean.hochzählen(actionEvent)}"/>
-                            <h:commandLink action="#{bibliothekBean.message}" ></h:commandLink>
-                            <h:outputText value="Seitenanzahl: #{bibliothekBean.message}"/>
+
+
+
+
+
+
+
+
+
+            </div>
+
+            <div class="seitenleiste">
+
+                <h:form enctype="multipart/form-data">
+
+                    <div class="seitenanzahl_leiste">
+
+                        <div class="hinunterzählen">
+                                <h:commandButton id="hinunterzählen" value="Zurück"  actionListener="#{bibliothekBean.hinunterzaehlen(actionEvent)}"/>
                         </div>
 
+                        <div class="liste">
+                                <ui:repeat  var="var" value="#{bibliothekBean.seitenleiste}" varStatus="status">
+                                    <h:commandButton id="button" value="#{var.seitenzahl}" actionListener="#{bibliothekBean.verlinken}"/>
+                                </ui:repeat>
+                        </div>
+                        
+                        
+                        <div class="hochzählen">
+                            <h:commandButton id="hochzählen" style="margin-right: 50px" value="Weiter"  actionListener="#{bibliothekBean.hochzaehlen(actionEvent)}"/>
+                            <h:outputText value="Seitenanzahl: #{bibliothekBean.aktuelleseitenanzahl}"/>
+                        </div>
+
+                    </div> 
+
+                </h:form>            
+
+            </div>        
 
 
-                    </h:form>
+         </main>       
 
-                </footer>
-
-            </div>    
-
-        </div>
-
-
+               
     </h:body>
 </html>
 
