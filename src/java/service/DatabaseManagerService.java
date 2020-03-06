@@ -17,6 +17,7 @@ import infrastructure.SW_DA_DAO;
 import infrastructure.SchlagwortDAO;
 import infrastructure.SchuleDAO;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import pojo.Autor;
 import pojo.SW_DA;
 import pojo.Schlagwort;
@@ -186,16 +187,24 @@ public class DatabaseManagerService {
         this.autorDAO = autorDAO;
     }
 
-    public void updateAutors(List<Autor> autor) {
-        this.autorDAO.updateAutors(autor);
+    public void updateAutors(HashMap<Integer, Autor> editMap) {
+        this.autorDAO.updateAutors(editMap);
     }
 
     public void deleteAutor(int autId) {
         this.autorDAO.deleteAutor(autId);
     }
 
+    public void deleteAutors(HashMap<Integer, Autor> delList) {
+        this.autorDAO.deleteAutors(delList);
+    }
+
     public void insertAutor(Autor autor) {
         this.autorDAO.insert(autor.getFullName(), autor.getDa_id());
+    }
+
+    public void insertAutors(HashMap<Integer, Autor> insList) {
+        this.autorDAO.insertAutors(insList);
     }
 
     public List<Autor> getAllAutor() {
@@ -223,8 +232,21 @@ public class DatabaseManagerService {
         return schlagwDAO.read();
     }
 
+    public HashMap<String, Integer> getAllSchlagwoerterHashMap() {
+        HashMap<String, Integer> allSchlagwoerterMap = new HashMap<>();
+        List<Schlagwort> swList = getAllSchlagwörter();
+        swList.forEach((schlagwort) -> {
+            allSchlagwoerterMap.put(schlagwort.getWord(), schlagwort.getTag_id());
+        });
+        return allSchlagwoerterMap;
+    }
+
     public List<Schlagwort> getAllSchlagwoerter(int id) {
-        return schlagwDAO.getAllSchlagwoerter(id);
+        return schlagwort_verknuepfungDAO.getAllSchlagwoerter(id);
+    }
+
+    public void insertSchlagwortList(List<Schlagwort> swList) {
+        schlagwDAO.insertSchlagwortList(swList);
     }
 
     //Schlagwort-Verknüpfungstabelle
@@ -260,6 +282,14 @@ public class DatabaseManagerService {
 
     public List<SW_DA> getAllSW_DA_Verknuepfung() {
         return this.schlagwort_verknuepfungDAO.getAllSW_DA_Verknüpfungen();
+    }
+
+    public void deleteSW_DA(HashMap<Integer, Schlagwort> remMap, int daId) {
+        this.schlagwort_verknuepfungDAO.deleteSW_DA(remMap, daId);
+    }
+
+    public void insertSW_DAMap(HashMap<Integer, Schlagwort> insMap, int daId) {
+        this.schlagwort_verknuepfungDAO.insertHashMap(insMap, daId);
     }
 
     //Schule
@@ -360,6 +390,11 @@ public class DatabaseManagerService {
     //Diplomarbeit löschen
     public void deleteDiplomarbeit(int id) {
         diplomarbeitDAO.delete(id);
+    }
+
+    //DP Title update
+    public void updateDPTitle(int id, String title) {
+        diplomarbeitDAO.updateTitle(id, title);
     }
 
     //Redakteur Liste der DAs

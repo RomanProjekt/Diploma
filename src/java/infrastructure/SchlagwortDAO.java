@@ -41,25 +41,6 @@ public class SchlagwortDAO {
         return listd_schlagwort;
     }
 
-    public List<Schlagwort> getAllSchlagwoerter(int id) {
-        List<Schlagwort> listd_schlagwort = new ArrayList<>();
-
-        try (
-                Connection con = ConnectionManager.getInst().getConn();
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select id, name, sw_id, da_id from schlagwort join schlagwort_diplomarbeit on schlagwort.id = schlagwort_diplomarbeit.sw_id where da_id = " + id)) {
-            while (rs.next()) {
-                Schlagwort retVal = new Schlagwort(rs.getInt(1), rs.getString(2));
-                listd_schlagwort.add(retVal);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
-
-        return listd_schlagwort;
-    }
-
     public void insert(List<String> schlagwoerter) {
 
         for (int i = 0; i < schlagwoerter.size(); i++) {
@@ -86,6 +67,26 @@ public class SchlagwortDAO {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
 
+    }
+
+    public void insertSchlagwortList(List<Schlagwort> swList) {
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt
+                = con.prepareStatement("INSERT INTO schlagwort"
+                        + "(name) VALUES (?)");) {
+
+            for (Schlagwort schlagwort : swList) {
+                pstmt.setString(1, schlagwort.getWord());
+
+                pstmt.executeUpdate();
+            }
+
+            pstmt.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.clo
     }
 
     public List<Schlagwort> getAllSchlagwörter() {

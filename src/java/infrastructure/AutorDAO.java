@@ -109,13 +109,37 @@ public class AutorDAO {
 
     }
 
-    public void updateAutors(List<Autor> autorList) {
+    public void insertAutors(HashMap<Integer, Autor> insMap) {
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt
+                = con.prepareStatement("INSERT INTO autoren"
+                        + "(fullname, da_id) VALUES (?, ?)");) {
+
+            for (Map.Entry<Integer, Autor> entry : insMap.entrySet()) {
+                Integer key = entry.getKey();
+                Autor value = entry.getValue();
+
+                pstmt.setString(1, value.getFullName());
+                pstmt.setInt(2, value.getDa_id());
+                pstmt.executeUpdate();
+            }
+            pstmt.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AutorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.clo   
+    }
+
+    public void updateAutors(HashMap<Integer, Autor> editMap) {
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt = con.prepareStatement("UPDATE autoren set fullname = ? where id = ?");) {
-            for (Autor autor : autorList) {
-                pstmt.setString(1, autor.getFullName());
-                pstmt.setInt(2, autor_id);
+            for (Map.Entry<Integer, Autor> entry : editMap.entrySet()) {
+                Integer key = entry.getKey();
+                Autor value = entry.getValue();
+                pstmt.setString(1, value.getFullName());
+                pstmt.setInt(2, value.getAutor_id());
                 pstmt.execute();
             }
             pstmt.close();
@@ -131,6 +155,25 @@ public class AutorDAO {
 
             pstmt.setInt(1, id);
             pstmt.execute();
+
+            pstmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AutorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void deleteAutors(HashMap<Integer, Autor> delMap) {
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement("DELETE FROM autoren where id = ?");) {
+            for (Map.Entry<Integer, Autor> entry : delMap.entrySet()) {
+                Integer key = entry.getKey();
+                Autor value = entry.getValue();
+
+                pstmt.setInt(1, value.getAutor_id());
+                pstmt.execute();
+
+            }
 
             pstmt.close();
         } catch (SQLException ex) {

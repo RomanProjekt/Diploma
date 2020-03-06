@@ -109,6 +109,21 @@ public class DiplomarbeitDAO {
 
     }
 
+    public void updateTitle(int da_id, String title) {
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt
+                = con.prepareStatement("UPDATE diplomarbeit SET title = ?  WHERE da_id = " + da_id)) {
+
+            pstmt.setString(1, title);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.clo
+    }
+
     public Diplomarbeit getDiplomarbeit(int id) {
 
         try (
@@ -174,9 +189,9 @@ public class DiplomarbeitDAO {
         //diplomarbeiten in die Liste schreiben
         queryList.add("select * from diplomarbeit where da_id like '%" + key + "%'");
         queryList.add("select * from diplomarbeit where title like '%" + key + "%'");
-        queryList.add("select * from diplomarbeit natural join autoren where fullname like '%"+key+"%'");
-        queryList.add("select * from diplomarbeit where datum like '"+key+"-__"+"-__"+"'");
-        queryList.add("select * from diplomarbeit schlagwort natural join diplomarbeit and name like '%"+key+"%'" );
+        queryList.add("select * from diplomarbeit natural join autoren where fullname like '%" + key + "%'");
+        queryList.add("select * from diplomarbeit where datum like '" + key + "-__" + "-__" + "'");
+        queryList.add("select * from diplomarbeit schlagwort natural join diplomarbeit and name like '%" + key + "%'");
 
         for (String s : queryList) {
 
@@ -196,13 +211,13 @@ public class DiplomarbeitDAO {
                     help.setBild(rs.getString("bild"));
                     help.setDownload_count(rs.getInt("download_count"));
                     help.setClick_count(rs.getInt("click_count"));
-                    
+
                     Diplomarbeit dblcheck = dipList.get(help.getDa_id()); //testing
-                    
-                    if(!help.equals(dblcheck)) {
-                    dipList.add(help);
+
+                    if (!help.equals(dblcheck)) {
+                        dipList.add(help);
                     }
-                    
+
                     //dipList.add((Diplomarbeit) rs); //konvertieren, umschichten
                 }
             } catch (SQLException e) {
