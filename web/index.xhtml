@@ -31,13 +31,16 @@
                             <b:form>
                                 <b:inputText  value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label=""/>
 
-                                <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.sBool}" onclick="#{dipSuchenBean.displaySelectedDa()}">
-                                    <f:selectItems value="#{dipSuchenBean.daList}" var="da" itemValue="#{da}" itemLabel="#{da.title}"/>
+                                <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="true" onclick="#{dipSuchenBean.displaySelectedDa()}">
+                                    <f:selectItems value="#{dipSuchenBean.daList}" var="da" itemValue="#{da}"
+                                                   itemLabel="Nr: #{da.da_id} Titel: #{da.title} Autor: #{da.autor_id}"/>
                                 </b:selectOneMenu>
                                 
                                 <h:outputLabel value="#{dipSuchenBean.recentDaList}" title="Recent Searches ... "/>
+                                
 
                                 <b:commandButton value="Suchen" action="#{dipSuchenBean.selectDA()}" />
+                                <b:commandButton value="More" action="#{dipSuchenBean.recentDa()}" />
                             </b:form> 
                         </div>
                     </div>
