@@ -43,19 +43,33 @@ public class registerBean {
     }
 
     public Object register() {
-        HashMap<Integer, String> mape;
-        mape = new HashMap<>();
-        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        String hash = argon2.hash(4, 1024 * 1024, 8, pw.toCharArray());
+        if (!(dbService.usernameExists(username))) {
+            HashMap<Integer, String> mape;
+            mape = new HashMap<>();
+            Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
 
-        b = new Benutzer(0, username, firstName, lastName, hash, "salt", "User", email);
-        int result = dbService.insertBenutzer(b);
-        if (result == 1) {
-            b = dbService.load(username);
-            dbService.setLoggedInBenutzer(b);
-            return "success";
+            String hash = argon2.hash(4, 1024 * 1024, 8, pw.toCharArray());
+
+            b = new Benutzer(0, username, firstName, lastName, hash, "salt", "User", email);
+            int result = dbService.insertBenutzer(b);
+            if (result == 1) {
+                b = dbService.load(username);
+                dbService.setLoggedInBenutzer(b);
+                clearLogin();
+                return "success";
+
+            }
         }
         return "fail";
+    }
+
+    public void clearLogin() {
+        username = "";
+        firstName = "";
+        lastName = "";
+        email = "";
+        pw = "";
+        message = "";
     }
 
     public Benutzer getB() {

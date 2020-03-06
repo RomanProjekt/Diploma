@@ -38,15 +38,13 @@
                             <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.geteMail()}" />
 
                         </b:panelGrid>
-                        <b:commandButton value="Nutzerdaten Ändern" />
+                        <!--                        <b:commandButton value="Nutzerdaten Ändern" />-->
                     </b:form>
                 </div>
                 <b:form>
-
-
                     <div class="favoriten" >
                         <h3>Ihre Favoriten</h3>
-                        <b:dataTable   value="#{meinKontoBean.favList}" var="diplomarbeit"  rendered="#{!meinKontoBean.favIsEmpty()}">
+                        <b:dataTable   value="#{meinKontoBean.favList}" id="favTable" var="diplomarbeit" class="favoritenTable"  rendered="#{!meinKontoBean.favIsEmpty()}">
                             <b:dataTableColumn label="Logo" >
                                 <h:graphicImage value="#{diplomarbeit.bild}" height="50px" width="50px" />
                             </b:dataTableColumn>
@@ -58,7 +56,10 @@
                                 <b:commandButton value="Ansehen" action="#{dipansehenBean.werteanzeigen(diplomarbeit)}" />
                             </b:dataTableColumn>
                             <b:dataTableColumn label="">
-                                <b:commandButton value="Löschen" action="#{meinKontoBean.deletefav(diplomarbeit)}" />
+                                <b:commandButton value="Löschen" action="#{meinKontoBean.deletefav(diplomarbeit)}" > 
+                                    <f:ajax render="@form"  />
+                                </b:commandButton>
+
                             </b:dataTableColumn>
                         </b:dataTable>
                         <h:outputLabel rendered="#{meinKontoBean.favIsEmpty()}">Sie haben noch keine Favoriten hinzugefügt</h:outputLabel>
@@ -86,7 +87,10 @@
                             </b:dataTableColumn>
 
                             <b:dataTableColumn label="">
-                                <b:commandButton value="Löschen" action="#{meinKontoBean.delteDip(diplomarbeit)}" />
+                                <b:commandButton value="Löschen" action="#{meinKontoBean.delteDip(diplomarbeit)}" >
+                                    <f:ajax render="@form"  />
+                                </b:commandButton>
+
                             </b:dataTableColumn>
 
                         </b:dataTable>

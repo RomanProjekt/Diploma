@@ -96,6 +96,10 @@ public class DatabaseManagerService {
         loggedInBenutzer = new Benutzer();
     }
 
+    public boolean usernameExists(String username) {
+        return benutzerDAO.usernameExists(username);
+    }
+
     public boolean isUser() {
         return "User".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() == null;
     }
