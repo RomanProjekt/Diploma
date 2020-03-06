@@ -87,4 +87,21 @@ public class FavoritenDAO {
         return result;
     }
 
+    public void deleteDip(int da_id) {
+        String query = "delete from favoriten where da_id = ?";
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement(query);) {
+
+            pstmt.setInt(1, da_id);
+
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+    }
+
 }

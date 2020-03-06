@@ -162,6 +162,20 @@ public class AutorDAO {
         }
     }
 
+    public void deleteAutorDip(int dip_id) {
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement("DELETE FROM autoren where da_id = ?");) {
+
+            pstmt.setInt(1, dip_id);
+            pstmt.execute();
+
+            pstmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AutorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void deleteAutors(HashMap<Integer, Autor> delMap) {
         try (
                 Connection con = ConnectionManager.getInst().getConn();

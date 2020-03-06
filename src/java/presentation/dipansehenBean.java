@@ -284,8 +284,4 @@ public class dipansehenBean {
         };
     }
 
-    public void löschenDiplomarbeit(ActionEvent event) {
-        dms.deleteDiplomarbeit(this.aktuelle_id);
-    }
-
 }

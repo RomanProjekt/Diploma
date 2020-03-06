@@ -388,8 +388,16 @@ public class DatabaseManagerService {
     }
 
     //Diplomarbeit löschen
-    public void deleteDiplomarbeit(int id) {
-        diplomarbeitDAO.delete(id);
+    public void deleteDiplomarbeit(Diplomarbeit dip) {
+        //delete autor
+        autorDAO.deleteAutorDip(dip.getDa_id());
+
+        //delete fav
+        favDAO.deleteDip(dip.getDa_id());
+        //delete schlag
+        schlagwort_verknuepfungDAO.deleteDA(dip.getDa_id());
+
+        diplomarbeitDAO.delete(dip.getDa_id());
     }
 
     //DP Title update
