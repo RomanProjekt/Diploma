@@ -31,21 +31,25 @@
                             <b:form>
                                 <b:inputText  value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label=""/>
 
-                                <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="true" onchange="submit">
+                                <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.render}" onchange="submit">
                                     <f:selectItems value="#{dipSuchenBean.daList}" var="da"
                                                    itemValue="#{da}" itemLabel="Nr: #{da.da_id} Titel: #{da.title} Autor: #{da.autor_id}" />
-                                    </b:selectOneMenu>
-                                
-                                <b:dataTable value="#{dipSuchenBean.recentDaList}" var="dip" >
-                                    <b:dataTableColumn value="#{dip.da_id}" />
-                                </b:dataTable>
-                                
+                                </b:selectOneMenu>
+
                                 <br/>
                                 <b:commandButton value="Suchen" action="#{dipSuchenBean.selectDA()}" />
                                 <br/>
                                 <b:commandButton value="More" action="#{dipSuchenBean.recentDa()}" />
                                 <br/>
                                 <b:commandButton value="Details" action="#{dipansehenBean.werteanzeigen(dipSuchenBean.selectedDa)}"/>
+
+                                <b:dataTable value="#{dipSuchenBean.recentDaList}" var="dip" rendered="#{dipSuchenBean.render2}">
+                                    <b:dataTableColumn value="#{dip.da_id}" label="Diplomarbeitsnummer"/>
+                                    <b:dataTableColumn value="#{dip.title}" label="Titel"/>
+                                    <b:dataTableColumn value="#{dip.autor_id}" label="Autor"/>
+                                </b:dataTable>
+
+
                             </b:form> 
                         </div>
                     </div>
