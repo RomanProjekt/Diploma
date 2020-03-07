@@ -13,6 +13,7 @@ import java.util.Objects;
  * @author patri
  */
 public class Diplomarbeit {
+
     private int da_id;
     private String title;
     private int autor_id;
@@ -23,21 +24,17 @@ public class Diplomarbeit {
     private String bild;
     private int download_count;
     private int click_count;
-    
-    
-    
+
     //Default Konstruktor
     public Diplomarbeit() {
-        
+
     }
 
-
-    
     public Diplomarbeit(int da_id, String title, int autor_id, int schule_id, String pdf, int user_id, Date datum, String bild, int download_count, int click_count) {
         this.da_id = da_id;
         this.title = title;
         this.autor_id = autor_id;
-        
+
         this.schule_id = schule_id;
         this.pdf = pdf;
         this.user_id = user_id;
@@ -46,10 +43,6 @@ public class Diplomarbeit {
         this.download_count = download_count;
         this.click_count = click_count;
     }
-
-   
-
-    
 
     public int getDa_id() {
         return da_id;
@@ -82,7 +75,6 @@ public class Diplomarbeit {
 //    public void setSw_id(int sw_id) {
 //        this.sw_id = sw_id;
 //    }
-
     public String getPdf() {
         return pdf;
     }
@@ -114,7 +106,6 @@ public class Diplomarbeit {
     public void setDatum(Date datum) {
         this.datum = datum;
     }
-    
 
     public String getBild() {
         return bild;
@@ -165,16 +156,22 @@ public class Diplomarbeit {
             return false;
         }
         final Diplomarbeit other = (Diplomarbeit) obj;
-        if (this.da_id != other.da_id) {
+        if (this.autor_id != other.autor_id) {
+            return false;
+        }
+        if (this.schule_id != other.schule_id) {
             return false;
         }
         if (!Objects.equals(this.title, other.title)) {
             return false;
         }
-        return true;
+        if (!Objects.equals(this.pdf, other.pdf)) {
+            return false;
+        }
+        if (!Objects.equals(this.bild, other.bild)) {
+            return false;
+        }
+        return Objects.equals(this.datum, other.datum);
     }
-    
-    
-    
-    
+
 }
