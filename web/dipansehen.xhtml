@@ -14,11 +14,11 @@ and open the template in the editor.
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
         <h:outputStylesheet library= "css" name= "dipansehen_styles.css" />
-        <h:outputStylesheet library= "css" name= "Test.css" />
+        <h:outputStylesheet library= "css" name= "Navbar.css" />
 
     </h:head>
     <h:body>
-         <ui:include src="/resources/include/navbar.xhtml" />  
+        <ui:include src="/resources/include/navbar.xhtml" />  
 
 
         <div class="main">
@@ -38,7 +38,7 @@ and open the template in the editor.
 
                         <h:panelGrid columns="1" cellpadding="5">
 
- 
+
                             <b:inputText  label="Titel" value="#{dipansehenBean.aktDip.title}" labelStyle="width:80px;" disabled="true">
                             </b:inputText>   
 
@@ -64,8 +64,8 @@ and open the template in the editor.
                         </h:panelGrid>
                     </b:form>
                 </div>
-                
-                
+
+
                 <div class="diplomarbeit">
                     <h:form>
                         <h:graphicImage value = "#{dipansehenBean.aktDip.bild}" height="500px" width="500px" alt="Image not found"/> 
