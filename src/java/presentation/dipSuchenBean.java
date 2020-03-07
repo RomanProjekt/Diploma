@@ -23,7 +23,8 @@ public class dipSuchenBean {
     List<Diplomarbeit> daList;
     Diplomarbeit selectedDa;
     List<Diplomarbeit> recentDaList;
-    //boolean sBool;
+    boolean render;
+    boolean render2;
 
     //favoriten auch so?
     public dipSuchenBean() {
@@ -32,7 +33,8 @@ public class dipSuchenBean {
 
     @PostConstruct
     void init() {
-        //sBool = false;
+        render = false;
+        render2 = false;
         obj = new DiplomarbeitDAO();
         daList = new ArrayList<>();
         recentDaList = new ArrayList<>(); //favoriten aus der db laden?
@@ -41,7 +43,7 @@ public class dipSuchenBean {
     public Object selectDA() {
         daList = obj.Suchleiste(key);
         if (!daList.isEmpty()) {
-            //sBool = true;
+            render = true;
             selectedDa = daList.get(0); //null check?, andere select bar machen, bei select auf da seite weiterreferenzieren
             return null;
         }
@@ -49,16 +51,31 @@ public class dipSuchenBean {
     }
 
     public Object recentDa() {
+        //recentDaList.clear();
+        int check = 0;
         if (!daList.isEmpty()) {
-            for (Diplomarbeit ar : daList) {
-                recentDaList.add(ar);
+            render2 = true;
+            check = 1;
+            if (!recentDaList.isEmpty()) {
+                for (Diplomarbeit ar : recentDaList) { //daList) {
+                    //    recentDaList.add(ar);
+                    if (ar.getDa_id() == selectedDa.getDa_id()) {
+                        check = 0;
+                    }
+                }
+            } else {
+                //recentDaList.add(selectedDa);
             }
+        }
+        if (check == 1) {
+            recentDaList.add(selectedDa);
         }
         return null;
     }
 
     public String displaySelectedDa() { //String navigation, or display with button? auf out of bound prüfen und basisliste bei leer?
         return "switchda";              //listener für click action
+        //new, weiter an bibliothek
     }
 
     //public void displaySelectedDa(ActionEvent e) {
@@ -93,13 +110,29 @@ public class dipSuchenBean {
     public void setSelectedDa(Diplomarbeit selectedDa) {
         this.selectedDa = selectedDa;
     }
-    
+
     public List<Diplomarbeit> getRecentDaList() {
         return recentDaList;
     }
 
     public void setRecentDaList(List<Diplomarbeit> recentDaList) {
         this.recentDaList = recentDaList;
+    }
+
+    public boolean getRender() {
+        return render;
+    }
+
+    public void setRender(boolean render) {
+        this.render = render;
+    }
+
+    public boolean getRender2() {
+        return render2;
+    }
+
+    public void setRender2(boolean render2) {
+        this.render2 = render2;
     }
 
 }
