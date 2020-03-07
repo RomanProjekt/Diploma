@@ -187,10 +187,12 @@ public class updateDiplomarbeit {
             dbService.deleteSW_DA(remSchlagMap, this.aktDip.getDa_id());
         }
 
+        //New Schlagwort gets inserted into Schlagwort Table
         if (insertSchlagList != null && !insertSchlagList.isEmpty()) {
             dbService.insertSchlagwortList(insertSchlagList);
         }
 
+        //Existing Schlagwort Inserting into connection Table
         if (insSchlagMap != null && !insSchlagMap.isEmpty()) {
             dbService.insertSW_DAMap(insSchlagMap, this.aktDip.getDa_id());
         }

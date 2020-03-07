@@ -207,8 +207,8 @@ public class DatabaseManagerService {
         this.autorDAO.insert(autor.getFullName(), autor.getDa_id());
     }
 
-    public void insertAutors(HashMap<Integer, Autor> insList) {
-        this.autorDAO.insertAutors(insList);
+    public void insertAutors(HashMap<Integer, Autor> insMap) {
+        this.autorDAO.insertAutorMap(insMap);
     }
 
     public List<Autor> getAllAutor() {
@@ -361,7 +361,7 @@ public class DatabaseManagerService {
     }
 
     //Diplomarbeit hochladen:
-    public void hochladen(String title, String autor_name, String schule, List<String> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
+    public void hochladen(String title, List<Autor> autorList, String schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
 
         int var_user_id = this.getLoggedInBenutzer().getUser_id();
 
@@ -370,25 +370,21 @@ public class DatabaseManagerService {
         int schule_id = this.getListevonSchulen().get(this.getListevonSchulen().size() - 1).getSchule_id();
 
         //1.Erstellen einer Diplomarbeit-Tabelle
-        diplomarbeitDAO.insert(title, var_user_id, schule_id, pdfpath, imagepath);
-
-        int var_da_id = this.ListeAllDiplomarbeiten().get(this.ListeAllDiplomarbeiten().size() - 1).getDa_id();
+        int da_id = diplomarbeitDAO.insert(title, var_user_id, schule_id, pdfpath, imagepath);
 
         //2. Erstellen eines Autor-Tabelle
-        autorDAO.insert(autor_name, var_da_id);
+        autorDAO.insertAutorList(autorList, da_id);
 
-        Autor autor = this.getAutor(var_da_id);
-        System.out.println("Autor id adsfadsfasdfsf" + autor);
-
+        // Autor autor = this.getAutor(da_id);
+        // System.out.println("Autor id adsfadsfasdfsf" + autor);
         schlagwDAO.insert(schlagwoerter);
 
         List<Schlagwort> schlagwortliste = this.getAllSchlagwörter().subList(this.getAllSchlagwörter().size() - 2, this.getAllSchlagwörter().size());
 
-        schlagwort_verknuepfungDAO.insert(schlagwortliste, var_da_id);
+        schlagwort_verknuepfungDAO.insert(schlagwortliste, da_id);
 
         //5.Update Diplomarbeit
-        diplomarbeitDAO.update(var_da_id, autor.getAutor_id());
-
+        //    diplomarbeitDAO.update(da_id, autor.getAutor_id());
     }
 
     //Diplomarbeit löschen

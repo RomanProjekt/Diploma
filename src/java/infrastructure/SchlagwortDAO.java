@@ -41,10 +41,10 @@ public class SchlagwortDAO {
         return listd_schlagwort;
     }
 
-    public void insert(List<String> schlagwoerter) {
+    public void insert(List<Schlagwort> schlagwoerter) {
 
-        for (int i = 0; i < schlagwoerter.size(); i++) {
-            insert_schlagwort(this.tag_id, schlagwoerter.get(i));
+        for (Schlagwort schlagwort : schlagwoerter) {
+            insert_schlagwort(schlagwort.getTag_id(), schlagwort.getWord());
         }
 
     }

@@ -59,8 +59,8 @@ public class DiplomarbeitDAO {
         return listdip;
     }
 
-    public void insert(String title, int user_id, int schule_id, String pdfpath, String imagepath) throws FileNotFoundException {
-
+    public int insert(String title, int user_id, int schule_id, String pdfpath, String imagepath) throws FileNotFoundException {
+        int retVal = 0;
         int da_id = 0;
         int click_count = 0;
         int download_count = 0;
@@ -70,7 +70,7 @@ public class DiplomarbeitDAO {
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt
                 = con.prepareStatement("INSERT INTO diplomarbeit"
-                        + "(da_id, titel, autor_id, schule_id, pdf, benutzer_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ? ,? ,? ,?, ?, ?, ?)");) {
+                        + "(da_id, titel, autor_id, schule_id, pdf, benutzer_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ? ,? ,? ,?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);) {
 
             pstmt.setInt(1, da_id);
             pstmt.setString(2, title);
@@ -84,11 +84,17 @@ public class DiplomarbeitDAO {
             pstmt.setInt(10, click_count);
 
             pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs != null && rs.next()) {
+                retVal = rs.getInt(1);
+            }
+
             pstmt.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
+        return retVal;
 
     }
 
@@ -188,39 +194,37 @@ public class DiplomarbeitDAO {
         //diplomarbeiten in die Liste schreiben
         queryList.add("select * from diplomarbeit where da_id like '%" + key + "%'");
         queryList.add("select * from diplomarbeit where titel like '%" + key + "%'");
-        queryList.add("select * from diplomarbeit natural join autoren where fullname like '%"+key+"%'");
-        queryList.add("select * from diplomarbeit where datum like '"+key+"-__"+"-__"+"'");
-        queryList.add("select * from diplomarbeit d, schlagwort_diplomarbeit sd, schlagwort s" +
-                                        "where d.da_id = sd.da_id" +
-                                        "and sd.sw_id = s.id" +
-                                        "and s.name like '%"+key+"%'");
+        queryList.add("select * from diplomarbeit natural join autoren where fullname like '%" + key + "%'");
+        queryList.add("select * from diplomarbeit where datum like '" + key + "-__" + "-__" + "'");
+        queryList.add("select * from diplomarbeit d, schlagwort_diplomarbeit sd, schlagwort s"
+                + "where d.da_id = sd.da_id"
+                + "and sd.sw_id = s.id"
+                + "and s.name like '%" + key + "%'");
         queryList.add("select * from diplomarbeit natural join schule where name like '%" + key + "%'");
         for (String s : queryList) {
             try (
                     Connection con = ConnectionManager.getInst().getConn();
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(s)) {
-                while (rs.next()) {  
+                while (rs.next()) {
                     Diplomarbeit help;
-                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"), 
-                    rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"), 
-                    rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
-                    int cs=0;
-                    if(!dipList.isEmpty()) {
-                    for(Diplomarbeit ar : dipList) {
-                        if(ar.getDa_id()==help.getDa_id()) {
-                            cs=0;
-                            break;
+                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+                            rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
+                            rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
+                    int cs = 0;
+                    if (!dipList.isEmpty()) {
+                        for (Diplomarbeit ar : dipList) {
+                            if (ar.getDa_id() == help.getDa_id()) {
+                                cs = 0;
+                                break;
+                            } else {
+                                cs = 1;
+                            }
                         }
-                        else {
-                            cs=1;
-                        }
+                    } else {
+                        cs = 1;
                     }
-                    }
-                    else {
-                        cs=1;
-                    }
-                    if(cs==1) {
+                    if (cs == 1) {
                         dipList.add(help);
                     }
                 }
