@@ -13,7 +13,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
+import javax.annotation.PostConstruct;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.servlet.http.Part;
 import pojo.Autor;
@@ -27,6 +29,15 @@ import service.DatabaseManagerService;
  */
 public class uploadBean {
 
+    private boolean editAutor = false;
+    private boolean editSchlagwort = false;
+
+    private List<String> allSchlagwTypeahead;
+    private Map<String, Integer> allSchlagwMap;
+    private List<Autor> autList;
+    private List<Schlagwort> schlagList;
+    private List<Schlagwort> insSchlagList;
+
     private String titel;
     private String autor;
     private String schule;
@@ -37,7 +48,7 @@ public class uploadBean {
     private String pdfpath;
     private String imagepath;
 
-    private DatabaseManagerService dms;
+    private DatabaseManagerService dbService;
     List<Autor> listautor;
     List<Diplomarbeit> listdiplomarbeit;
 
@@ -48,7 +59,60 @@ public class uploadBean {
     private String titel_fail;
 
     public uploadBean() {
-        dms = new DatabaseManagerService();
+        allSchlagwTypeahead = new ArrayList<>();
+        schlagList = new ArrayList<>();
+        autList = new ArrayList<>();
+    }
+
+    @PostConstruct
+    public void init() {
+        allSchlagwMap = dbService.getAllSchlagwoerterHashMap();
+        allSchlagwMap.entrySet().forEach((entry) -> {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            allSchlagwTypeahead.add(key);
+        });
+    }
+
+    public Object addAutor() {
+        if (!"".equals(autor) && autor != null) {
+            Autor aut = new Autor(0, autor, 0);
+            this.autList.add(aut);
+
+        }
+        autor = "";
+        return null;
+    }
+
+    public Object editAutor(Autor autor) {
+        editAutor = !editAutor;
+        return null;
+    }
+
+    public Object removeAutor(Autor autor) {
+        autList.remove(autor);
+        return null;
+    }
+
+    public Object addSchlagwort() {
+        if (!"".equals(schlagwort) && schlagwort != null) {
+
+            if (allSchlagwMap.containsKey(schlagwort)) {
+                Schlagwort schlag = new Schlagwort(allSchlagwMap.get(schlagwort), schlagwort);
+                schlagList.add(schlag);
+
+            } else {
+                Schlagwort schlag = new Schlagwort(0, schlagwort);
+                schlagList.add(schlag);
+            }
+        }
+        schlagwort = "";
+        return null;
+    }
+
+    public Object removeSchlagwort(Schlagwort schlagwort) {
+        schlagList.remove(schlagwort);
+        return null;
     }
 
     public String getTitel() {
@@ -99,12 +163,12 @@ public class uploadBean {
         this.image = image;
     }
 
-    public DatabaseManagerService getDms() {
-        return dms;
+    public DatabaseManagerService getDbService() {
+        return dbService;
     }
 
-    public void setDms(DatabaseManagerService dms) {
-        this.dms = dms;
+    public void setDbService(DatabaseManagerService dbService) {
+        this.dbService = dbService;
     }
 
     public String getResult() {
@@ -163,6 +227,78 @@ public class uploadBean {
         this.titel_fail = titel_fail;
     }
 
+    public boolean isEditAutor() {
+        return editAutor;
+    }
+
+    public boolean isEditSchlagwort() {
+        return editSchlagwort;
+    }
+
+    public List<String> getAllSchlagwTypeahead() {
+        return allSchlagwTypeahead;
+    }
+
+    public Map<String, Integer> getAllSchlagwMap() {
+        return allSchlagwMap;
+    }
+
+    public List<Autor> getAutList() {
+        return autList;
+    }
+
+    public List<Schlagwort> getSchlagList() {
+        return schlagList;
+    }
+
+    public List<Schlagwort> getInsSchlagList() {
+        return insSchlagList;
+    }
+
+    public List<Autor> getListautor() {
+        return listautor;
+    }
+
+    public List<Diplomarbeit> getListdiplomarbeit() {
+        return listdiplomarbeit;
+    }
+
+    public void setEditAutor(boolean editAutor) {
+        this.editAutor = editAutor;
+    }
+
+    public void setEditSchlagwort(boolean editSchlagwort) {
+        this.editSchlagwort = editSchlagwort;
+    }
+
+    public void setAllSchlagwTypeahead(List<String> allSchlagwTypeahead) {
+        this.allSchlagwTypeahead = allSchlagwTypeahead;
+    }
+
+    public void setAllSchlagwMap(Map<String, Integer> allSchlagwMap) {
+        this.allSchlagwMap = allSchlagwMap;
+    }
+
+    public void setAutList(List<Autor> autList) {
+        this.autList = autList;
+    }
+
+    public void setSchlagList(List<Schlagwort> schlagList) {
+        this.schlagList = schlagList;
+    }
+
+    public void setInsSchlagList(List<Schlagwort> insSchlagList) {
+        this.insSchlagList = insSchlagList;
+    }
+
+    public void setListautor(List<Autor> listautor) {
+        this.listautor = listautor;
+    }
+
+    public void setListdiplomarbeit(List<Diplomarbeit> listdiplomarbeit) {
+        this.listdiplomarbeit = listdiplomarbeit;
+    }
+
     //Anzeigen von einem Bild
     public void pfadbild() {
         //Bild anzeigen im HTML Dokument
@@ -198,7 +334,7 @@ public class uploadBean {
                     schlagwoerter.add(varschule);
                     schlagwoerter.add(varschlagwort);
 
-                    dms.hochladen(vartitel, varautor, varschule, schlagwoerter, this.pdfpath, this.imagepath);
+                    dbService.hochladen(vartitel, autList, varschule, schlagList, this.pdfpath, this.imagepath);
 
                     this.titel = "";
                     this.autor = "";
@@ -233,6 +369,7 @@ public class uploadBean {
             //Absoluten Pfad + neuen Titelnamen oder alten Titelnamen
 //          File f = new File("/Users/hp/Desktop/" + safe_name);
             //Muss am Server geänder werden!!!!
+            //       File f = new File("\\Users\\dople\\Desktop\\Schule\\Test\\2019_6abif_da_reit_grof_dopl\\web\\resources\\images" + bild_name);
             File f = new File("\\Users\\hp\\Desktop\\DA_AK\\web\\resources\\images\\" + bild_name);
 
             //Pfad zum Suchen des aktuellen Bildes:
@@ -263,7 +400,7 @@ public class uploadBean {
 
             //Absoluten Pfad + neuen Titelnamen oder alten Titelnamen
             //Muss am Wespace geändert werden!!!
-            String server_pdf_pfad = "/Users/hp/Desktop/DA_AK/web/resources/pdf/";
+            String server_pdf_pfad = "\\Users\\hp\\Desktop\\DA_AK\\web\\resources\\images\\pdf\\";
 
             f = new File(server_pdf_pfad + filename + ".pdf");
             //"/Users/hp/Desktop/"
@@ -287,7 +424,7 @@ public class uploadBean {
 
         boolean istgleich = false;
 
-        List<Diplomarbeit> listdip = dms.ListeAllDiplomarbeiten();
+        List<Diplomarbeit> listdip = dbService.ListeAllDiplomarbeiten();
 
         for (int i = 0; i < listdip.size(); i++) {
             String name = listdip.get(i).getTitle();
