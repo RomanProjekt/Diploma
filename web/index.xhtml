@@ -7,53 +7,57 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
-        <h:outputStylesheet library= "css" name= "suche_styles.css" />
         <h:outputStylesheet library= "css" name= "Test.css" />
+        <h:outputStylesheet library= "css" name= "index_styles.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 
     </h:head>
 
-    <h:body>
-        <!--        <h:link value="Registrierung" outcome="register.xhtml" /> <br/>
-                      <h:link value="Anmelden" outcome="login.xhtml" /> <br/>
-                      <h:link value="Bibliothek" outcome="bibliothek.xhtml" /> <br/>
-                      <h:link value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" />
-                      <h:form>
-                      <h:commandButton action="bibliothek.xhtml" value="Bibliothek" />-->
+    <h:body class="body">
         <ui:include src="/resources/include/navbar.xhtml" />
-        <div>
-            <div>
+        <ui:include src="/resources/include/footer.xhtml" />
 
-                <main>
 
-                    <div>
 
-                        <div>
-                            <b:form>
-                                <b:inputText  value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label=""/>
+        <main class="main">
 
-                                <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="true" onclick="#{dipSuchenBean.displaySelectedDa()}">
-                                    <f:selectItems value="#{dipSuchenBean.daList}" var="da" itemValue="#{da}"
-                                                   itemLabel="Nr: #{da.da_id} Titel: #{da.title} Autor: #{da.autor_id}"/>
-                                </b:selectOneMenu>
-                                
-                                <h:outputLabel value="#{dipSuchenBean.recentDaList}" title="Recent Searches ... "/>
-                                
 
-                                <b:commandButton value="Suchen" action="#{dipSuchenBean.selectDA()}" />
-                                <b:commandButton value="More" action="#{dipSuchenBean.recentDa()}" />
-                            </b:form> 
-                        </div>
+
+            <b:form>
+
+                <div class="leiste">
+
+                    <div class="suchfeld">
+                        <b:inputText  style="width: 1000px" value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label=""/>
+
+                        <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" onclick="#{dipSuchenBean.displaySelectedDa()}">
+                            <f:selectItems value="#{dipSuchenBean.daList}" var="da" itemValue="#{da}" itemLabel="#{da.title}"/>
+                        </b:selectOneMenu>
                     </div>
 
-                </main>
 
-                <footer>
+                    <div class="button">
+                        <b:commandButton value="Suchen" action="#{dipSuchenBean.selectDA()}" />
+                    </div>
 
-                </footer>
 
-            </div>    
 
-        </div>
+                </div>    
+
+            </b:form> 
+
+
+        </main>
+
+
+
+
+
+
+
+
+
+
 
     </h:body>
 </html>

@@ -207,8 +207,8 @@ public class DatabaseManagerService {
         this.autorDAO.insert(autor.getFullName(), autor.getDa_id());
     }
 
-    public void insertAutors(HashMap<Integer, Autor> insMap) {
-        this.autorDAO.insertAutorMap(insMap);
+    public void insertAutors(HashMap<Integer, Autor> insList) {
+        this.autorDAO.insertAutorMap(insList);
     }
 
     public List<Autor> getAllAutor() {
@@ -313,55 +313,54 @@ public class DatabaseManagerService {
         return this.schuleDAO.readOne(id);
     }
 
-    public List<Diplomarbeit> varread(int seitenanzahl, boolean renderer) {
-
-        List<Diplomarbeit> varlist = null;
-        int maxszahl;
-
-        if (ListeAllDiplomarbeiten() != null) {
-
-            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
-                maxszahl = (int) ListeAllDiplomarbeiten().size() / 10;
-            } else {
-                maxszahl = ListeAllDiplomarbeiten().size() / 10;
-            }
-
-            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
-
-                int anfang = seitenanzahl * 10;
-                int ende = ((seitenanzahl + 1) * 10);
-
-                System.out.println(anfang);
-                System.out.println(ende);
-
-                varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-
-            } else {
-
-                if (seitenanzahl < maxszahl) {
-                    int anfang = seitenanzahl * 10;
-                    int ende = ((seitenanzahl + 1) * 10);
-
-                    System.out.println(anfang);
-                    System.out.println(ende);
-
-                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-
-                }
-                if (seitenanzahl == maxszahl) {
-                    int anfang = seitenanzahl * 10;
-                    int ende = ListeAllDiplomarbeiten().size();
-
-                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-
-                }
-            }
-        }
-        return varlist;
-    }
-
+//    public List<Diplomarbeit> varread(int seitenanzahl, boolean renderer) {
+//
+//        List<Diplomarbeit> varlist = null;
+//        int maxszahl;
+//
+//        if (ListeAllDiplomarbeiten() != null) {
+//
+//            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
+//                maxszahl = (int) ListeAllDiplomarbeiten().size() / 10;
+//            } else {
+//                maxszahl = ListeAllDiplomarbeiten().size() / 10;
+//            }
+//
+//            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
+//
+//                int anfang = seitenanzahl * 10;
+//                int ende = ((seitenanzahl + 1) * 10);
+//
+//                System.out.println(anfang);
+//                System.out.println(ende);
+//
+//                varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
+//
+//            } else {
+//
+//                if (seitenanzahl < maxszahl) {
+//                    int anfang = seitenanzahl * 10;
+//                    int ende = ((seitenanzahl + 1) * 10);
+//
+//                    System.out.println(anfang);
+//                    System.out.println(ende);
+//
+//                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
+//
+//                }
+//                if (seitenanzahl == maxszahl) {
+//                    int anfang = seitenanzahl * 10;
+//                    int ende = ListeAllDiplomarbeiten().size();
+//
+//                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
+//
+//                }
+//            }
+//        }
+//        return varlist;
+//    }
     //Diplomarbeit hochladen:
-    public void hochladen(String title, List<Autor> autorList, String schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
+    public void hochladen(String title, String autor_name, String schule, List<String> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
 
         int var_user_id = this.getLoggedInBenutzer().getUser_id();
 
@@ -370,21 +369,24 @@ public class DatabaseManagerService {
         int schule_id = this.getListevonSchulen().get(this.getListevonSchulen().size() - 1).getSchule_id();
 
         //1.Erstellen einer Diplomarbeit-Tabelle
-        int da_id = diplomarbeitDAO.insert(title, var_user_id, schule_id, pdfpath, imagepath);
+        diplomarbeitDAO.insert(title, var_user_id, schule_id, pdfpath, imagepath);
+
+        int var_da_id = this.ListeAllDiplomarbeiten().get(this.ListeAllDiplomarbeiten().size() - 1).getDa_id();
 
         //2. Erstellen eines Autor-Tabelle
-        autorDAO.insertAutorList(autorList, da_id);
+        autorDAO.insert(autor_name, var_da_id);
 
-        // Autor autor = this.getAutor(da_id);
-        // System.out.println("Autor id adsfadsfasdfsf" + autor);
-        schlagwDAO.insert(schlagwoerter);
+        Autor autor = this.getAutor(var_da_id);
+        System.out.println("Autor id adsfadsfasdfsf" + autor);
 
+        //  schlagwDAO.insert(schlagwoerter);
         List<Schlagwort> schlagwortliste = this.getAllSchlagwörter().subList(this.getAllSchlagwörter().size() - 2, this.getAllSchlagwörter().size());
 
-        schlagwort_verknuepfungDAO.insert(schlagwortliste, da_id);
+        schlagwort_verknuepfungDAO.insert(schlagwortliste, var_da_id);
 
         //5.Update Diplomarbeit
-        //    diplomarbeitDAO.update(da_id, autor.getAutor_id());
+        diplomarbeitDAO.update(var_da_id, autor.getAutor_id());
+
     }
 
     //Diplomarbeit löschen
