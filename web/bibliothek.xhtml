@@ -11,119 +11,119 @@
         <title> Diplomarbeiten-Bibliothek </title>
         <h:outputStylesheet library= "css" name= "bibliothek_styles.css" />
         <h:outputStylesheet library="css" name="table-style.css"  />
-        <h:outputStylesheet library= "css" name= "Test.css" />
+        <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "footer_bibliothek_styles.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     </h:head>
     <h:body class="body" >
 
         <ui:include src="/resources/include/navbar.xhtml" /> 
-        
-            <div class="content">        
 
-                <div class="uberschrift_ws">Weitere Suche</div>
+        <div class="content">        
 
-
-                <div class="titel">Titel</div> 
-                <div class="tftitel"> 
+            <div class="uberschrift_ws">Weitere Suche</div>
 
 
-                    <div class="tft">
-                        <b:form horizontal="true">
-
-                            <b:inputText value="#{bibliothekBean.titel}" placeholder="Textfeld_Titel" typeahead="true" typeahead-values="" tiny-screen="10" />
+            <div class="titel">Titel</div> 
+            <div class="tftitel"> 
 
 
-                        </b:form>
-                    </div>   
+                <div class="tft">
+                    <b:form horizontal="true">
 
-                </div> 
-                <div class="autor">Autor</div>  
-                <div class="tfautor">
+                        <b:inputText value="#{bibliothekBean.titel}" placeholder="Textfeld_Titel" typeahead="true" typeahead-values="" tiny-screen="10" />
 
-                    <div class="tfa">
-                        <b:form horizontal="true">
 
-                            <b:inputText value="#{bibliothekBean.autor}" placeholder="Textfeld_Autor" typeahead="true" typeahead-values="" tiny-screen="10" />
+                    </b:form>
+                </div>   
 
-                        </b:form>
-                    </div>    
+            </div> 
+            <div class="autor">Autor</div>  
+            <div class="tfautor">
 
+                <div class="tfa">
+                    <b:form horizontal="true">
+
+                        <b:inputText value="#{bibliothekBean.autor}" placeholder="Textfeld_Autor" typeahead="true" typeahead-values="" tiny-screen="10" />
+
+                    </b:form>
+                </div>    
+
+            </div>
+            <div class="datum">Datum</div> 
+            <div class="tfdatum">
+
+                <div class="tfd">
+                    <b:form horizontal="true">
+
+                        <b:inputText value="#{bibliothekBean.date}" placeholder="Textfeld_Datum" typeahead="true" typeahead-values="" tiny-screen="10" />
+
+
+                    </b:form>
+                </div>    
+            </div>
+
+            <div class="sprache">Sprache</div>
+            <div class="tfsprache">
+                <div class="tfsp">
+                    <b:form horizontal="true">
+                        <b:formGroup>
+                            <b:selectOneMenu  value="#{selectOneMenuBean.type}" colMd="2" required="true"  labelColMd="2">
+                                <f:selectItem itemLabel="Sprache auswählen" itemValue="" />
+                                <f:selectItem itemLabel="Deutsch" itemValue="1" />
+                                <f:selectItem itemLabel="Englisch" itemValue="2" />  
+                            </b:selectOneMenu>    
+                        </b:formGroup>
+                    </b:form>  
                 </div>
-                <div class="datum">Datum</div> 
-                <div class="tfdatum">
+            </div>
 
-                    <div class="tfd">
-                        <b:form horizontal="true">
+            <div class="fachgebiet">Fachgebiet</div>
+            <div class="tffachgebiet">
 
-                            <b:inputText value="#{bibliothekBean.date}" placeholder="Textfeld_Datum" typeahead="true" typeahead-values="" tiny-screen="10" />
+                <div class="tff">
+                    <b:form horizontal="true">
 
+                        <b:inputText value="#{bibliothekBean.fachgebiet}" placeholder="Textfeld_Fachgebiet" typeahead="true" typeahead-values="" tiny-screen="10" />
 
-                        </b:form>
-                    </div>    
-                </div>
-
-                <div class="sprache">Sprache</div>
-                <div class="tfsprache">
-                    <div class="tfsp">
-                        <b:form horizontal="true">
-                            <b:formGroup>
-                                <b:selectOneMenu  value="#{selectOneMenuBean.type}" colMd="2" required="true"  labelColMd="2">
-                                    <f:selectItem itemLabel="Sprache auswählen" itemValue="" />
-                                    <f:selectItem itemLabel="Deutsch" itemValue="1" />
-                                    <f:selectItem itemLabel="Englisch" itemValue="2" />  
-                                </b:selectOneMenu>    
-                            </b:formGroup>
-                        </b:form>  
-                    </div>
-                </div>
-
-                <div class="fachgebiet">Fachgebiet</div>
-                <div class="tffachgebiet">
-
-                    <div class="tff">
-                        <b:form horizontal="true">
-
-                            <b:inputText value="#{bibliothekBean.fachgebiet}" placeholder="Textfeld_Fachgebiet" typeahead="true" typeahead-values="" tiny-screen="10" />
-
-                        </b:form>
-                    </div>
-
-                </div>
-                <div class="schlagwort">Schlagwort</div>
-                <div class="tfschlagwort">
-
-
-                    <div class="tfs">
-                        <b:form horizontal="true">
-
-                            <b:inputText value="#{bibliothekBean.schlagwort}" placeholder="Textfeld_Schlagwort" typeahead="true" typeahead-values="" tiny-screen="10" />
-
-                        </b:form>
-                    </div>
-
-                </div> 
-
-
-
-                <div class="button_suche">
-                    <td>
-                        <h:form>
-                            <b:commandButton value="Suche" actionListener="#{bibliothekBean.suche}" look="danger"/>
-                        </h:form>
-
-                    </td>
+                    </b:form>
                 </div>
 
+            </div>
+            <div class="schlagwort">Schlagwort</div>
+            <div class="tfschlagwort">
 
-            </div>            
+
+                <div class="tfs">
+                    <b:form horizontal="true">
+
+                        <b:inputText value="#{bibliothekBean.schlagwort}" placeholder="Textfeld_Schlagwort" typeahead="true" typeahead-values="" tiny-screen="10" />
+
+                    </b:form>
+                </div>
+
+            </div> 
 
 
 
-            <main class="main">
-                
-            
-            
+            <div class="button_suche">
+                <td>
+                    <h:form>
+                        <b:commandButton value="Suche" actionListener="#{bibliothekBean.suche}" look="danger"/>
+                    </h:form>
+
+                </td>
+            </div>
+
+
+        </div>            
+
+
+
+        <main class="main">
+
+
+
             <div class="bib">
 
                 <div class="sortierleiste">
@@ -227,16 +227,16 @@
                     <div class="seitenanzahl_leiste">
 
                         <div class="hinunterzählen">
-                                <h:commandButton id="hinunterzählen" value="Zurück"  actionListener="#{bibliothekBean.hinunterzaehlen(actionEvent)}"/>
+                            <h:commandButton id="hinunterzählen" value="Zurück"  actionListener="#{bibliothekBean.hinunterzaehlen(actionEvent)}"/>
                         </div>
 
                         <div class="liste">
-                                <ui:repeat  var="var" value="#{bibliothekBean.seitenleiste}" varStatus="status">
-                                    <h:commandButton id="button" value="#{var.seitenzahl}" actionListener="#{bibliothekBean.verlinken}"/>
-                                </ui:repeat>
+                            <ui:repeat  var="var" value="#{bibliothekBean.seitenleiste}" varStatus="status">
+                                <h:commandButton id="button" value="#{var.seitenzahl}" actionListener="#{bibliothekBean.verlinken}"/>
+                            </ui:repeat>
                         </div>
-                        
-                        
+
+
                         <div class="hochzählen">
                             <h:commandButton id="hochzählen" style="margin-right: 50px" value="Weiter"  actionListener="#{bibliothekBean.hochzaehlen(actionEvent)}"/>
                             <h:outputText value="Seitenanzahl: #{bibliothekBean.aktuelleseitenanzahl}"/>
@@ -249,9 +249,9 @@
             </div>        
 
 
-         </main>  
-        
-        
+        </main>  
+
+
         <div class="footer_bib">
 
             <div class="navbox">
@@ -271,7 +271,7 @@
 
         </div>
 
-               
+
     </h:body>
 </html>
 
