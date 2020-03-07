@@ -84,7 +84,7 @@
         <managed-bean-class>presentation.uploadBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
-           <property-name>dms</property-name>
+           <property-name>dbService</property-name>
            <value>#{databaseManagerService}</value>
         </managed-property>
     </managed-bean>

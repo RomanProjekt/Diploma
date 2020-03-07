@@ -229,6 +229,78 @@ public class uploadBean {
         this.titel_fail = titel_fail;
     }
 
+    public boolean isEditAutor() {
+        return editAutor;
+    }
+
+    public boolean isEditSchlagwort() {
+        return editSchlagwort;
+    }
+
+    public List<String> getAllSchlagwTypeahead() {
+        return allSchlagwTypeahead;
+    }
+
+    public Map<String, Integer> getAllSchlagwMap() {
+        return allSchlagwMap;
+    }
+
+    public List<Autor> getAutList() {
+        return autList;
+    }
+
+    public List<Schlagwort> getSchlagList() {
+        return schlagList;
+    }
+
+    public List<Schlagwort> getInsSchlagList() {
+        return insSchlagList;
+    }
+
+    public List<Autor> getListautor() {
+        return listautor;
+    }
+
+    public List<Diplomarbeit> getListdiplomarbeit() {
+        return listdiplomarbeit;
+    }
+
+    public void setEditAutor(boolean editAutor) {
+        this.editAutor = editAutor;
+    }
+
+    public void setEditSchlagwort(boolean editSchlagwort) {
+        this.editSchlagwort = editSchlagwort;
+    }
+
+    public void setAllSchlagwTypeahead(List<String> allSchlagwTypeahead) {
+        this.allSchlagwTypeahead = allSchlagwTypeahead;
+    }
+
+    public void setAllSchlagwMap(Map<String, Integer> allSchlagwMap) {
+        this.allSchlagwMap = allSchlagwMap;
+    }
+
+    public void setAutList(List<Autor> autList) {
+        this.autList = autList;
+    }
+
+    public void setSchlagList(List<Schlagwort> schlagList) {
+        this.schlagList = schlagList;
+    }
+
+    public void setInsSchlagList(List<Schlagwort> insSchlagList) {
+        this.insSchlagList = insSchlagList;
+    }
+
+    public void setListautor(List<Autor> listautor) {
+        this.listautor = listautor;
+    }
+
+    public void setListdiplomarbeit(List<Diplomarbeit> listdiplomarbeit) {
+        this.listdiplomarbeit = listdiplomarbeit;
+    }
+
     //Anzeigen von einem Bild
     public void pfadbild() {
         //Bild anzeigen im HTML Dokument
