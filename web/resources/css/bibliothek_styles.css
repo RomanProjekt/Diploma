@@ -1,197 +1,133 @@
 /*Bilbliothek*/
 
-.wrapper {
-    position:absolute;
-    width: 100%;
-    height: 100%;
-    
+
+
+.bib {
+/*    position: fixed;*/
+    margin: 0 0 0 300px;
+    background-color: red;
     
 }
 
-.seite {
-    
-    display: flex;
-    flex-wrap: wrap;
-
-    position: relative;
-    background-color: blueviolet;
-    
-    width: 1500px;
-    height: 2000px;
-    margin: 0 auto 0 auto;
-    
-        
+.body {
+/*    background-color: green;*/
+/*      width: 100%;
+      height: 100%;*/
 }
 
-
-.flex-container {
-  display: flex;
-  flex-wrap: wrap;
-  position: absolute;
-  width: 100%;
-  z-index: 1;
-  
-  
-}
-
-.flex-container > div {
-  width: 50px;
-  margin: 0 0px;
-  text-align: center;
-  line-height: 50px;
-  font-size: 25px;
-}
-
-
-.flex {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: orange;
-  position: absolute;
-  
-  margin: 50px 0 0 0;
-  width: 100%;
-  height: 50px;
-}
-
-.sortierleiste {
-    
+.seitenleiste {
     position: absolute;
-    margin: 0 100px 150px 0;
-    width: 100%;
-    height: 50px;
 /*    background-color: red;*/
+    width: 100%;
+    margin: 1600px 0 0 0;
+}
+
+
+.seitenanzahl_leiste {
+    width: 100%;
+    height: 100px;
+/*    background-color: green;*/
+}
+
+.hochzählen {
+    margin: -50px 0 0 1100px;
+/*    background-color: blue;*/
+    font-size: 20px;
+    line-height: 40px;
     
+
+}
+
+.hinunterzählen {
+    margin: 0 0 0 700px;
+/*    background-color: orange;*/
+    line-height: 40px;
+    font-size: 20px;
+    
+    
+}
+
+.liste {
+    margin: -45px 0 0 700px;
     text-align: center;
-    line-height: 50px;
+/*    background-color: graytext;*/
+    width: 500px;
+    height: 50px;
+    line-height: 40px;
     font-size: 20px;
     
 }
 
-.buttonleiste {
+   
+.sortierleiste {
     position: absolute;
-    height: 100%;
-    margin: 0 0 0 900px;
-    padding-top: 7.5px;
-    /*background-color: blue;*/
-}
-
-.benutzername {
-    position: absolute;
-    height: 100%;
-/*  background-color: green;*/
-    margin: 0 0 0 200px;
+    margin: 0 0 0 0;
+    width: 1000px;
+    height: 50px;
     text-align: center;
-    line-height: 25px;
-    font-size: 25px;
-    padding-top: 10px;
+    line-height: 50px;
+    font-size: 20px;
 }
-
-.diplomarbeit {
-/*  background-color: red;*/
-    margin: 0 0 0 10px;
-    text-align: center;
-    line-height: 25px;
-    font-size: 25px;
-    padding-top: 10px;
-    
-}
-
-
-
-.liste {
-    margin: 0px 0px 0px 100px;
-    text-align: center;
-    line-height: 25px;
-    font-size: 25px;
-}
-
-.list1 {
-    margin: auto 0px auto 400px;
-    text-align: center;
-    line-height: 25px;
-    font-size: 25px;
-}
-
-
-
-
-
-
 
 .content {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: greenyellow;
-  position: absolute;
-  margin: 100px 0 0 0;
-  width: 300px;
-  height: 800px;
-/*  z-index: 1;*/
-    
+    display: flex;
+    flex-wrap: wrap;
+    background-color: greenyellow;
+    position: absolute;
+    margin: 0 0 0 0;
+    width: 300px;
+    height: 800px;
 }
 
 .content > div {
-  
-  width: 100%;
-  height: 50px;
-  position: absolute;
-  text-align: center;
-  line-height: 50px;
-  font-size: 25px;
 
-  
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    text-align: center;
+    line-height: 50px;
+    font-size: 25px;
 }
 
 .uberschrift_ws {
-    
     position: absolute;
     margin: 0 0 0 0;
-    
 }
 
-
-
 .titel {
-    
     position: absolute;
     margin: 50px 0 0 0;
-    
 }
 
 .tftitel {
     position: absolute;
     margin: 100px 0 0 0;
-    
+
 }
 
 .tft {
-    
     width: 100%;
     height: 50px;
     position: absolute;
     margin: 0 0 0 25px;
-    
 }
 
 
 .autor {
     position: absolute;
     margin: 150px 0 0 0;
-    
+
 }
 
 .tfautor {
-    
     width: 100%;
     height: 50px;
     position: absolute;
     margin: 200px 0 0 0;
-    
 }
 
 .tfa {
-    
+
     width: 100%;
     height: 50px;
     position: absolute;
@@ -199,28 +135,26 @@
 }
 
 .datum {
-    
     position: absolute;
     margin: 250px 0 0 0;
-    
 }
 
 .tfdatum {
-    
+
     width: 100%;
     height: 50px;
     position: absolute;
     margin: 300px 0 0 0;
-    
+
 }
 
 .tfd {
-    
+
     width: 100%;
     height: 50px;
     position: absolute;
     margin: 0 0 0 25px;
-    
+
 }
 
 .sprache {    
@@ -236,202 +170,159 @@
 }
 
 .tfsp {
-    
+
     width: 1600px;
     height: 50px;
     position: absolute;
     margin: 0 0 0 25px;
-    
+
 }
 
 .fachgebiet {
-    
     position: absolute;
     margin: 450px 0 0 0;
-    
 }
 
 
 .tffachgebiet {
-    
     width: 100%;
     height: 50px;
     position: absolute;
     margin: 500px 0 0 0;
-    
 }
 
 .tff {
-    
     width: 100%;
     height: 50px;
     position: absolute;
     margin: 0 0 0 25px;
-    
 }
 
 
 .schlagwort {
-    
     position: absolute;
     margin: 550px 0 0 0;
-    
 }
 
 .tfschlagwort {
-    
     width: 100%;
     height: 50px;
-    
     position: absolute;
     margin: 600px 0 0 0;
-    
 }
 
 .tfs {
-    
     width: 100%;
     height: 50px;
     position: absolute;
     margin: 0 0 0 25px;
-    
 }
 
 .button_suche {
-    
     position: absolute;
     margin: 700px 0 0 0;
 }
 
 
 /*Gesamtbild: Diplomarbeit  + Überschrfit*/
-.bib {
-  position: absolute;
-  margin: 100px 0 0 300px;
-  width: 1000px;
-  height: 1900px;
-  
-    
-}
-
-
 
 .uberschrift_bild {
-    
-    
     position: absolute;
     margin: 249px 0 0 0;
     width: 100%;
     height: 50px;
     border: 1px solid black;
-    
 }
 
 .bild1 {
-    
     background-color: white;
     position: absolute;
     margin: 100px 0 0 100px;
     border: 1px solid black;
     width: 200px;
     height: 300px;
-    
 }
 
 
 .bild2 {
-    
     position: absolute;
     margin: 100px 0 0 400px;
     border: 1px solid black;
     width: 200px;
     height: 300px;
-    
 }
 
 
 
 .bild3 {
-    
     position: absolute;
     margin: 100px 0 0 700px;
     border: 1px solid black;
     width: 200px;
     height: 300px;
-    
 }
 
 .bild4 {
-    
     position: absolute;
     margin: 500px 0 0 100px;
     border: 1px solid black;
     width: 200px;
     height: 300px;
-    
 }
 
 .bild5 {
-    
     position: absolute;
     margin: 500px 0 0 400px;
     border: 1px solid black;
     width: 200px;
     height: 300px;
-    
 }
 
 
 .bild6 {
-    
     position: absolute;
     margin: 500px 0 0 700px;
     border: 1px solid black;
     width: 200px;
     height: 300px;
-    
 }
 
 .bild7 {
-    
     position: absolute;
     margin: 900px 0 0 100px;
     border: 1px solid black;
     width: 200px;
     height: 300px;
-    
 }
 
 .bild8 {
-    
+
     position: absolute;
     margin: 900px 0 0 400px;
     border: 1px solid black;
     width: 200px;
     height: 300px;
-    
+
 }
 
 
 .bild9 {
-    
     position: absolute;
     margin: 900px 0 0 700px;
     border: 1px solid black;
     width: 200px;
     height: 300px;
-    
 }
 
 
 .bild10 {
-    
+
     position: absolute;
     margin: 1300px 0 0 100px;
     border: 1px solid black;
     width: 200px;
     height: 300px;
-    
+
 }
 
 
@@ -439,13 +330,13 @@
 
 /*Bild der Diplomarbeit:*/
 .dp1 {
+
     
-/*    background-color: red;*/
     position: absolute;
     margin: 0 0 0 0;
     width: 100%;
     height: 250px;
-    
+
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -455,7 +346,7 @@
 .dp2 {
     position: absolute;
     margin: 230px 0 0 15px;
-    
+
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -465,7 +356,7 @@
 .dp3 {
     position: absolute;
     margin: 230px 0 0 15px;
-    
+
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -475,7 +366,7 @@
 .dp4 {
     position: absolute;
     margin: 230px 0 0 15px;
-    
+
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -484,7 +375,7 @@
 .dp5 {
     position: absolute;
     margin: 230px 0 0 15px;
-    
+
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -493,7 +384,7 @@
 .dp6 {
     position: absolute;
     margin: 230px 0 0 15px;
-    
+
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -502,7 +393,7 @@
 .dp7 {
     position: absolute;
     margin: 230px 0 0 15px;
-    
+
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -511,7 +402,7 @@
 .dp8 {
     position: absolute;
     margin: 230px 0 0 15px;
-    
+
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -521,7 +412,7 @@
 .dp9 {
     position: absolute;
     margin: 230px 0 0 15px;
-    
+
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -530,7 +421,7 @@
 .dp10 {
     position: absolute;
     margin: 230px 0 0 15px;
-    
+
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -539,7 +430,7 @@
 .dp11 {
     position: absolute;
     margin: 230px 0 0 15px;
-    
+
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -548,28 +439,11 @@
 .dp12 {
     position: absolute;
     margin: 230px 0 0 15px;
-    
     text-align: center;
     line-height: 50px;
     font-size: 20px;
 }
 
-.seitenleiste {
-    
-    position: absolute;
-    background-color: red;
-    width: 100%;
-    height: 100px;
-    margin: 1900px 0 0 0px;
-   
-    
-}
 
 
-.seitenanzahl_leiste {
-    margin: 0 0 0 0;
-    text-align: center;
-    line-height: 50px;
-    font-size: 20px;
-}
 

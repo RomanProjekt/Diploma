@@ -43,6 +43,21 @@ public class BenutzerDAO {
         return retVal;
     }
 
+    public boolean usernameExists(String username) {
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from benutzer where benutzername = '" + username + "'")) {
+
+            return rs.next();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return false;
+    }
+
     public int insert(Benutzer b) {
         String query = "insert into benutzer(`benutzer_id`, `benutzername`, `vorname`, `nachname`, `email`, `passwort`, `salt`, `rolle`) values(NULL, ?, ?, ?, ?, ?, ?, ?)";
         int result = 0;

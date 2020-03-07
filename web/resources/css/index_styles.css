@@ -1,0 +1,39 @@
+
+
+
+.body {
+    width: 100%;
+/*    height: 2000px*/
+}
+
+
+
+
+.leiste {
+    position: absolute;
+    margin: 50px 0 0 12%;
+    background-color: red;
+    
+}
+
+.button {
+/*    top margin is 25px
+    right and left margins are 50px
+    bottom margin is 75px*/
+    position: absolute;
+    margin: 20px 0 0 0;
+}
+
+.suchfeld {
+    position: absolute;
+    margin: 0 0 0 100px;
+/*    background-color: blue;*/
+}
+
+
+
+
+
+
+
+

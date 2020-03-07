@@ -6,7 +6,7 @@
 package presentation;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import pojo.Autor;
 import pojo.Diplomarbeit;
@@ -20,76 +20,108 @@ import service.DatabaseManagerService;
 public class updateDiplomarbeit {
 
     private Diplomarbeit aktDip;
+    private Diplomarbeit oldDip;
 
     private boolean autEdit = false;
-    private String autor;
-    private List<Autor> autList;
-    private List<Autor> editAutList;
-    private List<Autor> insertAutList;
-    private List<Autor> removeAutList;
-
-    private List<Autor> oldAutList;
-    private String schule;
-
     private boolean schlagEdit = false;
-    private String schlagwort;
-    private List<Schlagwort> schlagwortList;
-    private List<Schlagwort> editSchlagList;
-    private List<Schlagwort> insertSchlagList;
-    private List<Schlagwort> removeSchlagList;
 
-    private List<Schlagwort> oldSchlagwortList;
+    private String schule;
+    private String schlagwort;
+    private String autor;
+
+    private final List<String> typeaheadSchl;
+
+    private List<Autor> autList;
+
+    private List<Schlagwort> schlagwortList;
+
+    private HashMap<String, Integer> allSchlagwortMap;
+    private List<Schlagwort> allSchlagwortList;
 
     private DatabaseManagerService dbService;
 
     private int autId;
+    private int schlagId;
+
+    private HashMap<Integer, Autor> editAutMap;
+
+    private HashMap<Integer, Autor> insAutMap;
+    private HashMap<Integer, Schlagwort> insSchlagMap;
+    private List<Schlagwort> insertSchlagList;
+
+    private HashMap<Integer, Autor> remAutMap;
+    private HashMap<Integer, Schlagwort> remSchlagMap;
 
     /**
      * Creates a new instance of updateDiplomarbeit
      */
     public updateDiplomarbeit() {
-        editAutList = new ArrayList<>();
-        insertAutList = new ArrayList<>();
-        removeAutList = new ArrayList<>();
 
-        editSchlagList = new ArrayList<>();
         insertSchlagList = new ArrayList<>();
-        removeSchlagList = new ArrayList<>();
+
+        editAutMap = new HashMap<>();
+
+        insAutMap = new HashMap<>();
+        insSchlagMap = new HashMap<>();
+
+        remAutMap = new HashMap<>();
+        remSchlagMap = new HashMap<>();
+
+        typeaheadSchl = new ArrayList<>();
     }
 
     public Object editDiplomarbeit(Diplomarbeit dip) {
         aktDip = dip;
-
+        oldDip = dip;
         this.autList = dbService.getAllAutor(aktDip.getDa_id());
 
-        this.oldAutList = autList;
+        this.allSchlagwortMap = dbService.getAllSchlagwoerterHashMap();
 
         this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
         this.schlagwortList = dbService.getAllSchlagwoerter(aktDip.getDa_id());
+        this.allSchlagwortList = dbService.getAllSchlagwörter();
 
-        this.oldSchlagwortList = schlagwortList;
+        allSchlagwortList.forEach((schlagwort1) -> {
+            typeaheadSchl.add(schlagwort1.getWord());
+        });
 
         autId = autList.get(autList.size() - 1).getAutor_id() + 1;
+        schlagId = allSchlagwortList.get(allSchlagwortList.size() - 1).getTag_id() + 1;
+
         return "updateDiplomarbeit.xhtml?faces-redirect=true";
     }
 
     public Object editAutor() {
-
         autEdit = true;
         return null;
     }
 
     public Object saveAutor(Autor autor) {
-
+        if (insAutMap.containsKey(autor.getAutor_id())) {
+            insAutMap.replace(autor.getAutor_id(), autor);
+        } else if (editAutMap.containsKey(autor.getAutor_id())) {
+            editAutMap.replace(autor.getAutor_id(), autor);
+        } else {
+            editAutMap.put(autor.getAutor_id(), autor);
+        }
         autEdit = false;
         return null;
     }
 
     public Object addTag() {
         if (!"".equals(schlagwort) && schlagwort != null) {
-            Schlagwort schlag = new Schlagwort(0, schlagwort);
-            this.schlagwortList.add(schlag);
-            this.insertSchlagList.add(schlag);
+            if (allSchlagwortMap.containsKey(schlagwort)) {
+                Schlagwort schlag = new Schlagwort(allSchlagwortMap.get(schlagwort), schlagwort);
+                this.schlagwortList.add(schlag);
+                this.insSchlagMap.put(schlag.getTag_id(), schlag);
+            } else {
+                Schlagwort schlag = new Schlagwort(schlagId, schlagwort);
+                this.schlagwortList.add(schlag);
+                this.insertSchlagList.add(schlag);
+                this.insSchlagMap.put(schlagId, new Schlagwort(schlagId, schlagwort));
+                this.schlagId += 1;
+            }
+
         }
         schlagwort = "";
         return null;
@@ -99,7 +131,7 @@ public class updateDiplomarbeit {
         if (!"".equals(autor) && autor != null) {
             Autor aut = new Autor(autId, autor, aktDip.getDa_id());
             this.autList.add(aut);
-            this.insertAutList.add(aut);
+            this.insAutMap.put(autId, new Autor(autId, autor, aktDip.getDa_id()));
         }
         autor = "";
         autId += 1;
@@ -107,27 +139,72 @@ public class updateDiplomarbeit {
     }
 
     public Object removeTag(Schlagwort schlagw) {
-        this.schlagwortList.remove(schlagw);
-        if (schlagw.getTag_id() == 0) {
-            this.insertSchlagList.remove(schlagw);
-        } else {
-            this.removeSchlagList.add(schlagw);
-        }
 
+        if (insSchlagMap.containsKey(schlagw.getTag_id())) {
+            this.insSchlagMap.remove(schlagw.getTag_id());
+        } else {
+            this.remSchlagMap.put(schlagw.getTag_id(), schlagw);
+        }
+        this.schlagwortList.remove(schlagw);
         return null;
     }
 
     public Object removeAutor(Autor autor) {
-        this.autList.remove(autor);
-        if (autor.getAutor_id() == 0) {
-            this.insertAutList.remove(autor);
+
+        if (insAutMap.containsKey(autor.getAutor_id())) {
+            this.insAutMap.remove(autor.getAutor_id());
         } else {
-            this.removeAutList.add(autor);
+            this.remAutMap.put(autor.getAutor_id(), autor);
+            if (editAutMap.containsKey(autor.getAutor_id())) {
+
+                this.editAutMap.remove(autor.getAutor_id());
+            }
+
         }
+        this.autList.remove(autor);
         return null;
     }
 
     public Object save() {
+
+        if (!(aktDip.getTitle().equals(oldDip.getTitle()))) {
+            dbService.updateDPTitle(aktDip.getDa_id(), aktDip.getTitle());
+        }
+
+        if (remAutMap != null && !remAutMap.isEmpty()) {
+            dbService.deleteAutors(remAutMap);
+        }
+
+        if (insAutMap != null && !insAutMap.isEmpty()) {
+            dbService.insertAutors(insAutMap);
+        }
+
+        if (editAutMap != null && !editAutMap.isEmpty()) {
+            dbService.updateAutors(editAutMap);
+        }
+
+        if (remSchlagMap != null && !remSchlagMap.isEmpty()) {
+            dbService.deleteSW_DA(remSchlagMap, this.aktDip.getDa_id());
+        }
+
+        //New Schlagwort gets inserted into Schlagwort Table
+        if (insertSchlagList != null && !insertSchlagList.isEmpty()) {
+            dbService.insertSchlagwortList(insertSchlagList);
+        }
+
+        //Existing Schlagwort Inserting into connection Table
+        if (insSchlagMap != null && !insSchlagMap.isEmpty()) {
+            dbService.insertSW_DAMap(insSchlagMap, this.aktDip.getDa_id());
+        }
+
+        insAutMap.clear();
+        insSchlagMap.clear();
+        insertSchlagList.clear();
+
+        remAutMap.clear();
+        remSchlagMap.clear();
+
+        editAutMap.clear();
 
         return "index.xhtml?faces-redirect=true";
     }
@@ -180,20 +257,12 @@ public class updateDiplomarbeit {
         this.schlagwort = schlagwort;
     }
 
-    public List<Autor> getOldAutList() {
-        return oldAutList;
+    public HashMap<String, Integer> getAllSchlagwortMap() {
+        return allSchlagwortMap;
     }
 
-    public List<Schlagwort> getOldSchlagwortList() {
-        return oldSchlagwortList;
-    }
-
-    public void setOldAutList(List<Autor> oldAutList) {
-        this.oldAutList = oldAutList;
-    }
-
-    public void setOldSchlagwortList(List<Schlagwort> oldSchlagwortList) {
-        this.oldSchlagwortList = oldSchlagwortList;
+    public void setAllSchlagwortMap(HashMap<String, Integer> allSchlagwortMap) {
+        this.allSchlagwortMap = allSchlagwortMap;
     }
 
     public String getAutor() {
@@ -204,52 +273,12 @@ public class updateDiplomarbeit {
         this.autor = autor;
     }
 
-    public List<Autor> getEditAutList() {
-        return editAutList;
-    }
-
-    public List<Autor> getInsertAutList() {
-        return insertAutList;
-    }
-
-    public List<Autor> getRemoveAutList() {
-        return removeAutList;
-    }
-
-    public List<Schlagwort> getEditSchlagList() {
-        return editSchlagList;
-    }
-
     public List<Schlagwort> getInsertSchlagList() {
         return insertSchlagList;
     }
 
-    public List<Schlagwort> getRemoveSchlagList() {
-        return removeSchlagList;
-    }
-
-    public void setEditAutList(List<Autor> editAutList) {
-        this.editAutList = editAutList;
-    }
-
-    public void setInsertAutList(List<Autor> insertAutList) {
-        this.insertAutList = insertAutList;
-    }
-
-    public void setRemoveAutList(List<Autor> removeAutList) {
-        this.removeAutList = removeAutList;
-    }
-
-    public void setEditSchlagList(List<Schlagwort> editSchlagList) {
-        this.editSchlagList = editSchlagList;
-    }
-
     public void setInsertSchlagList(List<Schlagwort> insertSchlagList) {
         this.insertSchlagList = insertSchlagList;
-    }
-
-    public void setRemoveSchlagList(List<Schlagwort> removeSchlagList) {
-        this.removeSchlagList = removeSchlagList;
     }
 
     public boolean isAutEdit() {
@@ -274,6 +303,74 @@ public class updateDiplomarbeit {
 
     public void setAutId(int autId) {
         this.autId = autId;
+    }
+
+    public HashMap<Integer, Autor> getEditAutMap() {
+        return editAutMap;
+    }
+
+    public void setEditAutMap(HashMap<Integer, Autor> editAutMap) {
+        this.editAutMap = editAutMap;
+    }
+
+    public int getSchlagId() {
+        return schlagId;
+    }
+
+    public void setSchlagId(int schlagId) {
+        this.schlagId = schlagId;
+    }
+
+    public Diplomarbeit getOldDip() {
+        return oldDip;
+    }
+
+    public HashMap<Integer, Autor> getInsAutMap() {
+        return insAutMap;
+    }
+
+    public HashMap<Integer, Schlagwort> getInsSchlagMap() {
+        return insSchlagMap;
+    }
+
+    public HashMap<Integer, Autor> getRemAutMap() {
+        return remAutMap;
+    }
+
+    public HashMap<Integer, Schlagwort> getRemSchlagMap() {
+        return remSchlagMap;
+    }
+
+    public void setOldDip(Diplomarbeit oldDip) {
+        this.oldDip = oldDip;
+    }
+
+    public void setInsAutMap(HashMap<Integer, Autor> insAutMap) {
+        this.insAutMap = insAutMap;
+    }
+
+    public void setInsSchlagMap(HashMap<Integer, Schlagwort> insSchlagMap) {
+        this.insSchlagMap = insSchlagMap;
+    }
+
+    public void setRemAutMap(HashMap<Integer, Autor> remAutMap) {
+        this.remAutMap = remAutMap;
+    }
+
+    public void setRemSchlagMap(HashMap<Integer, Schlagwort> remSchlagMap) {
+        this.remSchlagMap = remSchlagMap;
+    }
+
+    public List<Schlagwort> getAllSchlagwortList() {
+        return allSchlagwortList;
+    }
+
+    public void setAllSchlagwortList(List<Schlagwort> allSchlagwortList) {
+        this.allSchlagwortList = allSchlagwortList;
+    }
+
+    public List<String> getTypeaheadSchl() {
+        return typeaheadSchl;
     }
 
 }

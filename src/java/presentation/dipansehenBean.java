@@ -17,6 +17,7 @@ import java.sql.Date;
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import pojo.Diplomarbeit;
 import service.DatabaseManagerService;
 
@@ -172,50 +173,22 @@ public class dipansehenBean {
         return "dipansehen.xhtml";
     }
 
-    public void auslesenWerte(int id) {
-
-        if (imagepath != null) {
-            imagepath = imagepath_auslesen(id);
-        }
-
-        System.out.println("Listengroeße: " + dms.ListeAllDiplomarbeiten().size());
-
-        for (int i = 0; i < dms.ListeAllDiplomarbeiten().size(); i++) {
-
-            if (dms.ListeAllDiplomarbeiten().get(i).getDa_id() == id) {
-
-                titel = dms.ListeAllDiplomarbeiten().get(i).getTitle();
-                schule = dms.getListevonSchulen().get(i).getName();
-                date = dms.ListeAllDiplomarbeiten().get(i).getDatum();
-
-                for (int j = 0; j < dms.getAllAutor().size(); j++) {
-                    if (dms.getAllAutor().get(j).getDa_id() == id) {
-                        autor = dms.getAllAutor().get(j).getFullName();
-
-                    }
-                }
-
-            }
-
-        }
-
-    }
-
     //Diplomarbeit download
     public void download() throws IOException {
+
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
 
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
 
         externalContext.responseReset();
-        externalContext.setResponseContentType(this.titel + "/.pdf");
+        externalContext.setResponseContentType(aktDip.getTitle() + "/.pdf");
         externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"titel01.pdf\" ");
 
-        externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + this.titel + ".pdf" + "\"");
-
-        //Pfad muss bei Webspace geändert werden!!!
-        String pdf_pfad = "C:\\Users\\hp\\Desktop\\DA_AK\\web\\resources\\pdf\\";
-        File file = new File(pdf_pfad + this.titel + ".pdf");
+        externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + aktDip.getTitle() + ".pdf" + "\"");
+        String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
+        File file = new File(server_diplomarbeit_pfad + aktDip.getTitle() + ".pdf");
 
         OutputStream outputStream;
         try (FileInputStream inputStream = new FileInputStream(file)) {
@@ -235,12 +208,14 @@ public class dipansehenBean {
     //Diplomarbeitn ansehen
     public void diplomarbeitansehen() {
 
-        String pdf_pfad = "C:\\Users\\hp\\Desktop\\DA_AK\\web\\resources\\pdf\\";
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
 
         try {
 
             //Pfad anpassen
-            File pdfFile = new File(pdf_pfad + this.titel + ".pdf");
+            File pdfFile = new File(server_diplomarbeit_pfad + aktDip.getTitle() + ".pdf");
 
             if (pdfFile.exists()) {
 
@@ -284,8 +259,7 @@ public class dipansehenBean {
         };
     }
 
-    public void löschenDiplomarbeit(ActionEvent event) {
-        dms.deleteDiplomarbeit(this.aktuelle_id);
-    }
-
+//    public void löschenDiplomarbeit(ActionEvent event) {
+//        dms.deleteDiplomarbeit(this.aktuelle_id);
+//    }
 }

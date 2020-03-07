@@ -4,88 +4,30 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 20.12.2019, 20:25:04
-    Author     : dople
+    Created on : 07.03.2020, 12:12:33
+    Author     : hp
 */
-
-/*.navbar-form .form-group nav-header {
-  width: calc(100% - 50px);
-  display: inline-block;
-  vertical-align: top;
-}*/
-
-.body {
-/*    background-color: green;*/
-/*    height: 1000px;*/
-}
-
-.navbar {
-    background-color: lightgray;
-
-
-}
-
-
-.navbar form a{
-    float: left;
-    color: #464a56;
-    text-align: center;
-    padding: 14px 10px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
-
-.navbar form label{
-    color: #464a56;
-    text-align: center;
-    padding: 14px ;
-    text-decoration: none;
-    font-size: 17px;
-    margin: 0px;
-}
-
-.navbar form ul{
-    position: relative;
-    list-style: none;
-    color: #464a56;
-    text-decoration: none;
-    display: inline-block;
-    float: right;
-    margin: auto;
-
-}
-
-.navbar form ul li{
-    display: inline;
-
-}
-
-.navbar form .navLink:hover{
-    background-color: lightcoral;
-}
-
-
-
-
 
 /*footer*/
 
-.footer {
-   position: fixed;
+
+
+.footer_bib {
+   position: absolute;
    left: 0;
    bottom: 0;
    width: 100%;
    background-color: red;
    color: white;
-   text-align: center;
+   text-align: center; 
+   margin: 2000px 0 0 0;
 }
 
 
 .navbox {
     width: 100%;
     height: 100px;
-    background-color: lightgray; 
+    background-color: lightgray;
 }
 
 
@@ -142,5 +84,3 @@ and open the template in the editor.
     margin: 10px 0 0 1400px;
     color: black;
 }
-
-

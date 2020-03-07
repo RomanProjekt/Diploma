@@ -22,6 +22,7 @@ and open the template in the editor.
     </f:metadata>
     <h:body>
         <ui:include src="/resources/include/navbar.xhtml" />
+        <ui:include src="/resources/include/footer.xhtml" />
         <f:view>
 
             <h2>Diplomarbeiten hochladen</h2>
@@ -35,14 +36,45 @@ and open the template in the editor.
                     </b:inputText>
                     <h:outputText value="#{uploadBean.titel_fail}"></h:outputText>
 
-                    <b:inputText label="Autor" value="#{uploadBean.autor}" labelStyle="width:80px;">
-                    </b:inputText>
+                    <h:dataTable value="#{uploadBean.autList}" var="autor" border="2" cellpadding="1" cellspacing="1" >
+                        <h:column>
+                            <f:facet name="header">Autor</f:facet>
+                            <h:outputText value="#{autor.fullName}" rendered="#{!uploadBean.editAutor}" />
+                            <h:inputText value="#{autor.fullName}" rendered="#{uploadBean.editAutor}" /> 
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Löschen</f:facet>
+                            <b:commandButton value="X" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header" >Edit</f:facet>
+                            <b:commandButton value="Edit" action="#{uploadBean.editAutor(autor)}"  rendered="#{!uploadBean.editAutor}" />
+                            <b:commandButton value="Save" action="#{uploadBean.editAutor(autor)}" rendered="#{uploadBean.editAutor}" />
+                        </h:column>
+                    </h:dataTable>
+                    <b:inputText value="#{uploadBean.autor}" />
+
+                    <b:commandButton value="Add Autor" action="#{uploadBean.addAutor()}"  />
 
                     <b:inputText label="Schule" value="#{uploadBean.schule}" labelStyle="width:80px;">
                     </b:inputText>
 
-                    <b:inputText label="Schlagwort" value="#{uploadBean.schlagwort}" labelStyle="width:80px;">
-                    </b:inputText>
+
+                    <h:dataTable value="#{uploadBean.schlagList}" var="schlagwort" border="2" cellpadding="1" cellspacing="1" >
+                        <h:column>
+                            <f:facet name="header">Schlagwort</f:facet>
+                                #{schlagwort.word}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Löschen</f:facet>
+                            <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" />
+                        </h:column>
+                    </h:dataTable>
+                    <b:inputText value="#{uploadBean.schlagwort}" typeahead="true" typeahead-limit="20"   typeahead-values="#{uploadBean.allSchlagwTypeahead}" />
+
+                    <b:commandButton value="Add Tag" action="#{uploadBean.addSchlagwort()}" /> 
+
+
 
                     <h5>Diplomarbeit</h5>
                     <h:inputFile id="diplomarbeit-id" value="#{uploadBean.diplomarbeit}"></h:inputFile>

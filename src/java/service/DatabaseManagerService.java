@@ -17,6 +17,7 @@ import infrastructure.SW_DA_DAO;
 import infrastructure.SchlagwortDAO;
 import infrastructure.SchuleDAO;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import pojo.Autor;
 import pojo.SW_DA;
 import pojo.Schlagwort;
@@ -93,6 +94,10 @@ public class DatabaseManagerService {
 
     public void loggout() {
         loggedInBenutzer = new Benutzer();
+    }
+
+    public boolean usernameExists(String username) {
+        return benutzerDAO.usernameExists(username);
     }
 
     public boolean isUser() {
@@ -187,16 +192,24 @@ public class DatabaseManagerService {
         this.autorDAO = autorDAO;
     }
 
-    public void updateAutors(List<Autor> autor) {
-        this.autorDAO.updateAutors(autor);
+    public void updateAutors(HashMap<Integer, Autor> editMap) {
+        this.autorDAO.updateAutors(editMap);
     }
 
     public void deleteAutor(int autId) {
         this.autorDAO.deleteAutor(autId);
     }
 
+    public void deleteAutors(HashMap<Integer, Autor> delList) {
+        this.autorDAO.deleteAutors(delList);
+    }
+
     public void insertAutor(Autor autor) {
         this.autorDAO.insert(autor.getFullName(), autor.getDa_id());
+    }
+
+    public void insertAutors(HashMap<Integer, Autor> insList) {
+        this.autorDAO.insertAutorMap(insList);
     }
 
     public List<Autor> getAllAutor() {
@@ -224,8 +237,21 @@ public class DatabaseManagerService {
         return schlagwDAO.read();
     }
 
+    public HashMap<String, Integer> getAllSchlagwoerterHashMap() {
+        HashMap<String, Integer> allSchlagwoerterMap = new HashMap<>();
+        List<Schlagwort> swList = getAllSchlagwörter();
+        swList.forEach((schlagwort) -> {
+            allSchlagwoerterMap.put(schlagwort.getWord(), schlagwort.getTag_id());
+        });
+        return allSchlagwoerterMap;
+    }
+
     public List<Schlagwort> getAllSchlagwoerter(int id) {
-        return schlagwDAO.getAllSchlagwoerter(id);
+        return schlagwort_verknuepfungDAO.getAllSchlagwoerter(id);
+    }
+
+    public void insertSchlagwortList(List<Schlagwort> swList) {
+        schlagwDAO.insertSchlagwortList(swList);
     }
 
     //Schlagwort-Verknüpfungstabelle
@@ -263,6 +289,14 @@ public class DatabaseManagerService {
         return this.schlagwort_verknuepfungDAO.getAllSW_DA_Verknüpfungen();
     }
 
+    public void deleteSW_DA(HashMap<Integer, Schlagwort> remMap, int daId) {
+        this.schlagwort_verknuepfungDAO.deleteSW_DA(remMap, daId);
+    }
+
+    public void insertSW_DAMap(HashMap<Integer, Schlagwort> insMap, int daId) {
+        this.schlagwort_verknuepfungDAO.insertHashMap(insMap, daId);
+    }
+
     //Schule
     public SchuleDAO getSchuleDAO() {
         return schuleDAO;
@@ -280,53 +314,52 @@ public class DatabaseManagerService {
         return this.schuleDAO.readOne(id);
     }
 
-    public List<Diplomarbeit> varread(int seitenanzahl, boolean renderer) {
-
-        List<Diplomarbeit> varlist = null;
-        int maxszahl;
-
-        if (ListeAllDiplomarbeiten() != null) {
-
-            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
-                maxszahl = (int) ListeAllDiplomarbeiten().size() / 10;
-            } else {
-                maxszahl = ListeAllDiplomarbeiten().size() / 10;
-            }
-
-            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
-
-                int anfang = seitenanzahl * 10;
-                int ende = ((seitenanzahl + 1) * 10);
-
-                System.out.println(anfang);
-                System.out.println(ende);
-
-                varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-
-            } else {
-
-                if (seitenanzahl < maxszahl) {
-                    int anfang = seitenanzahl * 10;
-                    int ende = ((seitenanzahl + 1) * 10);
-
-                    System.out.println(anfang);
-                    System.out.println(ende);
-
-                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-
-                }
-                if (seitenanzahl == maxszahl) {
-                    int anfang = seitenanzahl * 10;
-                    int ende = ListeAllDiplomarbeiten().size();
-
-                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-
-                }
-            }
-        }
-        return varlist;
-    }
-
+//    public List<Diplomarbeit> varread(int seitenanzahl, boolean renderer) {
+//
+//        List<Diplomarbeit> varlist = null;
+//        int maxszahl;
+//
+//        if (ListeAllDiplomarbeiten() != null) {
+//
+//            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
+//                maxszahl = (int) ListeAllDiplomarbeiten().size() / 10;
+//            } else {
+//                maxszahl = ListeAllDiplomarbeiten().size() / 10;
+//            }
+//
+//            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
+//
+//                int anfang = seitenanzahl * 10;
+//                int ende = ((seitenanzahl + 1) * 10);
+//
+//                System.out.println(anfang);
+//                System.out.println(ende);
+//
+//                varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
+//
+//            } else {
+//
+//                if (seitenanzahl < maxszahl) {
+//                    int anfang = seitenanzahl * 10;
+//                    int ende = ((seitenanzahl + 1) * 10);
+//
+//                    System.out.println(anfang);
+//                    System.out.println(ende);
+//
+//                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
+//
+//                }
+//                if (seitenanzahl == maxszahl) {
+//                    int anfang = seitenanzahl * 10;
+//                    int ende = ListeAllDiplomarbeiten().size();
+//
+//                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
+//
+//                }
+//            }
+//        }
+//        return varlist;
+//    }
     //Diplomarbeit hochladen:
     public void hochladen(String title, String autor_name, String schule, List<String> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
 
@@ -347,8 +380,7 @@ public class DatabaseManagerService {
         Autor autor = this.getAutor(var_da_id);
         System.out.println("Autor id adsfadsfasdfsf" + autor);
 
-        schlagwDAO.insert(schlagwoerter);
-
+        //  schlagwDAO.insert(schlagwoerter);
         List<Schlagwort> schlagwortliste = this.getAllSchlagwörter().subList(this.getAllSchlagwörter().size() - 2, this.getAllSchlagwörter().size());
 
         schlagwort_verknuepfungDAO.insert(schlagwortliste, var_da_id);
@@ -359,8 +391,21 @@ public class DatabaseManagerService {
     }
 
     //Diplomarbeit löschen
-    public void deleteDiplomarbeit(int id) {
-        diplomarbeitDAO.delete(id);
+    public void deleteDiplomarbeit(Diplomarbeit dip) {
+        //delete autor
+        autorDAO.deleteAutorDip(dip.getDa_id());
+
+        //delete fav
+        favDAO.deleteDip(dip.getDa_id());
+        //delete schlag
+        schlagwort_verknuepfungDAO.deleteDA(dip.getDa_id());
+
+        diplomarbeitDAO.delete(dip.getDa_id());
+    }
+
+    //DP Title update
+    public void updateDPTitle(int id, String title) {
+        diplomarbeitDAO.updateTitle(id, title);
     }
 
     //Redakteur Liste der DAs

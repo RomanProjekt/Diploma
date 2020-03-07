@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+import javax.faces.context.FacesContext;
 import javax.imageio.stream.FileImageOutputStream;
+import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 import pojo.Autor;
 import pojo.Diplomarbeit;
@@ -206,7 +208,7 @@ public class uploadBean {
                     this.schlagwort = "";
 
                 } else {
-                    this.titel_fail = "Titel bitte ändern!";
+                    this.titel_fail = "Titel bitte Ã¤ndern!";
                 }
 
             } else {
@@ -232,8 +234,14 @@ public class uploadBean {
 
             //Absoluten Pfad + neuen Titelnamen oder alten Titelnamen
 //          File f = new File("/Users/hp/Desktop/" + safe_name);
-            //Muss am Server geänder werden!!!!
-            File f = new File("\\Users\\hp\\Desktop\\DA_AK\\web\\resources\\images\\" + bild_name);
+            //Muss am Server geÃ¤nder werden!!!!
+            
+            FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+            ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+            String server_images_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/images/";
+            
+            
+            File f = new File(server_images_pfad + bild_name);
 
             //Pfad zum Suchen des aktuellen Bildes:
             String server_pfad = "/resources/images/" + bild_name;
@@ -262,9 +270,11 @@ public class uploadBean {
         try (InputStream in = diplomarbeit.getInputStream()) {
 
             //Absoluten Pfad + neuen Titelnamen oder alten Titelnamen
-            //Muss am Wespace geändert werden!!!
-            String server_pdf_pfad = "/Users/hp/Desktop/DA_AK/web/resources/pdf/";
-
+            //Muss am Wespace geÃ¤ndert werden!!!
+            FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+            ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+            String server_pdf_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
+                    
             f = new File(server_pdf_pfad + filename + ".pdf");
             //"/Users/hp/Desktop/"
             aktuellerpdfpfad(f.getPath());

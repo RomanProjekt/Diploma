@@ -11,6 +11,7 @@
     </h:head>
     <h:body>
         <ui:include src="/resources/include/navbar.xhtml" />
+        <ui:include src="/resources/include/footer.xhtml" />
         <b:form id="diplomarbeitBearbeiten" enctype="multipart/form-data" >
 
             <h:panelGrid columns="1" cellpadding="5">
@@ -37,7 +38,7 @@
                 </h:dataTable>
                 <b:inputText value="#{updateDiplomarbeit.autor}" />
 
-                <b:commandButton value="Add Tag" action="#{updateDiplomarbeit.addAutor()}"  />
+                <b:commandButton value="Add Autor" action="#{updateDiplomarbeit.addAutor()}"  />
 
                 <b:inputText label="Schule" value="#{updateDiplomarbeit.schule}" labelStyle="width:80px;">
                 </b:inputText>
@@ -53,44 +54,22 @@
                         <f:facet name="header">Löschen</f:facet>
                         <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" />
                     </h:column>
-                    <h:column>
-                        <f:facet name="header" >Edit</f:facet>
-                        <b:commandButton value="Edit" />
-                    </h:column>
                 </h:dataTable>
-                <b:inputText value="#{updateDiplomarbeit.schlagwort}" />
+                <b:inputText value="#{updateDiplomarbeit.schlagwort}" typeahead="true" typeahead-limit="20"   typeahead-values="#{updateDiplomarbeit.typeaheadSchl}" />
 
                 <b:commandButton value="Add Tag" action="#{updateDiplomarbeit.addTag()}" /> 
 
-                <h5>Neues Diplomarbeits Dokument auswählen</h5>
-                <h:inputFile id="diplomarbeit-id" value="#{updateDiplomarbeit.aktDip.pdf}"></h:inputFile>
-
-                <br></br>
-
-                <h5>Neues Logo auswählen</h5>
-                <h:inputFile id="image-id" value="#{updateDiplomarbeit.aktDip.bild}"></h:inputFile>
+                <!--                <h5>Neues Diplomarbeits Dokument auswählen</h5>
+                                <h:inputFile id="diplomarbeit-id" value="#{updateDiplomarbeit.aktDip.pdf}"></h:inputFile>
+                
+                                <br></br>
+                
+                                <h5>Neues Logo auswählen</h5>
+                                <h:inputFile id="image-id" value="#{updateDiplomarbeit.aktDip.bild}"></h:inputFile>-->
 
                 <br></br>
                 <b:commandButton value="Diplomarbeit speichern" action="#{updateDiplomarbeit.save()}"  />
-                <b:commandButton value="Abbruch" /> 
-                <br></br>
-
-                <h3>Autor</h3>
-                #{updateDiplomarbeit.autList}
-                <h3>Remove Autor</h3>
-                #{updateDiplomarbeit.removeAutList}
-                <h3>Insert Autor</h3>
-                #{updateDiplomarbeit.insertAutList}
-
-
-                <h3>Schlagwort</h3>
-                #{updateDiplomarbeit.schlagwortList}
-                <h3>Remove Schlagwort</h3>
-                #{updateDiplomarbeit.removeSchlagList}
-                <h3>Insert Schlagwort</h3>
-                #{updateDiplomarbeit.insertSchlagList}
-
-
+                <b:commandButton value="Abbruch" action="meinKonto.xhtml?faces-redirect=true" /> 
             </h:panelGrid>
         </b:form>
     </h:body>
