@@ -26,14 +26,14 @@
                             <f:selectItems value="#{dipSuchenBean.daList}" var="da"
                                            itemValue="#{da}" itemLabel="Nr: #{da.da_id} Titel: #{da.title} Autor: #{da.autor_id}" />
                         </b:selectOneMenu>
-
                         <br/>
                         <b:commandButton value="Suchen" action="#{dipSuchenBean.selectDA()}" />
                         <br/>
                         <b:commandButton value="More" action="#{dipSuchenBean.recentDa()}" />
                         <br/>
-                        <b:commandButton value="Details" action="#{dipansehenBean.werteanzeigen(dipSuchenBean.selectedDa)}"/>
-
+                        <b:commandButton value="Details" action="#{dipansehenBean.werteanzeigen(dipSuchenBean.selectedDa)}"
+                                         rendered="#{dipSuchenBean.render}"/>
+                        <br/>
                         <b:dataTable value="#{dipSuchenBean.recentDaList}" var="dip" rendered="#{dipSuchenBean.render2}">
                             <b:dataTableColumn value="#{dip.da_id}" label="Diplomarbeitsnummer"/>
                             <b:dataTableColumn value="#{dip.title}" label="Titel"/>
