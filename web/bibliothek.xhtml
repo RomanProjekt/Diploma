@@ -12,15 +12,13 @@
         <h:outputStylesheet library= "css" name= "bibliothek_styles.css" />
         <h:outputStylesheet library="css" name="table-style.css"  />
         <h:outputStylesheet library= "css" name= "Test.css" />
+        <h:outputStylesheet library= "css" name= "footer_bibliothek_styles.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     </h:head>
     <h:body class="body" >
 
         <ui:include src="/resources/include/navbar.xhtml" /> 
-        <ui:include src="/resources/include/footer.xhtml" /> 
-
-       
-
+        
             <div class="content">        
 
                 <div class="uberschrift_ws">Weitere Suche</div>
@@ -251,7 +249,27 @@
             </div>        
 
 
-         </main>       
+         </main>  
+        
+        
+        <div class="footer_bib">
+
+            <div class="navbox">
+                <ul id="navlist">
+
+                    <div class="addresse"><li><h5>© 2020 AK Burgenland | Wiener Straße 7 7000 Eisenstadt, +43 2682 740 0</h5></li></div>
+                    <div class="impressum"><li><a href="https://www.arbeiterkammer.at/Impressum.html" style="color: black" ><h5>IMPRESSUM</h5></a></li></div>
+                    <div class="datenschutz"><li><a href="https://www.arbeiterkammer.at/Datenschutz.html" style="color: black"><h5>DATENSCHUTZ</h5></a></li></div>
+                    <!--                        Absoluter pfad /resources/icon/facebook.png -->
+                    <div class="youtube"><li><a href="https://www.youtube.com/user/AKoesterreich" style="color: black"><img src="youtube.png" alt="youtube" height="30" width="30">  </img> </a></li></div>
+                    <div class="facebook"><li><a href="https://www.facebook.com/Arbeiterkammer/" style="color: black"> <img src="facebook.png" alt="facebook" height="30" width="30"></img> </a></li></div>
+                    <div class="twitter"><li><a href="https://twitter.com/Arbeiterkammer" style="color: black"> <img src="twitter.png" alt="twitter" height="30" width="30">         </img> </a></li></div>
+                    <div class="rsfeed"><li><a href="https://www.arbeiterkammer.at/RSS_Feed.html" style="color: black"> <img src="rss.png" alt="website" height="30" width="30">      </img> </a></li></div>
+
+                </ul>   
+            </div>
+
+        </div>
 
                
     </h:body>
