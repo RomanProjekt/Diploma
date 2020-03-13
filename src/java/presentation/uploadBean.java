@@ -311,31 +311,48 @@ public class uploadBean {
 
     }
 
-    public void upload_diplomarbeit() throws FileNotFoundException, IOException {
+   public void upload_diplomarbeit() throws FileNotFoundException, IOException {
 
         String vartitel = getTitel();
         String varautor = getAutor();
         String varschule = getSchule();
         String varschlagwort = getSchlagwort();
+        
 
         Part varimage = getImage();
 
         if (diplomarbeit != null) {
 
             if (varimage != null) {
+ 
+                //Titel überprüfen - wegen einem Redakteur --- der mehrere Schüler besitzt 
+                //boolean isgleich = this.titel_vergleichen(vartitel); 
+                 
+                //Dateiformat überprüfen 
+                //Imagedatei überprüft -- Richtiges Format
+                String submittedFileName = varimage.getSubmittedFileName();
+                String user_id = String.valueOf(dbService.getLoggedInBenutzer().getUser_id());
+                System.out.println(user_id);
+                boolean image_standartformat = this.überprüfuen_Image_StandardFormat(submittedFileName);
+                    
+                //pdfdatei überprüft -- Richtiges Format
+                boolean diplomarbeit_dateiformat = this.überprüfen_PDF_StandardFormat(diplomarbeit.getSubmittedFileName());
+                
+                
+                if (image_standartformat && diplomarbeit_dateiformat) {
+                    
+                    
+                    //1.Funktionen: Speichern des Bildes
+                    this.saveImage(user_id, vartitel, submittedFileName, varimage);
 
-//                boolean isgleich = this.titel_vergleichen(vartitel);
-                if (true) {
-                    //1. Speichern des Bildes
-                    this.saveImage(vartitel, varimage);
-
-                    //2. Speichern der pdf-Datei
+                    //2. Funktionen: Speichern der pdf-Datei
                     this.savePdfFile(vartitel);
 
                     List<String> schlagwoerter = new ArrayList<>();
                     schlagwoerter.add(varschule);
                     schlagwoerter.add(varschlagwort);
 
+                    //3.Funktionen: Hochladen der Diplomarbeit
                     dbService.hochladen(vartitel, varautor, varschule, schlagwoerter, this.pdfpath, this.imagepath);
 
                     this.titel = "";
@@ -344,7 +361,7 @@ public class uploadBean {
                     this.schlagwort = "";
 
                 } else {
-                    this.titel_fail = "Titel bitte Ã¤ndern!";
+                    this.titel_fail = "Titel bitte Ãndern!";
                 }
 
             } else {
@@ -353,118 +370,173 @@ public class uploadBean {
             }
 
         } else {
-            this.pdfdabei_fail = "PDF-Datei nicht gefunden!";
+            this.pdfdabei_fail = "Keine PDF-Datei gefunden!";
         }
 
     }
+   
+   //-----------------------Bild speichern----------------------------------------------
 
-    public void saveImage(String change_filename, Part varimage) {
+    public void saveImage(String user_id, String vartitel, String submittedFileName, Part varimage) {
 
         FileImageOutputStream outputStream;
+        String change_image_title = this.dateiformatieren(user_id, vartitel, submittedFileName);
 
-        //f_name = bild1 , filename = diplomarbeit
-        String bild_name = varimage.getSubmittedFileName();
-//        String safe_name = this.dateiformatieren(change_filename, bild_name);
+            try (InputStream in = varimage.getInputStream()) {
+                
+                //Verknüpfen der user_id mit dem Bildtitel
+                String image_pfad = "/resources/images/images_diplomarbeiten/";
+                
+                FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+                ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+                String server_images_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + image_pfad;
 
-        try (InputStream in = varimage.getInputStream()) {
+                File f = new File(server_images_pfad + change_image_title);
 
-            //Absoluten Pfad + neuen Titelnamen oder alten Titelnamen
-//          File f = new File("/Users/hp/Desktop/" + safe_name);
-            //Muss am Server geÃ¤nder werden!!!!
-            FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
-            ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
-            String server_images_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/images/";
+                //Pfad zum Suchen des aktuellen Bildes:
+                String server_pfad = image_pfad + change_image_title;
+                aktuellerimagepfad(server_pfad);
 
-            File f = new File(server_images_pfad + bild_name);
-
-            //Pfad zum Suchen des aktuellen Bildes:
-            String server_pfad = "/resources/images/" + bild_name;
-            aktuellerimagepfad(server_pfad);
-
-            f.createNewFile();
-            outputStream = new FileImageOutputStream(f);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = in.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, length);
+                f.createNewFile();
+                outputStream = new FileImageOutputStream(f);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = in.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
+                outputStream.close();
+                
+            } catch (IOException e) {
+                e.printStackTrace(System.out);
             }
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace(System.out);
-        }
+
+        
+
 
     }
 
-    //Funktion pdf-Datei hochladen
-    public void savePdfFile(String filename) throws FileNotFoundException, IOException {
+    //-----------Funktion pdf-Datei hochladen----------------------
+    public void savePdfFile(String filename)  {
 
         File f;
         FileOutputStream outputStream;
+    
+            try (InputStream in = diplomarbeit.getInputStream()) {
+                FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+                ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
 
-        try (InputStream in = diplomarbeit.getInputStream()) {
+                String server_pdf_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
 
-            //Absoluten Pfad + neuen Titelnamen oder alten Titelnamen
-            //Muss am Wespace geÃ¤ndert werden!!!
-            FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
-            ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
-            String server_pdf_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
+                f = new File(server_pdf_pfad + filename + ".pdf");
+                aktuellerpdfpfad(f.getPath());
 
-            f = new File(server_pdf_pfad + filename + ".pdf");
-            //"/Users/hp/Desktop/"
-            aktuellerpdfpfad(f.getPath());
+                f.createNewFile();
+                outputStream = new FileOutputStream(f);
 
-            f.createNewFile();
-            outputStream = new FileOutputStream(f);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = in.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
+                in.close();
+                outputStream.close();
 
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = in.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, length);
+            } catch (FileNotFoundException fnfex) {
+                System.out.println(fnfex.getMessage());
+            } catch (IOException ioex) {
+                System.out.println(ioex.getMessage());
             }
-            in.close();
-            outputStream.close();
 
-        }
+            
+        
+
+        
     }
+    
 
     public boolean titel_vergleichen(String titel) {
+        return dbService.diplomarbeit(titel);
+    }
 
-        boolean istgleich = false;
+    
+    //-----------------Überprüfen des Images-Datei-Formats--------------
+    public boolean überprüfuen_Image_StandardFormat(String submittedFileName) {
 
-        List<Diplomarbeit> listdip = dbService.ListeAllDiplomarbeiten();
+        boolean formatvergleich = false;
 
-        for (int i = 0; i < listdip.size(); i++) {
-            String name = listdip.get(i).getTitle();
+        String[] standartformat = {"png", "jpeg", "gif", "jpg"};
 
-            if (!titel.equals(name)) {
-                istgleich = true;
-                return istgleich;
-            } else {
-                System.out.println("Name ist schon vorhanden");
-                istgleich = false;
+        String[] name = submittedFileName.split(Pattern.quote("."));
+        System.out.println(Arrays.toString(name));
+
+        String bildformat = name[name.length-1];
+        System.out.println(bildformat);
+
+        for (int i = 0; i < standartformat.length; i++) {
+
+            if (bildformat.equals(standartformat[i])) {
+                formatvergleich = true;
+                System.out.println("Das derzeitige Bildformat enstpricht dem Standartformat");
             }
+
         }
 
-        return istgleich;
+        return formatvergleich;
 
     }
-
-    public String dateiformatieren(String filename, String bild_name) {
-
-        String[] name = bild_name.split(Pattern.quote("."));
+    
+    
+    
+    //---------------------Diplomarbeit Titel umformartieren -------------------------
+    public String dateiformatieren(String user_id, String diplomarbeit_titel, String submittedFileName) {
+        
+        String[] name = submittedFileName.split(Pattern.quote("."));
+        
+        String new_image_titel = diplomarbeit_titel + user_id + "." + name[name.length-1];
+        
+        System.out.println(new_image_titel);
+        
+        return new_image_titel;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    //--------------------Überpüfen des PDF Formats----------------------
+    private boolean überprüfen_PDF_StandardFormat(String submittedFileName) {
+       
+        boolean formatvergleich = false;
+        
+        String[] name = submittedFileName.split(Pattern.quote("."));
         System.out.println(Arrays.toString(name));
-        String bildformat = name[name.length - 1];
 
-        String r_filename = filename + "." + bildformat;
-        System.out.println(r_filename);
-
-        return r_filename;
-
+        String PDF_Format = name[name.length-1];
+        
+        
+            if (PDF_Format.equals("pdf")) {
+                formatvergleich = true;
+                System.out.println("Das derzeitige Bildformat enstpricht dem Standartformat");
+            }
+        
+        
+        return formatvergleich;
+        
     }
-
+    
+    
+    
+    
+    //-------------------Test---------------------------------
     public static void main(String[] args) {
+        
         uploadBean u = new uploadBean();
-        u.dateiformatieren("diplomarbeit", "bild.jpg");
+        u.überprüfuen_Image_StandardFormat("diplomarbeit.jpg");
+        
     }
+       
 
 }
