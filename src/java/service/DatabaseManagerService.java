@@ -314,52 +314,7 @@ public class DatabaseManagerService {
         return this.schuleDAO.readOne(id);
     }
 
-//    public List<Diplomarbeit> varread(int seitenanzahl, boolean renderer) {
-//
-//        List<Diplomarbeit> varlist = null;
-//        int maxszahl;
-//
-//        if (ListeAllDiplomarbeiten() != null) {
-//
-//            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
-//                maxszahl = (int) ListeAllDiplomarbeiten().size() / 10;
-//            } else {
-//                maxszahl = ListeAllDiplomarbeiten().size() / 10;
-//            }
-//
-//            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
-//
-//                int anfang = seitenanzahl * 10;
-//                int ende = ((seitenanzahl + 1) * 10);
-//
-//                System.out.println(anfang);
-//                System.out.println(ende);
-//
-//                varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-//
-//            } else {
-//
-//                if (seitenanzahl < maxszahl) {
-//                    int anfang = seitenanzahl * 10;
-//                    int ende = ((seitenanzahl + 1) * 10);
-//
-//                    System.out.println(anfang);
-//                    System.out.println(ende);
-//
-//                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-//
-//                }
-//                if (seitenanzahl == maxszahl) {
-//                    int anfang = seitenanzahl * 10;
-//                    int ende = ListeAllDiplomarbeiten().size();
-//
-//                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-//
-//                }
-//            }
-//        }
-//        return varlist;
-//    }
+
     //Diplomarbeit hochladen:
     public void hochladen(String title, String autor_name, String schule, List<String> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
 
@@ -412,6 +367,8 @@ public class DatabaseManagerService {
     public List<Diplomarbeit> getRedList() {
         return diplomarbeitDAO.getRedList(loggedInBenutzer.getUser_id());
     }
+    
+    
 
     //Favouriten einfügen
     public int insertFavouriten(int dp_id, int b_id) {
@@ -427,7 +384,7 @@ public class DatabaseManagerService {
     }
     
     
-     //Passwort zurücksetzen im eigenen Programm:
+//----------Passwort zurücksetzen im eigenen Programm:----------
     public void insertNewPasswort() {
         benutzerDAO.insertNewPassword(this.loggedInBenutzer);
     }
@@ -437,3 +394,52 @@ public class DatabaseManagerService {
     }
 
 }
+
+
+//alter Programmiercode - wird später gelöscht
+//    public List<Diplomarbeit> varread(int seitenanzahl, boolean renderer) {
+//
+//        List<Diplomarbeit> varlist = null;
+//        int maxszahl;
+//
+//        if (ListeAllDiplomarbeiten() != null) {
+//
+//            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
+//                maxszahl = (int) ListeAllDiplomarbeiten().size() / 10;
+//            } else {
+//                maxszahl = ListeAllDiplomarbeiten().size() / 10;
+//            }
+//
+//            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
+//
+//                int anfang = seitenanzahl * 10;
+//                int ende = ((seitenanzahl + 1) * 10);
+//
+//                System.out.println(anfang);
+//                System.out.println(ende);
+//
+//                varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
+//
+//            } else {
+//
+//                if (seitenanzahl < maxszahl) {
+//                    int anfang = seitenanzahl * 10;
+//                    int ende = ((seitenanzahl + 1) * 10);
+//
+//                    System.out.println(anfang);
+//                    System.out.println(ende);
+//
+//                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
+//
+//                }
+//                if (seitenanzahl == maxszahl) {
+//                    int anfang = seitenanzahl * 10;
+//                    int ende = ListeAllDiplomarbeiten().size();
+//
+//                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
+//
+//                }
+//            }
+//        }
+//        return varlist;
+//    }
