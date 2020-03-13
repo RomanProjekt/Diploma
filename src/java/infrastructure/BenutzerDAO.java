@@ -155,4 +155,33 @@ public class BenutzerDAO {
         lastId = intList.size();
         return lastId;
     }
+    
+    
+    
+    public int insertNewPassword(Benutzer b) {
+       
+        String query = "update   where benutzer_id = ?";
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement(query);) {
+
+            pstmt.setString(1, b.getFirstname());
+            pstmt.setString(2, b.getLastname());
+            pstmt.setString(3, b.getUsername());
+            pstmt.setString(4, b.getRole());
+            pstmt.setInt(5, b.getUser_id());
+            result = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        
+        return result;
+    }
+    
+    
+    
+    
+    
 }

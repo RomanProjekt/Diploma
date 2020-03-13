@@ -425,5 +425,15 @@ public class DatabaseManagerService {
     public int deleteFav(Diplomarbeit dip) {
         return favDAO.deleteOne(dip, loggedInBenutzer.getUser_id());
     }
+    
+    
+     //Passwort zurücksetzen im eigenen Programm:
+    public void insertNewPasswort() {
+        benutzerDAO.insertNewPassword(this.loggedInBenutzer);
+    }
+
+    public boolean diplomarbeit(String titel) {
+        return diplomarbeitDAO.read(titel);
+    }
 
 }

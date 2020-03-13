@@ -15,64 +15,67 @@ and open the template in the editor.
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
         <h:outputStylesheet library= "css" name= "dipansehen_styles.css" />
         <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name= "include_footer.css" />
 
     </h:head>
     <h:body>
         <ui:include src="/resources/include/navbar.xhtml" />  
-
+        <ui:include src="/resources/include/footer.xhtml" />
 
         <div class="main">
-            <f:view>
 
-                <div class="ueberschrift">
-                    <h2>Diplomarbeiten herunterladen und ansehen</h2>
-                </div>
+            <div class="full_anzeigefelder">
 
-
-
-
-                <div class="anzeigefelder">
+                <f:view>
+                    <div class="ueberschrift">
+                        <h2>Diplomarbeiten herunterladen und ansehen</h2>
+                    </div>
 
 
-                    <b:form id="diplomarbeitansehen" >
-
-                        <h:panelGrid columns="1" cellpadding="5">
 
 
-                            <b:inputText  label="Titel" value="#{dipansehenBean.aktDip.title}" labelStyle="width:80px;" disabled="true">
-                            </b:inputText>   
-
-                            <b:inputText  label="Autor" value="#{dipansehenBean.autor}" labelStyle="width:80px;" disabled="true">
-                            </b:inputText>
-
-                            <b:inputText   label="Schule" value="#{dipansehenBean.schule}" labelStyle="width:80px;" disabled="true">
-                            </b:inputText>
-
-                            <b:inputText   label="Datum" value="#{dipansehenBean.aktDip.datum}" labelStyle="width:80px;" disabled="true">
-                            </b:inputText>
-
-                            <b:commandButton value="Download" action="#{dipansehenBean.download()}"/>
-                            <br></br>
-                            <b:commandButton value="Diplomarbeit ansehen" action="#{dipansehenBean.diplomarbeitansehen()}" />
-                            <br></br>
-                            <b:commandButton value="Favouriten speichern" actionListener="#{dipansehenBean.speichern}"/>
-                            <br></br>
-                            <b:commandButton value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}"/>
-                            <br></br>                  
-                            <b:commandButton value="Back" action="bibliothek.xhtml" />
-
-                        </h:panelGrid>
-                    </b:form>
-                </div>
+                    <div class="anzeigefelder">
 
 
-                <div class="diplomarbeit">
-                    <h:form>
-                        <h:graphicImage value = "#{dipansehenBean.aktDip.bild}" height="500px" width="500px" alt="Image not found"/> 
-                    </h:form>
-                </div>
+                        <b:form id="diplomarbeitansehen" >
 
-            </f:view>
+                            <h:panelGrid columns="1" cellpadding="5">
+
+
+                                <b:inputText  label="Titel" value="#{dipansehenBean.aktDip.title}" labelStyle="width:80px;" disabled="true">
+                                </b:inputText>   
+
+                                <b:inputText  label="Autor" value="#{dipansehenBean.autor}" labelStyle="width:80px;" disabled="true">
+                                </b:inputText>
+
+                                <b:inputText   label="Schule" value="#{dipansehenBean.schule}" labelStyle="width:80px;" disabled="true">
+                                </b:inputText>
+
+                                <b:inputText   label="Datum" value="#{dipansehenBean.aktDip.datum}" labelStyle="width:80px;" disabled="true">
+                                </b:inputText>
+
+                                <b:commandButton value="Download" action="#{dipansehenBean.download()}"/>
+                                <br></br>
+                                <b:commandButton value="Diplomarbeit ansehen" action="#{dipansehenBean.diplomarbeitansehen()}" />
+                                <br></br>
+                                <b:commandButton value="Favouriten speichern" actionListener="#{dipansehenBean.speichern}"/>
+                                <br></br>
+                                <b:commandButton value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}"/>
+                                <br></br>                  
+                                <b:commandButton value="Back" action="bibliothek.xhtml" />
+
+                            </h:panelGrid>
+                        </b:form>
+                    </div>
+
+
+                    <div class="diplomarbeit">
+                        <h:form>
+                            <h:graphicImage value = "#{dipansehenBean.aktDip.bild}" height="500px" width="500px" alt="Image not found"/> 
+                        </h:form>
+                    </div>
+                </f:view>
+            </div> 
         </div>
     </h:body>
 </html>

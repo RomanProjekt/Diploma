@@ -264,4 +264,35 @@ public class DiplomarbeitDAO {
         }
         return dipList;
     }
+    
+    
+    
+    
+    public boolean read(String titel) {
+        
+        boolean ist_gleich = false;
+        Diplomarbeit retVal = null;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from diplomarbeit")) {
+                while (rs.next()) {
+                    retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)); 
+                }
+                if(retVal.getTitle().equals(titel)) {
+                    ist_gleich = true;
+                } else {
+                }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return ist_gleich;
+        
+    }
+    
+    
+    
 }

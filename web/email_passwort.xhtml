@@ -2,30 +2,53 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Passwort Zurücksetzen</title>
+        <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name="ep_styles.css" />
+        <h:outputStylesheet library= "css" name="include_footer.css" />
+        
+       
     </h:head>
     <h:body>
+
+        <ui:include src="/resources/include/navbar.xhtml" />
+        <ui:include src="/resources/include/footer.xhtml" />
+
         
-         <h2>Passwort zurücksetzen</h2>
 
         <h:form>
-            <h:panelGrid columns="1" cellpadding="1">
 
-                <b:inputText label="Passwort" value="#{loginBean.pw}" labelStyle="width:80px;">
-                </b:inputText>
+            <div class="passwort">
+                
+                <h2 class="uberschrift">Passwort zurücksetzen</h2>
 
-                <b:inputText label="Passwort bestätigen" value="#{loginBean.pw}" labelStyle="width:80px;">
-                </b:inputText>
+                <div class="pw-grid">
+                    
+                    <h:panelGrid columns="1" cellpadding="1">
 
-                <br></br>
-                <b:commandButton value="Passort speichern" action="lging.xhtml" actionListener="#{loginBean.passwort_zuruecksetzen(event)}"></b:commandButton>
+                       
+                        <b:inputText label="Passwort" value="#{loginBean.pw}" labelStyle="width:80p;"></b:inputText>
 
-            </h:panelGrid>
+                        <b:inputText label="Passwort bestätigen" value="#{loginBean.bestätigtespw}" labelStyle="width:80px;">
+                        </b:inputText>
+
+                        <br></br>
+                        <b:commandButton value="Passort speichern" action="lging.xhtml" actionListener="#{loginBean.speichernPasswort()}"></b:commandButton>
+
+                    </h:panelGrid>
+
+                </div>
+                
+                
+
+            </div>
+
         </h:form>    
 
-
+         
     </h:body>
 </html>
 
