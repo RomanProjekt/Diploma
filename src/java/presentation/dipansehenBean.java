@@ -173,7 +173,7 @@ public class dipansehenBean {
         return "dipansehen.xhtml";
     }
 
-    //Diplomarbeit download
+  //Diplomarbeit download
     public void download() throws IOException {
 
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
@@ -205,36 +205,31 @@ public class dipansehenBean {
 
     }
 
+    
+    
     //Diplomarbeitn ansehen
-    public void diplomarbeitansehen() {
+    public void diplomarbeitansehen(Diplomarbeit dip) {
 
-        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
-        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
-        String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
-
-        try {
-
-            //Pfad anpassen
-            File pdfFile = new File(server_diplomarbeit_pfad + aktDip.getTitle() + ".pdf");
-
-            if (pdfFile.exists()) {
-
-                if (Desktop.isDesktopSupported()) {
-                    Desktop.getDesktop().open(pdfFile);
-                } else {
-                    System.out.println("Desktop is not supported!");
-
-                }
-
-            } else {
-                System.out.println("File is not exists!");
-            }
-
-            System.out.println("Done");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+       
+//        File temp = File.createTempFile(dip.getTitle(), ".pdf");
+//        
+//        File testPdfFile = new File("D:\AFC150_20180819_0103.pdf");
+//        FacesContext fc = FacesContext.getCurrentInstance();
+//        ExternalContext ec = fc.getExternalContext();
+//
+//        ec.responseReset(); 
+//        ec.setResponseContentType("application/pdf"); 
+//        ec.setResponseContentLength((int)testPdfFile.length()); 
+//
+//        //Inline
+//        //ec.setResponseHeader("Content-Disposition", "inline; filename=\"" + testPdfFile.getName() + "\""); 
+//
+//        //Attach for Browser
+//        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + testPdfFile.getName() + "\""); 
+//
+//        OutputStream output = ec.getResponseOutputStream();
+//        Files.copy(testPdfFile.toPath(), output);
+//        fc.responseComplete();
 
     }
 
@@ -263,3 +258,40 @@ public class dipansehenBean {
 //        dms.deleteDiplomarbeit(this.aktuelle_id);
 //    }
 }
+
+
+
+
+//----------------Alter Code - Diplomarbeit ansehen--------------------------
+////Diplomarbeitn ansehen
+//    public void diplomarbeitansehen() {
+//
+//        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+//        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+//        String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
+//
+//        try {
+//
+//            //Pfad anpassen
+//            File pdfFile = new File(server_diplomarbeit_pfad + aktDip.getTitle() + ".pdf");
+//
+//            if (pdfFile.exists()) {
+//
+//                if (Desktop.isDesktopSupported()) {
+//                    Desktop.getDesktop().open(pdfFile);
+//                } else {
+//                    System.out.println("Desktop is not supported!");
+//
+//                }
+//
+//            } else {
+//                System.out.println("File is not exists!");
+//            }
+//
+//            System.out.println("Done");
+//
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//
+//    }
