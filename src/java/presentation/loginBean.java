@@ -154,6 +154,8 @@ public class loginBean {
         this.username = username;
     }
 
+    
+    
 //Passwort Zurücksetzen im Programm selbst
 
     public String getBestätigtespw() {
@@ -215,9 +217,9 @@ public class loginBean {
         
         //Email Adresse des Serverbetreibers
         //Muss gesichert werden
-        String email_username = "testdiplomarbeit@gmx.at";
-        String email_passwort = "HasenBombe0189";
-        String email_anbieter = "testdiplomarbeit@gmx.at";
+        String email_username = null;
+        String email_passwort = null;
+        String email_anbieter = null;
         
         //GMX-Anbieter DATEN:
         String smtpHost = "mail.gmx.net";
