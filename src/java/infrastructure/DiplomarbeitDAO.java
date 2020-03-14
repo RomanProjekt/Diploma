@@ -39,6 +39,16 @@ public class DiplomarbeitDAO {
     PreparedStatement st = null;
     BufferedImage image = null;
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public List<Diplomarbeit> read() {
 
         ArrayList<Diplomarbeit> listdip = new ArrayList<>();
@@ -166,7 +176,10 @@ public class DiplomarbeitDAO {
 
         return dipList;
     }
-
+    
+    
+    
+    //--------Löschen der Diplomarbeit - nach id----------
     public int delete(int id) {
 
         String query = "delete from diplomarbeit where da_id = ?";
@@ -186,8 +199,10 @@ public class DiplomarbeitDAO {
         return result;
 
     }
+    
+    
 
-    //Suchleistenfunktion
+    //-------------------------Suchleistenfunktion-----------------------------
     public List Suchleiste(String k) { //key = k
         char[] matcher = k.toCharArray();
         String catcher = "";

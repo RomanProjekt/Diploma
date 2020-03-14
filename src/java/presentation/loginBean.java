@@ -39,7 +39,7 @@ public class loginBean {
     private String pw;
     private String username;
 
-  //  Variable Passwort zurücksetzen mit Email
+    //Variable Passwort zurücksetzen mit Email
     private Session mailSession;
     private String bestätigtespw;
     
@@ -202,25 +202,23 @@ public class loginBean {
 //    GMX Freemail
 //    GMX Topmail
 //    Google Gmail
-//    Mailbox.org Tarif Mail Mail
-//    .de Plusmail
+//    Mailbox.org Tarif Mail 
+//    Mail.de Plusmail
 //    Microsoft Outlook
 //    Posteo
 //    Web.de Freemail
 //    Yahoo Mail
  
-    
-    public void passwort_vergessen(ActionEvent event) {
+       public void passwort_vergessen(ActionEvent event) {
 
         //Benutzername und Passwort
         //zum Tesst 
-        
         //Email Adresse des Serverbetreibers
         //Muss gesichert werden
         String email_username = null;
         String email_passwort = null;
         String email_anbieter = null;
-        
+
         //GMX-Anbieter DATEN:
         String smtpHost = "mail.gmx.net";
         String smtPort = "587";
@@ -229,8 +227,6 @@ public class loginBean {
 
             //1.Einloggen der AK in den eigenen Email-server
             //Testen: 
-            
-            
             //Test mit GMX-Anbieter
             //this.login(smtpHost, smtPort, email_username, email_passwort);
             this.login("mail.gmx.net", "587", email_username, email_passwort);
@@ -238,7 +234,6 @@ public class loginBean {
             //2. Senden des Texten an den email-Server
             //String senderMail, String senderName, String receiverAddresses, String subject, String nachrichten)
             //sender.send("absender@provider.com", "Absender Name", "empfaenger@provider.com", "Test Test Test Betreff", "Ãœberall dieselbe alte Leier.\r\n\r\nDas Layout ist fertig, der Text lÃ¤sst auf sich warten. "+ "Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, "+ "springe ich ein: der Blindtext. Genau zu diesem Zwecke erschaffen, immer im Schatten "+ "meines groÃŸen Bruders Â»Lorem IpsumÂ«, freue ich mich jedes Mal, wenn Sie ein paar Zeilen "+ "lesen. Denn esse est percipi - Sein ist wahrgenommen werden.");
-            
 //          String senderName = this.dbService.getLoggedInBenutzer().getFirstname() + this.dbService.getLoggedInBenutzer().getLastname();
             String senderName = "Vorname + Nachname";
             String receiverAdresses = "roman.grof@gmx.at";
@@ -246,61 +241,60 @@ public class loginBean {
             String betreff = "Test Test Test Betreff";
             String messages = "Das ist eine Test-Email";
 
-            this.send(email_anbieter , senderName, receiverAdresses, betreff , messages);
-            
+            this.send(email_anbieter, senderName, receiverAdresses, betreff, messages);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        
+
+
 
     }
     
 
     public void login(String smtpHost, String smtpPort, String email_username, String email_passwort) {
-			Properties props = new Properties();
-			props.put("mail.smtp.host", smtpHost);
-			props.put("mail.smtp.socketFactory.port", smtpPort);
-			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-			props.put("mail.smtp.auth", "true");
-			props.put("mail.smtp.port", smtpPort);
+        Properties props = new Properties();
+        props.put("mail.smtp.host", smtpHost);
+        props.put("mail.smtp.socketFactory.port", smtpPort);
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", smtpPort);
 
-			Authenticator auth = new Authenticator() {
-				@Override
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(email_username, email_passwort);
-				}
-			};
+        Authenticator auth = new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(email_username, email_passwort);
+            }
+        };
 
-			this.mailSession = Session.getDefaultInstance(props, auth);
-			System.out.println("Eingeloggt.");
+        this.mailSession = Session.getDefaultInstance(props, auth);
+        System.out.println("Eingeloggt.");
     }
     
     
     public void send(String senderMail, String senderName, String receiverAddresses, String subject, String message)
-				throws MessagingException, IllegalStateException, UnsupportedEncodingException {
-			if (mailSession == null) {
-				throw new IllegalStateException("Du musst dich zuerst einloggen (login()-Methode)");
-			}
+            throws MessagingException, IllegalStateException, UnsupportedEncodingException {
+        if (mailSession == null) {
+            throw new IllegalStateException("Du musst dich zuerst einloggen (login()-Methode)");
+        }
 
-			MimeMessage msg = new MimeMessage(mailSession);
-			msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-			msg.addHeader("format", "flowed");
-			msg.addHeader("Content-Transfer-Encoding", "8bit");
+        MimeMessage msg = new MimeMessage(mailSession);
+        msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+        msg.addHeader("format", "flowed");
+        msg.addHeader("Content-Transfer-Encoding", "8bit");
 
-			msg.setFrom(new InternetAddress(senderMail, senderName));
-			msg.setReplyTo(InternetAddress.parse(senderMail, false));
-			msg.setSubject(subject, "UTF-8");
-			msg.setText(message, "UTF-8");
-			msg.setSentDate(new Date());
+        msg.setFrom(new InternetAddress(senderMail, senderName));
+        msg.setReplyTo(InternetAddress.parse(senderMail, false));
+        msg.setSubject(subject, "UTF-8");
+        msg.setText(message, "UTF-8");
+        msg.setSentDate(new Date());
 
-			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverAddresses, false));
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverAddresses, false));
 
-			System.out.println("Versende E-Mail...");
-			Transport.send(msg);
-			System.out.println("E-Mail versendet.");
-		}
+        System.out.println("Versende E-Mail...");
+        Transport.send(msg);
+        System.out.println("E-Mail versendet.");
+    }
 }
-
 
 

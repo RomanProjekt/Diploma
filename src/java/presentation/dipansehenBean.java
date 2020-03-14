@@ -50,7 +50,7 @@ public class dipansehenBean {
 
     @PostConstruct
     void init() {
-
+        
     }
 
     public DatabaseManagerService getDms() {
@@ -173,7 +173,8 @@ public class dipansehenBean {
         return "dipansehen.xhtml";
     }
 
-  //Diplomarbeit download
+    
+  //---------------------Diplomarbeit download---------------------------------
     public void download() throws IOException {
 
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
@@ -184,7 +185,7 @@ public class dipansehenBean {
 
         externalContext.responseReset();
         externalContext.setResponseContentType(aktDip.getTitle() + "/.pdf");
-        externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"titel01.pdf\" ");
+        externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + aktDip.getTitle());
 
         externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + aktDip.getTitle() + ".pdf" + "\"");
         String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
@@ -200,7 +201,7 @@ public class dipansehenBean {
             }
         }
 
-        Files.copy(file.toPath(), outputStream);
+//        Files.copy(file.toPath(), outputStream);
         context.responseComplete();
 
     }
@@ -254,9 +255,9 @@ public class dipansehenBean {
         };
     }
 
-//    public void löschenDiplomarbeit(ActionEvent event) {
-//        dms.deleteDiplomarbeit(this.aktuelle_id);
-//    }
+    public void löschenDiplomarbeit(ActionEvent event) {
+        dms.deleteDiplomarbeit(aktDip);
+    }
 }
 
 

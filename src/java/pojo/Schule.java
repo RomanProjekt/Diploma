@@ -14,9 +14,9 @@ public class Schule {
     private int schule_id;
     private String name;
 
-    public Schule(int schule_id, String schule) {
+    public Schule(int schule_id, String name) {
         this.schule_id = schule_id;
-        this.name = schule;
+        this.name = name;
     }
 
     public int getSchule_id() {

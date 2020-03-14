@@ -345,8 +345,9 @@ public class DatabaseManagerService {
 
     }
 
-    //Diplomarbeit löschen
+    //------------------Diplomarbeit löschen---------------------------
     public void deleteDiplomarbeit(Diplomarbeit dip) {
+        
         //delete autor
         autorDAO.deleteAutorDip(dip.getDa_id());
 
