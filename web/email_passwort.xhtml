@@ -30,13 +30,13 @@
                     <h:panelGrid columns="1" cellpadding="1">
 
                        
-                        <b:inputText label="Passwort" value="#{loginBean.pw}" labelStyle="width:80p;"></b:inputText>
+                        <b:inputSecret label="Passwort" value="#{loginBean.pw}" labelStyle="width:80p;"  required="true" requiredMessage=""/>
 
-                        <b:inputText label="Passwort bestätigen" value="#{loginBean.bestätigtespw}" labelStyle="width:80px;">
-                        </b:inputText>
+                        <b:inputSecret label="Passwort bestätigen" value="#{loginBean.bestätigtespw}" labelStyle="width:80px;"/>
+                        
 
                         <br></br>
-                        <b:commandButton value="Passort speichern" action="loging.xhtml" actionListener="#{loginBean.speichernPasswort()}"></b:commandButton>
+                        <b:commandButton value="Passort speichern" action="login.xhtml" actionListener="#{loginBean.speichernPasswort()}"></b:commandButton>
 
                     </h:panelGrid>
 

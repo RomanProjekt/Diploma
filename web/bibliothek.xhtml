@@ -213,7 +213,7 @@
 
                         <div class="liste">
                                 <ui:repeat  var="var" value="#{bibliothekBean.seitenleiste}" varStatus="status">
-                                    <h:commandButton id="button" value="#{var.seitenzahl}" actionListener="#{bibliothekBean.verlinken}"/>
+                                    <h:commandButton id="abc" value="#{var.seitenzahl}" actionListener="#{bibliothekBean.verlinken(actionEvent)}"/>
                                 </ui:repeat>
                         </div>
                         

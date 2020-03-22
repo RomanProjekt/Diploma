@@ -555,8 +555,8 @@ public class uploadBean {
         String bildformat = name[name.length-1];
         System.out.println(bildformat);
 
-        for (String standartformat1 : standartformat) {
-            if (bildformat.equals(standartformat1)) {
+        for (String format : standartformat) {
+            if (bildformat.equals(format)) {
                 formatvergleich = true;
                 System.out.println("Das derzeitige Bildformat enstpricht dem Standartformat");
             }

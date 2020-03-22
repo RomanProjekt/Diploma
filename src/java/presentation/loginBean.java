@@ -125,6 +125,10 @@ public class loginBean {
     public String getPw() {
         return pw;
     }
+    
+    public void setPw(String pw) {
+        this.pw = pw;
+    }
 
     public String getUsername() {
         return username;
@@ -146,17 +150,14 @@ public class loginBean {
         this.message = message;
     }
 
-    public void setPw(String pw) {
-        this.pw = pw;
-    }
-
+   
     public void setUsername(String username) {
         this.username = username;
     }
 
     
     
-//Passwort Zurücksetzen im Programm selbst
+//--------------Passwort zurücksetzen im Programm selbst---------------
 
     public String getBestätigtespw() {
         return bestätigtespw;
@@ -167,12 +168,15 @@ public class loginBean {
     }
     
     public void speichernPasswort() {
-        
-        //Passwort vergleichen
-        
-        
+
         if(this.pw.equals(this.bestätigtespw)) {
-             dbService.insertNewPasswort();
+            
+            
+            //Ohne Verschlüsselung
+            dbService.insertNewPasswort(this.pw, dbService.getLoggedInBenutzer());
+             
+             this.pw = "";
+             this.bestätigtespw="";
         }
         else {
             System.out.println("Geben sie ein neues Passwort ein!");
@@ -219,7 +223,7 @@ public class loginBean {
         //Benutzername und Passwort
         //zum Tesst 
         //Email Adresse des Serverbetreibers
-        //Muss gesichert werden
+        
         
         //Sender
         String email_username = "testdiplomarbeit@gmx.at";

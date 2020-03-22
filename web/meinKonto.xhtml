@@ -38,6 +38,9 @@
 
                             <h:outputLabel class="lable" value="E-Mail" />
                             <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.geteMail()}" />
+                            
+                            <h:outputLabel class="lable" value="Passwort zurücksetzen" />
+                            <b:commandButton class="button" value="Passwort" style="padding: 10px 32px;" action="email_passwort.xthml"/>
 
                         </b:panelGrid>
                         <!--                        <b:commandButton value="Nutzerdaten Ändern" />-->

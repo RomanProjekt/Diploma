@@ -137,6 +137,8 @@ public class BenutzerDAO {
         return benList;
     }
 
+    
+    
     public int getNextIdFromUser() {
         int lastId = -1;
         List intList = new ArrayList<>();
@@ -158,20 +160,17 @@ public class BenutzerDAO {
     
     
     
-    public int insertNewPassword(Benutzer b) {
+    public int insertNewPassword(String npw, Benutzer b) {
        
-        String query = "update   where benutzer_id = ?";
+        String query = "update passwort where benutzer_id = " + b.getUser_id();
+        System.out.println(b.getUser_id());
         int result = 0;
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt = con.prepareStatement(query);) {
 
-            pstmt.setString(1, b.getFirstname());
-            pstmt.setString(2, b.getLastname());
-            pstmt.setString(3, b.getUsername());
-            pstmt.setString(4, b.getRole());
-            pstmt.setInt(5, b.getUser_id());
+                pstmt.setString(1, npw);
             result = pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);

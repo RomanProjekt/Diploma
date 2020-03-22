@@ -78,7 +78,7 @@ public class bibliothekBean {
         diplist = new ArrayList<>();
         this.alldiplomarbeiten = new ArrayList<>();
         
-        this.diplist = this.varread(0, renderer);
+        this.diplist = this.varread(0);
         alldiplomarbeiten = dms.ListeAllDiplomarbeiten();
 //      diplist.add(new Diplomarbeit(12, "Bild01", 12, 12, 12, null, 12, new Date(2020-12-01), null, 12, 12));
 
@@ -358,12 +358,12 @@ public class bibliothekBean {
                 //Anzeigen der Diplomarbeiten
                 int anfangListeDip = this.seitenanzahl - 1;
                 //anfangsListeDip = 0;
-                this.diplist = this.varread(anfangListeDip, renderer);
+                this.diplist = this.varread(anfangListeDip);
             }
             else {
                 //Anzeigen der Diplomarbeiten
                 int anfangListeDip = this.seitenanzahl - 1;               
-                this.diplist = this.varread(anfangListeDip, renderer);
+                this.diplist = this.varread(anfangListeDip);
                 
             }
 
@@ -381,7 +381,7 @@ public class bibliothekBean {
             
             //Anzeigen der Diplomarbeiten
             int anfangListeDip = this.seitenanzahl - 1;
-            diplist = this.varread(anfangListeDip, renderer);
+            diplist = this.varread(anfangListeDip);
             
         } else {
             seitenanzahl = 1;
@@ -389,7 +389,7 @@ public class bibliothekBean {
             
             //Anzeigen der Diplomarbeiten
             int anfangListeDip = this.seitenanzahl - 1;
-            diplist = this.varread(anfangListeDip, renderer);
+            diplist = this.varread(anfangListeDip);
 
         }
         
@@ -487,13 +487,13 @@ public class bibliothekBean {
     }
     
   
-    public void verlinken(ActionEvent ex) {
+    public void verlinken(ActionEvent ex) { 
         
-//        int aktuellesz = Integer.valueOf(ex.getSource().toString());
-        
-        int aktuellesz = 1;
-        int anfangListeDip = aktuellesz - 1;
-        this.varread(anfangListeDip, renderer);
+//        int buttonId = Integer.valueOf(ex.getSource());
+    
+//        int aktuellesz = (int) ex.getSource();
+//        System.out.println(buttonId);
+//        this.varread(buttonId);
         
     }
     
@@ -508,7 +508,7 @@ public class bibliothekBean {
     }
     
     
-    public List<Diplomarbeit> varread(int seitenanzahl, boolean renderer) {
+    public List<Diplomarbeit> varread(int seitenanzahl) {
 
         List<Diplomarbeit> varlist = null;
         int maxszahl;

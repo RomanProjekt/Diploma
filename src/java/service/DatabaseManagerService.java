@@ -386,13 +386,17 @@ public class DatabaseManagerService {
     
     
 //----------Passwort zurücksetzen im eigenen Programm:----------
-    public void insertNewPasswort() {
-        benutzerDAO.insertNewPassword(this.loggedInBenutzer);
+    public void insertNewPasswort(String npw, Benutzer b) {
+        benutzerDAO.insertNewPassword(npw, b);
     }
 
     public boolean diplomarbeit(String titel) {
         return diplomarbeitDAO.read(titel);
     }
+    
+    
+    
+    
     
     
     
@@ -410,7 +414,6 @@ public class DatabaseManagerService {
         this.aktuelleDiplomarbeit = aktuelleDiplomarbeit;
     }
     
-
     public void getAktuellPicture(Diplomarbeit aktDip) {
             this.aktuelleDiplomarbeit = aktDip;
     }

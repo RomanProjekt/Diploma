@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 .diplomarbeit_hochladen {
-    background-color: yellow;
+/*    background-color: yellow;*/
     margin: 0 0 0 0;
     
 /*     height: 100%;
@@ -20,7 +20,7 @@ and open the template in the editor.
    position: absolute;
    left: 0;   
    width: 100%;
-   background-color: red;
+/*   background-color: red;*/
    color: white;
 /*   text-align: center; */
    margin: 50px 0 0 0;
@@ -28,7 +28,7 @@ and open the template in the editor.
 
 
 .inputfeld_titel {
-    background-color: green;
+/*    background-color: green;*/
     width:100px;
     height: 100px;
     
