@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.servlet.ServletContext;
@@ -56,10 +57,74 @@ public class uploadBean {
 
     private String result;
 
+    
+    //---------------Fail------------------------
     private String bilddatei_fail;
     private String pdfdabei_fail;
     private String titel_fail;
+    private String dateiformat_fail;
+    private String diplomarbeitenTitel_fail;
+    
+    
+    
+    
+    
+    //----------------Neue Code----------------
+    
+    private boolean addmainautor;
+    private boolean addfirstautor;
 
+    public boolean isAddmainautor() {
+        return addmainautor;
+    }
+
+    public void setAddmainautor(boolean addmainautor) {
+        this.addmainautor = addmainautor;
+    }
+
+    public boolean isAddfirstautor() {
+        return addfirstautor;
+    }
+
+    public void setAddfirstautor(boolean addfirstautor) {
+        this.addfirstautor = addfirstautor;
+    }
+
+    private String mainautor;
+    private String firstautor;
+    private String secondautor;
+
+    public String getMainautor() {
+        return mainautor;
+    }
+
+    public void setMainautor(String mainautor) {
+        this.mainautor = mainautor;
+    }
+
+    public String getFirstautor() {
+        return firstautor;
+    }
+
+    public void setFirstautor(String firstautor) {
+        this.firstautor = firstautor;
+    }
+
+    public String getSecondautor() {
+        return secondautor;
+    }
+
+    public void setSecondautor(String secondautor) {
+        this.secondautor = secondautor;
+    }
+    
+    //--------------------Ende neuer Code----------------------------
+    
+    
+    
+    
+    
+    //--------------------Derzeitiger Code---------------------------
     public uploadBean() {
         allSchlagwTypeahead = new ArrayList<>();
         schlagList = new ArrayList<>();
@@ -116,6 +181,9 @@ public class uploadBean {
         schlagList.remove(schlagwort);
         return null;
     }
+    
+    
+    //-------------------GET- und SET-Methoden--------------------------
 
     public String getTitel() {
         return titel;
@@ -301,77 +369,92 @@ public class uploadBean {
         this.listdiplomarbeit = listdiplomarbeit;
     }
 
-    //Anzeigen von einem Bild
-    public void pfadbild() {
-        //Bild anzeigen im HTML Dokument
-
-        String pfad = "/user/desktop/test/bild.jpg";
-        String varpfad = pfad.replaceAll("/", "//c");
-        System.out.println(varpfad);
-
+    public String getDateiformat_fail() {
+        return dateiformat_fail;
     }
 
-   public void upload_diplomarbeit() throws FileNotFoundException, IOException {
+    public void setDateiformat_fail(String dateiformat_fail) {
+        this.dateiformat_fail = dateiformat_fail;
+    }
+
+    public String getDiplomarbeitenTitel_fail() {
+        return diplomarbeitenTitel_fail;
+    }
+
+    public void setDiplomarbeitenTitel_fail(String diplomarbeitenTitel_fail) {
+        this.diplomarbeitenTitel_fail = diplomarbeitenTitel_fail;
+    }
+    
+    
+
+   
+
+    public void upload_diplomarbeit() throws FileNotFoundException, IOException {
 
         String vartitel = getTitel();
         String varautor = getAutor();
         String varschule = getSchule();
         String varschlagwort = getSchlagwort();
-        
-
         Part varimage = getImage();
+        
+        
+//        boolean isgleich = this.titel_vergleichen(vartitel);
 
-        if (diplomarbeit != null) {
+        
+        
+            if (diplomarbeit != null) {
 
-            if (varimage != null) {
- 
-                //Titel überprüfen - wegen einem Redakteur --- der mehrere Schüler besitzt 
-                //boolean isgleich = this.titel_vergleichen(vartitel); 
-                 
-                //Dateiformat überprüfen 
-                //Imagedatei überprüft -- Richtiges Format
-                String submittedFileName = varimage.getSubmittedFileName();
-                String user_id = String.valueOf(dbService.getLoggedInBenutzer().getUser_id());
-                System.out.println(user_id);
-                boolean image_standartformat = this.überprüfuen_Image_StandardFormat(submittedFileName);
-                    
-                //pdfdatei überprüft -- Richtiges Format
-                boolean diplomarbeit_dateiformat = this.überprüfen_PDF_StandardFormat(diplomarbeit.getSubmittedFileName());
-                
-                
-                if (image_standartformat && diplomarbeit_dateiformat) {
-                    
-                    
-                    //1.Funktionen: Speichern des Bildes
-                    this.saveImage(user_id, vartitel, submittedFileName, varimage);
+                if (varimage != null) {
 
-                    //2. Funktionen: Speichern der pdf-Datei
-                    this.savePdfFile(vartitel);
+                    //Titel überprüfen - wegen einem Redakteur --- der mehrere Schüler besitzt 
+                    //Dateiformat überprüfen 
+                    //Imagedatei überprüft -- Richtiges Format
+                    String submittedFileName = varimage.getSubmittedFileName();
+                    String user_id = String.valueOf(dbService.getLoggedInBenutzer().getUser_id());
+                    System.out.println(user_id);
+                    boolean image_standartformat = this.überprüfuen_Image_StandardFormat(submittedFileName);
 
-                    List<String> schlagwoerter = new ArrayList<>();
-                    schlagwoerter.add(varschule);
-                    schlagwoerter.add(varschlagwort);
+                    //pdfdatei überprüft -- Richtiges Format
+                    boolean diplomarbeit_dateiformat = this.überprüfen_PDF_StandardFormat(diplomarbeit.getSubmittedFileName());
 
-                    //3.Funktionen: Hochladen der Diplomarbeit
-                    dbService.hochladen(vartitel, varautor, varschule, schlagwoerter, this.pdfpath, this.imagepath);
+                    if (image_standartformat && diplomarbeit_dateiformat) {
 
-                    this.titel = "";
-                    this.autor = "";
-                    this.schule = "";
-                    this.schlagwort = "";
+                        //1.Funktionen: Speichern des Bildes
+                        this.saveImage(user_id, vartitel, submittedFileName, varimage);
+
+                        //2. Funktionen: Speichern der pdf-Datei
+                        this.savePdfFile(vartitel);
+
+                        List<String> schlagwoerter = new ArrayList<>();
+                        schlagwoerter.add(varschule);
+                        schlagwoerter.add(varschlagwort);
+
+                        //3.Funktionen: Hochladen der Diplomarbeit
+                        dbService.hochladen(vartitel, varautor, varschule, schlagwoerter, this.pdfpath, this.imagepath);
+
+                        this.titel = "";
+                        this.autor = "";
+                        this.schule = "";
+                        this.schlagwort = "";
+
+                    } else {
+                        this.dateiformat_fail = "kein richtiges Dateiformat!" + "Bild: png, jpeg, gif, jpg" + "Diplomarbeit: pdf-Format";
+                    }
 
                 } else {
-                    this.titel_fail = "Titel bitte Ãndern!";
+                    this.bilddatei_fail = "Bild nicht gefunden!";
                 }
 
             } else {
-                this.bilddatei_fail = "Bild nicht gefunden!";
-
+                this.pdfdabei_fail = "Keine PDF-Datei gefunden!";
             }
 
-        } else {
-            this.pdfdabei_fail = "Keine PDF-Datei gefunden!";
-        }
+        
+       
+            
+            
+        
+
 
     }
    
@@ -472,13 +555,11 @@ public class uploadBean {
         String bildformat = name[name.length-1];
         System.out.println(bildformat);
 
-        for (int i = 0; i < standartformat.length; i++) {
-
-            if (bildformat.equals(standartformat[i])) {
+        for (String standartformat1 : standartformat) {
+            if (bildformat.equals(standartformat1)) {
                 formatvergleich = true;
                 System.out.println("Das derzeitige Bildformat enstpricht dem Standartformat");
             }
-
         }
 
         return formatvergleich;
@@ -515,7 +596,6 @@ public class uploadBean {
         System.out.println(Arrays.toString(name));
 
         String PDF_Format = name[name.length-1];
-        
         
             if (PDF_Format.equals("pdf")) {
                 formatvergleich = true;

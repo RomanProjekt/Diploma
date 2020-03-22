@@ -393,8 +393,33 @@ public class DatabaseManagerService {
     public boolean diplomarbeit(String titel) {
         return diplomarbeitDAO.read(titel);
     }
+    
+    
+    
+    //----------------------PDFViewer----------------------------
+    
+    //Die Variable nur in pdfViewer verwenden!!!
+    
+    private Diplomarbeit aktuelleDiplomarbeit;
+
+    public Diplomarbeit getAktuelleDiplomarbeit() {
+        return aktuelleDiplomarbeit;
+    }
+
+    public void setAktuelleDiplomarbeit(Diplomarbeit aktuelleDiplomarbeit) {
+        this.aktuelleDiplomarbeit = aktuelleDiplomarbeit;
+    }
+    
+
+    public void getAktuellPicture(Diplomarbeit aktDip) {
+            this.aktuelleDiplomarbeit = aktDip;
+    }
+    
+    //---------------------------------------------------------------------
 
 }
+
+
 
 
 //alter Programmiercode - wird später gelöscht

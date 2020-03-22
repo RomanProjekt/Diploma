@@ -170,6 +170,7 @@ public class dipansehenBean {
         this.aktDip = dip;
         this.autor = dms.getOneAutor(aktDip.getDa_id()).getFullName();
         this.schule = dms.getOneSchule(aktDip.getSchule_id()).getName();
+        dms.getAktuellPicture(this.aktDip);
         return "dipansehen.xhtml";
     }
 
@@ -179,9 +180,7 @@ public class dipansehenBean {
 
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = context.getExternalContext();
+        ExternalContext externalContext = fc.getExternalContext();
 
         externalContext.responseReset();
         externalContext.setResponseContentType(aktDip.getTitle() + "/.pdf");
@@ -202,37 +201,13 @@ public class dipansehenBean {
         }
 
 //        Files.copy(file.toPath(), outputStream);
-        context.responseComplete();
+        fc.responseComplete();
 
     }
 
     
     
-    //Diplomarbeitn ansehen
-    public void diplomarbeitansehen(Diplomarbeit dip) {
-
-       
-//        File temp = File.createTempFile(dip.getTitle(), ".pdf");
-//        
-//        File testPdfFile = new File("D:\AFC150_20180819_0103.pdf");
-//        FacesContext fc = FacesContext.getCurrentInstance();
-//        ExternalContext ec = fc.getExternalContext();
-//
-//        ec.responseReset(); 
-//        ec.setResponseContentType("application/pdf"); 
-//        ec.setResponseContentLength((int)testPdfFile.length()); 
-//
-//        //Inline
-//        //ec.setResponseHeader("Content-Disposition", "inline; filename=\"" + testPdfFile.getName() + "\""); 
-//
-//        //Attach for Browser
-//        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + testPdfFile.getName() + "\""); 
-//
-//        OutputStream output = ec.getResponseOutputStream();
-//        Files.copy(testPdfFile.toPath(), output);
-//        fc.responseComplete();
-
-    }
+    
 
     public String imagepath_auslesen(int id) {
         Diplomarbeit dip = dms.getDiplomarbeit(id);
@@ -258,41 +233,48 @@ public class dipansehenBean {
     public void löschenDiplomarbeit(ActionEvent event) {
         dms.deleteDiplomarbeit(aktDip);
     }
-}
+    
+    
+    
+    
+    
+
 
 
 
 
 //----------------Alter Code - Diplomarbeit ansehen--------------------------
-////Diplomarbeitn ansehen
-//    public void diplomarbeitansehen() {
-//
-//        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
-//        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
-//        String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
-//
-//        try {
-//
-//            //Pfad anpassen
-//            File pdfFile = new File(server_diplomarbeit_pfad + aktDip.getTitle() + ".pdf");
-//
-//            if (pdfFile.exists()) {
-//
-//                if (Desktop.isDesktopSupported()) {
-//                    Desktop.getDesktop().open(pdfFile);
-//                } else {
-//                    System.out.println("Desktop is not supported!");
-//
-//                }
-//
-//            } else {
-//                System.out.println("File is not exists!");
-//            }
-//
-//            System.out.println("Done");
-//
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//
-//    }
+
+    public void diplomarbeitansehen() {
+
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
+
+        try {
+
+            //Pfad anpassen
+            File pdfFile = new File(server_diplomarbeit_pfad + aktDip.getTitle() + ".pdf");
+
+            if (pdfFile.exists()) {
+
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(pdfFile);
+                } else {
+                    System.out.println("Desktop is not supported!");
+
+                }
+
+            } else {
+                System.out.println("File is not exists!");
+            }
+
+            System.out.println("Done");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+    
+}

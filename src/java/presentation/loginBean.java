@@ -168,6 +168,9 @@ public class loginBean {
     
     public void speichernPasswort() {
         
+        //Passwort vergleichen
+        
+        
         if(this.pw.equals(this.bestätigtespw)) {
              dbService.insertNewPasswort();
         }
@@ -210,14 +213,20 @@ public class loginBean {
 //    Yahoo Mail
  
        public void passwort_vergessen(ActionEvent event) {
+           
+         //https://hilfe.gmx.net/pop-imap/einschalten.html
 
         //Benutzername und Passwort
         //zum Tesst 
         //Email Adresse des Serverbetreibers
         //Muss gesichert werden
-        String email_username = null;
-        String email_passwort = null;
-        String email_anbieter = null;
+        
+        //Sender
+        String email_username = "testdiplomarbeit@gmx.at";
+        String email_passwort = "TiegerMade12Acht";
+        
+        //Empfänger (User)
+        String email_user = "roman.grof@gmx.net";
 
         //GMX-Anbieter DATEN:
         String smtpHost = "mail.gmx.net";
@@ -229,18 +238,23 @@ public class loginBean {
             //Testen: 
             //Test mit GMX-Anbieter
             //this.login(smtpHost, smtPort, email_username, email_passwort);
-            this.login("mail.gmx.net", "587", email_username, email_passwort);
+            this.login(smtpHost, smtPort , email_username, email_passwort);
 
             //2. Senden des Texten an den email-Server
             //String senderMail, String senderName, String receiverAddresses, String subject, String nachrichten)
             //sender.send("absender@provider.com", "Absender Name", "empfaenger@provider.com", "Test Test Test Betreff", "Ãœberall dieselbe alte Leier.\r\n\r\nDas Layout ist fertig, der Text lÃ¤sst auf sich warten. "+ "Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, "+ "springe ich ein: der Blindtext. Genau zu diesem Zwecke erschaffen, immer im Schatten "+ "meines groÃŸen Bruders Â»Lorem IpsumÂ«, freue ich mich jedes Mal, wenn Sie ein paar Zeilen "+ "lesen. Denn esse est percipi - Sein ist wahrgenommen werden.");
 //          String senderName = this.dbService.getLoggedInBenutzer().getFirstname() + this.dbService.getLoggedInBenutzer().getLastname();
-            String senderName = "Vorname + Nachname";
+            
+            String senderName = "HansWurst";
+            String email_anbieter = "testdiplomarbeit@gmx.at";
             String receiverAdresses = "roman.grof@gmx.at";
 //          String receiverAdresses = this.dbService.getLoggedInBenutzer().geteMail();
+
             String betreff = "Test Test Test Betreff";
             String messages = "Das ist eine Test-Email";
 
+            
+            //--------------------------Senden------------------------------------
             this.send(email_anbieter, senderName, receiverAdresses, betreff, messages);
 
         } catch (Exception e) {
@@ -253,6 +267,8 @@ public class loginBean {
     
 
     public void login(String smtpHost, String smtpPort, String email_username, String email_passwort) {
+        
+        
         Properties props = new Properties();
         props.put("mail.smtp.host", smtpHost);
         props.put("mail.smtp.socketFactory.port", smtpPort);

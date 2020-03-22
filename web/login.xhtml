@@ -38,7 +38,7 @@ and open the template in the editor.
                     <b:commandButton class="cButton" value="Anmelden" action="#{loginBean.load()}" />
                     <b:commandButton class="cButton" value="Registrieren" action="register.xhtml" />
                     <br />
-                    <b:commandLink class="cLink" value="Passwort vergessen" ></b:commandLink>
+                    <b:commandLink class="cLink" value="Passwort vergessen" action="#{loginBean.passwort_vergessen(event)}" ></b:commandLink>
 
                     <br />
                     <h:outputText value="#{loginBean.message}" style="color: red" />
