@@ -18,6 +18,9 @@ import de.mkammerer.argon2.Argon2Factory;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -273,20 +276,23 @@ public class loginBean {
 
         //---------------------------------------------------------------
         
-        String message = "<a href=\"mailto:abc@example.com?subject=Feedback&body=Message\">\n" + "Send Feedback\n" + "</a>";
+        
+        
+        
         this.mailSession = Session.getDefaultInstance(properties, auth);
         this.mailSession.setDebug(true);
         System.out.println("Eingeloggt.");
-        this.sendMail(empfanger, "Betreff", message);
+        this.sendMail(empfanger, "Lieber User - Passwort zurücksetzen");
 
     }
 
-    public void sendMail(String empfaenger, String betreff, String text) {
+    public void sendMail(String empfaenger, String betreff) {
 
         // Erstellt ein Session Objekt mit der E-Mail Konfiguration
         // Optional, schreibt auf die Konsole / in das Log, die Ausgabe des
         // E-Mail Servers, dieses kann bei einer Fehleranalyse sehr Hilfreich
         // sein.
+        //https://www.tutorialspoint.com/javamail_api/javamail_api_sending_emails.htm
         try {
             // Erstellt ein MimeMessage Objekt.
             MimeMessage message = new MimeMessage(this.mailSession);
@@ -309,21 +315,46 @@ public class loginBean {
             message.setSubject(betreff);
 
             // Erstellen des "Containers" für die Nachricht
-            BodyPart messageBodyPart = new MimeBodyPart();
+            //BodyPart messageBodyPart = new MimeBodyPart();
+            //messageBodyPart.setText("This is message body");
+            
+            //Versenden der Email:
+            message.setContent(
+                "<html>"
+                + "<head>"
+                + "</head>"
+                + "<body>"
+                + "<h1>This is actual message embedded in HTML tags</h1>"
+                + "<a href=\"http://localhost:8086/DA_AK/login.xhtml\">Passwort zurücksetzen</a>"
+                + " <div class=\"navbox\">"
+                + " <ul id=\"navbox_liste\">"
+                + " <div class=\"addresse\"><li><h5></h5></li></div>\n"
+                + " <div class=\"impressum\"><li><h5>IMPRESSUM</h5></a></li></div>\n"
+                + " <div class=\"datenschutz\"><li><h5>DATENSCHUTZ</h5></a></li></div>\n"  
+                + " </ul>\n"
+                + " </div>"
+                + "</body>"
+                + "</html>",
+                "text/html"
+            );
+
+            
 
             // Setzen des Textes
-            messageBodyPart.setText(text);
+            //messageBodyPart.setText(text);
 
             // Erstellen eines Multipart Objektes für das ablegen des Textes
-            Multipart multipart = new MimeMultipart();
+            //Multipart multipart = new MimeMultipart();
             // Setzen des Textes
-            multipart.addBodyPart(messageBodyPart);
+            //multipart.addBodyPart(messageBodyPart);
 
             // Setzt den Inhalt der E-Mail, Text + Dateianhänge
-            message.setContent(multipart);
+            //message.setContent(multipart);
 
             // E-Mail versenden
             Transport.send(message);
+            
+            System.out.println("Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
