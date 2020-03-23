@@ -19,13 +19,17 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Authenticator;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 /**
  *
  * @author dople
@@ -191,18 +195,8 @@ public class loginBean {
     
     
 //Passwort zurücksetzen mit einer Email:
-    public Session getMailSession() {
-        return mailSession;
-    }
-
-    public void setMailSession(Session mailSession) {
-        this.mailSession = mailSession;
-    }
-  
     
-    
-    
-    //Bekanntes Email-Dienste in Österreich
+//Bekanntes Email-Dienste in Österreich
 //    1&1
 //    AOL Mail
 //    Freenetmail Basic
@@ -215,106 +209,124 @@ public class loginBean {
 //    Posteo
 //    Web.de Freemail
 //    Yahoo Mail
- 
-       public void passwort_vergessen(ActionEvent event) {
-           
-         //https://hilfe.gmx.net/pop-imap/einschalten.html
-
-        //Benutzername und Passwort
-        //zum Tesst 
-        //Email Adresse des Serverbetreibers
-        
-        
-        //Sender
-        String email_username = "testdiplomarbeit@gmx.at";
-        String email_passwort = "TiegerMade12Acht";
-        
-        //Empfänger (User)
-        String email_user = "roman.grof@gmx.net";
-
-        //GMX-Anbieter DATEN:
-        String smtpHost = "mail.gmx.net";
-        String smtPort = "587";
-
-        try {
-
-            //1.Einloggen der AK in den eigenen Email-server
-            //Testen: 
-            //Test mit GMX-Anbieter
-            //this.login(smtpHost, smtPort, email_username, email_passwort);
-            this.login(smtpHost, smtPort , email_username, email_passwort);
-
-            //2. Senden des Texten an den email-Server
-            //String senderMail, String senderName, String receiverAddresses, String subject, String nachrichten)
-            //sender.send("absender@provider.com", "Absender Name", "empfaenger@provider.com", "Test Test Test Betreff", "Ãœberall dieselbe alte Leier.\r\n\r\nDas Layout ist fertig, der Text lÃ¤sst auf sich warten. "+ "Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, "+ "springe ich ein: der Blindtext. Genau zu diesem Zwecke erschaffen, immer im Schatten "+ "meines groÃŸen Bruders Â»Lorem IpsumÂ«, freue ich mich jedes Mal, wenn Sie ein paar Zeilen "+ "lesen. Denn esse est percipi - Sein ist wahrgenommen werden.");
-//          String senderName = this.dbService.getLoggedInBenutzer().getFirstname() + this.dbService.getLoggedInBenutzer().getLastname();
-            
-            String senderName = "HansWurst";
-            String email_anbieter = "testdiplomarbeit@gmx.at";
-            String receiverAdresses = "roman.grof@gmx.at";
-//          String receiverAdresses = this.dbService.getLoggedInBenutzer().geteMail();
-
-            String betreff = "Test Test Test Betreff";
-            String messages = "Das ist eine Test-Email";
-
-            
-            //--------------------------Senden------------------------------------
-            this.send(email_anbieter, senderName, receiverAdresses, betreff, messages);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    public Session getMailSession() {
+        return mailSession;
     }
+
+    public void setMailSession(Session mailSession) {
+        this.mailSession = mailSession;
+    }
+  
+       
+    String benutzername = "testdiplomarbeit@gmx.at";
+    String passwort = "TiegerMade12Acht";
+
+    String absender = "testdiplomarbeit@gmx.at";
+    String empfanger = "roman.grof@gmx.at";
+    String smtpHost = "mail.gmx.net";        
+    String smtPort = "587";
     
 
-    public void login(String smtpHost, String smtpPort, String email_username, String email_passwort) {
-        
-        
-        Properties props = new Properties();
-        props.put("mail.smtp.host", smtpHost);
-        props.put("mail.smtp.socketFactory.port", smtpPort);
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", smtpPort);
+ 
+    public String passwort_vergessen() {
+        this.login(smtpHost, smtPort, benutzername, passwort);
+        return "index.xhtml";
+    }
 
+    public void login(String smtpHost, String smtpPort, String benutzername, String passwort) {
+
+        // Die Properties der JVM holen
+        Properties properties = System.getProperties();
+
+        // Postausgangsserver
+        properties.put("mail.smtp.port", smtpPort);
+        properties.put("mail.smtp.host", smtpHost);
+
+        // Benutzername
+        properties.put("mail.user", benutzername);
+
+        // Passwort
+        properties.put("mail.password", passwort);
+
+        //Einstellungen für die STARTTLS Verschlüsselte Übermittlung von E-Mails
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+
+        // Einstellungen für die SSL Verschlüsselte Übermittlung von E-Mails
+        //properties.setProperty("mail.smtps.**ssl.enable", "true");
+        //properties.setProperty("mail.smtps.**ssl.required", "true");
+        //properties.setProperty("mail.smtps.auth", "true"); 
+        //-----------------------------------------------------------
         Authenticator auth = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(email_username, email_passwort);
+                return new PasswordAuthentication(benutzername, passwort);
             }
         };
 
-        this.mailSession = Session.getDefaultInstance(props, auth);
+        //---------------------------------------------------------------
+        
+        String message = "<a href=\"mailto:abc@example.com?subject=Feedback&body=Message\">\n" + "Send Feedback\n" + "</a>";
+        this.mailSession = Session.getDefaultInstance(properties, auth);
+        this.mailSession.setDebug(true);
         System.out.println("Eingeloggt.");
+        this.sendMail(empfanger, "Betreff", message);
+
     }
-    
-    
-    public void send(String senderMail, String senderName, String receiverAddresses, String subject, String message)
-            throws MessagingException, IllegalStateException, UnsupportedEncodingException {
-        if (mailSession == null) {
-            throw new IllegalStateException("Du musst dich zuerst einloggen (login()-Methode)");
+
+    public void sendMail(String empfaenger, String betreff, String text) {
+
+        // Erstellt ein Session Objekt mit der E-Mail Konfiguration
+        // Optional, schreibt auf die Konsole / in das Log, die Ausgabe des
+        // E-Mail Servers, dieses kann bei einer Fehleranalyse sehr Hilfreich
+        // sein.
+        try {
+            // Erstellt ein MimeMessage Objekt.
+            MimeMessage message = new MimeMessage(this.mailSession);
+
+            // Setzt die E-Mail Adresse des Versenders in den E-Mail Header
+            message.setFrom(new InternetAddress(absender));
+
+            // Setzt die E-Mail Adresse des Empfängers in den E-Mail Header
+            // hier können beliegig viele E-Mail Adressen hinzugefügt werden
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(empfaenger));
+
+            // Der Empfänger erhält eine Kopie dieser E-Mail
+            // message.addRecipient(Message.RecipientType.CC, new
+            // InternetAddress(empfaenger));
+            // Der Empfänger erhält eine "Blindkopie" dieser E-Mail d.h. er
+            // sieht nicht wer diese E-Mail noch erhalten hat.
+            // message.addRecipient(Message.RecipientType.BCC, new
+            // InternetAddress(empfaenger));
+            // Setzt den Betreff der E-Mail
+            message.setSubject(betreff);
+
+            // Erstellen des "Containers" für die Nachricht
+            BodyPart messageBodyPart = new MimeBodyPart();
+
+            // Setzen des Textes
+            messageBodyPart.setText(text);
+
+            // Erstellen eines Multipart Objektes für das ablegen des Textes
+            Multipart multipart = new MimeMultipart();
+            // Setzen des Textes
+            multipart.addBodyPart(messageBodyPart);
+
+            // Setzt den Inhalt der E-Mail, Text + Dateianhänge
+            message.setContent(multipart);
+
+            // E-Mail versenden
+            Transport.send(message);
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
         }
-
-        MimeMessage msg = new MimeMessage(mailSession);
-        msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-        msg.addHeader("format", "flowed");
-        msg.addHeader("Content-Transfer-Encoding", "8bit");
-
-        msg.setFrom(new InternetAddress(senderMail, senderName));
-        msg.setReplyTo(InternetAddress.parse(senderMail, false));
-        msg.setSubject(subject, "UTF-8");
-        msg.setText(message, "UTF-8");
-        msg.setSentDate(new Date());
-
-        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverAddresses, false));
-
-        System.out.println("Versende E-Mail...");
-        Transport.send(msg);
-        System.out.println("E-Mail versendet.");
     }
+
 }
-
-
