@@ -232,6 +232,7 @@ public class loginBean {
     String passwort = "TiegerMade12Acht";
 
     String absender = "testdiplomarbeit@gmx.at";
+    
     String empfanger = "roman.grof@gmx.at";
     String smtpHost = "mail.gmx.net";        
     String smtPort = "587";
@@ -359,5 +360,11 @@ public class loginBean {
             mex.printStackTrace();
         }
     }
+    
+    
+    
+    
+    
+    
 
 }
