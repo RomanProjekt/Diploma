@@ -45,7 +45,7 @@ and open the template in the editor.
                         </h:column>
                         <h:column>
                             <f:facet name="header">Löschen</f:facet>
-                            <b:commandButton value="X" />
+                            <b:commandButton value="X" action="#{uploadBean.removeAutor(autor)}" />
                         </h:column>
                         <h:column>
                             <f:facet name="header" >Edit</f:facet>
