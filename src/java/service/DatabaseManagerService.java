@@ -427,6 +427,10 @@ public class DatabaseManagerService {
     }
 
     //---------------------------------------------------------------------
+
+    public void count(int click_count, Diplomarbeit dip) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
 
 //alter Programmiercode - wird später gelöscht

@@ -32,11 +32,14 @@
                 <b:commandButton value="More" action="#{dipSuchenBean.recentDa()}" />
                 <br/>
                 <b:commandButton value="Details" action="#{dipansehenBean.werteanzeigen(dipSuchenBean.selectedDa)}"/>
+                
+                
                 <b:dataTable value="#{dipSuchenBean.recentDaList}" var="dip" rendered="#{dipSuchenBean.render2}">
                     <b:dataTableColumn value="#{dip.da_id}" label="Diplomarbeitsnummer"/>
                     <b:dataTableColumn value="#{dip.title}" label="Titel"/>
                     <b:dataTableColumn value="#{dip.autor_id}" label="Autor"/>
                 </b:dataTable>
+                
             </b:form> 
 
         </main>

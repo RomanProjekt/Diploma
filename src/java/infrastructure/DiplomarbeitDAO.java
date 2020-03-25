@@ -319,4 +319,8 @@ public class DiplomarbeitDAO {
 
     }
 
+    public void count(int download_count, Diplomarbeit aktDip) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

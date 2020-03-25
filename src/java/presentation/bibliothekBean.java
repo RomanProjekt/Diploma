@@ -20,6 +20,8 @@ import service.DatabaseManagerService;
 //testdatebank:
 //import static testdatenbank.DatabaseManagerService.dplist;
 public class bibliothekBean {
+    
+    //TEST
 
     //Variablen der weiteren Suche
     private String Titel;
@@ -554,6 +556,18 @@ public class bibliothekBean {
         }
         return varlist;
     }
+    
+    
+    
+    
+    public void click_count_diplomarbeit(ActionEvent ex, Diplomarbeit dip) {
+        
+        click_count =  (int) ex.getSource();
+        click_count += 1;
+        dbService.count(click_count, dip);
+                     
+    }
+    
     
     
     

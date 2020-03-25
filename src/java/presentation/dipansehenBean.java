@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.Files;
 import java.sql.Date;
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
@@ -27,9 +26,10 @@ import service.DatabaseManagerService;
  */
 public class dipansehenBean {
 
-    DiplomarbeitDAO dao = new DiplomarbeitDAO();
-
+    private DiplomarbeitDAO dbService =  new DiplomarbeitDAO();
     private Diplomarbeit aktDip;
+    
+    //Variablen
     private String titel;
     private String autor;
     private String schule;
@@ -43,6 +43,13 @@ public class dipansehenBean {
 
     private String bildnamegleich;
     private String pdfnamegleich;
+    
+    //downlaod-Counter
+    private int download_count;
+    
+    
+    
+    
 
     public dipansehenBean() {
 
@@ -50,7 +57,7 @@ public class dipansehenBean {
 
     @PostConstruct
     void init() {
-        
+//        dbService = new DiplomarbeitDAO();
     }
 
     public DatabaseManagerService getDms() {
@@ -125,12 +132,20 @@ public class dipansehenBean {
         this.imagepath = imagepath;
     }
 
-    public DiplomarbeitDAO getDao() {
-        return dao;
+    public DiplomarbeitDAO getDbService() {
+        return dbService;
     }
 
-    public void setDao(DiplomarbeitDAO dao) {
-        this.dao = dao;
+    public void setDbService(DiplomarbeitDAO dbService) {
+        this.dbService = dbService;
+    }
+
+    public int getDownload_count() {
+        return download_count;
+    }
+
+    public void setDownload_count(int download_count) {
+        this.download_count = download_count;
     }
 
     public int getAktuelle_id() {
@@ -176,7 +191,7 @@ public class dipansehenBean {
 
     
   //---------------------Diplomarbeit download---------------------------------
-    public void download() throws IOException {
+    public Object download() throws IOException {
 
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
@@ -202,6 +217,9 @@ public class dipansehenBean {
 
 //        Files.copy(file.toPath(), outputStream);
         fc.responseComplete();
+        
+        
+        return null;
 
     }
 
@@ -235,12 +253,17 @@ public class dipansehenBean {
     }
     
     
+    //-----------------Download-Count-Diplomarbeit-------------------------
+    
+    public void download_count_diplomarbeit(ActionEvent ex) {
+        
+        download_count =  (int) ex.getSource();
+        download_count += 1;
+        dbService.count(download_count, aktDip);
+                     
+    }
     
     
-    
-
-
-
 
 
 //----------------Alter Code - Diplomarbeit ansehen--------------------------

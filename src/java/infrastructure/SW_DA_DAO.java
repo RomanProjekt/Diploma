@@ -49,6 +49,8 @@ public class SW_DA_DAO {
 
     }
 
+    
+    
     public List<Schlagwort> readInsertList(List<Schlagwort> schlagList, int da_id) {
         ResultSet rs = null;
         ResultSet rsSchlagwort = null;

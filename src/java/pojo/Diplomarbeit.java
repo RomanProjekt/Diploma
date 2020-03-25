@@ -34,7 +34,6 @@ public class Diplomarbeit {
         this.da_id = da_id;
         this.title = title;
         this.autor_id = autor_id;
-
         this.schule_id = schule_id;
         this.pdf = pdf;
         this.user_id = user_id;

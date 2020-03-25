@@ -9,7 +9,6 @@ import infrastructure.DiplomarbeitDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.event.ActionEvent;
 import pojo.Diplomarbeit;
 
 /**
