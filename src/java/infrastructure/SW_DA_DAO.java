@@ -42,7 +42,7 @@ public class SW_DA_DAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SW_DA_DAO .class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return list_sw_da;
@@ -107,7 +107,7 @@ public class SW_DA_DAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SW_DA_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return listd_schlagwort;
@@ -135,7 +135,7 @@ public class SW_DA_DAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SW_DA_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
     }
 
@@ -156,7 +156,7 @@ public class SW_DA_DAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SW_DA_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -177,7 +177,7 @@ public class SW_DA_DAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SW_DA_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
     }
 
@@ -193,7 +193,7 @@ public class SW_DA_DAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SW_DA_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

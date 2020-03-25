@@ -5,7 +5,7 @@
  */
 package presentation;
 
-import infrastructure.DiplomarbeitDAO;
+
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -26,7 +26,7 @@ import service.DatabaseManagerService;
  */
 public class dipansehenBean {
 
-    private DiplomarbeitDAO dbService =  new DiplomarbeitDAO();
+    
     private Diplomarbeit aktDip;
     
     //Variablen
@@ -35,7 +35,6 @@ public class dipansehenBean {
     private String schule;
     private Date date;
     private int seitenanzahl = 0;
-    private DatabaseManagerService dms;
     private int aktuelle_id;
     private String buttonId;
     private String result;
@@ -43,6 +42,8 @@ public class dipansehenBean {
 
     private String bildnamegleich;
     private String pdfnamegleich;
+    
+    private DatabaseManagerService dbService;
     
     //downlaod-Counter
     private int download_count;
@@ -57,16 +58,9 @@ public class dipansehenBean {
 
     @PostConstruct
     void init() {
-//        dbService = new DiplomarbeitDAO();
+        dbService = new DatabaseManagerService();
     }
 
-    public DatabaseManagerService getDms() {
-        return dms;
-    }
-
-    public void setDms(DatabaseManagerService dms) {
-        this.dms = dms;
-    }
 
     public String getTitel() {
         return titel;
@@ -132,14 +126,6 @@ public class dipansehenBean {
         this.imagepath = imagepath;
     }
 
-    public DiplomarbeitDAO getDbService() {
-        return dbService;
-    }
-
-    public void setDbService(DiplomarbeitDAO dbService) {
-        this.dbService = dbService;
-    }
-
     public int getDownload_count() {
         return download_count;
     }
@@ -180,12 +166,27 @@ public class dipansehenBean {
         this.aktDip = aktDip;
     }
 
+    public DatabaseManagerService getDbService() {
+        return dbService;
+    }
+
+    public void setDbService(DatabaseManagerService dbService) {
+        this.dbService = dbService;
+    }
+    
+    
+    
+    
+    
+
     //Funktionen
     public String werteanzeigen(Diplomarbeit dip) {
         this.aktDip = dip;
-        this.autor = dms.getOneAutor(aktDip.getDa_id()).getFullName();
-        this.schule = dms.getOneSchule(aktDip.getSchule_id()).getName();
-        dms.getAktuellPicture(this.aktDip);
+        this.autor = dbService.getOneAutor(aktDip.getDa_id()).getFullName();
+        
+        //Schule anzeigen funktioniert noch nicht!!!
+        this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
+        dbService.getAktuellPicture(this.aktDip);
         return "dipansehen.xhtml";
     }
 
@@ -228,7 +229,7 @@ public class dipansehenBean {
     
 
     public String imagepath_auslesen(int id) {
-        Diplomarbeit dip = dms.getDiplomarbeit(id);
+        Diplomarbeit dip = dbService.getDiplomarbeit(id);
 //        System.out.println(dip);
         String var_imagepath = dip.getBild();
 //        System.out.println(var_imagepath);
@@ -241,15 +242,15 @@ public class dipansehenBean {
 
     //Favouriten
     public void speichern() {
-        int b_id = dms.getLoggedInBenutzer().getUser_id();
-        int res = dms.insertFavouriten(aktDip.getDa_id(), b_id);
+        int b_id = dbService.getLoggedInBenutzer().getUser_id();
+        int res = dbService.insertFavouriten(aktDip.getDa_id(), b_id);
         if (res == 1) {
             titel = "Success";
         };
     }
 
     public void löschenDiplomarbeit(ActionEvent event) {
-        dms.deleteDiplomarbeit(aktDip);
+        dbService.deleteDiplomarbeit(aktDip);
     }
     
     
@@ -259,7 +260,7 @@ public class dipansehenBean {
         
         download_count =  (int) ex.getSource();
         download_count += 1;
-        dbService.count(download_count, aktDip);
+        dbService.downloadt_count(download_count, aktDip);
                      
     }
     

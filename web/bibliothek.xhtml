@@ -179,7 +179,7 @@
                                         <tr>
                                             <td class="order-table-even-row">
                                                 <h:form>
-                                                    <h:commandLink action="#{dipansehenBean.werteanzeigen(var)}">
+                                                    <h:commandLink action="#{dipansehenBean.werteanzeigen(var)}" actionListener="#{bibliothekBean.click_count_diplomarbeit(actionEvent, var)}" >
                                                         <h:graphicImage class="image"  value = "#{var.bild}"/>
                                                     </h:commandLink>
                                                 </h:form>

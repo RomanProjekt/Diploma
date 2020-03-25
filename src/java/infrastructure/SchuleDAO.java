@@ -55,7 +55,9 @@ public class SchuleDAO {
     }
 
     public Schule readOne(int id) {
+
         Schule retVal = null;
+
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
@@ -64,7 +66,7 @@ public class SchuleDAO {
                 retVal = new Schule(rs.getInt(1), rs.getString(2));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SchuleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return retVal;
@@ -85,7 +87,7 @@ public class SchuleDAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SchuleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
 
     }

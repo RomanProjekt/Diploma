@@ -330,6 +330,9 @@ public class DatabaseManagerService {
         return this.schuleDAO.readOne(id);
     }
 
+    
+    
+    
     //Diplomarbeit hochladen:
     public void hochladen(String title, List<Autor> autorList, Schule schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
         
@@ -354,6 +357,11 @@ public class DatabaseManagerService {
         //5.Update Diplomarbeit
         //    diplomarbeitDAO.update(var_da_id, autor.getAutor_id());
     }
+    
+    
+    
+    
+    
 
     //------------------Diplomarbeit löschen---------------------------
     public void deleteDiplomarbeit(Diplomarbeit dip) {
@@ -401,6 +409,9 @@ public class DatabaseManagerService {
         return favDAO.deleteOne(dip, loggedInBenutzer.getUser_id());
     }
 
+    
+    
+    
 //----------Passwort zurücksetzen im eigenen Programm:----------
     public void insertNewPasswort(String npw, Benutzer b) {
         benutzerDAO.insertNewPassword(npw, b);
@@ -410,6 +421,7 @@ public class DatabaseManagerService {
         return diplomarbeitDAO.read(titel);
     }
 
+    
     //----------------------PDFViewer----------------------------
     //Die Variable nur in pdfViewer verwenden!!!
     private Diplomarbeit aktuelleDiplomarbeit;
@@ -428,55 +440,21 @@ public class DatabaseManagerService {
 
     //---------------------------------------------------------------------
 
-    public void count(int click_count, Diplomarbeit dip) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    //Click-Zähler
+    public void click_count(int click_count, Diplomarbeit dip) {
+        diplomarbeitDAO.click_count(click_count, dip);
     }
+
+    //Download-Zähler
+    public void downloadt_count(int download_count, Diplomarbeit dip) {
+        diplomarbeitDAO.download_count(download_count, dip);
+    }
+    
+    
+    
+    
+    
 }
 
-//alter Programmiercode - wird später gelöscht
-//    public List<Diplomarbeit> varread(int seitenanzahl, boolean renderer) {
-//
-//        List<Diplomarbeit> varlist = null;
-//        int maxszahl;
-//
-//        if (ListeAllDiplomarbeiten() != null) {
-//
-//            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
-//                maxszahl = (int) ListeAllDiplomarbeiten().size() / 10;
-//            } else {
-//                maxszahl = ListeAllDiplomarbeiten().size() / 10;
-//            }
-//
-//            if (ListeAllDiplomarbeiten().size() % 10 == 0) {
-//
-//                int anfang = seitenanzahl * 10;
-//                int ende = ((seitenanzahl + 1) * 10);
-//
-//                System.out.println(anfang);
-//                System.out.println(ende);
-//
-//                varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-//
-//            } else {
-//
-//                if (seitenanzahl < maxszahl) {
-//                    int anfang = seitenanzahl * 10;
-//                    int ende = ((seitenanzahl + 1) * 10);
-//
-//                    System.out.println(anfang);
-//                    System.out.println(ende);
-//
-//                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-//
-//                }
-//                if (seitenanzahl == maxszahl) {
-//                    int anfang = seitenanzahl * 10;
-//                    int ende = ListeAllDiplomarbeiten().size();
-//
-//                    varlist = ListeAllDiplomarbeiten().subList(anfang, ende);
-//
-//                }
-//            }
-//        }
-//        return varlist;
-//    }
+

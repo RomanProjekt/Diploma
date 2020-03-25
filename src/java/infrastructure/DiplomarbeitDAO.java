@@ -53,7 +53,7 @@ public class DiplomarbeitDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return listdip;
@@ -92,7 +92,7 @@ public class DiplomarbeitDAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
         return retVal;
 
@@ -110,7 +110,7 @@ public class DiplomarbeitDAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
 
     }
@@ -126,7 +126,7 @@ public class DiplomarbeitDAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
     }
 
@@ -140,7 +140,7 @@ public class DiplomarbeitDAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //
     }
 
@@ -154,7 +154,7 @@ public class DiplomarbeitDAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //
     }
 
@@ -170,7 +170,7 @@ public class DiplomarbeitDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return retVal;
@@ -189,7 +189,7 @@ public class DiplomarbeitDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return dipList;
@@ -209,13 +209,16 @@ public class DiplomarbeitDAO {
             result = pstmt.executeUpdate();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return result;
 
     }
 
+    
+    
+    
     //-------------------------Suchleistenfunktion-----------------------------
     public List Suchleiste(String k) { //key = k
         char[] matcher = k.toCharArray();
@@ -319,8 +322,46 @@ public class DiplomarbeitDAO {
 
     }
 
-    public void count(int download_count, Diplomarbeit aktDip) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    //---------------------------------Test ------------------------------------------
+    
+    public int click_count(int click_count, Diplomarbeit dip) {
+        
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt
+                = con.prepareStatement("UPDATE diplomarbeit SET click_count = ?  WHERE da_id = " + dip.getDa_id())) {
+
+            pstmt.setInt(1, click_count);
+            result = pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return result;
+
     }
+
+    public int download_count(int download_count, Diplomarbeit dip) {
+        
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt
+                = con.prepareStatement("UPDATE diplomarbeit SET click_count = ?  WHERE da_id = " + dip.getDa_id())) {
+
+            pstmt.setInt(1,  download_count);
+            result = pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return result;
+    }   
 
 }

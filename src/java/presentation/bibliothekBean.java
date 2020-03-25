@@ -46,17 +46,12 @@ public class bibliothekBean {
     DiplomarbeitDAO da;
 
     //DatabaseManagerService
-    public DatabaseManagerService dbService;
+    private DatabaseManagerService dbService;
 
     //Variablenb der Seitenleiste der Bibliothek
     private int seitenanzahl;
     private String aktuelleseitenanzahl;
     
-
-    //DatabaseManagerService
-    private DatabaseManagerService dms;
-    private boolean renderer;
-
     //Aktueller Benutzer
     private String aktuellerBenutzer;
     
@@ -65,34 +60,26 @@ public class bibliothekBean {
     private List<Diplomarbeit> alldiplomarbeiten;
     private List<Diplomarbeit> diplist;
 
-
     //Seitenleiste
     private List<Seitenzahl> seitenleiste = new ArrayList<>();
     private String seitenzahl;
     
     
     
-    public bibliothekBean() throws SQLException, FileNotFoundException {
-        
-        this.seitenanzahl = 1;
-        this.aktuelleseitenanzahl = String.valueOf(this.seitenanzahl);
-        dms = new DatabaseManagerService();
-        diplist = new ArrayList<>();
-        this.alldiplomarbeiten = new ArrayList<>();
-        
-        this.diplist = this.varread(0);
-        alldiplomarbeiten = dms.ListeAllDiplomarbeiten();
-//      diplist.add(new Diplomarbeit(12, "Bild01", 12, 12, 12, null, 12, new Date(2020-12-01), null, 12, 12));
-
-        
-        
-
-
-    }
+    public bibliothekBean() {}
 
     @PostConstruct
     void init() {
         
+        dbService = new DatabaseManagerService();
+        this.seitenanzahl = 1;
+        this.aktuelleseitenanzahl = String.valueOf(this.seitenanzahl);
+        
+        diplist = new ArrayList<>();
+        this.alldiplomarbeiten = new ArrayList<>();
+        
+        this.diplist = this.varread(0);
+        alldiplomarbeiten = dbService.ListeAllDiplomarbeiten();
         
         this.Seitenzahl_befüllen();
         
@@ -163,6 +150,8 @@ public class bibliothekBean {
     public void setDbService(DatabaseManagerService dbService) {
         this.dbService = dbService;
     }
+
+    
 
     //Ende Get- und Set-Methoden, Weitere Suche
     
@@ -260,14 +249,6 @@ public class bibliothekBean {
         this.da = da;
     }
 
-    public DatabaseManagerService getDms() {
-        return dms;
-    }
-
-    public void setDms(DatabaseManagerService dms) {
-        this.dms = dms;
-    }
-
     public List<Diplomarbeit> getAlldiplomarbeiten() {
         return alldiplomarbeiten;
     }
@@ -285,18 +266,6 @@ public class bibliothekBean {
     public void setAktuelleseitenanzahl(String aktuelleseitenanzahl) {
         this.aktuelleseitenanzahl = aktuelleseitenanzahl;
     }
-    
-
-    //Variable renderer ist fÃ¼r den aus- und einblenden von der ZÃ¤hlerleiste
-    public boolean isRenderer() {
-        return renderer;
-    }
-
-    public void setRenderer(boolean renderer) {
-        this.renderer = renderer;
-    }
-    
-    
 
     public String getPfad() {
         return pfad;
@@ -325,7 +294,7 @@ public class bibliothekBean {
     
     //aktueller Benutzer
     public void aktullerBenutzer() {
-        dms.getLoggedInBenutzer();
+        dbService.getLoggedInBenutzer();
     }
 
 
@@ -488,8 +457,66 @@ public class bibliothekBean {
         
     }
     
-  
-    public void verlinken(ActionEvent ex) { 
+
+    public List<Diplomarbeit> varread(int seitenanzahl) {
+
+        List<Diplomarbeit> varlist = null;
+        int maxszahl;
+
+        if (dbService.ListeAllDiplomarbeiten() != null) {
+
+            if (dbService.ListeAllDiplomarbeiten().size() % 10 == 0) {
+                maxszahl = (int) dbService.ListeAllDiplomarbeiten().size() / 10;
+            } else {
+                maxszahl = dbService.ListeAllDiplomarbeiten().size() / 10;
+            }
+
+            if (dbService.ListeAllDiplomarbeiten().size() % 10 == 0) {
+
+                int anfang = seitenanzahl * 10;
+                int ende = ((seitenanzahl + 1) * 10);
+
+                System.out.println(anfang);
+                System.out.println(ende);
+
+                varlist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
+
+            } else {
+
+                if (seitenanzahl < maxszahl) {
+                    int anfang = seitenanzahl * 10;
+                    int ende = ((seitenanzahl + 1) * 10);
+
+                    System.out.println(anfang);
+                    System.out.println(ende);
+
+                    varlist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
+
+                }
+                if (seitenanzahl == maxszahl) {
+                    int anfang = seitenanzahl * 10;
+                    int ende = dbService.ListeAllDiplomarbeiten().size();
+
+                    varlist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
+
+                }
+            }
+        }
+        return varlist;
+    }
+    
+    
+    
+    
+    public void click_count_diplomarbeit(ActionEvent ex, Diplomarbeit dip) {
+        
+        click_count =  (int) ex.getSource();
+        click_count += 1;
+        dbService.click_count(click_count, dip);
+                     
+    }
+    
+     public void verlinken(ActionEvent ex) { 
         
 //        int buttonId = Integer.valueOf(ex.getSource());
     
@@ -507,65 +534,6 @@ public class bibliothekBean {
     public Object suche(String titel, String autor, String date, String fachgebiet, String schlagwort) {
         System.out.println(titel + autor + date + fachgebiet + schlagwort);
         return null;
-    }
-    
-    
-    public List<Diplomarbeit> varread(int seitenanzahl) {
-
-        List<Diplomarbeit> varlist = null;
-        int maxszahl;
-
-        if (dms.ListeAllDiplomarbeiten() != null) {
-
-            if (dms.ListeAllDiplomarbeiten().size() % 10 == 0) {
-                maxszahl = (int) dms.ListeAllDiplomarbeiten().size() / 10;
-            } else {
-                maxszahl = dms.ListeAllDiplomarbeiten().size() / 10;
-            }
-
-            if (dms.ListeAllDiplomarbeiten().size() % 10 == 0) {
-
-                int anfang = seitenanzahl * 10;
-                int ende = ((seitenanzahl + 1) * 10);
-
-                System.out.println(anfang);
-                System.out.println(ende);
-
-                varlist = dms.ListeAllDiplomarbeiten().subList(anfang, ende);
-
-            } else {
-
-                if (seitenanzahl < maxszahl) {
-                    int anfang = seitenanzahl * 10;
-                    int ende = ((seitenanzahl + 1) * 10);
-
-                    System.out.println(anfang);
-                    System.out.println(ende);
-
-                    varlist = dms.ListeAllDiplomarbeiten().subList(anfang, ende);
-
-                }
-                if (seitenanzahl == maxszahl) {
-                    int anfang = seitenanzahl * 10;
-                    int ende = dms.ListeAllDiplomarbeiten().size();
-
-                    varlist = dms.ListeAllDiplomarbeiten().subList(anfang, ende);
-
-                }
-            }
-        }
-        return varlist;
-    }
-    
-    
-    
-    
-    public void click_count_diplomarbeit(ActionEvent ex, Diplomarbeit dip) {
-        
-        click_count =  (int) ex.getSource();
-        click_count += 1;
-        dbService.count(click_count, dip);
-                     
     }
     
     

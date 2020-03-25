@@ -35,7 +35,7 @@ public class SchlagwortDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SchlagwortDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return listd_schlagwort;
@@ -64,7 +64,7 @@ public class SchlagwortDAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SchlagwortDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
 
     }
@@ -85,7 +85,7 @@ public class SchlagwortDAO {
             pstmt.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SchlagwortDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
     }
 
@@ -112,7 +112,7 @@ public class SchlagwortDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SchlagwortDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return listschlagwort;

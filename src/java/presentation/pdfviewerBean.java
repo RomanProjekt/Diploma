@@ -28,7 +28,7 @@ import service.DatabaseManagerService;
  */
 public class pdfviewerBean {
 
-    private Diplomarbeit dip = new Diplomarbeit();;
+    private Diplomarbeit dip;
     private DatabaseManagerService dbService;
     private PDDocument document;
     private int seitenanzahl;
@@ -43,6 +43,7 @@ public class pdfviewerBean {
     
     @PostConstruct
     void init() {
+        dip = new Diplomarbeit();
     }
 
     public Diplomarbeit getDip() {
