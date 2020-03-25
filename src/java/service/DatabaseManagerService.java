@@ -17,6 +17,7 @@ import infrastructure.SW_DA_DAO;
 import infrastructure.SchlagwortDAO;
 import infrastructure.SchuleDAO;
 import java.io.FileNotFoundException;
+import java.sql.Date;
 import java.util.HashMap;
 import javax.annotation.PostConstruct;
 import pojo.Autor;
@@ -330,14 +331,14 @@ public class DatabaseManagerService {
     }
 
     //Diplomarbeit hochladen:
-    public void hochladen(String title, List<Autor> autorList, Schule schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
+    public void hochladen(String title, List<Autor> autorList, Schule schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
         
         int var_user_id = this.getLoggedInBenutzer().getUser_id();
 
         // schuleDAO.insert(schule);
         //  int schule_id = this.getListevonSchulen().get(this.getListevonSchulen().size() - 1).getSchule_id();
         //1.Erstellen einer Diplomarbeit-Tabelle
-        int var_da_id = diplomarbeitDAO.insert(title, var_user_id, schule.getSchule_id(), pdfpath, imagepath);
+        int var_da_id = diplomarbeitDAO.insert(title, var_user_id, schule.getSchule_id(), pdfpath, imagepath, datum);
 
 //        int var_da_id = this.ListeAllDiplomarbeiten().get(this.ListeAllDiplomarbeiten().size() - 1).getDa_id();
         //2. Erstellen eines Autor-Tabelle
@@ -376,6 +377,10 @@ public class DatabaseManagerService {
     //DP Schule update
     public void updateDPSchule(int dpId, int schulId) {
         diplomarbeitDAO.updateSchule(dpId, schulId);
+    }
+    
+    public void updateDPDatum(int daId, Date datum) {
+        diplomarbeitDAO.updateDatum(daId, datum);
     }
 
     //Redakteur Liste der DAs

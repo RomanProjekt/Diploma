@@ -59,7 +59,7 @@ public class DiplomarbeitDAO {
         return listdip;
     }
 
-    public int insert(String title, int user_id, int schule_id, String pdfpath, String imagepath) throws FileNotFoundException {
+    public int insert(String title, int user_id, int schule_id, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
         int retVal = 0;
         int da_id = 0;
         int click_count = 0;
@@ -78,7 +78,7 @@ public class DiplomarbeitDAO {
             pstmt.setInt(4, schule_id);
             pstmt.setString(5, pdfpath);
             pstmt.setInt(6, user_id);
-            pstmt.setDate(7, Date.valueOf(LocalDate.now()));
+            pstmt.setDate(7, datum);
             pstmt.setString(8, imagepath);
             pstmt.setInt(9, download_count);
             pstmt.setInt(10, click_count);
@@ -136,6 +136,20 @@ public class DiplomarbeitDAO {
                 PreparedStatement pstmt
                 = con.prepareStatement("UPDATE diplomarbeit SET schule_id = ?  WHERE da_id = " + daId)) {
             pstmt.setInt(1, schulId);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //
+    }
+
+    public void updateDatum(int daId, Date datum) {
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt
+                = con.prepareStatement("UPDATE diplomarbeit SET datum = ?  WHERE da_id = " + daId)) {
+            pstmt.setDate(1, datum);
             pstmt.executeUpdate();
             pstmt.close();
 

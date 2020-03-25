@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -45,6 +46,7 @@ public class uploadBean {
     private List<Schlagwort> insSchlagList;
     private List<Schule> schulList;
     private Schule realSchule;
+    private Date datum;
 
     private String titel;
     private String autor;
@@ -178,6 +180,14 @@ public class uploadBean {
     }
 
     //-------------------GET- und SET-Methoden--------------------------
+    public Date getDatum() {
+        return datum;
+    }
+
+    public void setDatum(Date datum) {
+        this.datum = datum;
+    }
+
     public Schule getRealSchule() {
         return realSchule;
     }
@@ -402,6 +412,8 @@ public class uploadBean {
         String varschlagwort = getSchlagwort();
         Part varimage = getImage();
 
+        java.sql.Date realDate = new java.sql.Date(datum.getTime());
+
 //        boolean isgleich = this.titel_vergleichen(vartitel);
         if (diplomarbeit != null) {
 
@@ -432,7 +444,7 @@ public class uploadBean {
 
                     //3.Funktionen: Hochladen der Diplomarbeit
                     if (!(autList.size() <= 0)) {
-                        dbService.hochladen(vartitel, autList, realSchule, schlagList, this.pdfpath, this.imagepath);
+                        dbService.hochladen(vartitel, autList, realSchule, schlagList, this.pdfpath, this.imagepath, realDate);
                     } else {
                         String message = "Sie müssen mindestens einen Autor eintragen!";
                     }

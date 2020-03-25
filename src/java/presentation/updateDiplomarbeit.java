@@ -6,6 +6,7 @@
 package presentation;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -32,6 +33,7 @@ public class updateDiplomarbeit {
     private String schule;
     private String schlagwort;
     private String autor;
+    private Date datum;
 
     private final List<String> typeaheadSchl;
 
@@ -84,6 +86,7 @@ public class updateDiplomarbeit {
         oldDip = new Diplomarbeit(dip.getDa_id(), dip.getTitle(), dip.getAutor_id(), dip.getSchule_id(), dip.getPdf(), dip.getUser_id(), dip.getDatum(), dip.getBild(), 0, 0);
         this.autList = dbService.getAllAutor(aktDip.getDa_id());
 
+        this.datum = aktDip.getDatum();
         this.allSchlagwortMap = dbService.getAllSchlagwoerterHashMap();
 
 //        this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
@@ -193,6 +196,10 @@ public class updateDiplomarbeit {
             dbService.updateDPSchule(aktDip.getDa_id(), aktDip.getSchule_id());
         }
 
+        if (!(oldDip.getDatum().equals(this.datum))) {
+            dbService.updateDPDatum(aktDip.getDa_id(), new java.sql.Date(datum.getTime()));
+        }
+
         if (remAutMap != null && !remAutMap.isEmpty()) {
             dbService.deleteAutors(remAutMap);
         }
@@ -229,6 +236,14 @@ public class updateDiplomarbeit {
         editAutMap.clear();
 
         return "index.xhtml?faces-redirect=true";
+    }
+
+    public Date getDatum() {
+        return datum;
+    }
+
+    public void setDatum(Date datum) {
+        this.datum = datum;
     }
 
     public Schule getRealSchule() {

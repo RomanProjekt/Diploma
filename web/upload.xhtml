@@ -57,7 +57,7 @@ and open the template in the editor.
 
                     <b:commandButton value="Add Autor" action="#{uploadBean.addAutor()}"  />
 
-
+                    <b:dateTimePicker format="DD.MM.YYYY" value="#{uploadBean.datum}" label="Datum" />
 
                     <b:selectOneMenu value="#{uploadBean.realSchule}" >
                         <f:selectItems value="#{uploadBean.schulList}" var="schule" itemValue="#{schule}" itemLabel="#{schule.name}" />

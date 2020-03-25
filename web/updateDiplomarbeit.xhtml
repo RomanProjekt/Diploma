@@ -45,6 +45,9 @@
                     <f:selectItems value="#{updateDiplomarbeit.schulList}" var="schule" itemValue="#{schule.schule_id}" itemLabel="#{schule.name}" />
                 </b:selectOneMenu>
 
+                <b:dateTimePicker format="DD.MM.YYYY" value="#{updateDiplomarbeit.datum}" label="Datum" required="true"   />
+
+
 
                 <!--
                  <f:selectItem itemValue = "HAKEisenstadt" itemLabel = "HAK Eisenstadt" /> 
