@@ -26,6 +26,7 @@ import org.apache.naming.NamingEntry;
 import pojo.Autor;
 import pojo.Diplomarbeit;
 import pojo.Schlagwort;
+import pojo.Schule;
 import service.DatabaseManagerService;
 
 /**
@@ -42,6 +43,8 @@ public class uploadBean {
     private List<Autor> autList;
     private List<Schlagwort> schlagList;
     private List<Schlagwort> insSchlagList;
+    private List<Schule> schulList;
+    private Schule realSchule;
 
     private String titel;
     private String autor;
@@ -130,6 +133,7 @@ public class uploadBean {
             Integer value = entry.getValue();
             allSchlagwTypeahead.add(key);
         });
+        schulList = dbService.getSchuleList();
     }
 
     public Object addAutor() {
@@ -174,6 +178,22 @@ public class uploadBean {
     }
 
     //-------------------GET- und SET-Methoden--------------------------
+    public Schule getRealSchule() {
+        return realSchule;
+    }
+
+    public void setRealSchule(Schule realSchule) {
+        this.realSchule = realSchule;
+    }
+
+    public List<Schule> getSchulList() {
+        return schulList;
+    }
+
+    public void setSchulList(List<Schule> schulList) {
+        this.schulList = schulList;
+    }
+
     public String getTitel() {
         return titel;
     }
@@ -412,7 +432,7 @@ public class uploadBean {
 
                     //3.Funktionen: Hochladen der Diplomarbeit
                     if (!(autList.size() <= 0)) {
-                        dbService.hochladen(vartitel, autList, varschule, schlagList, this.pdfpath, this.imagepath);
+                        dbService.hochladen(vartitel, autList, realSchule, schlagList, this.pdfpath, this.imagepath);
                     } else {
                         String message = "Sie müssen mindestens einen Autor eintragen!";
                     }

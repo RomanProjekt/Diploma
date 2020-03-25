@@ -41,9 +41,13 @@
 
                 <b:commandButton value="Add Autor" action="#{updateDiplomarbeit.addAutor()}"  />
 
-                <b:selectOneMenu value="#{updateDiplomarbeit.schule}" > 
+                <b:selectOneMenu value="#{updateDiplomarbeit.aktDip.schule_id}" >
+                    <f:selectItems value="#{updateDiplomarbeit.schulList}" var="schule" itemValue="#{schule.schule_id}" itemLabel="#{schule.name}" />
+                </b:selectOneMenu>
 
-                    <f:selectItem itemValue = "HAKEisenstadt" itemLabel = "HAK Eisenstadt" /> 
+
+                <!--
+                 <f:selectItem itemValue = "HAKEisenstadt" itemLabel = "HAK Eisenstadt" /> 
                     <f:selectItem itemValue = "HLWEisenstadt" itemLabel = "HLW Theresianum Eisenstadt" /> 
                     <f:selectItem itemValue = "HTLEisenstadt" itemLabel = "HTL Eisenstadt" /> 
                     <f:selectItem itemValue = "HBLWGuessing" itemLabel = "HBLW Güssing" /> 
@@ -54,8 +58,7 @@
                     <f:selectItem itemValue = "HTLPinkafeld" itemLabel = "HTL Pinkafeld" />
                     <f:selectItem itemValue = "SOBPinkafeld" itemLabel = "SOB Pinkafeld" />
                     <f:selectItem itemValue = "HAKStegersbach" itemLabel = "HAK Stegersbach" /> 
-
-                </b:selectOneMenu>
+                -->
 
 <!--                <b:inputText label="Schule" value="#{updateDiplomarbeit.schule}" labelStyle="width:80px;">
                 </b:inputText>-->

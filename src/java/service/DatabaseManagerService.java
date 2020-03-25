@@ -18,6 +18,7 @@ import infrastructure.SchlagwortDAO;
 import infrastructure.SchuleDAO;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import javax.annotation.PostConstruct;
 import pojo.Autor;
 import pojo.SW_DA;
 import pojo.Schlagwort;
@@ -28,21 +29,22 @@ import pojo.Schule;
  * @author dople
  */
 public class DatabaseManagerService {
-
+    
     private Benutzer loggedInBenutzer;
     private Benutzer b;
     private Diplomarbeit dip;
-
+    
     private BenutzerDAO benutzerDAO;
     private AutorDAO autorDAO;
     private FavoritenDAO favDAO;
     private SchlagwortDAO schlagwDAO;
     private SW_DA_DAO schlagwort_verknuepfungDAO;
     private SchuleDAO schuleDAO;
-
+    private List<Schule> SchuleList;
+    
     private DiplomarbeitDAO diplomarbeitDAO;
     private List<Diplomarbeit> dplist;
-
+    
     public DatabaseManagerService() {
         benutzerDAO = new BenutzerDAO();
         loggedInBenutzer = new Benutzer();
@@ -56,7 +58,12 @@ public class DatabaseManagerService {
         schuleDAO = new SchuleDAO();
         diplomarbeitDAO = new DiplomarbeitDAO();
         favDAO = new FavoritenDAO();
-
+        
+    }
+    
+    @PostConstruct
+    private void init() {
+        SchuleList = schuleDAO.read();
     }
 
     //Benutzer
@@ -64,61 +71,61 @@ public class DatabaseManagerService {
         b = benutzerDAO.read(username);
         return b;
     }
-
+    
     public ArrayList<Benutzer> getAllBenutzer() {
         return benutzerDAO.getAllBenutzer();
     }
-
+    
     public int updateBenutzer(Benutzer b) {
         return benutzerDAO.updateBenutzer(b);
     }
-
+    
     public int deleteBenutzer(int id) {
         return benutzerDAO.deleteBenutzer(id);
     }
-
+    
     public int insertBenutzer(Benutzer b) {
         return benutzerDAO.insert(b);
     }
-
+    
     public boolean loggedIn() {
         return loggedInBenutzer.getUsername() != null;
     }
-
+    
     public Object stillLoggedIn() {
         if (loggedInBenutzer.getUsername() == null) {
             return "index.xhtml";
         }
         return null;
     }
-
+    
     public void loggout() {
         loggedInBenutzer = new Benutzer();
     }
-
+    
     public boolean usernameExists(String username) {
         return benutzerDAO.usernameExists(username);
     }
-
+    
     public boolean isUser() {
         return "User".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() == null;
     }
-
+    
     public boolean isAdmin() {
         return "Admin".equals(loggedInBenutzer.getRole()) && loggedInBenutzer.getRole() != null;
     }
-
+    
     public boolean isRedakteurOrHigher() {
         return !("User".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() == null);
     }
-
+    
     public Object isAdminRedirect() {
         if (!"Admin".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() == null) {
             return "unauthorized.xhtml";
         }
         return null;
     }
-
+    
     public Object isUserRedirect() {
         if ("User".equals(loggedInBenutzer.getRole()) || loggedInBenutzer.getRole() == null) {
             return "unauthorized.xhtml";
@@ -130,27 +137,27 @@ public class DatabaseManagerService {
     public Benutzer getB() {
         return b;
     }
-
+    
     public BenutzerDAO getBenutzerDAO() {
         return benutzerDAO;
     }
-
+    
     public void setB(Benutzer b) {
         this.b = b;
     }
-
+    
     public void setBenutzerDAO(BenutzerDAO benutzerDAO) {
         this.benutzerDAO = benutzerDAO;
     }
-
+    
     public int getNextUserId() {
         return benutzerDAO.getNextIdFromUser();
     }
-
+    
     public Benutzer getLoggedInBenutzer() {
         return loggedInBenutzer;
     }
-
+    
     public void setLoggedInBenutzer(Benutzer loggedInBenutzer) {
         this.loggedInBenutzer = loggedInBenutzer;
     }
@@ -159,25 +166,25 @@ public class DatabaseManagerService {
     public List<Diplomarbeit> getDplist() {
         return dplist;
     }
-
+    
     public void setDplist(List<Diplomarbeit> dplist) {
         this.dplist = dplist;
     }
-
+    
     public DiplomarbeitDAO getDiplomarbeitDAO() {
         return diplomarbeitDAO;
     }
-
+    
     public void setDiplomarbeitDAO(DiplomarbeitDAO diplomarbeitDAO) {
         this.diplomarbeitDAO = diplomarbeitDAO;
     }
-
+    
     public List<Diplomarbeit> ListeAllDiplomarbeiten() {
         //if wohers kommt? von dipSuchenBean die Liste?
         dplist = diplomarbeitDAO.read();
         return dplist;
     }
-
+    
     public Diplomarbeit getDiplomarbeit(int id) {
         Diplomarbeit dip = diplomarbeitDAO.getDiplomarbeit(id);
         return dip;
@@ -187,39 +194,39 @@ public class DatabaseManagerService {
     public AutorDAO getAutorDAO() {
         return autorDAO;
     }
-
+    
     public void setAutorDAO(AutorDAO autorDAO) {
         this.autorDAO = autorDAO;
     }
-
+    
     public void updateAutors(HashMap<Integer, Autor> editMap) {
         this.autorDAO.updateAutors(editMap);
     }
-
+    
     public void deleteAutor(int autId) {
         this.autorDAO.deleteAutor(autId);
     }
-
+    
     public void deleteAutors(HashMap<Integer, Autor> delList) {
         this.autorDAO.deleteAutors(delList);
     }
-
+    
     public void insertAutor(Autor autor) {
         this.autorDAO.insert(autor.getFullName(), autor.getDa_id());
     }
-
+    
     public void insertAutors(HashMap<Integer, Autor> insList) {
         this.autorDAO.insertAutorMap(insList);
     }
-
+    
     public List<Autor> getAllAutor() {
         return autorDAO.getAllAutor();
     }
-
+    
     public List<Autor> getAllAutor(int id) {
         return autorDAO.getAllAutor(id);
     }
-
+    
     public Autor getOneAutor(int id) {
         return autorDAO.read(id);
     }
@@ -228,15 +235,15 @@ public class DatabaseManagerService {
     public SchlagwortDAO getSchlagwDAO() {
         return schlagwDAO;
     }
-
+    
     public void setSchlagwDAO(SchlagwortDAO schlagwDAO) {
         this.schlagwDAO = schlagwDAO;
     }
-
+    
     public List<Schlagwort> getAllSchlagwörter() {
         return schlagwDAO.read();
     }
-
+    
     public HashMap<String, Integer> getAllSchlagwoerterHashMap() {
         HashMap<String, Integer> allSchlagwoerterMap = new HashMap<>();
         List<Schlagwort> swList = getAllSchlagwörter();
@@ -245,11 +252,11 @@ public class DatabaseManagerService {
         });
         return allSchlagwoerterMap;
     }
-
+    
     public List<Schlagwort> getAllSchlagwoerter(int id) {
         return schlagwort_verknuepfungDAO.getAllSchlagwoerter(id);
     }
-
+    
     public void insertSchlagwortList(List<Schlagwort> swList) {
         schlagwDAO.insertSchlagwortList(swList);
     }
@@ -258,11 +265,11 @@ public class DatabaseManagerService {
     public Diplomarbeit getDip() {
         return dip;
     }
-
+    
     public void setDip(Diplomarbeit dip) {
         this.dip = dip;
     }
-
+    
     public Autor getAutor(int id) {
         return autorDAO.read(id);
     }
@@ -271,7 +278,7 @@ public class DatabaseManagerService {
     public FavoritenDAO getFavDAO() {
         return favDAO;
     }
-
+    
     public void setFavDAO(FavoritenDAO favDAO) {
         this.favDAO = favDAO;
     }
@@ -280,19 +287,19 @@ public class DatabaseManagerService {
     public SW_DA_DAO getSchlagwort_verknuepfungDAO() {
         return schlagwort_verknuepfungDAO;
     }
-
+    
     public void setSchlagwort_verknuepfungDAO(SW_DA_DAO schlagwort_verknuepfungDAO) {
         this.schlagwort_verknuepfungDAO = schlagwort_verknuepfungDAO;
     }
-
+    
     public List<SW_DA> getAllSW_DA_Verknuepfung() {
         return this.schlagwort_verknuepfungDAO.getAllSW_DA_Verknüpfungen();
     }
-
+    
     public void deleteSW_DA(HashMap<Integer, Schlagwort> remMap, int daId) {
         this.schlagwort_verknuepfungDAO.deleteSW_DA(remMap, daId);
     }
-
+    
     public void insertSW_DAMap(HashMap<Integer, Schlagwort> insMap, int daId) {
         this.schlagwort_verknuepfungDAO.insertHashMap(insMap, daId);
     }
@@ -301,30 +308,36 @@ public class DatabaseManagerService {
     public SchuleDAO getSchuleDAO() {
         return schuleDAO;
     }
-
+    
     public void setSchuleDAO(SchuleDAO schuleDAO) {
         this.schuleDAO = schuleDAO;
     }
-
+    
+    public List<Schule> getSchuleList() {
+        return SchuleList;
+    }
+    
+    public void setSchuleList(List<Schule> SchuleList) {
+        this.SchuleList = SchuleList;
+    }
+    
     public List<Schule> getListevonSchulen() {
         return this.schuleDAO.read();
     }
-
+    
     public Schule getOneSchule(int id) {
         return this.schuleDAO.readOne(id);
     }
 
     //Diplomarbeit hochladen:
-    public void hochladen(String title, List<Autor> autorList, String schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
-
+    public void hochladen(String title, List<Autor> autorList, Schule schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath) throws FileNotFoundException {
+        
         int var_user_id = this.getLoggedInBenutzer().getUser_id();
 
-        schuleDAO.insert(schule);
-
-        int schule_id = this.getListevonSchulen().get(this.getListevonSchulen().size() - 1).getSchule_id();
-
+        // schuleDAO.insert(schule);
+        //  int schule_id = this.getListevonSchulen().get(this.getListevonSchulen().size() - 1).getSchule_id();
         //1.Erstellen einer Diplomarbeit-Tabelle
-        int var_da_id = diplomarbeitDAO.insert(title, var_user_id, schule_id, pdfpath, imagepath);
+        int var_da_id = diplomarbeitDAO.insert(title, var_user_id, schule.getSchule_id(), pdfpath, imagepath);
 
 //        int var_da_id = this.ListeAllDiplomarbeiten().get(this.ListeAllDiplomarbeiten().size() - 1).getDa_id();
         //2. Erstellen eines Autor-Tabelle
@@ -351,13 +364,18 @@ public class DatabaseManagerService {
         favDAO.deleteDip(dip.getDa_id());
         //delete schlag
         schlagwort_verknuepfungDAO.deleteDA(dip.getDa_id());
-
+        
         diplomarbeitDAO.delete(dip.getDa_id());
     }
 
     //DP Title update
     public void updateDPTitle(int id, String title) {
         diplomarbeitDAO.updateTitle(id, title);
+    }
+
+    //DP Schule update
+    public void updateDPSchule(int dpId, int schulId) {
+        diplomarbeitDAO.updateSchule(dpId, schulId);
     }
 
     //Redakteur Liste der DAs
@@ -369,11 +387,11 @@ public class DatabaseManagerService {
     public int insertFavouriten(int dp_id, int b_id) {
         return this.favDAO.insert(dp_id, b_id);
     }
-
+    
     public List<Diplomarbeit> getFavList() {
         return favDAO.getFavList(loggedInBenutzer.getUser_id());
     }
-
+    
     public int deleteFav(Diplomarbeit dip) {
         return favDAO.deleteOne(dip, loggedInBenutzer.getUser_id());
     }
@@ -382,7 +400,7 @@ public class DatabaseManagerService {
     public void insertNewPasswort(String npw, Benutzer b) {
         benutzerDAO.insertNewPassword(npw, b);
     }
-
+    
     public boolean diplomarbeit(String titel) {
         return diplomarbeitDAO.read(titel);
     }
@@ -390,15 +408,15 @@ public class DatabaseManagerService {
     //----------------------PDFViewer----------------------------
     //Die Variable nur in pdfViewer verwenden!!!
     private Diplomarbeit aktuelleDiplomarbeit;
-
+    
     public Diplomarbeit getAktuelleDiplomarbeit() {
         return aktuelleDiplomarbeit;
     }
-
+    
     public void setAktuelleDiplomarbeit(Diplomarbeit aktuelleDiplomarbeit) {
         this.aktuelleDiplomarbeit = aktuelleDiplomarbeit;
     }
-
+    
     public void getAktuellPicture(Diplomarbeit aktDip) {
         this.aktuelleDiplomarbeit = aktDip;
     }

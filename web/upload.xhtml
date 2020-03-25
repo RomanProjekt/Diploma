@@ -57,8 +57,11 @@ and open the template in the editor.
 
                     <b:commandButton value="Add Autor" action="#{uploadBean.addAutor()}"  />
 
-                    <b:inputText label="Schule" value="#{uploadBean.schule}" labelStyle="width:80px;">
-                    </b:inputText>
+
+
+                    <b:selectOneMenu value="#{uploadBean.realSchule}" >
+                        <f:selectItems value="#{uploadBean.schulList}" var="schule" itemValue="#{schule}" itemLabel="#{schule.name}" />
+                    </b:selectOneMenu>
 
 
                     <h:dataTable value="#{uploadBean.schlagList}" var="schlagwort" border="2" cellpadding="1" cellspacing="1" >

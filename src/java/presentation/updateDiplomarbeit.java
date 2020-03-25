@@ -8,9 +8,11 @@ package presentation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import pojo.Autor;
 import pojo.Diplomarbeit;
 import pojo.Schlagwort;
+import pojo.Schule;
 import service.DatabaseManagerService;
 
 /**
@@ -24,6 +26,8 @@ public class updateDiplomarbeit {
 
     private boolean autEdit = false;
     private boolean schlagEdit = false;
+    private Schule realSchule;
+    private List<Schule> schulList;
 
     private String schule;
     private String schlagwort;
@@ -70,14 +74,20 @@ public class updateDiplomarbeit {
         typeaheadSchl = new ArrayList<>();
     }
 
+    @PostConstruct
+    private void init() {
+        schulList = dbService.getSchuleList();
+    }
+
     public Object editDiplomarbeit(Diplomarbeit dip) {
-        aktDip = dip;
-        oldDip = dip;
+        aktDip = new Diplomarbeit(dip.getDa_id(), dip.getTitle(), dip.getAutor_id(), dip.getSchule_id(), dip.getPdf(), dip.getUser_id(), dip.getDatum(), dip.getBild(), 0, 0);
+        oldDip = new Diplomarbeit(dip.getDa_id(), dip.getTitle(), dip.getAutor_id(), dip.getSchule_id(), dip.getPdf(), dip.getUser_id(), dip.getDatum(), dip.getBild(), 0, 0);
         this.autList = dbService.getAllAutor(aktDip.getDa_id());
 
         this.allSchlagwortMap = dbService.getAllSchlagwoerterHashMap();
 
-        this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
+//        this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
+        this.realSchule = dbService.getOneSchule(aktDip.getSchule_id());
         this.schlagwortList = dbService.getAllSchlagwoerter(aktDip.getDa_id());
         this.allSchlagwortList = dbService.getAllSchlagwörter();
 
@@ -85,8 +95,16 @@ public class updateDiplomarbeit {
             typeaheadSchl.add(schlagwort1.getWord());
         });
 
-        autId = autList.get(autList.size() - 1).getAutor_id() + 1;
-        schlagId = allSchlagwortList.get(allSchlagwortList.size() - 1).getTag_id() + 1;
+        if (autList.size() > 0) {
+            autId = autList.get(autList.size() - 1).getAutor_id() + 1;
+        } else {
+            autId = 1;
+        }
+        if (allSchlagwortList.size() > 0) {
+            schlagId = allSchlagwortList.get(allSchlagwortList.size() - 1).getTag_id() + 1;
+        } else {
+            schlagId = 1;
+        }
 
         return "updateDiplomarbeit.xhtml?faces-redirect=true";
     }
@@ -171,6 +189,10 @@ public class updateDiplomarbeit {
             dbService.updateDPTitle(aktDip.getDa_id(), aktDip.getTitle());
         }
 
+        if (!(aktDip.getSchule_id() == oldDip.getSchule_id())) {
+            dbService.updateDPSchule(aktDip.getDa_id(), aktDip.getSchule_id());
+        }
+
         if (remAutMap != null && !remAutMap.isEmpty()) {
             dbService.deleteAutors(remAutMap);
         }
@@ -207,6 +229,22 @@ public class updateDiplomarbeit {
         editAutMap.clear();
 
         return "index.xhtml?faces-redirect=true";
+    }
+
+    public Schule getRealSchule() {
+        return realSchule;
+    }
+
+    public List<Schule> getSchulList() {
+        return schulList;
+    }
+
+    public void setRealSchule(Schule realSchule) {
+        this.realSchule = realSchule;
+    }
+
+    public void setSchulList(List<Schule> schulList) {
+        this.schulList = schulList;
     }
 
     public Diplomarbeit getAktDip() {
