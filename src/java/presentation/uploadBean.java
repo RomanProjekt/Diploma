@@ -17,13 +17,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.behavior.FacesBehavior;
 import javax.faces.context.FacesContext;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
-import org.apache.naming.NamingEntry;
 import pojo.Autor;
 import pojo.Diplomarbeit;
 import pojo.Schlagwort;
@@ -437,10 +434,6 @@ public class uploadBean {
 
                     //2. Funktionen: Speichern der pdf-Datei
                     this.savePdfFile(vartitel);
-
-                    List<String> schlagwoerter = new ArrayList<>();
-                    schlagwoerter.add(varschule);
-                    schlagwoerter.add(varschlagwort);
 
                     //3.Funktionen: Hochladen der Diplomarbeit
                     if (!(autList.size() <= 0)) {

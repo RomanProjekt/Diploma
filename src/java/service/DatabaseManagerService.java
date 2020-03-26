@@ -441,7 +441,7 @@ public class DatabaseManagerService {
     //---------------------------------------------------------------------
 
     
-    //Click-Zähler
+    //-------------------Click-Zähler-------------------------------
     public void click_count(int click_count, Diplomarbeit dip) {
         diplomarbeitDAO.click_count(click_count, dip);
     }
@@ -449,6 +449,14 @@ public class DatabaseManagerService {
     //Download-Zähler
     public void downloadt_count(int download_count, Diplomarbeit dip) {
         diplomarbeitDAO.download_count(download_count, dip);
+    }
+
+    public int read_clickcount(Diplomarbeit dip) {
+       return diplomarbeitDAO.readClickCount(dip);
+    }
+
+    public int read_downloadcount(Diplomarbeit dip) {
+       return diplomarbeitDAO.readDownloadCount(dip);
     }
     
     

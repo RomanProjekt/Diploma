@@ -5,7 +5,6 @@
  */
 package presentation;
 
-
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -13,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Date;
+import java.time.LocalDate;
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -26,9 +26,8 @@ import service.DatabaseManagerService;
  */
 public class dipansehenBean {
 
-    
     private Diplomarbeit aktDip;
-    
+
     //Variablen
     private String titel;
     private String autor;
@@ -42,15 +41,12 @@ public class dipansehenBean {
 
     private String bildnamegleich;
     private String pdfnamegleich;
-    
+
     private DatabaseManagerService dbService;
-    
+
     //downlaod-Counter
     private int download_count;
-    
-    
-    
-    
+    private int click_count;
 
     public dipansehenBean() {
 
@@ -60,7 +56,6 @@ public class dipansehenBean {
     void init() {
         dbService = new DatabaseManagerService();
     }
-
 
     public String getTitel() {
         return titel;
@@ -126,14 +121,6 @@ public class dipansehenBean {
         this.imagepath = imagepath;
     }
 
-    public int getDownload_count() {
-        return download_count;
-    }
-
-    public void setDownload_count(int download_count) {
-        this.download_count = download_count;
-    }
-
     public int getAktuelle_id() {
         return aktuelle_id;
     }
@@ -173,25 +160,161 @@ public class dipansehenBean {
     public void setDbService(DatabaseManagerService dbService) {
         this.dbService = dbService;
     }
-    
-    
-    
-    
-    
+
+    //------------------Click/Download Counter --------------------------
+    public int getClick_count() {
+        return click_count;
+    }
+
+    public void setClick_count(int click_count) {
+        this.click_count = click_count;
+    }
+
+    public int getDownload_count() {
+        return download_count;
+    }
+
+    public void setDownload_count(int download_count) {
+        this.download_count = download_count;
+    }
 
     //Funktionen
     public String werteanzeigen(Diplomarbeit dip) {
         this.aktDip = dip;
         this.autor = dbService.getOneAutor(aktDip.getDa_id()).getFullName();
-        
+
         //Schule anzeigen funktioniert noch nicht!!!
-        this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
+        //NullpointExcepiton
+        //this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
         dbService.getAktuellPicture(this.aktDip);
+        this.click_count_diplomarbeit(this.aktDip);
+
         return "dipansehen.xhtml";
     }
 
     
-  //---------------------Diplomarbeit download---------------------------------
+    
+    //------------------------Click-Count----------------------------
+    public void click_count_diplomarbeit(Diplomarbeit dip) {
+
+        double click_first_grenze = 10E+6;
+        double click_second_grenze = 10E+12;
+
+        LocalDate NowDate = LocalDate.now();
+        int thisyear = NowDate.getYear();
+        int nextyear = thisyear + 1;
+        
+        this.click_count = this.readClickCount(dip);
+
+        //Wenn ein Jahr vorbeit wird rückgesetzt
+        //Testen Jahresübergang
+        //Für die Redakteure muss einmal gelten
+        if (thisyear != nextyear) {
+
+            if (this.click_count < click_first_grenze) {
+
+                System.out.println("< als 1 Millionen mal geklickt!!!" + this.click_count);
+                this.click_count += 1;
+                System.out.println("Danach" + this.click_count);
+                dbService.click_count(this.click_count, dip);
+
+            } else if (this.click_count > click_first_grenze) {
+
+                this.click_count += 1;
+                System.out.println("> als 1 Millionen mal geklickt!!!");
+                dbService.click_count(this.click_count, dip);
+
+            } else if (click_second_grenze <= click_second_grenze) {
+
+                this.click_count += 1;
+                System.out.println("< 1 Milliarde mal geklickt!!!");
+                dbService.click_count(this.click_count, dip);
+
+            } else if (click_second_grenze > click_second_grenze) {
+
+                this.click_count += 1;
+                System.out.println("Mehr als 1 Milliarde mal geklickt!!!");
+                dbService.click_count(this.click_count, dip);
+            }
+
+        } else {
+            click_count = 0;
+            dbService.click_count(click_count, dip);
+        }
+
+    }
+
+    //-----------------Download-Count-Diplomarbeit-------------------------
+    public void download_count() {
+
+        double downlaod_first_grenze = 10E+6;
+        double download_second_grenze = 10E+12;
+
+        LocalDate NowDate = LocalDate.now();
+        int thisyear = NowDate.getYear();
+        int nextyear = thisyear + 1;
+        
+        this.download_count = this.readDownloadCount(this.aktDip);
+
+        //Wenn ein Jahr vorbeit wird rückgesetzt
+        //Testen Jahresübergang
+        //Für die Redakteure muss einmal gelten
+        if (thisyear != nextyear) {
+
+            if (this.download_count < downlaod_first_grenze) {
+
+                System.out.println("< als 1 Millionen mal geklickt!!!");
+                download_count += 1;
+                System.out.println("Download count:" + download_count);
+                dbService.downloadt_count(download_count,  this.aktDip);
+
+            } else if (download_count > downlaod_first_grenze) {
+
+                download_count += 1;
+                System.out.println("> als 1 Millionen mal geklickt!!!");
+                System.out.println(download_count);
+                dbService.downloadt_count(download_count,  this.aktDip);
+
+            } else if (download_count <= download_second_grenze) {
+
+                download_count += 1;
+                System.out.println("< 1 Milliarde mal geklickt!!!");
+                System.out.println(download_count);
+                dbService.downloadt_count(download_count,  this.aktDip);
+
+            } else if (download_count > download_second_grenze) {
+
+                download_count += 1;
+                System.out.println("Mehr als 1 Milliarde mal geklickt!!!");
+                System.out.println("Download count:" +download_count);
+                dbService.downloadt_count(download_count,  this.aktDip);
+            }
+
+        } else {
+            download_count = 0;
+            System.out.println(download_count);
+            dbService.downloadt_count(download_count, this.aktDip);
+        }
+
+       
+    }
+    
+    
+    
+    public int readClickCount(Diplomarbeit dip) {
+        return dbService.read_clickcount(dip);
+    }
+    
+    public int readDownloadCount(Diplomarbeit dip) {
+        return dbService.read_downloadcount(dip);
+    }
+        
+    
+    
+    
+    
+
+    //---------------------Diplomarbeit download---------------------------------
     public Object download() throws IOException {
 
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
@@ -218,15 +341,11 @@ public class dipansehenBean {
 
 //        Files.copy(file.toPath(), outputStream);
         fc.responseComplete();
-        
-        
+        this.download_count();
+
         return null;
 
     }
-
-    
-    
-    
 
     public String imagepath_auslesen(int id) {
         Diplomarbeit dip = dbService.getDiplomarbeit(id);
@@ -252,23 +371,8 @@ public class dipansehenBean {
     public void löschenDiplomarbeit(ActionEvent event) {
         dbService.deleteDiplomarbeit(aktDip);
     }
-    
-    
-    //-----------------Download-Count-Diplomarbeit-------------------------
-    
-    public void download_count_diplomarbeit(ActionEvent ex) {
-        
-        download_count =  (int) ex.getSource();
-        download_count += 1;
-        dbService.downloadt_count(download_count, aktDip);
-                     
-    }
-    
-    
-
 
 //----------------Alter Code - Diplomarbeit ansehen--------------------------
-
     public void diplomarbeitansehen() {
 
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
@@ -300,5 +404,14 @@ public class dipansehenBean {
         }
 
     }
+
+    //---------------------------Test---------------------------
+    public static void main(String[] args) {
+
+       
+
+    }
+
     
+
 }

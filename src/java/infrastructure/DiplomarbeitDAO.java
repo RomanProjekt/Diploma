@@ -166,7 +166,7 @@ public class DiplomarbeitDAO {
                 ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id = " + id)) {
 
             while (rs.next()) {
-                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getDate(8), rs.getString(9), rs.getInt(10), rs.getInt(11));
+                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
             }
 
         } catch (SQLException ex) {
@@ -195,7 +195,9 @@ public class DiplomarbeitDAO {
         return dipList;
     }
 
-    //--------Löschen der Diplomarbeit - nach id----------
+    
+    
+    //---------------------------Löschen der Diplomarbeit - nach id---------------------------------------
     public int delete(int id) {
 
         String query = "delete from diplomarbeit where da_id = ?";
@@ -352,7 +354,7 @@ public class DiplomarbeitDAO {
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt
-                = con.prepareStatement("UPDATE diplomarbeit SET click_count = ?  WHERE da_id = " + dip.getDa_id())) {
+                = con.prepareStatement("UPDATE diplomarbeit SET download_count = ?  WHERE da_id = " + dip.getDa_id())) {
 
             pstmt.setInt(1,  download_count);
             result = pstmt.executeUpdate();
@@ -362,6 +364,62 @@ public class DiplomarbeitDAO {
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return result;
-    }   
+    }
+
+    public int readClickCount(Diplomarbeit dip) {
+        
+        ArrayList<Diplomarbeit> dipList = new ArrayList<>();
+        int clickcount = 0;
+        
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id =" + dip.getDa_id())) {
+                 
+            while (rs.next()) {
+                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
+            }
+               
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        
+        return dipList.get(0).getClick_count();
+    }
+    
+    
+    public int readDownloadCount(Diplomarbeit dip) {
+        
+        ArrayList<Diplomarbeit> dipList = new ArrayList<>();
+        int clickcount = 0;
+        
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id = " + dip.getDa_id())) {
+                 
+            while (rs.next()) {
+                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
+            }
+               
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        
+        return dipList.get(0).getDownload_count();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }

@@ -54,7 +54,8 @@ and open the template in the editor.
                                 <b:inputText   label="Datum" value="#{dipansehenBean.aktDip.datum}" labelStyle="width:80px;" disabled="true">
                                 </b:inputText>
 
-                                <b:commandButton value="Download" action="#{dipansehenBean.download()}" actionListener="#{dipansehenBean.download_count_diplomarbeit(ex)}"/>
+                                
+                                <b:commandButton  id="submitButton" value="Download" action="#{dipansehenBean.download()}"/>
                                 <br></br>
                                 
                                 <!-- pdfviewerBean.diplomarbeitansehen(ipansehenBean.aktDip) -->

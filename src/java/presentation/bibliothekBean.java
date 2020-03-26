@@ -6,10 +6,8 @@
 package presentation;
 
 import infrastructure.DiplomarbeitDAO;
-import java.io.FileNotFoundException;
 import java.sql.Blob;
 import javax.annotation.PostConstruct;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.event.ActionEvent;
@@ -41,7 +39,7 @@ public class bibliothekBean {
     private String datum;
     private String bild;
     private int download_count;
-    private int click_count;
+    
     private String pfad;
     DiplomarbeitDAO da;
 
@@ -150,9 +148,6 @@ public class bibliothekBean {
     public void setDbService(DatabaseManagerService dbService) {
         this.dbService = dbService;
     }
-
-    
-
     //Ende Get- und Set-Methoden, Weitere Suche
     
     
@@ -222,23 +217,6 @@ public class bibliothekBean {
         this.bild = bild;
     }
 
-    public int getDownload_count() {
-        return download_count;
-    }
-
-    public void setDownload_count(int download_count) {
-        this.download_count = download_count;
-    }
-
-    public int getClick_count() {
-        return click_count;
-    }
-
-    public void setClick_count(int click_count) {
-        this.click_count = click_count;
-    }
-    
-    
     
     //DiplomarbeitenDAO
     public DiplomarbeitDAO getDa() {
@@ -257,7 +235,7 @@ public class bibliothekBean {
         this.alldiplomarbeiten = alldiplomarbeiten;
     }
     
-    //RÃ¼ckgabe der Seitenanzahl
+
 
     public String getAktuelleseitenanzahl() {
         return aktuelleseitenanzahl;
@@ -297,23 +275,7 @@ public class bibliothekBean {
         dbService.getLoggedInBenutzer();
     }
 
-
  
-//    //HinzugefÃ¼gt
-//    Object listediplomarbeiten;
-//
-//    public Object getListediplomarbeiten() {
-//
-//        int index = 0;
-//
-//        listediplomarbeiten = diplist.get(index);
-//        return listediplomarbeiten;
-//    }
-//
-//    public void setListediplomarbeiten(Object Listediplomarbeiten) {
-//        this.listediplomarbeiten = Listediplomarbeiten;
-//    }
-    
     
     public Object hochzaehlen(ActionEvent actionEvent) {
         
@@ -429,9 +391,7 @@ public class bibliothekBean {
           
         int i;
         for(i = 1; i < this.berechnenMaxSeitenanzahl()+1; i++) {
-            
             Seitenzahl seitz = new Seitenzahl(i);
-            
             seitenleiste.add(seitz);
         }
     }
@@ -508,13 +468,7 @@ public class bibliothekBean {
     
     
     
-    public void click_count_diplomarbeit(ActionEvent ex, Diplomarbeit dip) {
-        
-        click_count =  (int) ex.getSource();
-        click_count += 1;
-        dbService.click_count(click_count, dip);
-                     
-    }
+    
     
      public void verlinken(ActionEvent ex) { 
         

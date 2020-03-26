@@ -18,6 +18,9 @@ import pojo.Diplomarbeit;
 import service.ConnectionManager;
 
 public class FavoritenDAO {
+    
+    
+    
 
     public List<Diplomarbeit> getFavList(int id) {
 
@@ -45,7 +48,7 @@ public class FavoritenDAO {
 //            System.out.println("Listsize" + listfav_dip.size());
         } catch (SQLException ex) {
             Logger.getLogger(FavoritenDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        }  
 
         return listfav_dip;
 
@@ -65,7 +68,7 @@ public class FavoritenDAO {
             result = pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(FavoritenDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        }  
         return result;
     }
 
@@ -83,7 +86,7 @@ public class FavoritenDAO {
             result = pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(FavoritenDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        }  
         return result;
     }
 
@@ -100,7 +103,7 @@ public class FavoritenDAO {
             pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(FavoritenDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        }  
 
     }
 
