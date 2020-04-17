@@ -5,6 +5,8 @@
  */
 package presentation;
 
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import pojo.Benutzer;
@@ -29,8 +31,12 @@ public class meinKontoBean {
     private List<Diplomarbeit> favList;
     private String message;
     private List<Diplomarbeit> redList;
-    
     private DatabaseManagerService dbService;
+    
+    
+       
+    //Passowort zurücksetzen:
+    private boolean isAltesPasswortInputTextF;
     
     public meinKontoBean() {
     }
@@ -41,6 +47,8 @@ public class meinKontoBean {
         if (dbService.isRedakteurOrHigher()) {
             redList = dbService.getRedList();
         }
+        
+        
     }
     
     public boolean favIsEmpty() {
@@ -48,6 +56,7 @@ public class meinKontoBean {
     }
     
     public void deletefav(Diplomarbeit dip) {
+        System.out.println("OK" + "-------------------------------------");
         if (dbService.deleteFav(dip) == 1) {
             favList = dbService.getFavList();
             message = "";
@@ -168,5 +177,52 @@ public class meinKontoBean {
     public void setRedList(List<Diplomarbeit> redList) {
         this.redList = redList;
     }
+    
+    
+    
+    
+    
+    
+    
+  //----------------------------------------------------------------------------
+
+  
+    public boolean isIsAltesPasswortInputTextF() {
+        return isAltesPasswortInputTextF;
+    }
+
+    public void setIsAltesPasswortInputTextF(boolean isAltesPasswortInputTextF) {
+        this.isAltesPasswortInputTextF = isAltesPasswortInputTextF;
+    }
+    
+    
+    public String sendToPasswortRest() {
+        
+        if(this.dbService.isRedakteurOrHigher() || this.dbService.isUser()) {
+            this.isAltesPasswortInputTextF = true;
+            return "passwort_reset.xhtml";
+        }
+        else {
+            this.isAltesPasswortInputTextF = false;
+            return "index.xhtml";
+        }
+        
+  
+        
+    }
+
+   
+    
+
+    
+   
+    
+  
+    
+    
+    
+    
+    
+    
     
 }

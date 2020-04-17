@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pojo.SicherheitsCode;
 import service.ConnectionManager;
 
 /**
@@ -118,6 +119,7 @@ public class BenutzerDAO {
     }
 
     public ArrayList<Benutzer> getAllBenutzer() {
+        
         ArrayList<Benutzer> benList = new ArrayList<>();
 
         //use try-with-resources for best practice
@@ -160,27 +162,230 @@ public class BenutzerDAO {
     
     
     
-    public int insertNewPassword(String npw, Benutzer b) {
-       
-        String query = "update passwort where benutzer_id = " + b.getUser_id();
+    public int updateNewPassword(String npw, Benutzer b) {
+        
+        //String query = "update benutzer set vorname = ?,nachname = ?,benutzername = ?, rolle = ?  where benutzer_id = ?";
+        //"select * from benutzer where email = '" + reset + "'"
+        //String query = "UPDATE benutzer SET passwort = ? WHERE benutzer_id = ?";
+        String query = "update benutzer SET passwort = ? where benutzer_id = '" + b.getUser_id() + "'";
         System.out.println(b.getUser_id());
         int result = 0;
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt = con.prepareStatement(query);) {
+                
 
-                pstmt.setString(1, npw);
+            pstmt.setString(1, npw);
+            System.out.println("Passwort zurückgesetz");
             result = pstmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return result;
+    }
+    
+    
+//------------------------------------------------------------------------------
+
+    public String readEmailFound(String reset, boolean nofoundemail) {
+        
+        Benutzer retVal = null;
+        nofoundemail = false;
+        String var_email;
+
+        //use try-with-resources for best practice
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from benutzer where email = '" + reset + "'")) {
+                nofoundemail = true;
+
+            if (rs.next()) {
+                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort"), rs.getString("salt"), rs.getString("rolle"), rs.getString("email"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        if (retVal != null) {
+            var_email = retVal.getUsername();
+        } else {
+            var_email = null;
+        }
+
+        return var_email;
+    }
+
+    public String readUsernameFound(String reset, boolean nofoundusername) {
+
+        Benutzer retVal = null;
+        nofoundusername = false;
+        String var_username;
+
+        //use try-with-resources for best practice
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from benutzer where benutzername = '" + reset + "'")) {
+                nofoundusername = true;
+            if (rs.next()) {
+                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort"), rs.getString("salt"), rs.getString("rolle"), rs.getString("email"));
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
         
-        return result;
+        if(retVal != null && nofoundusername == true) { 
+           var_username = retVal.getUsername();  
+        }
+        else {
+            var_username = null;
+        }
+
+        return var_username;
+    }
+
+    
+    public String readEmail(String reset) {
+        
+        Benutzer retVal = null; 
+        String var_email;
+
+        //use try-with-resources for best practice
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from benutzer where benutzername = '" + reset + "'")) {
+            
+
+            if (rs.next()) {
+                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort"), rs.getString("salt"), rs.getString("rolle"), rs.getString("email"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        if (retVal != null) {
+            var_email = retVal.geteMail();
+        } else {
+            var_email = null;
+        }
+
+        return var_email;
+        
+    }
+
+    public String readUsername(String email) {
+        
+        Benutzer retVal = null;
+        String var_username;
+
+        //use try-with-resources for best practice
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from benutzer where email = '" + email + "'")) {
+         
+
+            if (rs.next()) {
+                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort"), rs.getString("salt"), rs.getString("rolle"), rs.getString("email"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        if (retVal != null) {
+            var_username = retVal.getUsername();
+        } else {
+            var_username = null;
+        }
+
+        return var_username;
+        
+    }
+    
+    
+    
+    public Benutzer readBenutzer(String username) {
+        
+        System.out.println("------------------ inder Datenbank " + username);
+        Benutzer retVal = null;
+
+        //use try-with-resources for best practice
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from benutzer where benutzername = '" + username + "'")) {
+
+            while (rs.next()) {
+                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort"), rs.getString("salt"), rs.getString("rolle"), rs.getString("email"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return retVal;
+        
+        
     }
     
     
     
     
+      public Benutzer read(int benutzer_id) {
+        Benutzer retVal = null;
+
+        //use try-with-resources for best practice
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from benutzer where benutzer_id = '" + benutzer_id + "'")) {
+
+            if (rs.next()) {
+                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort"), rs.getString("salt"), rs.getString("rolle"), rs.getString("email"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return retVal;
+    }
+
+    public int updateAdminNewPasswort(String pw, int benutzerid) {
+        //String query = "update benutzer set vorname = ?,nachname = ?,benutzername = ?, rolle = ?  where benutzer_id = ?";
+        //"select * from benutzer where email = '" + reset + "'"
+        //String query = "UPDATE benutzer SET passwort = ? WHERE benutzer_id = ?";
+        String query = "update benutzer SET passwort = ? where benutzer_id = '" + benutzerid + "'";
+        
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement(query);) {
+                
+
+            pstmt.setString(1, pw);
+            System.out.println("Passwort zurückgesetz");
+            result = pstmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return result;
+    }
+    
+    
+   
+ 
     
 }

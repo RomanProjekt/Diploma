@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+
+        <title>Passwort Zurücksetzen</title>
+        <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name="passwortreset.css" />
+        <h:outputStylesheet library= "css" name="include_footer.css" />
+
+        <f:metadata>
+            <f:viewParam name="username" value="#{emailsecuritycodeBean.username}"/>
+            <f:viewParam name="prBeantime" value="#{emailsecuritycodeBean.prBeantime}"/>  
+        </f:metadata>
+
+
+
+    </h:head>
+    <h:body>
+
+
+        <div id="wrapper" class="wrapper">
+
+
+            <div id="contentindex" class="contentindex">
+
+
+                <div id="headindex" class="headerindex">
+                    <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
+                </div>
+
+
+                <div id="main" class="mainindex">
+
+
+                    <h:form>
+
+                        <div class="passwort">
+
+                            <h4 class="uberschrift">Passwort zurücksetzen</h4>
+
+                            <div class="pw-grid">
+
+                                <h:panelGrid columns="1" cellpadding="1">
+
+                                    <h5>Lieber Benutzer, #{meinKontoBean.dbService.loggedInBenutzer.username} #{emailsecuritycodeBean.username} </h5> 
+                                    #{emailsecuritycodeBean.prBeantime}
+
+                                    <br></br>
+                                    <b:inputSecret label="Altes Passwort" value="#{passwortresetBean.bestaetigtesAltesPasswort}"  labelStyle="width:80p;"  rendered="#{meinKontoBean.isAltesPasswortInputTextF}" required="true" requiredMessage=""/>    
+                                    <h:outputText value="#{passwortresetBean.message}" style="color: red" />
+                                    <br></br>
+                                    <b:inputSecret label="Sicherheitsantwort" value="#{passwortresetBean.eingabeSicherheitsantwort}"  labelStyle="width:80p;"  rendered="#{emailsecuritycodeBean.sicherheitsAntwortFeld}" required="false" requiredMessage=""/>    
+
+
+                                    <b:inputSecret label="Passwort" value="#{passwortresetBean.pw}" labelStyle="width:80p;"  required="true" requiredMessage=""/>
+
+                                    <b:inputSecret label="Passwort bestätigen" value="#{passwortresetBean.bestaetigtespw}" labelStyle="width:80px;"/>
+                                    <br></br>
+                                    <h:outputText value="#{passwortresetBean.messagePasswort}" style="color: red"/>
+                                
+                                    <b:commandButton value="Passort speichern" rendered="#{meinKontoBean.isAltesPasswortInputTextF}" action="#{passwortresetBean.speichernPasswortBenutzer()}" ></b:commandButton>
+
+                                    <b:commandButton value="Passort speichern" rendered="#{emailsecuritycodeBean.sicherheitsAntwortFeld}" action="#{passwortresetBean.speichernPasswortUser(emailsecuritycodeBean.username, emailsecuritycodeBean.prBeantime)}" ></b:commandButton>
+
+                                </h:panelGrid>
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </h:form>    
+
+
+
+                </div>
+
+                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+
+            </div>
+
+        </div>    
+^
+
+    </h:body>
+</html>
+

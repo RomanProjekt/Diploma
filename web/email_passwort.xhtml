@@ -3,52 +3,73 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Passwort Zurücksetzen</title>
-        <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name="Navbar.css" />
         <h:outputStylesheet library= "css" name="ep_styles.css" />
         <h:outputStylesheet library= "css" name="include_footer.css" />
-        
-       
+        <h:outputStylesheet library= "css" name="email_passwort.css" />
+
+
     </h:head>
     <h:body>
 
-        <ui:include src="/resources/include/navbar.xhtml" />
-        <ui:include src="/resources/include/footer.xhtml" />
+        <div id="wrapper" class="wrapper">
 
-        
 
-        <h:form>
+            <div id="contentindex" class="contentindex">
 
-            <div class="passwort">
-                
-                <h2 class="uberschrift">Passwort zurücksetzen</h2>
 
-                <div class="pw-grid">
-                    
-                    <h:panelGrid columns="1" cellpadding="1">
+                <div id="headindex" class="headerindex">
+                    <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
+                </div>
 
-                       
-                        <b:inputSecret label="Passwort" value="#{loginBean.pw}" labelStyle="width:80p;"  required="true" requiredMessage=""/>
 
-                        <b:inputSecret label="Passwort bestätigen" value="#{loginBean.bestätigtespw}" labelStyle="width:80px;"/>
-                        
+                <div id="main" class="mainindex">
 
-                        <br></br>
-                        <b:commandButton value="Passort speichern" action="login.xhtml" actionListener="#{loginBean.speichernPasswort()}"></b:commandButton>
 
-                    </h:panelGrid>
+                    <div class="content">
+
+
+                        <h:form>
+                            <h:panelGrid  columns="1" cellpadding="1" rendered="true">
+                                <h1>Finde dein Konto</h1>
+                                <h5>Bitte gib deine E-mail-Addresse oder deinen Benutzernamen ein, um nach deinem Konto zu suchen</h5>
+                                <b:inputText placeholder="Email-Addresse oder Benutzername" value="#{emailpasswortBean.reset}"/>     
+
+                                <b:commandButton id="button" class="suche" value="Suche" style="padding: 10px 32px;" action="#{emailpasswortBean.search()}"/>
+                                <br></br>
+                                <b:commandButton rendered="#{emailpasswortBean.pwresetbutton}" class="abbrechen" value="Abrechen" style="padding: 10px 32px;" action="index.xhtml"/> 
+                            </h:panelGrid>
+
+
+                            <h:panelGrid columns="1" cellpadding="1" rendered="#{emailpasswortBean.pwresettf}">
+                                <h1 id="h1">Setze dein Passwort zurück</h1>
+                                <h5 id="h2">Wie möchte den Code zurücksetzen deines Passworts erhalten</h5>
+                                <h5 id="h3">Code per E-Mail senden: #{emailpasswortBean.show_email}</h5>
+                                <h5 id="h3">Benutzername: #{emailpasswortBean.var_username}</h5>
+                                <b:commandButton class="Weiter" value="Weiter" style="padding: 10px 32px;" action="#{emailpasswortBean.passwort_vergessen()}"/>
+                                <br></br>
+                                <b:commandButton class="abbrechen" value="Abrechen" style="padding: 10px 32px;" action="index.xhtml"/> 
+                            </h:panelGrid>
+                        </h:form>
+                    </div>
+
+
+
+
 
                 </div>
-                
-                
+
+                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
 
             </div>
 
-        </h:form>    
+        </div>    
 
-         
     </h:body>
 </html>
 

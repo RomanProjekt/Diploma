@@ -1,33 +1,25 @@
 
-
-.body {
-/*    background-color: green;*/
-/*    height: 1000px;*/
-}
-
 .navbar {
-    background-color: lightgray;
-
-
+/*      background-color: lightgray;*/
+    background-color: whitesmoke;
 }
-
 
 .navbar form a{
     float: left;
     color: #464a56;
     text-align: center;
-    padding: 14px 10px;
+    padding: 12px 10px;
     text-decoration: none;
     font-size: 17px;
 }
 
-
 .navbar form label{
     color: #464a56;
+/*    color: white;*/
     text-align: center;
-    padding: 14px ;
+    padding: 12px ;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 15px;
     margin: 0px;
 }
 
@@ -35,6 +27,7 @@
     position: relative;
     list-style: none;
     color: #464a56;
+
     text-decoration: none;
     display: inline-block;
     float: right;
@@ -48,7 +41,20 @@
 }
 
 .navbar form .navLink:hover{
-    background-color: lightcoral;
+    background-color: #e40010;
+    color: white;
+}
+
+.benutzername {
+/*    background-color: blue;*/
+}
+
+
+.bn {
+    background-color: blue;
+    margin-right: 100px;
+    width: 30px;
+    height: 10px;
 }
 
 

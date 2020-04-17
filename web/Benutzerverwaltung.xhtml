@@ -16,6 +16,8 @@ and open the template in the editor.
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
         <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name= "benutzerverwaltung.css" />
+        <h:outputStylesheet library= "css" name="include_footer.css" />
 
         <script language="javascript">
             function reset() {
@@ -27,107 +29,140 @@ and open the template in the editor.
                 document.getElementById("iRolle").value = "";
             }
         </script>
+
     </h:head>
     <f:metadata>
         <f:viewAction action="#{databaseManagerService.isAdminRedirect()}" />
     </f:metadata>
+
     <h:body>
-        <ui:include src="/resources/include/navbar.xhtml" />
-        <f:view>
-            <h2>Benutzerverwaltung</h2>
-            <b:form id="form">
-
-                <b:dataTable value="#{benutzerverwaltungBean.benutzerList}" var="benutzer">
-
-                    <b:dataTableColumn label="Username">
-                        <h:outputText value="#{benutzer.username}" rendered="#{!benutzer.editable}" />
-                        <h:inputText value="#{benutzer.username}" required="true" rendered="#{benutzer.editable}" />
-                    </b:dataTableColumn>
-
-                    <b:dataTableColumn label="Firstname">
-                        <h:outputText value="#{benutzer.firstname}" rendered="#{!benutzer.editable}" />
-                        <h:inputText value="#{benutzer.firstname}" required="true" rendered="#{benutzer.editable}" />
-                    </b:dataTableColumn>
-
-                    <b:dataTableColumn label="Lastname">
-                        <h:outputText value="#{benutzer.lastname}" rendered="#{!benutzer.editable}" />
-                        <h:inputText value="#{benutzer.lastname}" required="true" rendered="#{benutzer.editable}" />
-                    </b:dataTableColumn>
-
-                    <b:dataTableColumn label="Rolle">
-                        <h:outputText value="#{benutzer.role}" rendered="#{!benutzer.editable}" /> 
-                        <b:selectOneMenu value="#{benutzer.role}" rendered="#{benutzer.editable}" > 
-
-                            <f:selectItem itemValue = "Admin" itemLabel = "Admin" /> 
-                            <f:selectItem itemValue = "Redakteur" itemLabel = "Redakteur" /> 
-                            <f:selectItem itemValue = "User" itemLabel = "User" /> 
-                        </b:selectOneMenu>
-                    </b:dataTableColumn>
-
-                    <b:dataTableColumn label="Löschen">
-                        <b:commandButton value="X" action="#{benutzerverwaltungBean.delete(benutzer.user_id)}"/>
-                    </b:dataTableColumn>
-
-                    <b:dataTableColumn label="Ändern">
-                        <b:commandButton value="Ändern" action="#{benutzerverwaltungBean.modify(benutzer)}" rendered="#{!benutzer.editable}" />
-                        <b:commandButton value="Speichern" action="#{benutzerverwaltungBean.save(benutzer)}" rendered="#{benutzer.editable}" />
-                    </b:dataTableColumn>
-
-                    <b:dataTableColumn label="Passwort zurücksetzen">
-                        <b:commandButton  value="Reset" />
-                    </b:dataTableColumn>
-
-                </b:dataTable> 
 
 
-                <br /><br />
+        <div id="wrapper" class="wrapper">
 
 
+            <div id="contentindex" class="contentindex">
 
-                <div style="margin-left: 20%; margin-right: 20%;">
-                    <b:panelGrid colSpans="1,4,7" columns="3">
-                        <h:outputLabel id="oUsername" value="Username: " for="username" rendered="#{benutzerverwaltungBean.newUser}" />
-                        <b:inputText  id="iUsername"  value="#{benutzerverwaltungBean.username}" required="true" rendered="#{benutzerverwaltungBean.newUser}"/>
 
-                        <b:message for="iUsername" style="color: red" />
-
-                        <h:outputLabel id="oPasswort" value="Passwort: " for="password" rendered="#{benutzerverwaltungBean.newUser}" />
-                        <b:inputSecret  id="iPasswort" value="#{benutzerverwaltungBean.password}" required="true" rendered="#{benutzerverwaltungBean.newUser}"/>
-                        <h:message for="iPasswort" style="color: red" />
-
-                        <h:outputLabel id="oFirstname" value="Vorname: " for="firstname" rendered="#{benutzerverwaltungBean.newUser}" />                
-                        <b:inputText  id="iFirstname" value="#{benutzerverwaltungBean.firstname}" required="true" rendered="#{benutzerverwaltungBean.newUser}"/>
-                        <b:message for="iFirstname" style="color: red" />
-
-                        <h:outputLabel id="oLastname" value="Nachname: " for="lastname" rendered="#{benutzerverwaltungBean.newUser}" />
-                        <b:inputText  id="iLastname" value="#{benutzerverwaltungBean.lastname}" required="true" rendered="#{benutzerverwaltungBean.newUser}"/>
-                        <b:message for="iLastname" style="color: red" />
-
-                        <h:outputLabel id="oEmail" value="E-Mail: " for="email" rendered="#{benutzerverwaltungBean.newUser}" />
-                        <b:inputText id="iEmail" value="#{benutzerverwaltungBean.email}" required="true" rendered="#{benutzerverwaltungBean.newUser}" validatorMessage="E-Mail not valid">
-                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                        </b:inputText>
-                        <b:message for="iEmail" style="color: red" />
-
-                        <h:outputLabel id="oRolle" value="Rolle: " for="rolle" rendered="#{benutzerverwaltungBean.newUser}" />
-                        <b:selectOneMenu value="#{benutzerverwaltungBean.rolle}" rendered="#{benutzerverwaltungBean.newUser}" > 
-                            <f:selectItem itemValue = "Admin" itemLabel = "Admin" /> 
-                            <f:selectItem itemValue = "Redakteur" itemLabel = "Redakteur" /> 
-                            <f:selectItem itemValue = "User" itemLabel = "User" /> 
-                        </b:selectOneMenu>
-                        <b:message for="iRolle" style="color: red" />
-                    </b:panelGrid>
-
-                    <h:outputText value="#{benutzerverwaltungBean.message}" style="color: red"/>
-
-                    <b:commandButton value="Neuer Benutzer anlegen" action="#{benutzerverwaltungBean.showNewUser()}" rendered="#{!benutzerverwaltungBean.newUser}"/>
-                    <b:commandButton value="Benutzer speichern" action="#{benutzerverwaltungBean.saveUser()}"  rendered="#{benutzerverwaltungBean.newUser}"/>
-                    <b:commandButton value="Abbrechen" action="#{benutzerverwaltungBean.cancelUser()}" immediate="true" rendered="#{benutzerverwaltungBean.newUser}"/>
-                    <b:button value="Benutzerdaten zurücksetzen"  onclick="reset()" rendered="#{benutzerverwaltungBean.newUser}"/>
+                <div id="headindex" class="headerindex">
+                    <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
                 </div>
 
-            </b:form>    
-        </f:view>
+
+                <div id="main" class="mainindex">
+
+                    <h3>Benutzerverwaltung</h3>
+
+                    <b:form id="formbdfasdfsdf">
+
+                        <b:dataTable id="benutzertable" value="#{benutzerverwaltungBean.benutzerList}" var="benutzer">
+
+                            <b:dataTableColumn label="Username">
+                                <h:outputText value="#{benutzer.username}" rendered="#{!benutzer.editable}" />
+                                <h:inputText value="#{benutzer.username}" required="true" rendered="#{benutzer.editable}" />
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="Firstname">
+                                <h:outputText value="#{benutzer.firstname}" rendered="#{!benutzer.editable}" />
+                                <h:inputText value="#{benutzer.firstname}" required="true" rendered="#{benutzer.editable}" />
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="Lastname">
+                                <h:outputText value="#{benutzer.lastname}" rendered="#{!benutzer.editable}" />
+                                <h:inputText value="#{benutzer.lastname}" required="true" rendered="#{benutzer.editable}" />
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="Rolle">
+                                <h:outputText value="#{benutzer.role}" rendered="#{!benutzer.editable}" /> 
+                                <b:selectOneMenu value="#{benutzer.role}" rendered="#{benutzer.editable}" > 
+
+                                    <f:selectItem itemValue = "Admin" itemLabel = "Admin" /> 
+                                    <f:selectItem itemValue = "Redakteur" itemLabel = "Redakteur" /> 
+                                    <f:selectItem itemValue = "User" itemLabel = "User" /> 
+                                </b:selectOneMenu>
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="Löschen">
+                                <b:commandButton value="X" action="#{benutzerverwaltungBean.delete(benutzer.user_id)}"/>
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="Ändern">
+                                <b:commandButton value="Ändern" action="#{benutzerverwaltungBean.modify(benutzer)}" rendered="#{!benutzer.editable}" />
+                                <b:commandButton value="Speichern" action="#{benutzerverwaltungBean.save(benutzer)}" rendered="#{benutzer.editable}" />
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="Passwort zurücksetzen">
+                                <b:commandButton  value="Reset" action="AdminPasswortReset.xhtml?faces-redirect=true&amp;includeViewParams=true"/>
+                            </b:dataTableColumn>
+
+                        </b:dataTable>    
+
+                    </b:form>    
+
+                </div>
+
+                <div id="neuerb" class="neuerb">
+                    
+                     <h:form id="belemente">
+                        <h4>Neuer Benutzer anlegen</h4>
+                        <b:commandButton value="Neuer Benutzer" action="#{benutzerverwaltungBean.showNewUser()}" rendered="#{!benutzerverwaltungBean.newUser}"/>
+                        
+                        
+                        <div id="panelgrid" style="margin-left: 80px;">
+                            <b:panelGrid colSpans="1,4,7" columns="3">
+                                <h:outputLabel style="margin-left: -80px;" id="oUsername" value="Username: " for="username" rendered="#{benutzerverwaltungBean.newUser}" />
+                                <b:inputText  id="iUsername"  value="#{benutzerverwaltungBean.username}" required="true" rendered="#{benutzerverwaltungBean.newUser}"/>
+
+                                <b:message for="iUsername" style="color: red" />
+
+                                <h:outputLabel style="margin-left: -80px;" id="oPasswort" value="Passwort: " for="password" rendered="#{benutzerverwaltungBean.newUser}" />
+                                <b:inputSecret  id="iPasswort" value="#{benutzerverwaltungBean.password}" required="true" rendered="#{benutzerverwaltungBean.newUser}"/>
+                                <h:message for="iPasswort" style="color: red" />
+
+                                <h:outputLabel style="margin-left: -80px;" id="oFirstname" value="Vorname: " for="firstname" rendered="#{benutzerverwaltungBean.newUser}" />                
+                                <b:inputText  id="iFirstname" value="#{benutzerverwaltungBean.firstname}" required="true" rendered="#{benutzerverwaltungBean.newUser}"/>
+                                <b:message for="iFirstname" style="color: red" />
+
+                                <h:outputLabel style="margin-left: -80px;" id="oLastname" value="Nachname: " for="lastname" rendered="#{benutzerverwaltungBean.newUser}" />
+                                <b:inputText  id="iLastname" value="#{benutzerverwaltungBean.lastname}" required="true" rendered="#{benutzerverwaltungBean.newUser}"/>
+                                <b:message for="iLastname" style="color: red" />
+
+                                <h:outputLabel style="margin-left: -80px;" id="oEmail" value="E-Mail: " for="email" rendered="#{benutzerverwaltungBean.newUser}" />
+                                <b:inputText id="iEmail" value="#{benutzerverwaltungBean.email}" required="true" rendered="#{benutzerverwaltungBean.newUser}" validatorMessage="E-Mail not valid">
+                                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                </b:inputText>
+                                <b:message for="iEmail" style="color: red" />
+
+                                <h:outputLabel style="margin-left: -80px;" id="oRolle" value="Rolle: " for="rolle" rendered="#{benutzerverwaltungBean.newUser}" />
+                                <b:selectOneMenu value="#{benutzerverwaltungBean.rolle}" rendered="#{benutzerverwaltungBean.newUser}" > 
+                                    <f:selectItem itemValue = "Admin" itemLabel = "Admin" /> 
+                                    <f:selectItem itemValue = "Redakteur" itemLabel = "Redakteur" /> 
+                                    <f:selectItem itemValue = "User" itemLabel = "User" /> 
+                                </b:selectOneMenu>
+                                <b:message for="iRolle" style="color: red" />
+                            </b:panelGrid>
+
+                            <h:outputText value="#{benutzerverwaltungBean.message}" style="color: red"/>
+                            
+                            <br></br>
+                            <b:commandButton value="Benutzer speichern" action="#{benutzerverwaltungBean.saveUser()}"  rendered="#{benutzerverwaltungBean.newUser}"/>
+                            <b:commandButton value="Abbrechen" action="#{benutzerverwaltungBean.cancelUser()}" immediate="true" rendered="#{benutzerverwaltungBean.newUser}"/>
+                            <b:button value="Benutzerdaten zurücksetzen"  onclick="reset()" rendered="#{benutzerverwaltungBean.newUser}"/>
+
+                           
+                        </div>
+                    </h:form>
+                   
+                    
+                </div>
+
+            </div>
+
+        </div>    
+
+
+
 
 
     </h:body>

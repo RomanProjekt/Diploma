@@ -9,7 +9,8 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
@@ -17,39 +18,70 @@ and open the template in the editor.
         <h:outputStylesheet library="css" name="login.css" />
         <h:outputStylesheet library= "css" name= "include_footer.css" />
         
-
+         <f:metadata>
+             <f:viewParam name="pwra" value="#{passwortresetBean.passwortalert}"/>
+        </f:metadata>
     </h:head>
     <f:metadata>
-<!--        <f:event type="preRenderView" listener="#{loginBean.onLoad()}" />-->
-<!--        <f:viewAction action="#{loginBean.checkF5()}" onPostback="true" />-->
+
     </f:metadata>
     <h:body>
-        <ui:include src="/resources/include/navbar.xhtml" />
-        <ui:include src="/resources/include/footer.xhtml" />
-        <f:view >
-            <div class="login">
-                <h3>Anmeldung</h3>
-                <b:form id="log" >
+        
 
-                    <b:inputText placeholder="Username" value="#{loginBean.username}" labelStyle="width:80px;" required="true" requiredMessage="" />
-                    <b:inputSecret placeholder="Passwort" value="#{loginBean.pw}"  labelStyle="width:80px;" required="true" requiredMessage="" />
+            <div id="wrapper" class="wrapper">
 
 
-                    <b:commandButton class="cButton" value="Anmelden" action="#{loginBean.load()}" />
-                    <b:commandButton class="cButton" value="Registrieren" action="register.xhtml" />
-                    <br />
+                <div id="contentindex" class="contentindex">
+                    
+                    
+                    
+
+                    <div id="headindex" class="headerindex">
+                        <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                        <div class="red"></div>
+                        <div class="alert"><b:alert value="" rendered="#{passwortresetBean.passwortalert}" severity="success"><strong>Passwort erfolgreich zurückgesetzt!!</strong> </b:alert></div>
+                    </div>
+
+                    
+                    <div id="main" class="mainindex">
+                        
+                        
 
 
-                    <br />
-                    <h:outputText value="#{loginBean.message}" style="color: red" />
-                </b:form>
+                        <div class="login">
 
-                <h:form>
-                    <h:commandLink class="cLink" value="Passwort vergessen" action="#{loginBean.passwort_vergessen()}" />
-                </h:form>
+                            <h4>Anmeldung</h4>
+                            <b:form id="log" >
 
-                
-            </div>
-        </f:view>
+                                <b:inputText placeholder="Username" value="#{loginBean.username}" labelStyle="width:80px;" required="true" requiredMessage="" />
+                                <b:inputSecret placeholder="Passwort" value="#{loginBean.pw}"  labelStyle="width:80px;" required="true" requiredMessage="" />
+
+                                <b:commandButton class="cButton" value="Anmelden" action="#{loginBean.load()}" />
+                                <b:commandButton class="cButton" value="Registrieren" action="register.xhtml" />
+                                <br />
+                                <br />
+                                <h:outputText value="#{loginBean.message}" style="color: red" />
+                            </b:form>
+
+                            <h:form>
+                                <h5 class="uberschrift1">Mit der Anmeldung erkläre ich mich mit der <h:outputLink value="https://www.arbeiterkammer.at/Datenschutz.html" target="_blank" >Datenschutzerklärung</h:outputLink> einverstanden!</h5>
+                            
+                                <h:commandLink class="cLink" value="Passwort vergessen" action="email_passwort.xhtml" />
+                            </h:form>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+
+                </div>
+
+            </div>    
+
+
+
+     
     </h:body>
 </html>

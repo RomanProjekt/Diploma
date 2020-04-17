@@ -36,25 +36,20 @@ public class updateDiplomarbeit {
     private Date datum;
 
     private final List<String> typeaheadSchl;
-
-    private List<Autor> autList;
-
+    private DatabaseManagerService dbService;
+    
     private List<Schlagwort> schlagwortList;
-
     private HashMap<String, Integer> allSchlagwortMap;
     private List<Schlagwort> allSchlagwortList;
-
-    private DatabaseManagerService dbService;
-
+ 
+    //Autor einfügen
+    private List<Autor> autList;
     private int autId;
     private int schlagId;
-
     private HashMap<Integer, Autor> editAutMap;
-
     private HashMap<Integer, Autor> insAutMap;
     private HashMap<Integer, Schlagwort> insSchlagMap;
     private List<Schlagwort> insertSchlagList;
-
     private HashMap<Integer, Autor> remAutMap;
     private HashMap<Integer, Schlagwort> remSchlagMap;
 
@@ -77,13 +72,18 @@ public class updateDiplomarbeit {
     }
 
     @PostConstruct
-    private void init() {
+    public void init() {
         schulList = dbService.getSchuleList();
+        schlagwortList = new ArrayList<>();
+        this.allSchlagwortMap = dbService.getAllSchlagwoerterHashMap();
+        
     }
 
     public Object editDiplomarbeit(Diplomarbeit dip) {
+        
         aktDip = new Diplomarbeit(dip.getDa_id(), dip.getTitle(), dip.getAutor_id(), dip.getSchule_id(), dip.getPdf(), dip.getUser_id(), dip.getDatum(), dip.getBild(), 0, 0);
         oldDip = new Diplomarbeit(dip.getDa_id(), dip.getTitle(), dip.getAutor_id(), dip.getSchule_id(), dip.getPdf(), dip.getUser_id(), dip.getDatum(), dip.getBild(), 0, 0);
+        
         this.autList = dbService.getAllAutor(aktDip.getDa_id());
 
         this.datum = aktDip.getDatum();
@@ -128,13 +128,18 @@ public class updateDiplomarbeit {
         autEdit = false;
         return null;
     }
+    
+    
 
     public Object addTag() {
+        
         if (!"".equals(schlagwort) && schlagwort != null) {
+            
             if (allSchlagwortMap.containsKey(schlagwort)) {
                 Schlagwort schlag = new Schlagwort(allSchlagwortMap.get(schlagwort), schlagwort);
                 this.schlagwortList.add(schlag);
                 this.insSchlagMap.put(schlag.getTag_id(), schlag);
+                
             } else {
                 Schlagwort schlag = new Schlagwort(schlagId, schlagwort);
                 this.schlagwortList.add(schlag);
@@ -160,13 +165,20 @@ public class updateDiplomarbeit {
     }
 
     public Object removeTag(Schlagwort schlagw) {
+        
+        System.out.println(schlagw);
 
         if (insSchlagMap.containsKey(schlagw.getTag_id())) {
+            
             this.insSchlagMap.remove(schlagw.getTag_id());
+            
         } else {
+            
             this.remSchlagMap.put(schlagw.getTag_id(), schlagw);
+            
         }
         this.schlagwortList.remove(schlagw);
+        
         return null;
     }
 
@@ -425,5 +437,9 @@ public class updateDiplomarbeit {
     public List<String> getTypeaheadSchl() {
         return typeaheadSchl;
     }
+    
+    
+     
+  
 
 }

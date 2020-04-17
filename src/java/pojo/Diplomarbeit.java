@@ -67,13 +67,7 @@ public class Diplomarbeit {
         this.autor_id = autor_id;
     }
 
-//    public int getSw_id() {
-//        return sw_id;
-//    }
-//
-//    public void setSw_id(int sw_id) {
-//        this.sw_id = sw_id;
-//    }
+
     public String getPdf() {
         return pdf;
     }

@@ -8,10 +8,7 @@ package presentation;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletContext;
@@ -21,6 +18,33 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import pojo.Diplomarbeit;
 import service.DatabaseManagerService;
+
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import static java.lang.Thread.sleep;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PageDrawerParameters;
 
 /**
  *
@@ -35,6 +59,9 @@ public class pdfviewerBean {
     private int aktuelleseitenanzahl;
     private String varseitenanzahl;
     private String image_pfad;
+    private String pdf;
+    
+    private String server_diplomarbeit_pfad;
     
     
     public pdfviewerBean() {
@@ -101,90 +128,58 @@ public class pdfviewerBean {
     public void setImage_pfad(String image_pfad) {
         this.image_pfad = image_pfad;
     }
-    
-    
-    
-    
-    private String generateImageFromPDF(PDDocument doc, int sz) throws IOException {
-        //File imageFile = null;
-        //imageFile = new File(server_diplomarbeit_pfad + "/template_image.jpg");
 
-        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
-        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
-        
-        
-        PDFRenderer pdfRenderer = new PDFRenderer(doc);
-        BufferedImage bim = pdfRenderer.renderImageWithDPI(sz, 300, ImageType.RGB);
-        
-        String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/test/";
+//    public String getPdf() {
+//        return "G:/AK_Projekt/DA_AK/web/resources/pdf/Diplomarbeit12.pdf";
+//    }
 
-        ImageIOUtil.writeImage(bim,String.format(server_diplomarbeit_pfad + "/image.%s" ,"jpg"),300);
-        
-        return server_diplomarbeit_pfad;
+    public String getPdf() {
+        return pdf;
+    }
+
+    public void setPdf(String pdf) {
+        this.pdf = pdf;
     }
     
+    
+
+    public String getServer_diplomarbeit_pfad() {
+        return server_diplomarbeit_pfad;
+    }
+
+    public void setServer_diplomarbeit_pfad(String server_diplomarbeit_pfad) {
+        this.server_diplomarbeit_pfad = server_diplomarbeit_pfad;
+    }
+
     
 
     //Diplomarbeitn ansehen
     public String diplomarbeitansehen(Diplomarbeit diplomarbeit) throws IOException {
-         //---------------pdf Seiten in ein Bild speichern!!!--------------
+        System.out.println("-----------------------------" + diplomarbeit);
+        this.pdf = diplomarbeit.getPdf();
         
-        dip = diplomarbeit;
-        System.out.println(dip.getPdf());
-        document = PDDocument.load(new File(dip.getPdf()));
-        System.out.println(document);
-//        this.aktuelleseitenanzahl = document.getPages().getCount();
-        this.image_pfad = this.generateImageFromPDF(document, 1);
-
-
-        //-------------------------------------------------------
-
+        System.out.println("-------------------" + this.pdf);
         return "PDFViewer.xhtml";
     }
+    
+   
+    
+//    public String readDiplomarbeit() {
+//        try {
+//            sleep(1000);
+//            return this.getServer_diplomarbeit_pfad();
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(pdfviewerBean.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return this.getServer_diplomarbeit_pfad();
+//    }
 
     
-    public Object hochzaehlen(ActionEvent actionEvent) {
-        
-        
-        if (document.getNumberOfPages() > 0) {
+//        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+//        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+//        server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/" + diplomarbeit.getTitle() + ".pdf";
+//        System.out.println(this.server_diplomarbeit_pfad);  
+    
 
-            
-            //maxszahl = 2
-            if ((this.seitenanzahl < document.getNumberOfPages()) & (this.seitenanzahl > 0)) {
-                this.seitenanzahl = this.seitenanzahl + 1;
-                String varseitenanzahl = String.valueOf(seitenanzahl);
-             
-               
-            }
-          
-        }
-        
-        return null;
-
-    }
-    
-    
-    
 }
-
-
-//--------------------------------------------------------------------------
-//        File temp = File.createTempFile(dip.getTitle(), ".pdf");
-//        
-//        File testPdfFile = new File("D:\AFC150_20180819_0103.pdf");
-//        FacesContext fc = FacesContext.getCurrentInstance();
-//        ExternalContext ec = fc.getExternalContext();
-//
-//        ec.responseReset(); 
-//        ec.setResponseContentType("application/pdf"); 
-//        ec.setResponseContentLength((int)testPdfFile.length()); 
-//
-//        //Inline
-//        //ec.setResponseHeader("Content-Disposition", "inline; filename=\"" + testPdfFile.getName() + "\""); 
-//
-//        //Attach for Browser
-//        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + testPdfFile.getName() + "\""); 
-//
-//        OutputStream output = ec.getResponseOutputStream();
-//        Files.copy(testPdfFile.toPath(), output);
-//        fc.responseComplete();
+    

@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Meine Diplomarbeiten</title>
+        <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name= "meinedip.css" />
+        <h:outputStylesheet library= "css" name= "include_footer.css" />
+    </h:head>
+    <f:metadata>
+        <f:viewAction action="#{databaseManagerService.stillLoggedIn()}" />
+        <f:viewAction action="#{meinKontoBean.init()}" />
+    </f:metadata>
+    <h:body>
+
+        <div id="wrapper" class="wrapper">
+
+
+            <div id="contentindex" class="contentindex">
+
+
+                <div id="headindex" class="headerindex">
+                    <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
+                </div>
+
+
+                <div id="main" class="mainindex">
+
+                    <f:view>
+                        <div class="meinKonto" > 
+                            <b:form id="table1">
+                                <div class="favoriten" >
+                                    <h3 style="padding-bottom: 10px;">Ihre Favoriten</h3>
+                                    <b:dataTable  id="favTable" style="width: 1000px" value="#{meinKontoBean.favList}"  var="diplomarbeit" class="favoritenTable"  rendered="#{!meinKontoBean.favIsEmpty()}">
+                                        <b:dataTableColumn label="Logo" >
+                                            <h:graphicImage value="#{diplomarbeit.bild}" height="50px" width="50px" />
+                                        </b:dataTableColumn>
+                                        <b:dataTableColumn label="Titel">
+                                            <h:outputText value="#{diplomarbeit.title}" />
+                                        </b:dataTableColumn>
+
+                                        <b:dataTableColumn label="">
+                                            <b:commandButton value="Ansehen" action="#{dipansehenBean.werteanzeigen(diplomarbeit)}" />
+                                        </b:dataTableColumn>
+                                        <b:dataTableColumn label="">
+                                            <b:commandButton value="Löschen" action="#{meinKontoBean.deletefav(diplomarbeit)}" > 
+                                                <f:ajax render="@form"  />
+                                            </b:commandButton>
+
+                                        </b:dataTableColumn>
+                                    </b:dataTable>
+                                    <h:outputLabel rendered="#{meinKontoBean.favIsEmpty()}">Sie haben noch keine Favoriten hinzugefügt</h:outputLabel>
+                                </div>
+                           
+                            <br/>
+                            </b:form>
+
+                            <b:form id="table2" rendered="#{!databaseManagerService.isUser()}">
+
+                                <div id="divuploadDA" class="uploadedDA">
+                                    
+                                    <h3 style="padding-bottom: 10px;">Ihre hochgeladenen Diplomarbeiten</h3>
+
+                                    <b:dataTable id="hochgdip" value="#{meinKontoBean.redList}" var="diplomarbeit"  >
+                                        <b:dataTableColumn label="Logo" >
+                                            <h:graphicImage value="#{diplomarbeit.bild}" height="50px" width="50px" />
+                                        </b:dataTableColumn>
+
+                                        <b:dataTableColumn label="Titel">
+                                            <h:outputText value="#{diplomarbeit.title}" />
+                                        </b:dataTableColumn>
+                                        <b:dataTableColumn label="">
+                                            <b:commandButton value="Ansehen" action="#{dipansehenBean.werteanzeigen(diplomarbeit)}" />
+                                        </b:dataTableColumn>
+                                        <b:dataTableColumn label="" >
+                                            <b:commandButton value="Daten Ändern" action="#{updateDiplomarbeit.editDiplomarbeit(diplomarbeit)}"/>
+                                        </b:dataTableColumn>
+                                         <b:dataTableColumn label="">
+                                            <b:commandButton value="Löschen" action="#{meinKontoBean.delteDip(diplomarbeit)}" >
+                                                <f:ajax render="@form"  />
+                                            </b:commandButton>
+                                        </b:dataTableColumn>
+
+                                       
+
+                                    </b:dataTable>
+                                   
+                                </div>
+                                
+                            </b:form>
+                           
+                        </div>
+                       
+                    </f:view>
+
+                </div>
+
+<!--                 <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>-->
+
+            </div>
+
+        </div>    
+
+
+    </h:body>
+</html>
+

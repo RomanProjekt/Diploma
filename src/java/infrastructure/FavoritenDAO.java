@@ -53,9 +53,11 @@ public class FavoritenDAO {
         return listfav_dip;
 
     }
+    
+   //"INSERT INTO diplomarbeit" + "(da_id, titel, autor_id, schule_id, pdf, benutzer_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ? ,? ,? ,?, ?, ?, ?)"
 
     public int insert(int dp_id, int b_id) {
-        String query = "insert into favoriten(`benutzer_id`, `da_id`) values(?, ?)";
+        String query = "INSERT INTO favoriten (benutzer_id, da_id) VALUES(?, ?)";
         int result = 0;
 
         try (

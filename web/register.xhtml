@@ -16,41 +16,71 @@ and open the template in the editor.
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "register.css" />
         <h:outputStylesheet library= "css" name= "include_footer.css" />
+<!--        <h:outputStylesheet library= "css" name= "Main.css" />-->
 
     </h:head>
     <h:body>
-        <ui:include src="/resources/include/navbar.xhtml" />
-        <ui:include src="/resources/include/footer.xhtml" />
-        <f:view>
-            <div class="register">
-                <h3>Registrierung</h3>
-                <b:form id="reg"  >
+
+        <div id="wrapper" class="wrapper">
+
+
+            <div id="contentindex" class="contentindex">
+
+
+                <div id="headindex" class="headerindex">
+                    <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
+                </div>
+
+
+                <div id="main" class="mainindex">
+
+
+                    <div class="register">
+                        
+                        <h4>Registrierung</h4>
+                        <br></br>
+                        
+                        <b:form id="reg"  >
+
+
+                            <b:inputText placeholder="Benutzername" value="#{registerBean.username}" required="true" requiredMessage="" />
+                            <b:inputSecret placeholder="Passwort" value="#{registerBean.pw}" required="true" requiredMessage="" />
+
+
+                            <b:inputText placeholder="Vorname" value="#{registerBean.firstName}" required="true" requiredMessage="" />
+
+                            <b:inputText placeholder="Nachname" value="#{registerBean.lastName}" required="true" requiredMessage="" />
+
+                            <b:inputText placeholder="E-Mail" id="eMail" value="#{registerBean.email}" required="true" requiredMessage="" validator-message="Keine Gültige E-Mail Adresse" > 
+                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                            </b:inputText>
+                            <h:message for="eMail" style="color: red" />
+
+                            <br/>
+                            <h5>Bitte gib eine Sicherheitsantwort ein. Diese wird benötigt, um das Passwort zurückzusetzen</h5>
+                            <b:inputText placeholder="Sicherheitsantwort" value="#{registerBean.securityanswer}" required="true" requiredMessage="" />
+                            <br />
+
+                            #{registerBean.message}
+
+                            <b:commandButton class="regbutton" onmousedown="color:red;" value="Registrierung" action="#{registerBean.register()}" />
+
+
+                        </b:form>
+                    </div>
 
 
 
-                    <b:inputText placeholder="Benutzername" value="#{registerBean.username}" required="true" requiredMessage="" />
-                    <b:inputSecret placeholder="Passwort" value="#{registerBean.pw}" required="true" requiredMessage="" />
 
 
-                    <b:inputText placeholder="Vorname" value="#{registerBean.firstName}" required="true" requiredMessage="" />
+                </div>
 
-                    <b:inputText placeholder="Nachname" value="#{registerBean.lastName}" required="true" requiredMessage="" />
+                <ui:include src="/resources/include/footer.xhtml" />
 
-                    <b:inputText placeholder="E-Mail" id="eMail" value="#{registerBean.email}" required="true" requiredMessage="" validator-message="Keine Gültige E-Mail Adresse" > 
-                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                    </b:inputText>
-                    <h:message for="eMail" style="color: red" />
-                    <br />
-
-                    #{registerBean.message}
-
-
-
-                    <b:commandButton value="Registrierung" action="#{registerBean.register()}" />
-
-
-                </b:form>
             </div>
-        </f:view>
+
+        </div>    
+
     </h:body>
 </html>

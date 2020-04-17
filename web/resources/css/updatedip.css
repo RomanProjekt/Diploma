@@ -1,0 +1,91 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14.04.2020, 15:44:50
+    Author     : hp
+*/
+
+.body {
+    width: 100%;
+
+}
+
+.wrapper {
+    width: 100%;
+}
+
+
+.contentindex {  
+    transform: scale(1.4);
+    margin: 150px 0 0 25%;
+    width: 1050px;
+    height: auto;
+}
+
+.mainindex {
+/*    background-color: red;*/
+    margin: 35px 0 0 0;
+    width: 100%;
+    height: 650px;
+    padding-bottom: 100px;
+}
+
+
+.headerindex {
+    width: 100%;
+    height: 50px;
+    margin: 0 0 0 0;  
+}
+
+
+.footerindex {
+    margin: 0 0 0 0;
+    height: auto;
+}
+
+.red {
+    background-color: red;
+    width:  100%;
+    height: 5px;
+    margin: -18px 0 0 0;  
+}
+
+
+.firstTable {
+    position: absolute;
+/*    background-color: yellow; */
+    width: 250px;
+    margin: 40px 0 0 50px;
+    
+}
+
+.secondTable {
+    position: absolute;
+/*    background-color: green;*/
+    width: 300px; 
+    margin: 40px 0 0 385px;
+}
+
+
+.mainTable {
+    background-color: orange;
+    
+}
+
+
+
+.thirdTable {
+    position: absolute;
+/*    background-color: blue;*/
+    width: 250px;
+    margin: 40px 0 0 750px;
+}
+
+
+.uberschrift {
+    margin: 0 0 0 37%;
+/*    background-color: violet;*/
+}

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+        <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
+        <h:outputStylesheet library= "css" name= "bibliothek.css" />
+        <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name= "upload.css" />
+        <h:outputStylesheet library= "css" name= "include_footer.css" />
+
+    </h:head>
+    <f:metadata>
+        <f:viewAction action="#{databaseManagerService.isUserRedirect()}" />
+    </f:metadata>
+    <h:body>
+
+        <div id="wrapper" class="wrapper">
+
+
+
+            <div id="contentindex" class="contentindex">
+
+
+                <div id="headindex" class="headerindex">
+
+                    <div class="firstheader"><ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
+
+                </div>
+
+
+
+
+
+                <b:form id="formtable1" enctype="multipart/form-data">
+
+                    <div id="main" class="mainindex">
+
+                        <div id="mainTable" class="mainTable"> 
+
+                            <div id="firstTable" class="firstTable">
+
+
+                                <h:panelGrid columns="1" cellpadding="5">
+
+
+
+                                    <b:inputText label="Titel" value="#{uploadBean.titel}" labelStyle="width:80px;" />
+
+                                    <h:outputText value="#{uploadBean.titel_fail}"></h:outputText>
+                                    <br/>
+
+                                    <b:inputText value="#{uploadBean.autor}" label="Autor"  />
+                                    <b:commandButton value="Add Autor" action="#{uploadBean.addAutor()}">   
+                                    </b:commandButton>
+                                    
+
+                                    <br/><br/>
+
+                                    <p:dataTable  class="noborder" value="#{uploadBean.autList}" var="autor" >
+                                        <p:column headerText="Autor">
+                                            <h:outputText value="#{autor.fullName}" rendered="#{!uploadBean.editAutor}" />
+                                            <h:inputText value="#{autor.fullName}" rendered="#{uploadBean.editAutor}" /> 
+                                        </p:column>
+
+                                        <p:column headerText="Löschen">
+                                            <b:commandButton value="X" action="#{uploadBean.removeAutor(autor)}" />
+                                        </p:column>
+
+                                        <p:column headerText="Edit">
+                                            <b:commandButton value="Edit" action="#{uploadBean.editAutor(autor)}"  rendered="#{!uploadBean.editAutor}" />
+                                            <b:commandButton value="Save" action="#{uploadBean.editAutor(autor)}" rendered="#{uploadBean.editAutor}" />
+                                        </p:column>
+
+
+
+                                    </p:dataTable>
+                                    
+                                    <b:alert value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
+
+
+
+
+                                </h:panelGrid>
+
+
+                            </div>
+
+
+
+
+                            <div class="secondTable">
+
+
+                                <b:inputText label="Schlagwort" value="#{updateDiplomarbeit.schlagwort}" typeahead="true" typeahead-limit="20"   typeahead-values="#{uploadBean.allSchlagwTypeahead}" />
+                                <br/><br/>
+                                <b:commandButton value="Add Tag" action="#{updateDiplomarbeit.addTag()}" /> 
+
+                                <br/><br/>
+
+                                <p:dataTable style="width: 100%" class="table2" value="#{updateDiplomarbeit.schlagwortList}" var="schlw" >
+                                    <p:column headerText="Schlagwort">
+                                        <h:outputText value="#{schlw.word}"  />  
+                                    </p:column>
+
+                                    <p:column headerText="Löschen">
+                                        <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlw)}" />
+                                    </p:column>
+                                </p:dataTable>
+
+                            </div>
+
+
+                            <div class="thirdTable">
+
+
+                                <b:dateTimePicker format="DD.MM.YYYY" value="#{uploadBean.datum}" label="Datum" />
+                                <br/>
+                                <h:outputLabel value="Schule"></h:outputLabel>
+                                <b:selectOneMenu value="#{uploadBean.realSchule}"  >
+                                    <f:selectItems value="#{uploadBean.schulList}" var="schule" itemValue="#{schule}" itemLabel="#{schule.name}" />
+                                </b:selectOneMenu>
+                                <br/>                    
+
+
+
+
+                                <h5>Diplomarbeit</h5>
+                                <h:inputFile  value="#{uploadBean.diplomarbeit}"  ></h:inputFile>
+                                <h:outputText value="#{uploadBean.pdfdabei_fail}"></h:outputText>
+                                <br/>
+
+                                <h5>Bild</h5>
+                                <h:inputFile  value="#{uploadBean.image}" ></h:inputFile>
+                                <h:outputText value="#{uploadBean.bilddatei_fail}"  ></h:outputText>
+                                <br/>
+
+
+
+                                <b:commandButton value="Diplomarbeit hochladen" action="#{uploadBean.upload_diplomarbeit()}" />
+                                <br/><br/>
+
+                                <b:commandButton value="Back" action="index.xhtml" />
+
+                            </div>
+
+
+
+                        </div>  
+
+
+                    </div>
+                </b:form> 
+
+
+
+                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+
+            </div>
+        </div>        
+
+    </h:body>
+</html>

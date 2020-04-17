@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -44,9 +46,12 @@ public class dipansehenBean {
 
     private DatabaseManagerService dbService;
 
-    //downlaod-Counter
+    //Click/Downlaod-Counter
     private int download_count;
     private int click_count;
+    private String DateBefore;
+    private String TimeBefore;
+    private boolean resetcounter;
 
     public dipansehenBean() {
 
@@ -54,7 +59,7 @@ public class dipansehenBean {
 
     @PostConstruct
     void init() {
-        dbService = new DatabaseManagerService();
+       
     }
 
     public String getTitel() {
@@ -178,18 +183,88 @@ public class dipansehenBean {
         this.download_count = download_count;
     }
 
-    //Funktionen
+    public String getDateBefore() {
+        return DateBefore;
+    }
+
+    public void setDateBefore(String DateBefore) {
+        this.DateBefore = DateBefore;
+    }
+
+    public String getTimeBefore() {
+        return TimeBefore;
+    }
+
+    public void setTimeBefore(String TimeBefore) {
+        this.TimeBefore = TimeBefore;
+    }
+
+    public boolean isResetcounter() {
+        return resetcounter;
+    }
+
+    public void setResetcounter(boolean resetcounter) {
+        this.resetcounter = resetcounter;
+    }
+    
+    
+
+
     public String werteanzeigen(Diplomarbeit dip) {
         this.aktDip = dip;
         this.autor = dbService.getOneAutor(aktDip.getDa_id()).getFullName();
 
         //Schule anzeigen funktioniert noch nicht!!!
         //NullpointExcepiton
-        //this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
+        this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
         dbService.getAktuellPicture(this.aktDip);
         this.click_count_diplomarbeit(this.aktDip);
 
         return "dipansehen.xhtml";
+    }
+    
+       public String NowDayBefore() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.now();
+        return this.DateBefore = date.format(formatter);
+    }
+      
+      public String NowYearLocalBefore() {
+        LocalDate Nowdate = LocalDate.now();
+        String nextyear =  String.valueOf(Nowdate.getYear() + 1);
+        return nextyear;
+    }
+    
+    
+    //2. Variable Date 
+    
+    public String NowTimeBefore() {
+        LocalTime startTime = LocalTime.now();
+        System.out.println(startTime);
+        return this.TimeBefore = startTime.toString();
+    }
+    
+    public LocalTime NowTimeLocalBefore() {
+        LocalTime startTime = LocalTime.now();
+        return startTime;
+    }
+
+
+
+    
+    
+    public String DateBeforFormat() {
+         
+         String vResetdate = "01-01-";
+         String vyear = this.NowYearLocalBefore();
+         return (vResetdate + vyear);
+ 
+    }
+    
+
+    
+    public boolean ResetCounter() {
+        return this.resetcounter = this.NowDayBefore().equals(this.DateBeforFormat());
     }
 
     
@@ -199,17 +274,10 @@ public class dipansehenBean {
 
         double click_first_grenze = 10E+6;
         double click_second_grenze = 10E+12;
-
-        LocalDate NowDate = LocalDate.now();
-        int thisyear = NowDate.getYear();
-        int nextyear = thisyear + 1;
         
         this.click_count = this.readClickCount(dip);
 
-        //Wenn ein Jahr vorbeit wird rückgesetzt
-        //Testen Jahresübergang
-        //Für die Redakteure muss einmal gelten
-        if (thisyear != nextyear) {
+        if (!this.ResetCounter()) {
 
             if (this.click_count < click_first_grenze) {
 
@@ -256,10 +324,10 @@ public class dipansehenBean {
         
         this.download_count = this.readDownloadCount(this.aktDip);
 
-        //Wenn ein Jahr vorbeit wird rückgesetzt
+        //Wenn ein Jahr vorbeit - wird zurückgesetzt
         //Testen Jahresübergang
         //Für die Redakteure muss einmal gelten
-        if (thisyear != nextyear) {
+        if (!this.ResetCounter()) {
 
             if (this.download_count < downlaod_first_grenze) {
 
@@ -359,9 +427,17 @@ public class dipansehenBean {
         return this.imagepath;
     }
 
-    //Favouriten
-    public void speichern() {
+    
+    
+    //----------------------------Favouriten------------------------------------
+ 
+    public void favspeichern() {
+        
         int b_id = dbService.getLoggedInBenutzer().getUser_id();
+        System.out.println("-------------------- benutzerid"  + b_id);
+        System.out.println("-------------------- dipid"  + aktDip.getDa_id());
+        
+        
         int res = dbService.insertFavouriten(aktDip.getDa_id(), b_id);
         if (res == 1) {
             titel = "Success";
@@ -369,11 +445,25 @@ public class dipansehenBean {
     }
 
     public void löschenDiplomarbeit(ActionEvent event) {
-        dbService.deleteDiplomarbeit(aktDip);
+        
+        int res = dbService.deleteDiplomarbeit(aktDip);
+        if (res == 1) {
+            titel = "Success";
+        };
+        
     }
 
-//----------------Alter Code - Diplomarbeit ansehen--------------------------
-    public void diplomarbeitansehen() {
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+//----------------Alter Code - Diplomarbeit ansehen-----------------------------
+    public void diplomarbeitansehen(Diplomarbeit dip) {
 
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
@@ -405,12 +495,7 @@ public class dipansehenBean {
 
     }
 
-    //---------------------------Test---------------------------
-    public static void main(String[] args) {
-
-       
-
-    }
+ 
 
     
 

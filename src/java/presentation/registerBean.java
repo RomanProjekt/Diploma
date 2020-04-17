@@ -17,7 +17,11 @@ import java.time.Duration;
 import java.time.Instant;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import pojo.SicherheitsCode;
 
 /**
  *
@@ -32,7 +36,21 @@ public class registerBean {
     private String lastName;
     private String email;
     private String pw;
+    
+    private SicherheitsCode c;
     private String message;
+    
+    private String securityanswer;
+    private String compareCodeSalt;
+    private String resetCodeSalt;
+    private String additiveCodeSalt;
+    private boolean isSicherheitsAntwortNull;
+    
+    
+    private String DateBefore;
+    private String TimeBefore;
+    private String mainKey;
+    
     
     public registerBean() {
     }
@@ -47,14 +65,28 @@ public class registerBean {
             HashMap<Integer, String> mape;
             mape = new HashMap<>();
             Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-            
             String hash = argon2.hash(4, 1024 * 1024, 8, pw.toCharArray());
+            b = new Benutzer(0, username, firstName, lastName, hash, "salt", "User", email);   
             
-            b = new Benutzer(0, username, firstName, lastName, hash, "salt", "User", email);
+            if (this.securityanswer != null) {
+
+                c = new SicherheitsCode(0, 0,
+                        dbService.entcryptionSecurityAnswer(this.securityanswer),
+                        dbService.entcyptioncompareCodeSalt(this.securityanswer, this.NowDayBefore(), this.NowTimeBefore()),
+                        dbService.entcyptioncompareResetCodeSalt(username, this.NowDayBefore(), this.NowTimeBefore()),
+                        dbService.additiveCodeSalt());
+
+            }
+            
+            
+            
+            
             int result = dbService.insertBenutzer(b);
+            
             if (result == 1) {
                 b = dbService.load(username);
                 dbService.setLoggedInBenutzer(b);
+                dbService.insertSicherheitsCode(c, b);
                 clearLogin();
                 return "success";
                 
@@ -135,5 +167,108 @@ public class registerBean {
     public void setMessage(String message) {
         this.message = message;
     }
+    
+    
+    //Verschlüsselung:
+    public SicherheitsCode getC() {
+        return c;
+    }
+
+    public void setC(SicherheitsCode c) {
+        this.c = c;
+    }
+
+    public String getSecurityanswer() {
+        return securityanswer;
+    }
+
+    public void setSecurityanswer(String securityanswer) {
+        this.securityanswer = securityanswer;
+    }
+
+    public String getCompareCodeSalt() {
+        return compareCodeSalt;
+    }
+
+    public void setCompareCodeSalt(String compareCodeSalt) {
+        this.compareCodeSalt = compareCodeSalt;
+    }
+
+    public String getResetCodeSalt() {
+        return resetCodeSalt;
+    }
+
+    public void setResetCodeSalt(String resetCodeSalt) {
+        this.resetCodeSalt = resetCodeSalt;
+    }
+
+    public String getAdditiveCodeSalt() {
+        return additiveCodeSalt;
+    }
+
+    public void setAdditiveCodeSalt(String additiveCodeSalt) {
+        this.additiveCodeSalt = additiveCodeSalt;
+    }
+
+    public String getDateBefore() {
+        return DateBefore;
+    }
+
+    public void setDateBefore(String DateBefore) {
+        this.DateBefore = DateBefore;
+    }
+
+    public String getTimeBefore() {
+        return TimeBefore;
+    }
+
+    public void setTimeBefore(String TimeBefore) {
+        this.TimeBefore = TimeBefore;
+    }
+
+    public boolean isIsSicherheitsAntwortNull() {
+        return isSicherheitsAntwortNull;
+    }
+
+    public void setIsSicherheitsAntwortNull(boolean isSicherheitsAntwortNull) {
+        this.isSicherheitsAntwortNull = isSicherheitsAntwortNull;
+    }
+
+    public String getMainKey() {
+        return mainKey;
+    }
+
+    public void setMainKey(String mainKey) {
+        this.mainKey = mainKey;
+    }
+    
+    
+    
+    public String MainKey() {
+        return this.mainKey = dbService.encrypt(this.securityanswer, (this.securityanswer + this.NowTimeBefore()));
+    }
+
+   
+    
+    public String NowDayBefore() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.now();
+        return this.DateBefore = date.format(formatter); 
+    }
+    
+    
+    //2. Variable Date 
+    
+    public String NowTimeBefore() {
+        LocalTime startTime = LocalTime.now();
+        System.out.println(startTime);
+        return this.TimeBefore = startTime.toString();
+    }
+    
+    
+    
+    
+    
+   
     
 }

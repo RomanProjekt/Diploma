@@ -10,6 +10,8 @@ package pojo;
  * @author patri
  */
 public class Schlagwort {
+    
+    
     private int tag_id;
     private String word;
 

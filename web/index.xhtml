@@ -4,45 +4,79 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
+
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
+
         <h:outputStylesheet library= "css" name= "Navbar.css" />
+
         <h:outputStylesheet library= "css" name= "include_footer.css" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+        <h:outputStylesheet library= "css" name= "index_styles.css" />
 
     </h:head>
 
+
+
     <h:body class="body">
-        <ui:include src="/resources/include/navbar.xhtml" />
-        <ui:include src="/resources/include/footer.xhtml" />
 
-        <main class="main">
 
-            <b:form>
-                <b:inputText  value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label=""/>
-                <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.render}" onchange="submit">
-                    <f:selectItems value="#{dipSuchenBean.daList}" var="da"
-                                   itemValue="#{da}" itemLabel="Nr: #{da.da_id} Titel: #{da.title} Autor: #{da.autor_id}" />
-                </b:selectOneMenu>
+        <div id="wrapper" class="wrapper">
 
-                <br/>
-                <b:commandButton value="Suchen" action="#{dipSuchenBean.selectDA()}" />
-                <br/>
-                <b:commandButton value="More" action="#{dipSuchenBean.recentDa()}" />
-                <br/>
-                <b:commandButton value="Details" action="#{dipansehenBean.werteanzeigen(dipSuchenBean.selectedDa)}"/>
-                
-                
-                <b:dataTable value="#{dipSuchenBean.recentDaList}" var="dip" rendered="#{dipSuchenBean.render2}">
-                    <b:dataTableColumn value="#{dip.da_id}" label="Diplomarbeitsnummer"/>
-                    <b:dataTableColumn value="#{dip.title}" label="Titel"/>
-                    <b:dataTableColumn value="#{dip.autor_id}" label="Autor"/>
-                </b:dataTable>
-                
-            </b:form> 
+            <div id="contentindex" class="contentindex">
 
-        </main>
+
+                <div id="headindex" class="headerindex">
+
+                    <div class="firstheader"><ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
+                    <div class="alert"><b:alert value="" rendered="#{loginBean.alert}" severity="success"><strong>Sie haben sich erfogreich abgemeldet!!!</strong> </b:alert></div>
+
+                </div>
+
+                <div id="main" class="mainindex">
+
+
+                    <b:form id="idform" class="form"> 
+
+
+                        <div id="IndexTFeld" class="indexTFeld"> 
+                            <b:inputText id="inputText" labelStyle="width:50px;" value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label="">
+                                <f:facet id="fact" name="prepend">
+                                    <b:commandButton id="keyfromindex" value="Suche" action="dipbibliothek.xhtml" actionListener="#{bibliothekBean.FromIndex(event, dipSuchenBean.key)}" />
+                                </f:facet>
+                            </b:inputText>
+                        </div> 
+
+
+
+                        <br></br>
+                        <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.render}" onchange="submit">
+                            <f:selectItems value="#{dipSuchenBean.daList}" var="da"
+                                           itemValue="#{da}" itemLabel="Nr: #{da.da_id} Titel: #{da.title} Autor: #{da.autor_id}" />
+                        </b:selectOneMenu>
+
+
+
+                    </b:form>  
+
+
+
+                </div>
+
+
+                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+
+            </div>
+
+
+        </div>
+
+
+
+
     </h:body>
 </html>
 

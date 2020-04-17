@@ -7,15 +7,35 @@
         <title>Facelet Title</title>
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "include_footer.css" />
+        <h:outputStylesheet library= "css" name= "unauthorized.css" />
     </h:head>
 
     <h:body>
-        <ui:include src="/resources/include/navbar.xhtml" />
-        <ui:include src="/resources/include/footer.xhtml" />
-        
-        <h1 style="text-align: center; font-size: 50px" >
-            ERROR 401: Unothorized
-        </h1>
+
+        <div id="contentindex" class="contentindex">
+
+
+            <div id="headindex" class="headerindex">
+
+                <div class="firstheader"><ui:include src="/resources/include/navbar.xhtml"/></div>
+                <div class="red"></div>
+
+            </div>
+
+            <div id="main" class="mainindex">
+                <h2 style="text-align: center; font-size: 25px" >
+                    ERROR 401: Unothorized
+                </h2>
+            </div>
+
+
+            <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+
+        </div>
+
+
+
+
 
     </h:body>
 </html>

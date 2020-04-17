@@ -16,6 +16,9 @@ import pojo.Diplomarbeit;
  * @author patri
  */
 public class dipSuchenBean {
+    
+    
+    //Alter Code
 
     String key = "";
     DiplomarbeitDAO obj;
@@ -24,9 +27,11 @@ public class dipSuchenBean {
     List<Diplomarbeit> recentDaList;
     boolean render;
     boolean render2;
+    private boolean issearchbib;
 
     //favoriten auch so?
     public dipSuchenBean() {
+        this.issearchbib = true;
 
     }
 
@@ -133,5 +138,35 @@ public class dipSuchenBean {
     public void setRender2(boolean render2) {
         this.render2 = render2;
     }
+
+    public boolean isIssearchbib() {
+        return issearchbib;
+    }
+
+    public void setIssearchbib(boolean issearchbib) {
+        this.issearchbib = issearchbib;
+    }
+
+
+    public DiplomarbeitDAO getObj() {
+        return obj;
+    }
+
+    public void setObj(DiplomarbeitDAO obj) {
+        this.obj = obj;
+    }
+    
+    //Test----------------------------------------------------------------------
+            
+    public String searchList() {
+        
+        if (!this.daList.isEmpty() || !this.key.isEmpty()) {
+            return "dipbibliothek.xhtml";
+        } else  {
+            return "index.xhtml";
+        }
+        
+    }
+    
 
 }

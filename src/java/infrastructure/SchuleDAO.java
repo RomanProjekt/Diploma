@@ -38,17 +38,17 @@ public class SchuleDAO {
                 listd_schule.add(retVal);
             }
 
-//            int columns = rs.getMetaData().getColumnCount();
-//            System.out.println("ZeilengrÃ¶ÃŸe Datenbank" + columns);
-//            System.out.println("Listsize" + listd_schule.size());
-//
-//            for (int i = 0; i < listd_schule.size(); i++) {
-//                System.out.println(listd_schule.get(i));
-//            }
-//
-//            System.out.println("Listsize" + listd_schule.size());
+            int columns = rs.getMetaData().getColumnCount();
+            System.out.println("ZeilengrÃ¶ÃŸe Datenbank" + columns);
+            System.out.println("Listsize" + listd_schule.size());
+
+            for (int i = 0; i < listd_schule.size(); i++) {
+                System.out.println(listd_schule.get(i));
+            }
+
+            System.out.println("Listsize" + listd_schule.size());
         } catch (SQLException ex) {
-            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SchuleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return listd_schule;
@@ -92,11 +92,5 @@ public class SchuleDAO {
 
     }
 
-    public static void main(String[] args) {
-
-        SchuleDAO schuledao = new SchuleDAO();
-        schuledao.insert("schule");
-
-    }
-
+ 
 }

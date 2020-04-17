@@ -19,7 +19,24 @@ public class Benutzer {
     private String salt;
     private String role;
     private String eMail;
+    
     private boolean editable;
+    private int sicherheitscode_id;
+
+    
+    
+    
+    public Benutzer(int user_id, String username, String firstname, String lastname, String passWd, String salt, String role, String eMail, int sicherheitscode_id) {
+        this.user_id = user_id;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.passWd = passWd;
+        this.salt = salt;
+        this.role = role;
+        this.eMail = eMail;
+        this.sicherheitscode_id = sicherheitscode_id;
+    }
 
     public Benutzer(int user_id, String username, String firstname, String lastname, String passWd, String salt, String role, String eMail) {
         this.user_id = user_id;
@@ -115,5 +132,15 @@ public class Benutzer {
     public void setEditable(boolean editable) {
         this.editable = editable;
     }
+
+    public int getSicherheitscode_id() {
+        return sicherheitscode_id;
+    }
+
+    public void setSicherheitscode_id(int sicherheitscode_id) {
+        this.sicherheitscode_id = sicherheitscode_id;
+    }
+    
+    
 
 }

@@ -68,55 +68,8 @@ public class uploadBean {
     private String dateiformat_fail;
     private String diplomarbeitenTitel_fail;
 
-    //----------------Neue Code----------------
-    private boolean addmainautor;
-    private boolean addfirstautor;
 
-    public boolean isAddmainautor() {
-        return addmainautor;
-    }
-
-    public void setAddmainautor(boolean addmainautor) {
-        this.addmainautor = addmainautor;
-    }
-
-    public boolean isAddfirstautor() {
-        return addfirstautor;
-    }
-
-    public void setAddfirstautor(boolean addfirstautor) {
-        this.addfirstautor = addfirstautor;
-    }
-
-    private String mainautor;
-    private String firstautor;
-    private String secondautor;
-
-    public String getMainautor() {
-        return mainautor;
-    }
-
-    public void setMainautor(String mainautor) {
-        this.mainautor = mainautor;
-    }
-
-    public String getFirstautor() {
-        return firstautor;
-    }
-
-    public void setFirstautor(String firstautor) {
-        this.firstautor = firstautor;
-    }
-
-    public String getSecondautor() {
-        return secondautor;
-    }
-
-    public void setSecondautor(String secondautor) {
-        this.secondautor = secondautor;
-    }
-
-    //--------------------Ende neuer Code----------------------------
+   
     //--------------------Derzeitiger Code---------------------------
     public uploadBean() {
         allSchlagwTypeahead = new ArrayList<>();
@@ -404,9 +357,6 @@ public class uploadBean {
     public String upload_diplomarbeit() throws FileNotFoundException, IOException {
 
         String vartitel = getTitel();
-        String varautor = getAutor();
-        String varschule = getSchule();
-        String varschlagwort = getSchlagwort();
         Part varimage = getImage();
 
         java.sql.Date realDate = new java.sql.Date(datum.getTime());
@@ -416,31 +366,25 @@ public class uploadBean {
 
             if (varimage != null) {
 
-                //Titel überprüfen - wegen einem Redakteur --- der mehrere Schüler besitzt 
-                //Dateiformat überprüfen 
-                //Imagedatei überprüft -- Richtiges Format
                 String submittedFileName = varimage.getSubmittedFileName();
                 String user_id = String.valueOf(dbService.getLoggedInBenutzer().getUser_id());
                 System.out.println(user_id);
                 boolean image_standartformat = this.überprüfuen_Image_StandardFormat(submittedFileName);
 
-                //pdfdatei überprüft -- Richtiges Format
                 boolean diplomarbeit_dateiformat = this.überprüfen_PDF_StandardFormat(diplomarbeit.getSubmittedFileName());
-
                 if (image_standartformat && diplomarbeit_dateiformat) {
 
-                    //1.Funktionen: Speichern des Bildes
                     this.saveImage(user_id, vartitel, submittedFileName, varimage);
-
-                    //2. Funktionen: Speichern der pdf-Datei
-                    this.savePdfFile(vartitel);
-
+                    String pdfpfad = this.savePdfFile(vartitel);
+ 
                     //3.Funktionen: Hochladen der Diplomarbeit
-                    if (!(autList.size() <= 0)) {
-                        dbService.hochladen(vartitel, autList, realSchule, schlagList, this.pdfpath, this.imagepath, realDate);
+                    if (!(autList.size() <= 0&& realDate == null)) {
+                        dbService.hochladen(vartitel, autList, realSchule, schlagList, pdfpfad, this.imagepath, realDate);
+                        return "index.xhtml?faces-redirect=true";
                     } else {
-                        String message = "Sie müssen mindestens einen Autor eintragen!";
+                        this.autoralert = true;
                     }
+                        
 
                     this.titel = "";
                     this.autor = "";
@@ -458,11 +402,12 @@ public class uploadBean {
         } else {
             this.pdfdabei_fail = "Keine PDF-Datei gefunden!";
         }
-        return "index.xhtml?faces-redirect=true";
+        return "uploadDip.xhtml";
+        
 
     }
 
-    //-----------------------Bild speichern----------------------------------------------
+    //-----------------------Bild speichern-------------------------------------
     public void saveImage(String user_id, String vartitel, String submittedFileName, Part varimage) {
 
         FileImageOutputStream outputStream;
@@ -499,10 +444,12 @@ public class uploadBean {
     }
 
     //-----------Funktion pdf-Datei hochladen----------------------
-    public void savePdfFile(String filename) {
+    public String savePdfFile(String filename) {
 
         File f;
         FileOutputStream outputStream;
+        String pdf_pfad = "/resources/pdf/";
+        String aktuellerpfad = null;
 
         try (InputStream in = diplomarbeit.getInputStream()) {
             FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
@@ -510,8 +457,12 @@ public class uploadBean {
 
             String server_pdf_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
 
+            System.out.println(server_pdf_pfad);
+            aktuellerpfad = pdf_pfad + filename + ".pdf";
+            this.aktuellerpdfpfad(aktuellerpfad);
+
             f = new File(server_pdf_pfad + filename + ".pdf");
-            aktuellerpdfpfad(f.getPath());
+            
 
             f.createNewFile();
             outputStream = new FileOutputStream(f);
@@ -529,6 +480,8 @@ public class uploadBean {
         } catch (IOException ioex) {
             System.out.println(ioex.getMessage());
         }
+        
+        return aktuellerpfad;
 
     }
 
@@ -598,5 +551,27 @@ public class uploadBean {
         u.überprüfuen_Image_StandardFormat("diplomarbeit.jpg");
 
     }
+    
+    
+    private boolean autoralert;
+
+    public boolean isAutoralert() {
+        return autoralert;
+    }
+
+    public void setAutoralert(boolean autoralert) {
+        this.autoralert = autoralert;
+    }
+    
+    
+
+     
+
+    
+    
+ 
+    
+    
+    
 
 }

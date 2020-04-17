@@ -13,12 +13,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import pojo.Diplomarbeit;
+import service.DatabaseManagerService;
 
 /**
  *
  * @author hp
  */
 public class DiplomarbeitDAOTest {
+    
+    
+    DatabaseManagerService dbService;
     
     public DiplomarbeitDAOTest() {
     }
@@ -33,47 +37,44 @@ public class DiplomarbeitDAOTest {
     
     @Before
     public void setUp() {
+       dbService = new DatabaseManagerService();
     }
     
     @After
     public void tearDown() {
     }
-
+ 
+    
+    //Testen von Datenbankzugriffen
    
-    @Test
-    public void testRead() {
-        System.out.println("read");
-        
-        DiplomarbeitDAO instance = new DiplomarbeitDAO();
-        
-        List<Diplomarbeit> expResult = null;
-        
-        List<Diplomarbeit> result = instance.read();
-        
-        
-        assertEquals(expResult, result);
-        
-      
-    }
+//    @Test
+//    public void testRead() {
+//        System.out.println("read");
+//        List<Diplomarbeit> expResult = null;
+//        List<Diplomarbeit> result = dbService.ListeAllDiplomarbeiten();
+//        assertTrue(12 == result.size());  
+//    }
 
   
 //    @Test
 //    public void testInsert() throws Exception {
 //        System.out.println("insert");
+//        
 //        String title = "";
 //        int user_id = 0;
 //        int schule_id = 0;
 //        String pdfpath = "";
 //        String imagepath = "";
+//        
 //        DiplomarbeitDAO instance = new DiplomarbeitDAO();
 //        int expResult = 0;
-//        int result = instance.insert(title, user_id, schule_id, pdfpath, imagepath);
+//        instance.insert(title, user_id, schule_id, pdfpath, imagepath);
+//        
 //        assertEquals(expResult, result);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//  
+
 //    @Test
 //    public void testUpdate() {
 //        System.out.println("update");
@@ -84,8 +85,8 @@ public class DiplomarbeitDAOTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-// 
+
+    
 //    @Test
 //    public void testUpdateTitle() {
 //        System.out.println("updateTitle");
@@ -96,8 +97,8 @@ public class DiplomarbeitDAOTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//  
+
+    
 //    @Test
 //    public void testGetDiplomarbeit() {
 //        System.out.println("getDiplomarbeit");
@@ -109,8 +110,8 @@ public class DiplomarbeitDAOTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-// 
+
+    
 //    @Test
 //    public void testGetRedList() {
 //        System.out.println("getRedList");
@@ -122,8 +123,8 @@ public class DiplomarbeitDAOTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//  
+
+    
 //    @Test
 //    public void testDelete() {
 //        System.out.println("delete");
@@ -135,8 +136,8 @@ public class DiplomarbeitDAOTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//  
+
+    
 //    @Test
 //    public void testSuchleiste() {
 //        System.out.println("Suchleiste");
@@ -148,8 +149,8 @@ public class DiplomarbeitDAOTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-// 
+
+    
 //    @Test
 //    public void testRead_String() {
 //        System.out.println("read");

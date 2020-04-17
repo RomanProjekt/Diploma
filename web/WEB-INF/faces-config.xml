@@ -102,7 +102,7 @@
      <navigation-rule>
         <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>success</from-outcome>
+            <from-outcome>view</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -143,11 +143,97 @@
       <from-outcome>switchda</from-outcome> 
       <to-view-id>/dipansehen.xhtml</to-view-id> 
    </navigation-case> 
-
 </navigation-rule>
+
+
     <managed-bean>
         <managed-bean-name>pdfviewerBean</managed-bean-name>
         <managed-bean-class>presentation.pdfviewerBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+           <property-name>dbService</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
+    </managed-bean>
+    
+   
+    <managed-bean>
+        <managed-bean-name>emailpasswortBean</managed-bean-name>
+        <managed-bean-class>presentation.emailpasswortBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+           <property-name>dbService</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
+    </managed-bean>
+    
+  <navigation-rule> 
+   <from-view-id>email_passwort.xhtml</from-view-id> 
+   <navigation-case> 
+      <from-action>#{emailpasswortBean.displaySelectedDa}</from-action> 
+      <from-outcome>email_securitycode?faces-redirect=true&amp;includeViewParams=true</from-outcome> 
+      <to-view-id>/email_securitycode.xhtml</to-view-id> 
+   </navigation-case> 
+</navigation-rule>
+
+<navigation-rule> 
+   <from-view-id>email_securitycode.xhtml</from-view-id> 
+   <navigation-case> 
+      <from-action>#{email_securitycode.displaySelectedDa}</from-action> 
+      <from-outcome>passwort_reset?faces-redirect=true&amp;includeViewParams=true</from-outcome> 
+      <to-view-id>/passwort_reset.xhtml</to-view-id> 
+   </navigation-case> 
+</navigation-rule>
+
+
+<navigation-rule> 
+   <from-view-id>email_securitycode.xhtml</from-view-id> 
+   <navigation-case> 
+      <from-action>#{email_securitycode.back}</from-action> 
+      <from-outcome>switchda</from-outcome> 
+      <to-view-id>/index.xhtml</to-view-id> 
+   </navigation-case> 
+</navigation-rule>
+
+
+
+    <managed-bean>
+        <managed-bean-name>passwortresetBean</managed-bean-name>
+        <managed-bean-class>presentation.passwortresetBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+           <property-name>dbService</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>emailsecuritycodeBean</managed-bean-name>
+        <managed-bean-class>presentation.emailsecuritycodeBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+           <property-name>dbService</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>  
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>adminpasswortresetBean</managed-bean-name>
+        <managed-bean-class>presentation.adminpasswortresetBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>testBean</managed-bean-name>
+        <managed-bean-class>presentation.TestBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateBean</managed-bean-name>
+        <managed-bean-class>presentation.updateBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>alertBean</managed-bean-name>
+        <managed-bean-class>presentation.alertBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 </faces-config>

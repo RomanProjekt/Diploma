@@ -1,0 +1,54 @@
+
+
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
+        <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name= "include_footer.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+    </h:head>
+
+    <h:body class="body">
+        <ui:include src="/resources/include/navbar.xhtml" />
+        <ui:include src="/resources/include/footer.xhtml" />
+
+        <main class="main">
+
+            <b:form>
+                <b:inputText  value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label=""/>
+                <b:selectOneMenu id="searchID" value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.render}">
+                    <f:selectItems id="searchItems" value="#{dipSuchenBean.daList}" var="da"
+                                   itemValue="#{da}" itemLabel="Nr: #{da.da_id} Titel: #{da.title} Autor: #{da.autor_id}"
+                                   />
+                </b:selectOneMenu>
+                <b:dataTable id="recentID" value="#{dipSuchenBean.recentDaList}" var="dip" rendered="#{dipSuchenBean.render2}">
+                    <b:dataTableColumn value="#{dip.da_id}" label="Diplomarbeitsnummer"/>
+                    <b:dataTableColumn value="#{dip.title}" label="Titel"/>
+                    <b:dataTableColumn value="#{dip.autor_id}" label="Autor"/>
+                </b:dataTable>
+                <h:panelGrid columns="6" cellpadding="5">
+                    <b:commandButton value="SuchenAlt" action="#{dipSuchenBean.selectDA()}">
+                        <f:ajax execute="searchID" render="searchItems" />
+                    </b:commandButton>
+                    <p:commandButton value="SuchenNeu" action="#{dipSuchenBean.selectDA()}" ajax="true" update="searchItems"/>
+                    <b:commandButton value="MehrAlt" action="#{dipSuchenBean.recentDa()}">
+                        <f:ajax execute="searchID" render="recentID" />
+                    </b:commandButton>
+                    <p:commandButton value="MehrNeu" action="#{dipSuchenBean.recentDa()}" ajax="true" update="recentID"/>
+                    <b:commandButton value="Details" action="#{dipansehenBean.werteanzeigen(dipSuchenBean.selectedDa)}"/>
+                </h:panelGrid>
+            </b:form> 
+        </main>
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+    </h:body>
+</html>
+

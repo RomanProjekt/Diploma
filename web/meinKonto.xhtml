@@ -16,93 +16,70 @@
         <f:viewAction action="#{meinKontoBean.init()}" />
     </f:metadata>
     <h:body>
-        <ui:include src="/resources/include/navbar.xhtml" />
-        <ui:include src="/resources/include/footer.xhtml" />
 
-        <f:view>
-            <div class="meinKonto" >
+        <div id="wrapper" class="wrapper">
 
-                <h2>Mein Konto</h2>
-                <div class="userdata">
-                    <b:form>
-                        <b:panelGrid columns="2"  styleClass="panelGrid" >
 
-                            <h:outputLabel class="lable" value="Vorname" />
-                            <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.firstname}" />
+            <div id="contentindex" class="contentindex">
 
-                            <h:outputLabel class="lable" value="Nachname" />
-                            <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.lastname}" />
 
-                            <h:outputLabel class="lable" value="Benutzername" />
-                            <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.username}" />
-
-                            <h:outputLabel class="lable" value="E-Mail" />
-                            <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.geteMail()}" />
-                            
-                            <h:outputLabel class="lable" value="Passwort zurücksetzen" />
-                            <b:commandButton class="button" value="Passwort" style="padding: 10px 32px;" action="email_passwort.xthml"/>
-
-                        </b:panelGrid>
-                    </b:form>
+                <div id="headindex" class="headerindex">
+                    <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
                 </div>
-                <b:form>
-                    <div class="favoriten" >
-                        <h3>Ihre Favoriten</h3>
-                        <b:dataTable   value="#{meinKontoBean.favList}" id="favTable" var="diplomarbeit" class="favoritenTable"  rendered="#{!meinKontoBean.favIsEmpty()}">
-                            <b:dataTableColumn label="Logo" >
-                                <h:graphicImage value="#{diplomarbeit.bild}" height="50px" width="50px" />
-                            </b:dataTableColumn>
-                            <b:dataTableColumn label="Titel">
-                                <h:outputText value="#{diplomarbeit.title}" />
-                            </b:dataTableColumn>
 
-                            <b:dataTableColumn label="">
-                                <b:commandButton value="Ansehen" action="#{dipansehenBean.werteanzeigen(diplomarbeit)}" />
-                            </b:dataTableColumn>
-                            <b:dataTableColumn label="">
-                                <b:commandButton value="Löschen" action="#{meinKontoBean.deletefav(diplomarbeit)}" > 
-                                    <f:ajax render="@form"  />
-                                </b:commandButton>
 
-                            </b:dataTableColumn>
-                        </b:dataTable>
-                        <h:outputLabel rendered="#{meinKontoBean.favIsEmpty()}">Sie haben noch keine Favoriten hinzugefügt</h:outputLabel>
+                <div id="main" class="mainindex">
+
+
+                    <div class="meinKonto" >
+
+                        <h3 style="margin-left: 405px" >Mein Konto</h3>
+                        <div class="userdata">
+                            <b:form>
+                                <b:panelGrid columns="2"  styleClass="panelGrid" >
+
+                                    <h:outputLabel style="margin-left: -180px;" class="lable" value="Vorname" />
+                                    <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.firstname}" />
+
+                                    <h:outputLabel style="margin-left: -180px;" class="lable" value="Nachname" />
+                                    <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.lastname}" />
+
+                                    <h:outputLabel style="margin-left: -180px;" class="lable" value="Benutzername" />
+                                    <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.username}" />
+
+                                    <h:outputLabel style="margin-left: -180px;" class="lable" value="E-Mail" />
+                                    <h:outputLabel class="data" value="#{databaseManagerService.loggedInBenutzer.geteMail()}" />
+
+                                    <h:outputLabel style="margin-left: -180px;" class="lable" value="Passwort zurücksetzen" />
+                                    <b:commandButton class="button" value="Passwort" style="padding: 10px 32px;" action="#{meinKontoBean.sendToPasswortRest()}"  />
+                                    
+                                    <h:outputLabel style="margin-left: -180px;" class="lable" value="Meine Favouriten/Diplomarbeiten"  />
+                                    <b:commandButton class="button" value="Meine Diplomarbeiten" style="padding: 10px 32px;" action="MeineDiplomarbeiten.xhtml" />
+
+                                </b:panelGrid>
+                            </b:form>
+                        </div>
+                        
+
                     </div>
-                </b:form>
-                <br />
 
-                <b:form rendered="#{!databaseManagerService.isUser()}">
-                    <div class="uploadedDA">
-                        <h3>Ihre hochgeladenen Diplomarbeiten</h3>
 
-                        <b:dataTable value="#{meinKontoBean.redList}" var="diplomarbeit"  >
-                            <b:dataTableColumn label="Logo" >
-                                <h:graphicImage value="#{diplomarbeit.bild}" height="50px" width="50px" />
-                            </b:dataTableColumn>
 
-                            <b:dataTableColumn label="Titel">
-                                <h:outputText value="#{diplomarbeit.title}" />
-                            </b:dataTableColumn>
-                            <b:dataTableColumn label="">
-                                <b:commandButton value="Ansehen" action="#{dipansehenBean.werteanzeigen(diplomarbeit)}" />
-                            </b:dataTableColumn>
-                            <b:dataTableColumn label="" >
-                                <b:commandButton value="Daten Ändern" action="#{updateDiplomarbeit.editDiplomarbeit(diplomarbeit)}"/>
-                            </b:dataTableColumn>
 
-                            <b:dataTableColumn label="">
-                                <b:commandButton value="Löschen" action="#{meinKontoBean.delteDip(diplomarbeit)}" >
-                                    <f:ajax render="@form"  />
-                                </b:commandButton>
 
-                            </b:dataTableColumn>
+                </div>
 
-                        </b:dataTable>
-                    </div>
-                </b:form>
+                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
 
             </div>
-        </f:view>
+
+        </div>    
+
+
+
+
+
     </h:body>
 </html>
 

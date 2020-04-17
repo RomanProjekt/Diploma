@@ -1,0 +1,130 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14.04.2020, 08:29:44
+    Author     : hp
+*/
+
+.body {
+    width: 100%;
+
+}
+
+.wrapper {
+    width: 100%;
+}
+
+
+.contentindex {
+    
+    transform: scale(1.4);
+    margin: 130px 0 0 25%;
+    width: 1050px;
+    height: 650px;
+/*    background-color: yellow;   */
+}
+
+
+.headerindex {
+    
+/*    background-color: blue;*/
+    width: 100%;
+    height: 100px;
+    margin: 0 0 0 0;  
+}
+
+
+.mainindex {
+/*    background-color: red;*/
+    margin: 0 0 0 0;
+    width: 100%;
+    height: auto;
+    
+}
+
+
+.footerindex {
+/*    background: yellow;*/
+    margin: 0 0 0 0;
+    height: auto;
+}
+
+.red {
+    background-color: red;
+    width:  100%;
+    height: 5px;
+    margin: -18px 0 0 0;
+    
+}
+
+
+
+.favoriten {
+
+    display: inline-block;
+    justify-content: center;
+    width: 90%;
+    padding-bottom: 25px;
+    margin: 0 0 0 5%;
+/*    background-color: red;*/
+}
+
+.uploadedDA {
+    display: inline-block;
+    justify-content: center;
+    width: 90%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin: 0 0 0 5%;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+.userdata {
+    
+/*    background-color: red;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-left: 70px;
+    
+    
+    
+      
+}
+
+.userdata button {
+    display: flex;
+  justify-content: center;
+}
+
+.panelGrid {
+    margin: auto;
+    width: 180px ;
+    position: relative;
+}
+
+.row {
+    margin-bottom: 9px;
+}
+
+.lable {
+    font-weight: normal ;
+}
+
+
+ .button:hover {
+    background-color: lightcoral;
+}
+
+.meinKonto {
+    width: 100%;
+/*    background-color: yellow;*/
+}
+

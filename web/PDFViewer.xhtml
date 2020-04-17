@@ -3,23 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title> Diplomarbeiten-Viewer </title>
+        <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name="include_footer.css" />
+        <h:outputStylesheet library= "css" name= "pdfviewer.css" />
     </h:head>
     <h:body>
-        
-        <f:view>
 
-            <div class="diplomarbeitbild">
 
-                <h:form>
-                    <h:graphicImage value = "#{pdfviewerBean.image_pfad}" height="500px" width="500px" alt="Image not found"/> 
-                </h:form>
+        <div id="wrapper" class="wrapper">
+       
 
-        </f:view>
+            <div id="contentindex" class="contentindex">
+
+                
+                <div id="headindex" class="headerindex">
+                    <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
+                </div>
+                
+                <div id="main" class="mainindex">
+                    <div class="view">
+                        <f:view class="view">
+                            <p:media value="#{pdfviewerBean.pdf}"  width="100%" height="500px"></p:media>
+                        </f:view>
+                    </div>
+                </div>
+
+                <ui:include src="/resources/include/footer.xhtml" />
+
+            </div>
+
+        </div>    
+
+
     </h:body>
 </html>
-
-<!--ICEpdf Overview-->
-<!--http://www.icesoft.org/java/projects/ICEpdf/overview.jsf-->

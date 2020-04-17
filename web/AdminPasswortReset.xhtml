@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name="ep_styles.css" />
+        <h:outputStylesheet library= "css" name="include_footer.css" />
+
+        <f:metadata>
+            <f:viewParam name="Benutzer" value="#{benutzerverwaltungBean.benutzer}"/>  
+        </f:metadata>
+
+    </h:head>
+    
+    <h:body>
+
+
+        <div id="wrapper" class="wrapper">
+
+
+            <div id="contentindex" class="contentindex">
+
+
+                <div id="headindex" class="headerindex">
+                    <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
+                </div>
+
+
+                <div id="main" class="mainindex">
+
+
+                    <h:form>
+
+                        <div class="passwort">
+
+                            <h3 class="uberschrift">Passwort zurücksetzen</h3>
+
+                            <div class="pw-grid">
+
+
+
+
+                                <h:panelGrid columns="1" cellpadding="1">
+
+                                    <h4>Lieber Admin, #{meinKontoBean.dbService.loggedInBenutzer.username} </h4> 
+                                    #{emailsecuritycodeBean.prBeantime}
+                                    <br></br>
+
+                                    <b:inputSecret label="Passwort" value="#{adminpasswortresetBean.pw}" labelStyle="width:80p;"  required="true" requiredMessage=""/>
+
+                                    <b:inputSecret label="Passwort bestätigen" value="#{adminpasswortresetBean.bestaetigtespw}" labelStyle="width:80px;"/>
+
+                                    <br></br>
+                                    <b:commandButton value="Passort speichern"  action="#{adminpasswortresetBean.speichernPasswortAdmin(benutzerverwaltungBean.benutzer)}" ></b:commandButton>                         
+
+                                </h:panelGrid>
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </h:form>    
+
+
+
+
+                </div>
+
+                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+
+            </div>
+
+        </div>    
+
+
+    </h:body>
+</html>
+

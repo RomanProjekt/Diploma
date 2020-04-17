@@ -9,34 +9,34 @@
         <title>Facelet Title</title>
 
     </h:head>
+    
     <h:body class="body">
+        
         <ui:composition>
-            <nav class="navbar">
-                <h:form >
+            <nav id="nav" class="navbar">
+                <h:form id="form3" >
                     
                     
-                    <div>
-                        <h:link class="brand" outcome="index.xhtml">Diplomarbeiten</h:link>
-                        <b:image class="logo" value="/resources/images/AK-Logo.png" height="50px" width="120px"  onclick="index.xhtml" />
-                        <ul class="navGroup" >
-                            <li><h:outputLabel value="#{databaseManagerService.loggedInBenutzer.username}" rendered="#{databaseManagerService.loggedIn()}" /></li>
-                            <li><h:link class="navLink" value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" rendered="#{databaseManagerService.isAdmin()}" /></li>
-                            <li><h:link class="navLink" value="Bibliothek" outcome="bibliothek.xhtml"    /></li>
-                            <li><h:link class="navLink" value="Hochladen" outcome="upload.xhtml" rendered="#{!databaseManagerService.isUser()}" /></li>
-
-                            <li><h:link class="navLink" value="Anmelden" outcome="login.xhtml" rendered="#{!databaseManagerService.loggedIn()}" /></li>
-                            <li><h:link class="navLink" value="Registrieren" outcome="register.xhtml" rendered="#{!databaseManagerService.loggedIn()}" /> </li>
-                            <li><h:link class="navLink" value="Mein Konto"  outcome="meinKonto.xhtml" rendered="#{databaseManagerService.loggedIn()}" /></li>
-                            <li><h:commandLink class="navLink" value="Abmelden" action="#{loginBean.loggout}" rendered="#{databaseManagerService.loggedIn()}"  /></li>
-                        </ul>
+                    <div id="div">
+                        
+                        
+                        <div class="liste" >
+                            <b:image  style="margin: 0 0 0 -262px" class="logo" value="/resources/images/AK-Logo.png" height="50px" width="120px"  onclick="index.xhtml" />
+                            <h:link  style="margin: 0 0 0 125px" outcome="index.xhtml">Diplomarbeiten</h:link>
+                            <h:outputLabel style="margin: 2px 0 0 190px; font-size: 15px;" value="#{databaseManagerService.loggedInBenutzer.username}" rendered="#{databaseManagerService.loggedIn()}" />
+                            <ul id="navgroup" class="navGroup">  
+                                <li><h:link class="navLink" value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" rendered="#{databaseManagerService.isAdmin()}" /></li>
+                                <li><h:link class="navLink" value="Hochladen" outcome="uploadDip.xhtml" rendered="#{!databaseManagerService.isUser()}" /></li>        
+                                <li><h:commandLink id="ToBibliothek" class="navLink" value="Bibliothek" action="#{bibliothekBean.isFromBiblothek()}" actionListener="#{bibliothekBean.FromBibliothek}" ></h:commandLink></li>
+                                <li><h:commandLink class="navLink" value="Anmelden" action="#{loginBean.loggin}" rendered="#{!databaseManagerService.loggedIn()}"  /></li>
+                                <li><h:link class="navLink" value="Registrieren" outcome="register.xhtml" rendered="#{!databaseManagerService.loggedIn()}" /> </li>
+                                <li><h:link class="navLink" value="Mein Konto"  outcome="meinKonto.xhtml" rendered="#{databaseManagerService.loggedIn()}" /></li>
+                                <li><h:commandLink class="navLink" value="Abmelden" action="#{loginBean.loggout}" rendered="#{databaseManagerService.loggedIn()}"  /></li>
+                            </ul>
+                        </div>
                     </div>
-                    
-                    
-
                 </h:form>
-            </nav>
-            
-            
+            </nav>   
         </ui:composition>
     </h:body>
 </html>

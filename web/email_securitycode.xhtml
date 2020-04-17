@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Email_Security</title>
+        <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name="include_footer.css" />
+        <h:outputStylesheet library= "css" name="email_securitycode.css" />
+
+        <f:metadata>
+            <f:viewParam name="fullAdditiveCodeSalt" value="#{emailpasswortBean.fullAdditiveCodeSalt}"/>
+            <f:viewParam name="resetCodeBefore" value="#{emailpasswortBean.resetCodeBefore}"/>
+            <f:viewParam name="sanswere" value="#{emailpasswortBean.sanswere}"/>
+            <f:viewParam name="fullTimeBefore" value="#{emailpasswortBean.fullTimeBefore}"/>
+            <f:viewParam name="DateBefore" value="#{emailpasswortBean.dateBefore}"/>
+            <f:viewParam name="var_username" value="#{emailpasswortBean.var_username}"/>
+            <f:viewParam name="compareCode" value="#{emailpasswortBean.compareCode}"/>
+        </f:metadata>
+    </h:head>
+    <h:body>
+
+
+        <div id="wrapper" class="wrapper">
+
+
+            <div id="contentindex" class="contentindex">
+
+
+                <div id="headindex" class="headerindex">
+                    <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
+                </div>
+
+
+                <div id="main" class="mainindex">
+
+                    <h:form>
+
+                        <div class="content">
+
+                            <h:panelGrid columns="1" cellpadding="1">
+                                <h1>Gib einen Sicherheitscode ein</h1>
+                                <h5>Bitte suche in deinen E-Mails nach einer Nachricht mti deinem Code. Dein Code hat 15 Ziffern</h5>
+                                <b:inputText placeholder="" value="#{emailsecuritycodeBean.eingaberesetcode}" required="true" requiredMessage=""/>
+
+<!--                             <h:outputText value="#{emailpasswortBean.resetCodeBefore}" ></h:outputText>
+                                <h:outputText value="#{emailpasswortBean.sanswere}" ></h:outputText>
+                                <h:outputText value="#{emailpasswortBean.fullTimeBefore}" ></h:outputText>
+                                <h:outputText value="#{emailpasswortBean.var_username}" ></h:outputText>
+                                <h:outputText value="#{emailpasswortBean.sicherheitsantwort}" ></h:outputText>
+                                <h:outputText value="#{emailpasswortBean.dateBefore}" ></h:outputText>-->
+
+                                <h:outputText value="#{emailpasswortBean.fullAdditiveCodeSalt}" ></h:outputText>
+                                <h5>Wir haben deinen Code an ihre Email versendet! #{emailpasswortBean.var_email} </h5>
+                                <b:commandButton class="Weiter" value="Weiter" style="padding: 10px 32px;" action="#{emailsecuritycodeBean.resetCodeCompare(emailpasswortBean.resetCodeBefore, emailpasswortBean.sanswere, emailpasswortBean.dateBefore, emailpasswortBean.fullTimeBefore, emailpasswortBean.var_username, emailpasswortBean.compareCode )}"/>
+                                <br></br>
+                                <b:commandButton class="Abrechen" value="Abrrechen" style="padding: 10px 32px;" action="#{emailsecuritycodeBean.back()}"/>  
+                            </h:panelGrid>
+
+                        </div>
+
+
+                    </h:form>   
+
+
+
+                </div>
+
+                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+
+            </div>
+
+        </div>    
+
+
+
+
+
+
+    </h:body>
+</html>
+
