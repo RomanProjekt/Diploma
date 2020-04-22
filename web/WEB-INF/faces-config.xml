@@ -4,99 +4,11 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-
-  
-    
-    <managed-bean>
-        <managed-bean-name>benutzerverwaltungBean</managed-bean-name>
-        <managed-bean-class>presentation.benutzerverwaltungBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>
-    </managed-bean>
-    
-    <managed-bean>
-        <managed-bean-name>loginBean</managed-bean-name>
-        <managed-bean-class>presentation.loginBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>
-    </managed-bean>
-    
-    <managed-bean>
-        <managed-bean-name>meinKontoBean</managed-bean-name>
-        <managed-bean-class>presentation.meinKontoBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>
-    </managed-bean>
-    
-      <managed-bean>
-        <managed-bean-name>registerBean</managed-bean-name>
-        <managed-bean-class>presentation.registerBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>
-    </managed-bean>
     
     <managed-bean>
         <managed-bean-name>databaseManagerService</managed-bean-name>
         <managed-bean-class>service.DatabaseManagerService</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    
-    <managed-bean>
-        <managed-bean-name>dipansehenBean</managed-bean-name>
-        <managed-bean-class>presentation.dipansehenBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>
-    </managed-bean>
-    
-    <managed-bean>
-        <managed-bean-name>bibliothekBean</managed-bean-name>
-        <managed-bean-class>presentation.bibliothekBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>
-    </managed-bean>
-    
-    <managed-bean>
-        <managed-bean-name>dipSuchenBean</managed-bean-name>
-        <managed-bean-class>presentation.dipSuchenBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    
-    <managed-bean>
-        <managed-bean-name>uploadBean</managed-bean-name>
-        <managed-bean-class>presentation.uploadBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>
-    </managed-bean>
-    
-    <managed-bean>
-        <managed-bean-name>updateDiplomarbeit</managed-bean-name>
-        <managed-bean-class>presentation.updateDiplomarbeit</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope> 
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>
     </managed-bean>
     
      <navigation-rule>
@@ -144,16 +56,6 @@
       <to-view-id>/dipansehen.xhtml</to-view-id> 
    </navigation-case> 
 </navigation-rule>
-
-    <managed-bean>
-        <managed-bean-name>emailpasswortBean</managed-bean-name>
-        <managed-bean-class>presentation.emailpasswortBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>
-    </managed-bean>
     
   <navigation-rule> 
    <from-view-id>email_passwort.xhtml</from-view-id> 
@@ -182,48 +84,5 @@
       <to-view-id>/index.xhtml</to-view-id> 
    </navigation-case> 
 </navigation-rule>
-
-
-
-    <managed-bean>
-        <managed-bean-name>passwortresetBean</managed-bean-name>
-        <managed-bean-class>presentation.passwortresetBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>
-    </managed-bean>
-    
-    <managed-bean>
-        <managed-bean-name>emailsecuritycodeBean</managed-bean-name>
-        <managed-bean-class>presentation.emailsecuritycodeBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>  
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>adminpasswortresetBean</managed-bean-name>
-        <managed-bean-class>presentation.adminpasswortresetBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-   
-    <managed-bean>
-        <managed-bean-name>updateBean</managed-bean-name>
-        <managed-bean-class>presentation.updateBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>alertBean</managed-bean-name>
-        <managed-bean-class>presentation.alertBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>navBarBean</managed-bean-name>
-        <managed-bean-class>presentation.NavBarBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
    
 </faces-config>
