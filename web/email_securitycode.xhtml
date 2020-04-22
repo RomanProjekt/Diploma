@@ -43,9 +43,13 @@
                         <div class="content">
 
                             <h:panelGrid columns="1" cellpadding="1">
-                                <h1>Gib einen Sicherheitscode ein</h1>
-                                <h5>Bitte suche in deinen E-Mails nach einer Nachricht mti deinem Code. Dein Code hat 15 Ziffern</h5>
-                                <b:inputText placeholder="" value="#{emailsecuritycodeBean.eingaberesetcode}" required="true" requiredMessage=""/>
+                                <h3>Gib einen Sicherheitscode ein</h3>
+                                <br/>
+                                <h5>Bitte suche in deinen E-Mails nach einer Nachricht mti deinem Code.</h5>
+                                <h5>Dein Sicherheitscode hat 15 Zeichen.</h5>
+
+                                <br/>
+                                <b:inputText style="width: 200px" placeholder="Sicherheitscode eingeben" value="#{emailsecuritycodeBean.eingaberesetcode}" required="true" requiredMessage=""/>
 
 <!--                             <h:outputText value="#{emailpasswortBean.resetCodeBefore}" ></h:outputText>
                                 <h:outputText value="#{emailpasswortBean.sanswere}" ></h:outputText>
@@ -56,6 +60,7 @@
 
                                 <h:outputText value="#{emailpasswortBean.fullAdditiveCodeSalt}" ></h:outputText>
                                 <h5>Wir haben deinen Code an ihre Email versendet! #{emailpasswortBean.var_email} </h5>
+                                <br></br>
                                 <b:commandButton class="Weiter" value="Weiter" style="padding: 10px 32px;" action="#{emailsecuritycodeBean.resetCodeCompare(emailpasswortBean.resetCodeBefore, emailpasswortBean.sanswere, emailpasswortBean.dateBefore, emailpasswortBean.fullTimeBefore, emailpasswortBean.var_username, emailpasswortBean.compareCode )}"/>
                                 <br></br>
                                 <b:commandButton class="Abrechen" value="Abrrechen" style="padding: 10px 32px;" action="#{emailsecuritycodeBean.back()}"/>  

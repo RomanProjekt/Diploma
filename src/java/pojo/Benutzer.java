@@ -19,7 +19,6 @@ public class Benutzer {
     private String salt;
     private String role;
     private String eMail;
-    
     private boolean editable;
     private int sicherheitscode_id;
 

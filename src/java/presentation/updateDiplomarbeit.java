@@ -118,6 +118,7 @@ public class updateDiplomarbeit {
     }
 
     public Object saveAutor(Autor autor) {
+        
         if (insAutMap.containsKey(autor.getAutor_id())) {
             insAutMap.replace(autor.getAutor_id(), autor);
         } else if (editAutMap.containsKey(autor.getAutor_id())) {

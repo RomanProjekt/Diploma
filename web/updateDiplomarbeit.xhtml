@@ -110,8 +110,7 @@
 
                                 <p:dataTable style="width: 250px" class="table2" value="#{updateDiplomarbeit.schlagwortList}" var="schlw" >
                                     <p:column headerText="Schlagwort">
-                                        <h:outputText value="#{schlw.word}" rendered="#{!uploadBean.editAutor}" />
-                                        <h:outputText value="#{schlw.tag_id}" rendered="#{!uploadBean.editAutor}" />
+                                        <h:outputText value="#{schlw.word}" rendered="#{!uploadBean.editAutor}" /> 
                                     </p:column>
 
                                     <p:column headerText="Löschen">

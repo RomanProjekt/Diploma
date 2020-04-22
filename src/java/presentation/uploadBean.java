@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
@@ -107,6 +109,12 @@ public class uploadBean {
         autList.remove(autor);
         return null;
     }
+    
+     public void removeAutoren(ValueChangeEvent event) {
+        autList.remove(event.getNewValue().toString());
+    }
+    
+  
 
     public Object addSchlagwort() {
         if (!"".equals(schlagwort) && schlagwort != null) {
@@ -396,11 +404,11 @@ public class uploadBean {
                 }
 
             } else {
-                this.bilddatei_fail = "Bild nicht gefunden!";
+//                this.bilddatei_fail = "Bild nicht gefunden!";
             }
 
         } else {
-            this.pdfdabei_fail = "Keine PDF-Datei gefunden!";
+//            this.pdfdabei_fail = "Keine PDF-Datei gefunden!";
         }
         return "uploadDip.xhtml";
         
@@ -493,6 +501,7 @@ public class uploadBean {
     public boolean überprüfuen_Image_StandardFormat(String submittedFileName) {
 
         boolean formatvergleich = false;
+        System.out.println("-----------------------------------" + submittedFileName);
 
         String[] standartformat = {"png", "jpeg", "gif", "jpg"};
 
@@ -503,7 +512,7 @@ public class uploadBean {
         System.out.println(bildformat);
 
         for (String format : standartformat) {
-            if (bildformat.equals(format)) {
+            if (bildformat.equalsIgnoreCase(format)) {
                 formatvergleich = true;
                 System.out.println("Das derzeitige Bildformat enstpricht dem Standartformat");
             }
@@ -535,7 +544,7 @@ public class uploadBean {
 
         String PDF_Format = name[name.length - 1];
 
-        if (PDF_Format.equals("pdf")) {
+        if (PDF_Format.equalsIgnoreCase("pdf")) {
             formatvergleich = true;
             System.out.println("Das derzeitige Bildformat enstpricht dem Standartformat");
         }

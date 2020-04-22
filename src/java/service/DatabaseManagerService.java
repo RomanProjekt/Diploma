@@ -77,6 +77,8 @@ public class DatabaseManagerService {
     private DiplomarbeitDAO diplomarbeitDAO;
     private List<Diplomarbeit> dplist;
     
+    private Autor autoren;
+    
     
     
     
@@ -94,6 +96,14 @@ public class DatabaseManagerService {
 
     public void setMailSession(Session mailSession) {
         this.mailSession = mailSession;
+    }
+
+    public Autor getAutoren() {
+        return autoren;
+    }
+
+    public void setAutoren(Autor autoren) {
+        this.autoren = autoren;
     }
     
     
@@ -114,16 +124,13 @@ public class DatabaseManagerService {
         diplomarbeitDAO = new DiplomarbeitDAO();
         favDAO = new FavoritenDAO();
         sicherheitsCodeDAO = new SicherheitsCodeDAO();
-        
+        SchuleList = schuleDAO.read();
     }
     
     @PostConstruct
-    private void init() {
-        
+    private void init() {    
             //Fehler Nullpoint Exception
-            SchuleList = schuleDAO.read();
-            loggedInBenutzer = new Benutzer();
-             
+            //loggedInBenutzer = new Benutzer();    
     }
     
     private boolean passwortOK;
@@ -165,6 +172,8 @@ public class DatabaseManagerService {
     public void setSecondEnc(String secondEnc) {
         this.secondEnc = secondEnc;
     }
+    
+    
     
     
     
@@ -247,6 +256,16 @@ public class DatabaseManagerService {
         }
         return null;
     }
+    
+    
+    public void ReadRole() {
+        this.loggedInBenutzer.getRole();
+    }
+    
+    
+    
+    
+    
 
     ////Getter-Setter
     public Benutzer getB() {
@@ -461,31 +480,14 @@ public class DatabaseManagerService {
     }
    
     
-    //Diplomarbeit hochladen:
+    //-----------------------Diplomarbeit hochladen:---------------------------
     public void hochladen(String title, List<Autor> autorList, Schule schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
-        
         int var_user_id = this.getLoggedInBenutzer().getUser_id();
         System.out.println(var_user_id);
-
-        // schuleDAO.insert(schule);
-        //  int schule_id = this.getListevonSchulen().get(this.getListevonSchulen().size() - 1).getSchule_id();
-        //1.Erstellen einer Diplomarbeit-Tabelle
         int var_da_id = diplomarbeitDAO.insert(title, var_user_id, schule.getSchule_id(), pdfpath, imagepath, datum);
-        System.out.println("------------------------" +  var_da_id);
-
-        //int var_da_id = this.ListeAllDiplomarbeiten().get(this.ListeAllDiplomarbeiten().size() - 1).getDa_id();
-        //2. Erstellen eines Autor-Tabelle
         autorDAO.insertAutorList(autorList, var_da_id);
-
-        //  Autor autor = this.getAutor(var_da_id);
-        //   System.out.println("Autor id adsfadsfasdfsf" + autor);
-        //  schlagwDAO.insert(schlagwoerter);
         schlagwort_verknuepfungDAO.readInsertList(schlagwoerter, var_da_id);
 
-        //   List<Schlagwort> schlagwortliste = this.getAllSchlagwörter().subList(this.getAllSchlagwörter().size() - 2, this.getAllSchlagwörter().size());
-        //  schlagwort_verknuepfungDAO.insert(schlagwortliste, var_da_id);
-        //5.Update Diplomarbeit
-        //    diplomarbeitDAO.update(var_da_id, autor.getAutor_id());
     }
     
     
@@ -711,9 +713,10 @@ public class DatabaseManagerService {
     
     
 
-    public String entcryptionSecurityAnswer(String securityanswer) {
+    public String entcryptionSecurityAnswer(String securityanswer, int id) {
+        String schlüssel = securityanswer + String.valueOf(id);
         //String firstEnc =  this.manipulationCode(this.encrypt(this.composeSecurityAnswer(securityanswer, benutzername, date, time), this.mainEncryption()));
-        return this.secondEnc = this.manipulationCode(this.encrypt(securityanswer, this.mainEncryption(securityanswer)));
+        return this.secondEnc = this.manipulationCode(this.encrypt(schlüssel, this.mainEncryption(securityanswer, id)));
   
     } 
     
@@ -733,13 +736,20 @@ public class DatabaseManagerService {
         return this.ReturnSAnswerSalt = this.encrypt(securityanswer, secondEnc);
     }
     
-    public String mainEncryption(String securityanswer) {
+    public String mainEncryption(String securityanswer, int id) {
+        String schlüssel = (String.valueOf(id) + securityanswer);
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        return this.mainKey = argon2.hash(4, 1024 * 1024, 8, (String.valueOf(this.Zufallszahl()) + securityanswer).toCharArray());
+        return argon2.hash(4, 1024 * 1024, 8, schlüssel.toCharArray());
     }
     
     public String ReadAddativeSecSalt(String bnid, String username, String prdate) {
         return (prdate + bnid + username);
+    }
+    
+    public static void main(String[] args) {
+        DatabaseManagerService db = new DatabaseManagerService();
+        db.mainEncryption("patrick",12);
+        db.mainEncryption("patrick",14);
     }
     
     
@@ -830,10 +840,10 @@ public class DatabaseManagerService {
     
     
     
-    public static void main(String[] args ) {
-        String code = "yrKkg5wqCuvN4NluKiK9NPFFZtPYK19hdIA8oHoLZTw=";
-        System.out.println(code.substring(0, 15));
-    }
+//    public static void main(String[] args ) {
+//        String code = "yrKkg5wqCuvN4NluKiK9NPFFZtPYK19hdIA8oHoLZTw=";
+//        System.out.println(code.substring(0, 15));
+//    }
     
     public List<Diplomarbeit> ReadSearchKey(String key) { 
          return diplomarbeitDAO.Suchleiste(key);
@@ -979,6 +989,12 @@ public class DatabaseManagerService {
     public List<Diplomarbeit> weitereSuche(String titel, String autor, String datum, String schlagwort) {
         return diplomarbeitDAO.WeitereSuchleiste(titel, autor, datum, schlagwort);
     }
+
+    public boolean compare(String email) {
+        return benutzerDAO.compareEmail(email);
+    }
+
+    
 
    
     

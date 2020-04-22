@@ -1,10 +1,10 @@
 
 .navbar {
-/*      background-color: lightgray;*/
     background-color: whitesmoke;
 }
 
-.navbar form a{
+.navbar form a {
+    
     float: left;
     color: #464a56;
     text-align: center;
@@ -13,9 +13,8 @@
     font-size: 17px;
 }
 
-.navbar form label{
+.navbar form label {
     color: #464a56;
-/*    color: white;*/
     text-align: center;
     padding: 12px ;
     text-decoration: none;
@@ -23,16 +22,14 @@
     margin: 0px;
 }
 
-.navbar form ul{
+.navbar form ul {
     position: relative;
     list-style: none;
     color: #464a56;
-
     text-decoration: none;
     display: inline-block;
     float: right;
     margin: auto;
-
 }
 
 .navbar form ul li{
@@ -51,7 +48,7 @@
 
 
 .bn {
-    background-color: blue;
+/*    background-color: blue;*/
     margin-right: 100px;
     width: 30px;
     height: 10px;
