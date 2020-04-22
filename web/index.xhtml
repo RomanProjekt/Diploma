@@ -7,14 +7,11 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet library= "css" name= "Navbar.css" />
-
         <h:outputStylesheet library= "css" name= "include_footer.css" />
-
-        <h:outputStylesheet library= "css" name= "index_styles.css" />
+        <h:outputStylesheet library= "css" name= "index.css" />
 
     </h:head>
 
@@ -23,20 +20,18 @@
     <h:body class="body">
 
 
+
         <div id="wrapper" class="wrapper">
 
             <div id="contentindex" class="contentindex">
 
-
                 <div id="headindex" class="headerindex">
-
                     <div class="firstheader"><ui:include src="/resources/include/navbar.xhtml"/></div>
-                    <div class="red"></div>
-                    <div class="alert"><b:alert value="" rendered="#{loginBean.alert}" severity="success"><strong>Sie haben sich erfogreich abgemeldet!!!</strong> </b:alert></div>
-
+                    <div class="red"></div>  
                 </div>
 
                 <div id="main" class="mainindex">
+                    <div class="alert"><b:alert value="" rendered="#{loginBean.alert}" severity="success"><strong>Sie haben sich erfolgreich abgemeldet!</strong> </b:alert></div>
 
 
                     <b:form id="idform" class="form"> 
@@ -45,7 +40,9 @@
                         <div id="IndexTFeld" class="indexTFeld"> 
                             <b:inputText id="inputText" labelStyle="width:50px;" value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label="">
                                 <f:facet id="fact" name="prepend">
-                                    <b:commandButton id="keyfromindex" value="Suche" action="dipbibliothek.xhtml" actionListener="#{bibliothekBean.FromIndex(event, dipSuchenBean.key)}" />
+                                    <b:commandButton id="keyfromindex" value="Suche" action="dipbibliothek.xhtml" actionListener="#{bibliothekBean.FromIndex(event, dipSuchenBean.key)}" >
+
+                                    </b:commandButton>
                                 </f:facet>
                             </b:inputText>
                         </div> 
@@ -58,21 +55,32 @@
                                            itemValue="#{da}" itemLabel="Nr: #{da.da_id} Titel: #{da.title} Autor: #{da.autor_id}" />
                         </b:selectOneMenu>
 
-
+                        
 
                     </b:form>  
 
-
-
+                    
+                    
                 </div>
-
-
-                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
-
+                <div class="footerindex">
+                        <ui:include src="/resources/include/footer.xhtml" />
+                </div>
+               
+                
+                
+                
+                
+                
+                
+                
             </div>
+            
 
 
         </div>
+
+
+
 
 
 

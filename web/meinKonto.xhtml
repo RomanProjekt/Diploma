@@ -34,8 +34,10 @@
 
                     <div class="meinKonto" >
 
-                        <h3 style="margin-left: 405px" >Mein Konto</h3>
+                       <div style="margin-top: -280px;"><h3>Mein Konto</h3></div>
+                        
                         <div class="userdata">
+                            
                             <b:form>
                                 <b:panelGrid columns="2"  styleClass="panelGrid" >
 
@@ -54,7 +56,7 @@
                                     <h:outputLabel style="margin-left: -180px;" class="lable" value="Passwort zurücksetzen" />
                                     <b:commandButton class="button" value="Passwort" style="padding: 10px 32px;" action="#{meinKontoBean.sendToPasswortRest()}"  />
                                     
-                                    <h:outputLabel style="margin-left: -180px;" class="lable" value="Meine Favouriten/Diplomarbeiten"  />
+                                    <h:outputLabel style="margin-left: -180px;" class="lable" value="Meine Favoriten/Diplomarbeiten"  />
                                     <b:commandButton class="button" value="Meine Diplomarbeiten" style="padding: 10px 32px;" action="MeineDiplomarbeiten.xhtml" />
 
                                 </b:panelGrid>
@@ -70,9 +72,10 @@
 
                 </div>
 
+                
                 <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
-
             </div>
+            
 
         </div>    
 

@@ -1,14 +1,12 @@
 /*Bilbliothek*/
 
 
+
 .datetable2 {
     width:500px;
     height: 500px;
-    background-color: blue;
+/*    background-color: blue;*/
 }
-
-
-
 
 * {
     margin: 0;
@@ -19,6 +17,7 @@
 .body {
     width: 100%;
     height: 100%
+    
 }
 
 .html {
@@ -26,19 +25,18 @@
 }
 
 .wrapper {
-    position: absolute;
-    width: 1280px;
-    height: auto;
-/*    background-color: red;*/
+    width: 100%;
+    height: 800px;
+    margin: 0 0 0 0;
+    background-color: #ffffff;
 }
 
 .contentindex {   
-    position: absolute;
-    margin: 280px 0 0 25%;
-    width: 100%;
+    transform: scale(1);
+    margin: 0 0 0 10%;
+    width: 80%;
     height: auto;
 /*    background-color: yellow;*/
-    transform: scale(1.3);
 }
 
 .headerindex {
@@ -57,10 +55,11 @@
 }
 
 .footerindex {
-    bottom: 0;
-    background: yellow;
-    margin: 0 0 0 0;
+    
+    width: 100%;
+/*    background: yellow;*/
     height: 100px;
+  
 }
 
 .red {
@@ -81,14 +80,16 @@
 }
 
 .gesbib {
+/*    background-color: orange;*/
     width: 100%;
     height: auto;
 }
 
 .glist {  
-    width: 100%;
-    height: 100px;
-    margin: 1600px 0 0 130px;
+/*    background-color: green;*/
+    width: 1000px;
+    height: 250px;
+    margin: 1550px 0 0 350px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -112,23 +113,13 @@
 }
 
 
-/*--------------------------------------------------------------------------------*/
 
-/*.rahmen {
-    background-color: red;
-    width: 300px;
-    height: 300px;
-    margin-top: 20px;
-}*/
-
-/*------------------------------------------------------------------------------*/
 
 .content {
     display: flex;
     flex-wrap: wrap;
-    background-color: white ;
     position: absolute;
-    margin: -20px 0 0 0;
+    margin: 0 0 0 0;
     width: 250px;
     height: 600px;
     border-right: 1px solid red;
@@ -160,16 +151,11 @@
     position: absolute;
     margin: 125px 0 0 25px;
     width: 170px;
-    background-color: red;
+
 
 }
 
-/*.tft {
-    width: 100%;
-    height: 50px;
-    position: absolute;
-    margin: 0 0 0 25px;
-}*/
+
 
 
 .autor {
@@ -397,8 +383,7 @@
     margin: 0 0 0 0;
     width: 100%;
     height: 250px;
-    
-
+   
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -408,7 +393,6 @@
 .dp2 {
     position: absolute;
     margin: 0 0 0 15px;
-
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -418,7 +402,6 @@
 .dp3 {
     position: absolute;
     margin: 230px 0 0 15px;
-
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -428,7 +411,6 @@
 .dp4 {
     position: absolute;
     margin: 230px 0 0 15px;
-
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -437,7 +419,6 @@
 .dp5 {
     position: absolute;
     margin: 230px 0 0 15px;
-
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -446,7 +427,6 @@
 .dp6 {
     position: absolute;
     margin: 230px 0 0 15px;
-
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -455,7 +435,6 @@
 .dp7 {
     position: absolute;
     margin: 230px 0 0 15px;
-
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -464,7 +443,6 @@
 .dp8 {
     position: absolute;
     margin: 230px 0 0 15px;
-
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -474,7 +452,6 @@
 .dp9 {
     position: absolute;
     margin: 230px 0 0 15px;
-
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -483,7 +460,6 @@
 .dp10 {
     position: absolute;
     margin: 230px 0 0 15px;
-
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -492,7 +468,6 @@
 .dp11 {
     position: absolute;
     margin: 230px 0 0 15px;
-
     text-align: center;
     line-height: 50px;
     font-size: 20px;

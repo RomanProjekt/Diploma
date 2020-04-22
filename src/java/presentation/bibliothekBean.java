@@ -216,6 +216,9 @@ public class bibliothekBean {
     
     
     
+    
+    
+    
     //Anfang Get- und Setmethoden: Variablen Diplomarbeit
     public int getDa_id() {
         return da_id;
@@ -373,7 +376,8 @@ public class bibliothekBean {
             this.seitenanzahl = 1;
             System.out.println("------------------------" + this.alldiplomarbeiten.size());
             this.showBibDiplomarbeit(this.seitenanzahl, alldiplomarbeiten);
-            this.createListeSize(this.alldiplomarbeiten);
+//            this.createListeSize(this.alldiplomarbeiten);
+            this.fullstatList(this.alldiplomarbeiten);
     }
 
     public void FromIndex(ActionEvent event, String key) { 
@@ -390,15 +394,20 @@ public class bibliothekBean {
  
         if (this.isFromBibliothek) {
 
-            this.zahl = 50;
+            
             int size = (this.berechnenMaxSeitenanzahl(this.alldiplomarbeiten));
            
             if (this.seitenanzahl < (size) ) {
                 this.seitenanzahl = this.seitenanzahl + 1;
+                
+                
+                
                 int anfangListeDip = this.seitenanzahl;
                 this.diplist = this.showBibDiplomarbeit(anfangListeDip, this.alldiplomarbeiten);
             
             } else {
+                
+                
                 int anfangListeDip = this.seitenanzahl;
                 this.diplist = this.showBibDiplomarbeit(anfangListeDip, this.alldiplomarbeiten);
                
@@ -407,8 +416,7 @@ public class bibliothekBean {
 
         } else if(this.isFromIndex) {
             
-          
-            
+
              if (this.seitenanzahl < (this.berechnenMaxSeitenanzahl(this.allindexList))) {
                 this.seitenanzahl = this.seitenanzahl + 1;
                 int anfangListeDip = this.seitenanzahl;
@@ -437,6 +445,7 @@ public class bibliothekBean {
     public void back(ActionEvent event) {   
         
           if (this.isFromBibliothek) {
+              
             if (this.seitenanzahl > 1) {
                 this.seitenanzahl = this.seitenanzahl - 1;
                 int anfangListeDip = this.seitenanzahl;
@@ -447,6 +456,7 @@ public class bibliothekBean {
             }
 
         } else if(this.isFromIndex) {
+            
              if (this.seitenanzahl > 1) {
                 this.seitenanzahl = this.seitenanzahl - 1;
               
@@ -515,12 +525,11 @@ public class bibliothekBean {
 
     private void createListeSize(List<Diplomarbeit> diplist) {
         int i; 
-        seitenList.clear();
+        this.seitenList.clear();
         
-
         for (i = 1; i < (this.berechnenMaxSeitenanzahl(diplist) + 1); i++) {
             Seitenzahl seitz = new Seitenzahl(i);
-            seitenList.add(seitz);
+            this.seitenList.add(seitz);
             System.out.println("IsfromBibliothek");
         }
 
@@ -552,6 +561,7 @@ public class bibliothekBean {
         
         int maxszahl = this.berechnenMaxSeitenanzahl(dibList);
         int anfang, ende;
+        this.seitenanzahl = seitenanzahl;
 
         if (dbService.ListeAllDiplomarbeiten() != null) {
             
@@ -624,6 +634,7 @@ public class bibliothekBean {
 
         int maxszahl = this.berechnenMaxSeitenanzahl(allindexList);
         int anfang, ende;
+        this.seitenanzahl = seitenanzahl;
 
         if (maxszahl != 0) {
 
@@ -700,9 +711,12 @@ public class bibliothekBean {
         int maxszahl = this.berechnenMaxSeitenanzahl(allindexList);
         int anfang, ende;
         
+        
         System.out.println(seitenanzahl);
 
         if (maxszahl != 0) {
+            
+            this.seitenanzahl = seitenanzahl;
 
             if (allindexList.size() % 10 == 0 && allindexList.size() > 10 ) {
 
@@ -766,7 +780,7 @@ public class bibliothekBean {
 
         if (dbService.ListeAllDiplomarbeiten() != null) {
 
-             this.seitenanzahl = seitenanzahl;
+            this.seitenanzahl = seitenanzahl;
             if (dbService.ListeAllDiplomarbeiten().size() % 10 == 0 && dbService.ListeAllDiplomarbeiten().size() > 10 ) {
 
                 anfang = seitenanzahl * 10;
@@ -835,14 +849,23 @@ public class bibliothekBean {
          
          //1.Zustand:
          
-         if(this.seitenanzahl <= 7) {
+         if(this.seitenanzahl <= 8) {
              this.createListeSize(dplist);
          }
          
          else {
              
-             
-             
+            this.createListeSize(diplist);
+            this.statList.set(0, this.seitenList.get(0));
+            this.statList.set(1, this.seitenList.get(1));
+            this.statList.set(2, new Seitenzahl(this.seitenanzahl-1));
+            this.statList.set(3, new Seitenzahl(this.seitenanzahl));
+            this.statList.set(4, new Seitenzahl(this.seitenanzahl+1));
+            
+            
+            this.statList.set(5, this.seitenList.get(this.diplist.size()-2));
+            this.statList.set(6, this.seitenList.get(this.diplist.size()-1));
+    
          }
          
      }

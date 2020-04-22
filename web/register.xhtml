@@ -38,15 +38,20 @@ and open the template in the editor.
 
                     <div class="register">
                         
-                        <h4>Registrierung</h4>
+                        <h3>Registrierung</h3>
                         <br></br>
                         
                         <b:form id="reg"  >
 
 
                             <b:inputText placeholder="Benutzername" value="#{registerBean.username}" required="true" requiredMessage="" />
+                            
+                            
                             <b:inputSecret placeholder="Passwort" value="#{registerBean.pw}" required="true" requiredMessage="" />
-
+                            
+                            <b:inputSecret placeholder="Passwort bestätigen" value="#{registerBean.bestaetigtespw}" required="true" requiredMessage="" />
+                            
+                           
 
                             <b:inputText placeholder="Vorname" value="#{registerBean.firstName}" required="true" requiredMessage="" />
 
@@ -55,11 +60,13 @@ and open the template in the editor.
                             <b:inputText placeholder="E-Mail" id="eMail" value="#{registerBean.email}" required="true" requiredMessage="" validator-message="Keine Gültige E-Mail Adresse" > 
                                 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
                             </b:inputText>
+                            
+                            <div class="emailfail"></div><b:alert value="" rendered="#{registerBean.emailfail}" severity="warning"><strong>Email-Addresse ändern!</strong> </b:alert>
                             <h:message for="eMail" style="color: red" />
 
-                            <br/>
-                            <h5>Bitte gib eine Sicherheitsantwort ein. Diese wird benötigt, um das Passwort zurückzusetzen</h5>
-                            <b:inputText placeholder="Sicherheitsantwort" value="#{registerBean.securityanswer}" required="true" requiredMessage="" />
+                            
+                            <h5>Bitte gib eine Sicherheitscode ein. Diese wird benötigt, um das Passwort zurückzusetzen</h5>
+                            <b:inputText placeholder="Sicherheitscode" value="#{registerBean.securityanswer}" required="true" requiredMessage="" />
                             <br />
 
                             #{registerBean.message}

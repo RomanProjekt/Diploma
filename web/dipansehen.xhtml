@@ -9,11 +9,12 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
-        <h:outputStylesheet library= "css" name= "dipansehen_styles.css" />
+        <h:outputStylesheet library= "css" name= "dipansehen.css" />
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "include_footer.css" />
 
@@ -35,71 +36,55 @@ and open the template in the editor.
 
                 <div id="main" class="mainindex">
 
-                   
+                    <f:view class="view">
+                        <p:media value="#{dipansehenBean.aktDip.pdf}"  class="diplomarbeit"></p:media>
+                    </f:view>
 
-                    <div id="anzeigefelder" class="anzeigefelder">
-                        
-                        
-
-                        <div id="datenliste" class="datenliste" >
+                    <div id="datenliste" class="datenliste" >
 
 
-                            <b:form id="diplomarbeitansehen" >
+                        <b:form id="diplomarbeitansehen" >
 
-                                <h:panelGrid id="pgrid" columns="1" cellpadding="5">
+                            <h:panelGrid id="pgrid" columns="1" cellpadding="5">
 
 
-                                    <b:inputText  label="Titel" value="#{dipansehenBean.aktDip.title}" labelStyle="width:80px;" disabled="true">
-                                    </b:inputText>   
+                                <b:inputText  label="Titel" value="#{dipansehenBean.aktDip.title}" labelStyle="width:80px;" disabled="true"/>
+                               
+                                <b:selectOneMenu label="Autoren" value="#{databaseManagerService.autoren}" ajax="true" process="@this" update="@after">
+                                    <f:selectItems var="var"
+                                                   value="#{databaseManagerService.getAllAutor(dipansehenBean.aktDip.da_id)}"
+                                                   itemLabel="#{var.fullName}"
+                                                   />
+                                </b:selectOneMenu>
+                            
+                                <b:inputText   label="Schule" value="#{dipansehenBean.schule}" labelStyle="width:80px;" disabled="true"/>
+                                <b:inputText   label="Veröffentlichtes Datum" value="#{dipansehenBean.aktDip.datum}" labelStyle="width:80px;" disabled="true"/>
+ 
+                                <br/>
+                                <b:commandButton class="downloadbutton" id="submitButton" value="Download" action="#{dipansehenBean.download()}"/>
+                                <br/>
+                                <b:commandButton class="safebutton" value="Favoriten speichern" action="#{dipansehenBean.favspeichern()}" rendered="#{databaseManagerService.redakteurOrHigher}"/>
+                                <br/>
+                                <b:commandButton class="löschenbutton" value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}" rendered="#{databaseManagerService.redakteurOrHigher}" />
 
-                                    <b:inputText  label="Autor" value="#{dipansehenBean.autor}" labelStyle="width:80px;" disabled="true">
-                                    </b:inputText>
-
-                                    <b:inputText   label="Schule" value="#{dipansehenBean.schule}" labelStyle="width:80px;" disabled="true">
-                                    </b:inputText>
-
-                                    <b:inputText   label="Datum" value="#{dipansehenBean.aktDip.datum}" labelStyle="width:80px;" disabled="true">
-                                    </b:inputText>
-
-                                </h:panelGrid>
-                            </b:form>
-                        </div>
-                        
-                        
-                        <div id="buttonliste" class="buttonliste">
-
-                            <b:form id="table2" >
-
-                                <br></br>
-                                <b:commandButton  id="submitButton" value="Download" action="#{dipansehenBean.download()}"/>
-                                <br></br>
-                                <b:commandButton value="Diplomarbeit ansehen" action="#{pdfviewerBean.diplomarbeitansehen(dipansehenBean.aktDip)}" />
-                                <br></br>
-                                <b:commandButton value="Favouriten speichern" action="#{dipansehenBean.favspeichern()}"/>
-                                <br></br>
-                                <b:commandButton value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}" rendered="#{databaseManagerService.redakteurOrHigher}" />
-                                <br></br>                  
-                                <b:commandButton value="Back" action="dipbibliothek.xhtml" />
-
-                            </b:form> 
-                        </div>
+                            </h:panelGrid>
+                        </b:form>
                     </div>
 
 
-                    <div class="diplomarbeit">
-                        <h:form>
-                            <h:graphicImage value = "#{dipansehenBean.aktDip.bild}" height="600px" width="500px" alt="Image not found"/> 
-                        </h:form>
-                    </div>
+
 
 
 
 
                 </div>
 
+
                 <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
 
             </div>
+
+
 
         </div>    
 

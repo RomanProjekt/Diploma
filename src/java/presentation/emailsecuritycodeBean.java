@@ -196,18 +196,15 @@ public class emailsecuritycodeBean {
 //    }
 
     public boolean compareTimeDiff(String fulltimeBefore) throws ParseException {
-        
-        //12:50:17.275
+       
         LocalTime startTime =  LocalTime.now();
         this.istimeformat = false;
         long diff;
         long resetTime = 1800;
         int timebefore = this.TimeConverter(fulltimeBefore);
         int timeafter = this.TimeConverter(startTime.toString());
-
         diff = timeafter - timebefore;
         System.out.println(diff);
-        
         if(diff < resetTime) {
             return this.istimeformat = true;
         }

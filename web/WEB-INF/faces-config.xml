@@ -40,7 +40,7 @@
       <managed-bean>
         <managed-bean-name>registerBean</managed-bean-name>
         <managed-bean-class>presentation.registerBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
         <managed-property>
            <property-name>dbService</property-name>
            <value>#{databaseManagerService}</value>
@@ -82,7 +82,7 @@
     <managed-bean>
         <managed-bean-name>uploadBean</managed-bean-name>
         <managed-bean-class>presentation.uploadBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
         <managed-property>
            <property-name>dbService</property-name>
            <value>#{databaseManagerService}</value>
@@ -145,18 +145,6 @@
    </navigation-case> 
 </navigation-rule>
 
-
-    <managed-bean>
-        <managed-bean-name>pdfviewerBean</managed-bean-name>
-        <managed-bean-class>presentation.pdfviewerBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-           <property-name>dbService</property-name>
-           <value>#{databaseManagerService}</value>
-        </managed-property>
-    </managed-bean>
-    
-   
     <managed-bean>
         <managed-bean-name>emailpasswortBean</managed-bean-name>
         <managed-bean-class>presentation.emailpasswortBean</managed-bean-class>
@@ -221,11 +209,7 @@
         <managed-bean-class>presentation.adminpasswortresetBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-    <managed-bean>
-        <managed-bean-name>testBean</managed-bean-name>
-        <managed-bean-class>presentation.TestBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+   
     <managed-bean>
         <managed-bean-name>updateBean</managed-bean-name>
         <managed-bean-class>presentation.updateBean</managed-bean-class>
@@ -236,4 +220,10 @@
         <managed-bean-class>presentation.alertBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>navBarBean</managed-bean-name>
+        <managed-bean-class>presentation.NavBarBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+   
 </faces-config>

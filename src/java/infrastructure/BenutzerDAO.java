@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import pojo.SicherheitsCode;
 import service.ConnectionManager;
 
 /**
@@ -383,8 +382,37 @@ public class BenutzerDAO {
 
         return result;
     }
-    
-    
+
+    public boolean compareEmail(String email) {
+        
+        Benutzer retVal = null;
+        boolean nofoundemail = false;
+        
+
+        //use try-with-resources for best practice
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from benutzer where email = '" + email + "'")) {
+                
+
+            if (rs.next()) {
+                retVal = new Benutzer(rs.getInt("benutzer_id"), rs.getString("benutzername"), rs.getString("vorname"), rs.getString("nachname"), rs.getString("passwort"), rs.getString("salt"), rs.getString("rolle"), rs.getString("email"));
+            }
+            
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        
+       nofoundemail = retVal == null;
+
+        return nofoundemail;
+        
+    }
+
+  
    
  
     

@@ -698,10 +698,8 @@ public class emailpasswortBean {
     public void sendMail(String empfaenger, String betreff) {
 
         try {
-            // Erstellt ein MimeMessage Objekt.
+     
             MimeMessage message = new MimeMessage(this.mailSession);
-
-            // Setzt die E-Mail Adresse des Versenders in den E-Mail Header
             message.setFrom(new InternetAddress(absender));
 
             // Setzt die E-Mail Adresse des Empfängers in den E-Mail Header
@@ -835,16 +833,6 @@ public class emailpasswortBean {
                         + "</html>", "text/html"
                 );
                 
-                
-                // Setzen des Textes
-                //messageBodyPart.setText(text);
-                // Erstellen eines Multipart Objektes für das ablegen des Textes
-                //Multipart multipart = new MimeMultipart();
-                // Setzen des Textes
-                //multipart.addBodyPart(messageBodyPart);
-                // Setzt den Inhalt der E-Mail, Text + Dateianhänge
-                //message.setContent(multipart);
-                // E-Mail versenden
                 
                 
                 Transport.send(message);

@@ -208,6 +208,19 @@ public class dipansehenBean {
     }
     
     
+    private int zähler = 0;
+
+    public int getZähler() {
+        return zähler;
+    }
+
+    public void setZähler(int zähler) {
+        this.zähler = zähler;
+    }
+    
+    
+    
+    
 
 
     public String werteanzeigen(Diplomarbeit dip) {
@@ -222,6 +235,25 @@ public class dipansehenBean {
 
         return "dipansehen.xhtml";
     }
+    
+    
+    
+    public String show(Diplomarbeit dip) {
+        
+       dbService.ListeAllDiplomarbeiten();
+
+        //Schule anzeigen funktioniert noch nicht!!!
+        //NullpointExcepiton
+        this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
+        dbService.getAktuellPicture(this.aktDip);
+        this.click_count_diplomarbeit(this.aktDip);
+
+        return "dipansehen.xhtml";
+    }
+    
+    
+    
+    
     
        public String NowDayBefore() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -446,11 +478,26 @@ public class dipansehenBean {
 
     public void löschenDiplomarbeit(ActionEvent event) {
         
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        String filepath = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/" + aktDip.getTitle() + ".pdf";;
+        
         int res = dbService.deleteDiplomarbeit(aktDip);
         if (res == 1) {
             titel = "Success";
+            this.DeleteFile(filepath);
         };
         
+    }
+    
+    
+    public boolean DeleteFile(String filepath) {
+        boolean del = false;
+        File file = new File(filepath);
+        if (file.exists()) {
+            del = file.delete();
+        }
+        return del;
     }
 
  
@@ -468,6 +515,7 @@ public class dipansehenBean {
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
         String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
+        
 
         try {
 

@@ -47,26 +47,26 @@ and open the template in the editor.
 
                     <div id="main" class="mainindex">
 
-                        <div id="mainTable" class="mainTable"> 
+                        <div class="mainTable">   
 
                             <div id="firstTable" class="firstTable">
 
+  
+                                <br/>
 
-                                <h:panelGrid columns="2" cellpadding="5">
-
-
-
-                                    <b:inputText label="Titel" value="#{uploadBean.titel}" labelStyle="width:80px;" />
+                                    <br/>    
+                                    <b:inputText label="Titel" value="#{uploadBean.titel}" placeholder="Titel eingeben" />
 
                                     <h:outputText value="#{uploadBean.titel_fail}"></h:outputText>
                                     <br/>
 
-                                    <b:inputText value="#{uploadBean.autor}" label="Autor"  />
+                                    <b:inputText value="#{uploadBean.autor}" label="Autor" placeholder="Autoren eingeben" />
                                     <b:commandButton value="Add Autor" action="#{uploadBean.addAutor()}">   
                                     </b:commandButton>
                                     
 
                                     <br/><br/>
+        
 
                                     <p:dataTable  class="noborder" value="#{uploadBean.autList}" var="autor" >
                                         <p:column headerText="Autor">
@@ -83,8 +83,6 @@ and open the template in the editor.
                                             <b:commandButton value="Save" action="#{uploadBean.editAutor(autor)}" rendered="#{uploadBean.editAutor}" />
                                         </p:column>
 
-
-
                                     </p:dataTable>
                                     
                                     <b:alert value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
@@ -92,7 +90,7 @@ and open the template in the editor.
 
 
 
-                                </h:panelGrid>
+                             
 
 
                             </div>
@@ -100,74 +98,68 @@ and open the template in the editor.
 
 
 
-                            <div class="secondTable">
+                            <div class="secondTable" enctype="multipart/form-data">
 
 
-                                <b:inputText label="Schlagwort" value="#{updateDiplomarbeit.schlagwort}" typeahead="true" typeahead-limit="20"   typeahead-values="#{uploadBean.allSchlagwTypeahead}" />
+                                <b:inputText placeholder="Schlagwort eingeben" label="Schlagwort" value="#{uploadBean.schlagwort}" typeahead="true" typeahead-limit="20"   typeahead-values="#{uploadBean.allSchlagwTypeahead}" />
                                 <br/><br/>
-                                <b:commandButton value="Add Tag" action="#{updateDiplomarbeit.addTag()}" /> 
+                                <b:commandButton value="Add Tag" action="#{uploadBean.addSchlagwort()}" /> 
 
                                 <br/><br/>
 
-                                <p:dataTable style="width: 100%" class="table2" value="#{updateDiplomarbeit.schlagwortList}" var="schlw" >
+                                <p:dataTable style="width: 100%" class="table2" value="#{uploadBean.schlagList}" var="schlagwort" >
                                     <p:column headerText="Schlagwort">
-                                        <h:outputText value="#{schlw.word}"  />  
+                                        <h:outputText value="#{schlagwort.word}"  />  
                                     </p:column>
 
                                     <p:column headerText="Löschen">
-                                        <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlw)}" />
+                                         <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" />
                                     </p:column>
                                 </p:dataTable>
 
                             </div>
 
 
-                            <div class="thirdTable">
+                            <div class="thirdTable" enctype="multipart/form-data">
 
 
-                                <b:dateTimePicker format="DD.MM.YYYY" value="#{uploadBean.datum}" label="Datum" />
+                                <b:dateTimePicker placeholder="Datum auswählen" format="DD.MM.YYYY" value="#{uploadBean.datum}" label="Datum" />
                                 <br/>
-                                <h:outputLabel value="Schule"></h:outputLabel>
+                                <h:outputLabel value="Wähle Sie ihre Schule aus"></h:outputLabel>
                                 <b:selectOneMenu value="#{uploadBean.realSchule}"  >
+                                    <f:selectItems value="Schule auswählen" itemValue="Schule auswählen" itemLabel="Schule auswählen" />
                                     <f:selectItems value="#{uploadBean.schulList}" var="schule" itemValue="#{schule}" itemLabel="#{schule.name}" />
                                 </b:selectOneMenu>
-                                <br/>                    
-
-
-
+                                <br/>                   
 
                                 <h5>Diplomarbeit</h5>
                                 <h:inputFile  value="#{uploadBean.diplomarbeit}"  ></h:inputFile>
                                 <h:outputText value="#{uploadBean.pdfdabei_fail}"></h:outputText>
                                 <br/>
-
-                                <h5>Bild</h5>
-                                <h:inputFile  value="#{uploadBean.image}" ></h:inputFile>
-                                <h:outputText value="#{uploadBean.bilddatei_fail}"  ></h:outputText>
                                 <br/>
-
-
 
                                 <b:commandButton value="Diplomarbeit hochladen" action="#{uploadBean.upload_diplomarbeit()}" />
                                 <br/><br/>
 
-                                <b:commandButton value="Back" action="index.xhtml" />
 
                             </div>
 
 
 
-                        </div>  
+                        </div>    
 
 
                     </div>
+                        
+                        
                 </b:form> 
 
 
 
+                
                 <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
-
             </div>
+            
         </div>        
 
     </h:body>

@@ -1,0 +1,102 @@
+
+
+.body { width: 100%; }
+
+
+
+
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    width: 100%;
+    height: 800px;
+    margin: 0 0 0 0;
+}
+
+
+.contentindex {
+
+    transform: scale(1);
+    margin: 0 0 0 10%;
+    width: 80%;
+    height: 900px;
+/*    background-color: yellow;*/
+    
+}
+
+.headerindex {
+/*    background-color: blue;*/
+    width: 100%;
+    height: 100px;
+    margin: 10px 0 0 0;  
+}
+
+
+.mainindex {
+/*    background-color: red;*/
+    position: relative;
+    margin: 0 0 0 0;
+    width: 100%;
+    height: 59em;
+    
+    
+}
+
+.footerindex {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+/*    background: yellow;*/
+    
+}
+
+.red {
+    background-color: red;
+    width:  100%;
+    height: 5px;
+    margin: -18px 0 0 0;
+
+}
+
+.anzeigefelder {
+    margin-top: 5%;
+    margin-left: 300px;
+    
+}
+
+
+.diplomarbeit {
+    width: 80%;
+    height: 750px;
+    margin: -70px 0 0 20%;
+    padding: 5%;
+
+}
+
+.datenliste {
+    width: 250px;
+    height: 600px;
+    margin: -650px 0 0 5%;
+    padding-bottom: 10%;
+/*    background-color: yellow;*/
+/*    background-color: red;*/
+}
+
+
+.safebutton {
+   padding-bottom: 10%;
+}
+
+
+löschenbutton {
+ padding-bottom: 10%;
+   
+}
+
+downloadbutton {
+    padding-bottom: 100px;
+   
+}

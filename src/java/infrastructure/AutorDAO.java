@@ -27,6 +27,8 @@ public class AutorDAO {
     
     int autor_id;
     
+    
+    
     public List<Autor> getAllAutor() {
         
         Autor retVal;
