@@ -28,16 +28,9 @@ import service.ConnectionManager;
 
 public class DiplomarbeitDAO {
 
- 
     List<Diplomarbeit> listdp = new ArrayList<>();
     Diplomarbeit retVal;
 
- 
-
-    
-    
-    
-    
     public List<Diplomarbeit> read() {
 
         ArrayList<Diplomarbeit> listdip = new ArrayList<>();
@@ -50,9 +43,6 @@ public class DiplomarbeitDAO {
                 retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
                 listdip.add(retVal);
             }
-            
-            
-            
 
         } catch (SQLException ex) {
             Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,7 +50,6 @@ public class DiplomarbeitDAO {
 
         return listdip;
     }
-    
 
     public int insert(String title, int user_id, int schule_id, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
         int retVal = 0;
@@ -198,8 +187,6 @@ public class DiplomarbeitDAO {
         return dipList;
     }
 
-    
-    
     //---------------------------Löschen der Diplomarbeit - nach id---------------------------------------
     public int delete(int id) {
 
@@ -220,10 +207,7 @@ public class DiplomarbeitDAO {
         return result;
 
     }
-    
-    
-    
-       //-------------------------Suchleistenfunktion-----------------------------
+    //-------------------------Suchleistenfunktion-----------------------------
     public List Suchleiste(String k) { //key = k
         char[] matcher = k.toCharArray();
         String catcher = "";
@@ -311,7 +295,6 @@ public class DiplomarbeitDAO {
         }
         return dipList;
     }
-    
     //-------------------------Suchleistenfunktion-----------------------------
     public List Suchleiste2(String k) { //key = k
         char[] matcher = k.toCharArray();
@@ -343,7 +326,7 @@ public class DiplomarbeitDAO {
                 }
             }
         }
-        
+
         // //'d.da_id = sd.da_idand sd.sw_id = s.idand s.name like '%Diplomarbeit%' order by t'
         String key = catcher;
         List<Diplomarbeit> dipList = new ArrayList<>();
@@ -358,7 +341,7 @@ public class DiplomarbeitDAO {
                 + "and sd.sw_id = s.id"
                 + "and s.name like '%" + key + "%' order by titel desc");
         queryList.add("select * from diplomarbeit natural join schule where name like '%" + key + "%' order by titel desc");
-        
+
         for (String s : queryList) {
             try (
                     Connection con = ConnectionManager.getInst().getConn();
@@ -419,11 +402,9 @@ public class DiplomarbeitDAO {
 
     }
 
-    
     //---------------------------------Test ------------------------------------------
-    
     public int click_count(int click_count, Diplomarbeit dip) {
-        
+
         int result = 0;
 
         try (
@@ -443,7 +424,7 @@ public class DiplomarbeitDAO {
     }
 
     public int download_count(int download_count, Diplomarbeit dip) {
-        
+
         int result = 0;
 
         try (
@@ -451,7 +432,7 @@ public class DiplomarbeitDAO {
                 PreparedStatement pstmt
                 = con.prepareStatement("UPDATE diplomarbeit SET download_count = ?  WHERE da_id = " + dip.getDa_id())) {
 
-            pstmt.setInt(1,  download_count);
+            pstmt.setInt(1, download_count);
             result = pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException ex) {
@@ -462,57 +443,48 @@ public class DiplomarbeitDAO {
     }
 
     public int readClickCount(Diplomarbeit dip) {
-        
+
         ArrayList<Diplomarbeit> dipList = new ArrayList<>();
-        
+
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id =" + dip.getDa_id())) {
-                 
+
             while (rs.next()) {
                 dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
             }
-               
 
         } catch (SQLException ex) {
             Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
-        
+
         return dipList.get(0).getClick_count();
     }
-    
-    
+
     public int readDownloadCount(Diplomarbeit dip) {
-        
+
         ArrayList<Diplomarbeit> dipList = new ArrayList<>();
-        
+
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id = " + dip.getDa_id())) {
-                 
+
             while (rs.next()) {
                 dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
             }
-               
 
         } catch (SQLException ex) {
             Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
-        
+
         return dipList.get(0).getDownload_count();
     }
 
-    
-    
-    
-    
-    
     //Weitere Suche-------------------------------------------------------------
-    
     public List WeitereSuchleiste(String titel, String autor, String date, String schlagwort) { //key = k
-        
+
 //        this.manipulationKeyword();
 //     
 //        // //'d.da_id = sd.da_idand sd.sw_id = s.idand s.name like '%Diplomarbeit%' order by t'
@@ -564,12 +536,9 @@ public class DiplomarbeitDAO {
 //        }
         return null;
     }
-    
-    
-    
+
     public String manipulationKeyword() {
-        
-        
+
 //        char[] matcher = k.toCharArray();
 //        String catcher = "";
 //        
@@ -601,17 +570,7 @@ public class DiplomarbeitDAO {
 //            }
 //        }
         return null;
-        
+
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 }

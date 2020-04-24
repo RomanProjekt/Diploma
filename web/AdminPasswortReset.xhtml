@@ -8,7 +8,7 @@
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet library= "css" name= "Navbar.css" />
-        <h:outputStylesheet library= "css" name="ep_styles.css" />
+        <h:outputStylesheet library= "css" name="adminpwreset.css" />
         <h:outputStylesheet library= "css" name="include_footer.css" />
 
         <f:metadata>
@@ -39,7 +39,7 @@
 
                         <div class="passwort">
 
-                            <h3 class="uberschrift">Passwort zurücksetzen</h3>
+                            
 
                             <div class="pw-grid">
 
@@ -49,7 +49,6 @@
                                 <h:panelGrid columns="1" cellpadding="1">
 
                                     <h4>Lieber Admin, #{meinKontoBean.dbService.loggedInBenutzer.username} </h4> 
-                                    #{emailsecuritycodeBean.prBeantime}
                                     <br></br>
 
                                     <b:inputSecret label="Passwort" value="#{adminpasswortresetBean.pw}" labelStyle="width:80p;"  required="true" requiredMessage=""/>

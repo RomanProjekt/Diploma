@@ -217,6 +217,9 @@ public class bibliothekBean {
     
     
     
+    
+    
+    
     //Anfang Get- und Setmethoden: Variablen Diplomarbeit
     public int getDa_id() {
         return da_id;

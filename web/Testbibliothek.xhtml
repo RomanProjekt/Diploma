@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        
+        
+        <b:form>
+
+
+            <b:carousel id="rioja" styleClass="riojaPseudoClass" style="width:800px">
+
+
+                
+
+                    <b:carouselItem style="padding-left:100px">
+                      
+                            <h:graphicImage style="width: 590px; height: 650px; margin-right: 150px;"  id="bild2" class="image" value ="#{Agr}"/>
+                        
+                    </b:carouselItem>
+
+            
+
+
+           
+                <b:carouselControl direction="right">
+                    <div class="left carousel-control">
+                        <b:button value="zurück" onclick="$('.riojaPseudoClass').carousel('prev');" style="margin-top:140px;" ></b:button>
+                    </div>
+                </b:carouselControl>
+                <b:carouselControl direction="left">
+                    <div class="right carousel-control">
+                        <b:button value="Next image" onclick="$('.riojaPseudoClass').carousel('next');" style="margin-top:140px;" look="success"/>
+                    </div>
+                </b:carouselControl>
+            </b:carousel>
+
+
+
+        </b:form>
+
+
+    </h:body>
+</html>
+

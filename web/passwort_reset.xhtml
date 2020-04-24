@@ -42,7 +42,7 @@
 
                         <div class="passwort">
 
-                            <h3 class="uberschrift">Passwort zurücksetzen</h3>
+                            
 
                             <div class="pw-grid">
 
@@ -50,8 +50,6 @@
 
                                     <h4>Lieber Benutzer, #{meinKontoBean.dbService.loggedInBenutzer.username} #{emailsecuritycodeBean.username} </h4> 
                                     
-                                    
-                                   
                                     <br></br>
                                     <b:inputSecret label="Altes Passwort" value="#{passwortresetBean.bestaetigtesAltesPasswort}"  labelStyle="width:80p;"  rendered="#{meinKontoBean.isAltesPasswortInputTextF}" required="true" requiredMessage=""/>    
                                     <h:outputText value="#{passwortresetBean.message}" style="color: red" />

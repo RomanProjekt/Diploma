@@ -124,7 +124,7 @@ public class DatabaseManagerService {
         diplomarbeitDAO = new DiplomarbeitDAO();
         favDAO = new FavoritenDAO();
         sicherheitsCodeDAO = new SicherheitsCodeDAO();
-        SchuleList = schuleDAO.read();
+        //SchuleList = schuleDAO.read();
     }
     
     @PostConstruct
