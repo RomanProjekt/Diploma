@@ -7,9 +7,6 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="200">
-                    <file>${file.reference.BootsFaces-OSP-1.4.2.jar}</file>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.argon2-jvm-2.6.jar}</file>
                 </library>
                 <library dirs="200">
@@ -35,6 +32,10 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.javax.faces.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.BootsFaces-OSP-1.4.2.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

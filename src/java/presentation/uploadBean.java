@@ -22,7 +22,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageOutputStream;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 import org.apache.pdfbox.pdmodel.PDDocument;
