@@ -126,7 +126,7 @@ public class Diplomarbeit {
 
     @Override
     public String toString() {
-        return "|" + title + "|";
+        return "DA: |||" + title + "|||";
     }
 
     @Override

@@ -117,8 +117,15 @@ and open the template in the editor.
                                     <p:column headerText="Löschen">
                                          <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" />
                                     </p:column>
+
+                                    <p:column headerText="Edit">
+                                        <b:commandButton value="Edit" action="#{uploadBean.editAutor(autor)}"  rendered="#{!uploadBean.editAutor}" />
+                                        <b:commandButton value="Save" action="#{uploadBean.editAutor(autor)}" rendered="#{uploadBean.editAutor}" />
+                                    </p:column>
+
                                 </p:dataTable>
 
+                                <b:alert value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
                             </div>
 
 
@@ -163,6 +170,5 @@ and open the template in the editor.
             </div>
             
         </div>        
-
     </h:body>
 </html>

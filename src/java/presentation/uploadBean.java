@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageOutputStream;
