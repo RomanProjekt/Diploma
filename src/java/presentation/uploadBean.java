@@ -82,6 +82,7 @@ public class uploadBean implements Serializable {
         allSchlagwTypeahead = new ArrayList<>();
         schlagList = new ArrayList<>();
         autList = new ArrayList<>();
+        datum = new Date();
     }
 
     @PostConstruct
@@ -93,6 +94,7 @@ public class uploadBean implements Serializable {
             allSchlagwTypeahead.add(key);
         });
         schulList = dbService.getSchuleList();
+        datum = new Date();
     }
 
     public Object addAutor() {
@@ -370,7 +372,7 @@ public class uploadBean implements Serializable {
     public String upload_diplomarbeit() throws FileNotFoundException, IOException {
 
         String vartitel = getTitel();
-        Part varimage = getImage();
+       
 
         java.sql.Date realDate = new java.sql.Date(datum.getTime());
 
@@ -389,11 +391,12 @@ public class uploadBean implements Serializable {
 
                     
                     String pdfpfad = this.savePdfFile(vartitel);
-                    this.showImageFromPDF(diplomarbeit);
+                    String imagepfad = this.showImageFromPDF(vartitel);
+                    
                     
                     //3.Funktionen: Hochladen der Diplomarbeit
                     if (!(autList.size() <= 0&& realDate == null)) {
-                        dbService.hochladen(vartitel, autList, realSchule, schlagList, pdfpfad, null, realDate);
+                        dbService.hochladen(vartitel, autList, realSchule, schlagList, pdfpfad, imagepfad, realDate);
                         return "index.xhtml?faces-redirect=true";
                     } else {
                         this.autoralert = true;
@@ -406,7 +409,7 @@ public class uploadBean implements Serializable {
                     this.schlagwort = "";
 
                 } else {
-                    this.dateiformat_fail = "kein richtiges Dateiformat!" + "Bild: png, jpeg, gif, jpg" + "Diplomarbeit: pdf-Format";
+                    this.dateiformat_fail = "kein richtiges pdf-Format";
                 }
 
            
@@ -436,33 +439,53 @@ public class uploadBean implements Serializable {
     
     
     
-    public void showImageFromPDF(Part diplomarbeit) throws IOException {
+    public String showImageFromPDF(String name) throws IOException {
         
+        BufferedImage image;
+        String image_pfad = "/resources/images/images_diplomarbeiten/" + name + ".png";
 
-        InputStream in = diplomarbeit.getInputStream();
-
-        //Instantiating the PDFRenderer class
-        try (PDDocument document = PDDocument.load(in)) {
-            
-            //Instantiating the PDFRenderer class
-            PDFRenderer renderer = new PDFRenderer(document);
-            //Rendering an image from the PDF document
-            BufferedImage bimage = renderer.renderImage(0);
-//            ImageIO.write(bimage, "JPEG", new File(this.server_pdf_pfad));
-//            System.out.println("Image created");
-            //Closing the document
-        }
-        catch(IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-        catch(Exception alle) {
-            System.out.println(alle.getMessage());
-        }
-                
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        String server_images_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + image_pfad;
         
-        
+//      File file3 = new File("C:\\Users\\hp\\Desktop\\document.pdf");
+        File file3 = new File(this.server_pdf_pfad);
+        System.out.println(file3.getAbsolutePath());
+        System.out.println(file3.getName());
        
         
+        
+
+        if (file3.exists()) {
+
+            //Instantiating the PDFRenderer class
+            try (PDDocument document = PDDocument.load(file3)) {
+                //Instantiating the PDFRenderer class
+                PDFRenderer renderer = new PDFRenderer(document);
+                //Rendering an image from the PDF document
+                image = renderer.renderImage(0);
+                //Writing the image to a file
+                ImageIO.write(image, "JPEG", new File(server_images_pfad));
+                System.out.println("Image created");
+                //Closing the document
+                document.close();  
+            }
+
+        }
+        else {
+            System.out.println("PDf ist nicht vorhanden!");
+        }
+
+        
+        return image_pfad;
+       
+        
+    }
+    
+    
+    public static void main(String[] args) throws IOException {
+        uploadBean up = new uploadBean();
+//        up.showImageFromPDF();
     }
             
             
@@ -557,6 +580,10 @@ public class uploadBean implements Serializable {
 
         return new_image_titel;
     }
+    
+     
+    
+    
 
     //--------------------Überpüfen des PDF Formats----------------------
     private boolean überprüfen_PDF_StandardFormat(String submittedFileName) {
@@ -577,15 +604,7 @@ public class uploadBean implements Serializable {
 
     }
 
-    //-------------------Test---------------------------------
-    public static void main(String[] args) {
-
-        uploadBean u = new uploadBean();
-        u.überprüfuen_Image_StandardFormat("diplomarbeit.jpg");
-
-    }
-    
-    
+  
     private boolean autoralert;
 
     public boolean isAutoralert() {
@@ -638,51 +657,7 @@ public class uploadBean implements Serializable {
     
     
     
-     public String showImageFromPDF2(String pdfpath, String namedip) {
-        
-       String image_pfad = "/resources/images/images_diplomarbeiten/";
-       String dbpfad = image_pfad + namedip + ".jpg";
-        
-       FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
-       ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
-       String server_images_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + dbpfad;
-       
-       File bild = new File(server_images_pfad);
-       
-       
-        
-      //Datenbankzugriff auf die pdfDatei
-        
-      File file = new File(pdfpath); 
-      
-        //Instantiating the PDFRenderer class
-        try (PDDocument document = PDDocument.load(file)) {
-            
-            //Instantiating the PDFRenderer class
-            PDFRenderer renderer = new PDFRenderer(document);
-            //Rendering an image from the PDF document
-            BufferedImage bimage = renderer.renderImage(0);
-            ImageIO.write(bimage, "JPEG", bild);
-            System.out.println("Image created");
-            //Closing the document
-        }
-        catch(IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-        catch(Exception alle) {
-            System.out.println(alle.getMessage());
-        }
-                
-        
-        
-        return dbpfad;
-        
-        
-    }
-    
-    
-
-     
+  
 
     
     

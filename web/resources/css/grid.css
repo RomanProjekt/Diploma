@@ -1,0 +1,41 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27.04.2020, 22:35:43
+    Author     : hp
+*/
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-row: 10% 90%;
+/*  background-color: #2196F3;*/
+  padding: 10px;
+}
+
+
+.grid-container > div {
+/*  background-color: rgba(255, 255, 255, 0.8);*/
+  text-align: center;
+  padding: 20px 0;
+ 
+}
+
+
+.item1 {
+  grid-row-start: 1;
+  grid-row-end: 2;
+/*  background-color: greenyellow;*/
+  
+}
+
+
+.item2 {
+  grid-row-start: 1;
+  grid-row-end: 2;
+  margin: 0 0 0 120px;
+ 
+}

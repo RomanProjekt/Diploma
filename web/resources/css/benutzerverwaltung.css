@@ -21,10 +21,9 @@ and open the template in the editor.
 
 
 .contentindex {
-    transform: scale(1);
     margin: 0 0 0 10%;
     width: 80%;
-    height: 700px;
+    height: auto;
 }
 
 

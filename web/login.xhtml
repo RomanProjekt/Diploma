@@ -15,8 +15,11 @@ and open the template in the editor.
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
         <h:outputStylesheet library= "css" name= "Navbar.css" />
-        <h:outputStylesheet library="css" name="login.css" />
+        <h:outputStylesheet library="css"  name= "login.css" />
         <h:outputStylesheet library= "css" name= "include_footer.css" />
+        <h:outputStylesheet library= "css" name= "responsiveFooter.css" />
+        <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
+        <h:outputStylesheet library= "css" name= "responsiveLogin.css" />
         
          <f:metadata>
              <f:viewParam name="pwra" value="#{passwortresetBean.passwortalert}"/>
@@ -30,19 +33,14 @@ and open the template in the editor.
 
             <div id="wrapper" class="wrapper">
 
-
                 <div id="contentindex" class="contentindex">
-                    
-                    
-                    
-
                     <div id="headindex" class="headerindex">
                         <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
-                        <div class="red"></div>
+                        <div class="red"></div>  
                         <div class="alert"><b:alert value="" rendered="#{passwortresetBean.passwortalert}" severity="success"><strong>Passwort erfolgreich zurückgesetzt!!</strong> </b:alert></div>
                     </div>
 
-                    
+ 
                     <div id="main" class="mainindex">
                         
                         
@@ -74,7 +72,7 @@ and open the template in the editor.
 
                     </div>
 
-                    <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+                    <div class="footer"><ui:include src="/resources/include/footer.xhtml" /></div>
 
                 </div>
 

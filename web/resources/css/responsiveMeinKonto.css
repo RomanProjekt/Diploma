@@ -1,0 +1,102 @@
+
+
+@media only screen and (max-width: 1200px) {
+    
+    .data {
+        margin-left: -180px;
+    }
+    
+    .meinKonto {
+
+/*        background-color: red;*/
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 400px;
+        margin: 150px 0 0 25%;
+    }
+    
+    
+    
+    .button {
+        margin-left: -180px;
+    }
+}
+
+
+
+
+@media only screen and (max-width: 1000px) {
+    
+    .data {
+        margin-left: -180px;
+    }
+    
+    .meinKonto {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 400px;
+        margin: 350px 0 0 170px;
+    }
+    
+    
+    
+    .button {
+        margin-left: -180px;
+    }
+}
+
+
+
+
+@media only screen and (max-width: 800px) {
+    
+    .data {
+        margin-left: -180px;
+    }
+    
+    .meinKonto {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 400px;
+        margin: 350px 0 0 180px;
+    }
+    
+    
+    
+    .button {
+        margin-left: -180px;
+    }
+}
+
+
+
+@media only screen and (max-width: 750px) {
+    
+    .data {
+        margin-left: -180px;
+    }
+    
+    .meinKonto {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 400px;
+        margin: 400px 0 0 180px;
+    }
+    
+    
+    
+    .button {
+        margin-left: -180px;
+    }
+}

@@ -1,0 +1,100 @@
+
+@media only screen and (max-width: 1600px) {
+
+    .firstTable {
+        width: 300px;
+        margin: 0 0 0 37%;
+    }
+
+    .secondTable {
+        width: 300px; 
+        margin: 10px 0 0 37%;
+    }
+
+    .thirdTable {
+        width: 300px;
+        margin: 10px 0 0 37%;
+    }
+
+}
+
+
+@media only screen and (max-width: 1400px) {
+    
+    .firstTable {
+        width: 300px;
+        margin: 0 0 0 37%;
+    }
+
+    .secondTable {
+        width: 300px; 
+        margin: 10px 0 0 37%;
+    }
+
+    .thirdTable {
+        width: 300px;
+        margin: 10px 0 0 37%;
+    }
+
+
+}
+
+
+@media only screen and (max-width: 1000px) {
+    
+     .firstTable {
+        width: 300px;
+        margin: 250px 0 0 37%;
+    }
+
+    .secondTable {
+        width: 300px; 
+        margin: 10px 0 0 37%;
+    }
+
+    .thirdTable {
+        width: 300px;
+        margin: 10px 0 0 37%;
+    }
+    
+ 
+}
+
+@media only screen and (max-width: 900px) {
+    
+    .firstTable {
+        width: 300px;
+        margin: 250px 0 0 25%;
+    }
+
+    .secondTable {
+        width: 300px; 
+        margin: 10px 0 0 25%;
+    }
+
+    .thirdTable {
+        width: 300px;
+        margin: 10px 0 0 25%;
+    }
+}
+
+
+@media only screen and (max-width: 800px) {
+    
+    .firstTable {
+        width: 300px;
+        margin: 300px 0 0 25%;
+    }
+
+    .secondTable {
+        width: 300px; 
+        margin: 10px 0 0 25%;
+    }
+
+    .thirdTable {
+        width: 300px;
+        margin: 10px 0 0 25%;
+    }
+}
+
+                                  

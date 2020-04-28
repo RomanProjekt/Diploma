@@ -1,0 +1,85 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23.04.2020, 12:45:10
+    Author     : hp
+*/
+
+@media screen and (max-width: 1650px) {
+    
+    .alert {
+        width: 350px;
+        margin: 0 0 0 400px;
+    }
+
+}
+
+
+@media screen and (max-width: 1400px) {
+    
+    .alert {
+        width: 350px;
+        margin: 0 0 0 300px;
+    }
+
+}
+
+
+@media screen and (max-width: 1200px) {
+    
+    .alert {
+        width: 350px;
+        margin: 100px 0 0 250px;
+    }
+
+}
+
+
+@media screen and (max-width: 1300px) {
+    
+     .alert {
+        width: 350px;
+        margin: 0 0 0 300px;
+    }
+
+}
+
+
+
+
+@media only screen and (max-width: 800px) {
+
+    .indexTFeld {
+
+        width: 400px;
+        margin: 350px 0 0 10%; 
+
+    }  
+    
+    .alert {
+        width: 350px;
+        margin: 0 0 0 55%;
+    }
+    
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    .indexTFeld {
+
+        width: 400px;
+        margin: 350px 0 0 10%; 
+
+    }   
+    
+    
+    .alert {
+        width: 350px;
+        margin: 0 0 0 55%;
+    }
+    
+}

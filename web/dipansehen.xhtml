@@ -17,6 +17,9 @@ and open the template in the editor.
         <h:outputStylesheet library= "css" name= "dipansehen.css" />
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "include_footer.css" />
+        <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
+        <h:outputStylesheet library= "css" name= "responsiveFooter.css" />
+        <h:outputStylesheet library= "css" name= "responsiveDipansehen.css" />
 
     </h:head>
     <h:body>
@@ -27,11 +30,11 @@ and open the template in the editor.
 
             <div id="contentindex" class="contentindex">
 
-
                 <div id="headindex" class="headerindex">
-                    <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
-                    <div class="red"></div>
+                        <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                        <div class="red"></div>
                 </div>
+                
 
 
                 <div id="main" class="mainindex">
@@ -39,7 +42,7 @@ and open the template in the editor.
                     <f:view class="view">
                         <p:media value="#{dipansehenBean.aktDip.pdf}"  class="diplomarbeit"></p:media>
                     </f:view>
-
+                    
                     <div id="datenliste" class="datenliste" >
 
 
@@ -72,6 +75,7 @@ and open the template in the editor.
                     </div>
 
 
+                  
 
 
 
@@ -80,7 +84,9 @@ and open the template in the editor.
                 </div>
 
 
-                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+                <div class="footer">
+                    <ui:include src="/resources/include/footer.xhtml" />
+                </div>
 
             </div>
 

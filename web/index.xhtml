@@ -12,28 +12,33 @@
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "include_footer.css" />
         <h:outputStylesheet library= "css" name= "index.css" />
+        <h:outputStylesheet library= "css" name= "responsiveIndex.css" />
+        <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
+        <h:outputStylesheet library= "css" name= "responsiveFooter.css" /> 
 
+        
     </h:head>
 
 
 
     <h:body class="body">
 
-
+        
 
         <div id="wrapper" class="wrapper">
+            
+            
 
             <div id="contentindex" class="contentindex">
 
                 <div id="headindex" class="headerindex">
-                    <div class="firstheader"><ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="secondheader"><ui:include src="/resources/include/navbar.xhtml"/></div>
                     <div class="red"></div>  
                 </div>
 
                 <div id="main" class="mainindex">
                     <div class="alert"><b:alert value="" rendered="#{loginBean.alert}" severity="success"><strong>Sie haben sich erfolgreich abgemeldet!</strong> </b:alert></div>
-
-
+                    
                     <b:form id="idform" class="form"> 
 
 
@@ -62,7 +67,7 @@
                     
                     
                 </div>
-                <div class="footerindex">
+                <div class="footer">
                         <ui:include src="/resources/include/footer.xhtml" />
                 </div>
                

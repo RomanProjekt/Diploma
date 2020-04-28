@@ -9,6 +9,9 @@
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "include_footer.css" />
         <h:outputStylesheet library= "css" name= "notFound.css" />
+        <h:outputStylesheet library= "css" name= "responsiveFooter.css" />
+        <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
+        <h:outputStylesheet library= "css" name= "responsiveNoFound.css" />
     </h:head>
 
     <h:body>
@@ -27,14 +30,14 @@
                     
                     <div id="main" class="mainindex">
 
-                        <h3 style="text-align: center; font-size: 25px" >
+                        <h3 class="error" style="text-align: center; font-size: 25px" >
                             ERROR 404: Page not Found
                         </h3>
 
 
                     </div>
 
-                    <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+                    <div class="footer"><ui:include src="/resources/include/footer.xhtml" /></div>
 
                 </div>
 

@@ -1,0 +1,96 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27.04.2020, 14:50:42
+    Author     : hp
+*/
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    margin: 0 0 0 0;
+    width: 300px;
+    height: 750px;
+}
+
+.content > div {
+
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 18px;
+    width: 100px;
+}
+
+.uberschrift_ws {
+    position: absolute;
+    margin: 0 0 0 0;
+}
+
+.titel {
+    font-size: 15px;
+    margin: 50px 0 0 0;
+}
+
+.tftitel {
+    margin: 100px 0 0 0;
+
+}
+
+.autor {
+    font-size: 15px;
+    margin: 150px 0 0 0;
+
+}
+
+.tfautor {
+
+    height: 50px;
+    margin: 200px 0 0 0;
+}
+
+
+.datum {
+    font-size: 15px;
+    position: absolute;
+    margin: 250px 0 0 0;
+}
+
+.tfdatum {
+
+
+    height: 50px;
+    position: absolute;
+    margin: 300px 0 0 0;
+
+}
+
+
+
+.schlagwort {
+    position: absolute;
+    margin: 350px 0 0 0;
+}
+
+.tfschlagwort {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    margin: 400px 0 0 0;
+}
+
+
+
+.button_suche {
+    position: absolute;
+    margin: 500px 0 0 0;
+}
+
+
+.input {
+    
+}

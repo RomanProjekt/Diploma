@@ -1,35 +1,42 @@
 
-.navbar {
-    background-color: whitesmoke;
+
+.body {
+/*    background-color: green;*/
+/*    height: 1000px;*/
 }
 
-.navbar form a {
-    
-    float: left;
+.navbar {
+/*    background-color: yellowgreen;*/
+      height: auto;
+ 
+}
+
+.navbar form a  { 
     color: #464a56;
     text-align: center;
-    padding: 12px 10px;
+    padding: 15px 10px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 18px;
 }
+
 
 .navbar form label {
     color: #464a56;
     text-align: center;
-    padding: 12px ;
+    padding: 15px ;
     text-decoration: none;
-    font-size: 15px;
-    margin: 0px;
+    font-size: 18px;
+   
 }
 
 .navbar form ul {
+    float: right;
     position: relative;
     list-style: none;
-    color: #464a56;
+    color: #464a56; 
     text-decoration: none;
-    display: inline-block;
-    float: right;
-    margin: auto;
+    margin: 18px;
+
 }
 
 .navbar form ul li{
@@ -37,24 +44,23 @@
 
 }
 
+
 .navbar form .navLink:hover{
-    background-color: #e40010;
-    color: white;
+    background-color: red;
+    color:white;
+}
+
+.red {
+    background-color: red;
+    width:  100%;
+    height: 5px;
+    margin-top: -18px;
+    
+
 }
 
 .benutzername {
-/*    background-color: blue;*/
+    font-size: 18px;
 }
-
-
-.bn {
-/*    background-color: blue;*/
-    margin-right: 100px;
-    width: 30px;
-    height: 10px;
-}
-
-
-
 
 

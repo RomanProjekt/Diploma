@@ -52,6 +52,8 @@ public class dipansehenBean {
     private String DateBefore;
     private String TimeBefore;
     private boolean resetcounter;
+    private String server_diplomarbeit_pfad;
+    private String server_image_pfad;
 
     public dipansehenBean() {
 
@@ -217,6 +219,22 @@ public class dipansehenBean {
     public void setZähler(int zähler) {
         this.zähler = zähler;
     }
+
+    public String getServer_diplomarbeit_pfad() {
+        return server_diplomarbeit_pfad;
+    }
+
+    public void setServer_diplomarbeit_pfad(String server_diplomarbeit_pfad) {
+        this.server_diplomarbeit_pfad = server_diplomarbeit_pfad;
+    }
+
+    public String getServer_image_pfad() {
+        return server_image_pfad;
+    }
+
+    public void setServer_image_pfad(String server_image_pfad) {
+        this.server_image_pfad = server_image_pfad;
+    }
     
     
     
@@ -224,9 +242,14 @@ public class dipansehenBean {
 
 
     public String werteanzeigen(Diplomarbeit dip) {
+
         this.aktDip = dip;
         this.autor = dbService.getOneAutor(aktDip.getDa_id()).getFullName();
-
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        this.server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/" + aktDip.getTitle() + ".pdf";
+        this.server_image_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + this.aktDip.getBild();
+        
         //Schule anzeigen funktioniert noch nicht!!!
         //NullpointExcepiton
         this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
@@ -356,9 +379,6 @@ public class dipansehenBean {
         
         this.download_count = this.readDownloadCount(this.aktDip);
 
-        //Wenn ein Jahr vorbeit - wird zurückgesetzt
-        //Testen Jahresübergang
-        //Für die Redakteure muss einmal gelten
         if (!this.ResetCounter()) {
 
             if (this.download_count < downlaod_first_grenze) {
@@ -426,7 +446,7 @@ public class dipansehenBean {
         externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + aktDip.getTitle());
 
         externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + aktDip.getTitle() + ".pdf" + "\"");
-        String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
+        this.server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
         File file = new File(server_diplomarbeit_pfad + aktDip.getTitle() + ".pdf");
 
         OutputStream outputStream;
@@ -439,7 +459,6 @@ public class dipansehenBean {
             }
         }
 
-//        Files.copy(file.toPath(), outputStream);
         fc.responseComplete();
         this.download_count();
 
@@ -478,24 +497,25 @@ public class dipansehenBean {
 
     public void löschenDiplomarbeit(ActionEvent event) {
         
-        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
-        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
-        String filepath = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/" + aktDip.getTitle() + ".pdf";;
+        
         
         int res = dbService.deleteDiplomarbeit(aktDip);
         if (res == 1) {
             titel = "Success";
-            this.DeleteFile(filepath);
+            this.DeleteFile(this.server_diplomarbeit_pfad, this.server_image_pfad);
         };
         
     }
     
     
-    public boolean DeleteFile(String filepath) {
+    public boolean DeleteFile(String filepath, String imagepath) {
         boolean del = false;
         File file = new File(filepath);
-        if (file.exists()) {
+        File ifile = new File(imagepath);
+        if (file.exists() && ifile.exists()) {
             del = file.delete();
+            ifile.delete();
+            System.out.println("Datei wurde gelöscht!!!");
         }
         return del;
     }

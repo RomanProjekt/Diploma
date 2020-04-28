@@ -36,10 +36,11 @@
 
                         <h:form>
                             <h:panelGrid  columns="1" cellpadding="1" rendered="true">
-                                <h1>Finde dein Konto</h1>
+                                <h3>Finde dein Konto</h3>
                                 <h5>Bitte gib deine E-mail-Addresse oder deinen Benutzernamen ein, um nach deinem Konto zu suchen</h5>
+                                <br></br>
                                 <b:inputText placeholder="Email-Addresse oder Benutzername" value="#{emailpasswortBean.reset}"/>     
-
+                                
                                 <b:commandButton id="button" class="suche" value="Suche" style="padding: 10px 32px;" action="#{emailpasswortBean.search()}"/>
                                 <br></br>
                                 <b:commandButton rendered="#{emailpasswortBean.pwresetbutton}" class="abbrechen" value="Abrechen" style="padding: 10px 32px;" action="index.xhtml"/> 
@@ -47,10 +48,11 @@
 
 
                             <h:panelGrid columns="1" cellpadding="1" rendered="#{emailpasswortBean.pwresettf}">
-                                <h1 id="h1">Setze dein Passwort zurück</h1>
-                                <h5 id="h2">Wie möchte den Code zurücksetzen deines Passworts erhalten</h5>
-                                <h5 id="h3">Code per E-Mail senden: #{emailpasswortBean.show_email}</h5>
+                                <h3 id="h4">Setze dein Passwort zurück</h3>
+                                <h5 id="h3">Der Code wurde per E-Mail an folgende Adresse und Benutzer gesendet: </h5>
+                                <h5 id="h3">Email: #{emailpasswortBean.show_email}</h5>
                                 <h5 id="h3">Benutzername: #{emailpasswortBean.var_username}</h5>
+                                <br></br>
                                 <b:commandButton class="Weiter" value="Weiter" style="padding: 10px 32px;" action="#{emailpasswortBean.passwort_vergessen()}"/>
                                 <br></br>
                                 <b:commandButton class="abbrechen" value="Abrechen" style="padding: 10px 32px;" action="index.xhtml"/> 
@@ -65,7 +67,7 @@
                 </div>
 
                 
-                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+                <div class="footer"><ui:include src="/resources/include/footer.xhtml" /></div>
             </div>
             
         </div>    

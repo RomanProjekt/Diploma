@@ -8,6 +8,9 @@
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "include_footer.css" />
         <h:outputStylesheet library= "css" name= "unauthorized.css" />
+        <h:outputStylesheet library= "css" name= "responsiveFooter.css" />
+        <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
+        <h:outputStylesheet library= "css" name= "responsiveUnauthorized.css" />
     </h:head>
 
     <h:body>
@@ -23,13 +26,13 @@
             </div>
 
             <div id="main" class="mainindex">
-                <h2 style="text-align: center; font-size: 25px" >
+                <h2 class="error">
                     ERROR 401: Unothorized
                 </h2>
             </div>
 
 
-            <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+            <div class="footer"><ui:include src="/resources/include/footer.xhtml" /></div>
 
         </div>
 

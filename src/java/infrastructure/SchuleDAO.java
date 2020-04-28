@@ -24,6 +24,9 @@ import service.ConnectionManager;
 public class SchuleDAO {
 
     int schule_id;
+    
+    
+    
 
     public List<Schule> read() {
 
@@ -32,18 +35,10 @@ public class SchuleDAO {
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from schule")) {
+                ResultSet rs = stmt.executeQuery("SELECT * FROM schule")) {
             while (rs.next()) {
                 Schule retVal = new Schule(rs.getInt(1), rs.getString(2));
                 listd_schule.add(retVal);
-            }
-
-            int columns = rs.getMetaData().getColumnCount();
-            System.out.println("ZeilengrÃ¶ÃŸe Datenbank" + columns);
-            System.out.println("Listsize" + listd_schule.size());
-
-            for (int i = 0; i < listd_schule.size(); i++) {
-                System.out.println(listd_schule.get(i));
             }
 
             System.out.println("Listsize" + listd_schule.size());
@@ -53,6 +48,9 @@ public class SchuleDAO {
 
         return listd_schule;
     }
+    
+    
+    
 
     public Schule readOne(int id) {
 
@@ -71,6 +69,8 @@ public class SchuleDAO {
 
         return retVal;
     }
+    
+    
 
     public void insert(String schule) {
 

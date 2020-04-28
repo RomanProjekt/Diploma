@@ -47,10 +47,14 @@ and open the template in the editor.
 }
 
 
-.footerindex {
-/*    background: yellow;*/
-    margin: 0 0 0 0;
+.footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
     height: auto;
+    color: white;
+    font-size: 10px;
+    background-color: #292c33;
 }
 
 .red {

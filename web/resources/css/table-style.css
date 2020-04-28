@@ -1,10 +1,10 @@
 
-.order-table{
+/*.order-table{
     
         position: absolute;
 	border-collapse:collapse;
         margin: 0 0 0 450px;
-/*        background-color: red;*/
+        background-color: red;
 }
 
 
@@ -14,56 +14,56 @@
         position: absolute;
 	border-collapse:collapse; 
         margin: 0 0 0 1000px;
-/*        background-color: red;*/
+        background-color: red;
 }
 
 
 .order-table-header{
 	text-align:center;
-/*	background:none repeat scroll 0 0 #E5E5E5;*/
-/*	border-bottom:1px solid #BBBBBB;*/
-/*	padding:50px;*/
+	background:none repeat scroll 0 0 #E5E5E5;
+	border-bottom:1px solid #BBBBBB;
+	padding:50px;
 }
 
 .order-table-odd-row{
 	text-align:center;
-/*        background-color: blue;*/
+        background-color: blue;
         width: 300px;
        
         
-/*	background:none repeat scroll 0 0 #FFFFFFF;
-	border-top:1px solid #BBBBBB;*/
+	background:none repeat scroll 0 0 #FFFFFFF;
+	border-top:1px solid #BBBBBB;
         
 }
 
 .order-table-even-row{
 	text-align:center;
-/*        background-color: blue;*/
+        background-color: blue;
         width: 350px;
         
         
         
         
-/*	background:none repeat scroll 0 0 #F9F9F9;
-	border-top:1px solid #BBBBBB;*/
-/*        padding:5px;*/
+	background:none repeat scroll 0 0 #F9F9F9;
+	border-top:1px solid #BBBBBB;
+        padding:5px;
 
 }
 
 .rahmen {
-/*    background-color: red;*/
+    background-color: red;
     width: 300px;
     height: 350px;
     border: 1px outset;
     border: 1px solid;
     border-color: #C1C1C1;
     margin: 0 0 0 40px;
-/*    border: 2px solid black;*/
+    border: 2px solid black;
 }
 
 .diptitel {
     position: relative;
-/*    background-color: green;*/
+    background-color: green;
     margin: 15px 0 0 0;
     font-size: 20px;
 }
@@ -93,7 +93,7 @@
     height: 80%;
     margin: 20px 0 0 0;
     
-}
+}*/
 
 
 

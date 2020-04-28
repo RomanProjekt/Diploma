@@ -14,50 +14,33 @@
 
 
 .contentindex {  
-    transform: scale(1);
     margin: 0 0 0 10%;
     width: 80%;
     height: auto;
 }
 
 .mainindex {
-    /*    background-color: red;*/
     margin: 0 0 0 0;
     width: 100%;
-    height: 750px;
+    height: auto;
 }
 
 
 .headerindex {
     width: 100%;
-    height: 50px;
+    height: auto;
     margin: 0 0 0 0;  
 }
 
 
-.footerindex {
-    margin: 0 0 0 0;
-    height: auto;
-}
-
-.red {
-    background-color: red;
-    width:  100%;
-    height: 5px;
-    margin: -18px 0 0 0;  
-}
-
-.diplomarbeit_hochladen {
-    background-color: yellow;
-    margin: 0 0 0 50px;
-}
-
-.footer_hochladen {
-    position: absolute;
-    left: 0;   
+.footer {
+    left: 0;
+    bottom: 0;
     width: 100%;
+    height: auto;
     color: white;
-    margin: 50px 0 0 0;
+    font-size: 10px;
+    background-color: #292c33;
 }
 
 
@@ -74,43 +57,36 @@
 
 .diplomarbeithochladen {
     margin-right: 50px;
-    /*    background-color: blue;*/
 }
 
 
 .mainTable {
-    
-    position: absolute;
-    background-color: orange;
+    width: 100%;
     height: auto;
-    margin: 100px 0 0 100px;
+    margin: 0 0 0 0;
     
 }
 
 .firstTable {
-    position: absolute;
-/*    background-color: yellow; */
-    width: 250px;
-    margin: 0 0 0 100px;
+    width: 300px;
+    margin: 0 0 0 37%;
+
 
 }
 
 .secondTable {
-    position: absolute;
-/*  background-color: green;*/
     width: 300px; 
-    margin: 40px 0 0 450px;
+    margin: 10px 0 0 37%;
+
 }
 
 .thirdTable {
-    position: absolute;
-/*    background-color: blue;*/
     width: 300px;
-    margin: 40px 0 0 850px;
+    margin: 10px 0 0 37%;
+    background-color: ghostwhite
 }
 
 
 .uberschrift {
     margin: 0 0 0 37%;
-    /*    background-color: violet;*/
 }

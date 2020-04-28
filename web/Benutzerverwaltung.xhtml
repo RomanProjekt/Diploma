@@ -18,6 +18,7 @@ and open the template in the editor.
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "benutzerverwaltung.css" />
         <h:outputStylesheet library= "css" name="include_footer.css" />
+        <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
 
         <script language="javascript">
             function reset() {
@@ -52,63 +53,67 @@ and open the template in the editor.
 
                 <div id="main" class="mainindex">
 
-                    <h3>Benutzerverwaltung</h3>
+                    <div id="bvw" class="benutzerverwaltung">
 
-                    <b:form id="formbdfasdfsdf">
+                        <b:form id="form">
 
-                        <b:dataTable id="benutzertable" value="#{benutzerverwaltungBean.benutzerList}" var="benutzer">
+                            <h3>Benutzerverwaltung</h3>
 
-                            <b:dataTableColumn label="Username">
-                                <h:outputText value="#{benutzer.username}" rendered="#{!benutzer.editable}" />
-                                <h:inputText value="#{benutzer.username}" required="true" rendered="#{benutzer.editable}" />
-                            </b:dataTableColumn>
+                            <b:dataTable id="benutzertable" value="#{benutzerverwaltungBean.benutzerList}" var="benutzer">
 
-                            <b:dataTableColumn label="Firstname">
-                                <h:outputText value="#{benutzer.firstname}" rendered="#{!benutzer.editable}" />
-                                <h:inputText value="#{benutzer.firstname}" required="true" rendered="#{benutzer.editable}" />
-                            </b:dataTableColumn>
+                                <b:dataTableColumn label="Username">
+                                    <h:outputText value="#{benutzer.username}" rendered="#{!benutzer.editable}" />
+                                    <h:inputText value="#{benutzer.username}" required="true" rendered="#{benutzer.editable}" />
+                                </b:dataTableColumn>
 
-                            <b:dataTableColumn label="Lastname">
-                                <h:outputText value="#{benutzer.lastname}" rendered="#{!benutzer.editable}" />
-                                <h:inputText value="#{benutzer.lastname}" required="true" rendered="#{benutzer.editable}" />
-                            </b:dataTableColumn>
+                                <b:dataTableColumn label="Firstname">
+                                    <h:outputText value="#{benutzer.firstname}" rendered="#{!benutzer.editable}" />
+                                    <h:inputText value="#{benutzer.firstname}" required="true" rendered="#{benutzer.editable}" />
+                                </b:dataTableColumn>
 
-                            <b:dataTableColumn label="Rolle">
-                                <h:outputText value="#{benutzer.role}" rendered="#{!benutzer.editable}" /> 
-                                <b:selectOneMenu value="#{benutzer.role}" rendered="#{benutzer.editable}" > 
+                                <b:dataTableColumn label="Lastname">
+                                    <h:outputText value="#{benutzer.lastname}" rendered="#{!benutzer.editable}" />
+                                    <h:inputText value="#{benutzer.lastname}" required="true" rendered="#{benutzer.editable}" />
+                                </b:dataTableColumn>
 
-                                    <f:selectItem itemValue = "Admin" itemLabel = "Admin" /> 
-                                    <f:selectItem itemValue = "Redakteur" itemLabel = "Redakteur" /> 
-                                    <f:selectItem itemValue = "User" itemLabel = "User" /> 
-                                </b:selectOneMenu>
-                            </b:dataTableColumn>
+                                <b:dataTableColumn label="Rolle">
+                                    <h:outputText value="#{benutzer.role}" rendered="#{!benutzer.editable}" /> 
+                                    <b:selectOneMenu value="#{benutzer.role}" rendered="#{benutzer.editable}" > 
 
-                            <b:dataTableColumn label="Löschen">
-                                <b:commandButton value="X" action="#{benutzerverwaltungBean.delete(benutzer.user_id)}"/>
-                            </b:dataTableColumn>
+                                        <f:selectItem itemValue = "Admin" itemLabel = "Admin" /> 
+                                        <f:selectItem itemValue = "Redakteur" itemLabel = "Redakteur" /> 
+                                        <f:selectItem itemValue = "User" itemLabel = "User" /> 
+                                    </b:selectOneMenu>
+                                </b:dataTableColumn>
 
-                            <b:dataTableColumn label="Ändern">
-                                <b:commandButton value="Ändern" action="#{benutzerverwaltungBean.modify(benutzer)}" rendered="#{!benutzer.editable}" />
-                                <b:commandButton value="Speichern" action="#{benutzerverwaltungBean.save(benutzer)}" rendered="#{benutzer.editable}" />
-                            </b:dataTableColumn>
+                                <b:dataTableColumn label="Löschen">
+                                    <b:commandButton value="X" action="#{benutzerverwaltungBean.delete(benutzer.user_id)}"/>
+                                </b:dataTableColumn>
 
-                            <b:dataTableColumn label="Passwort zurücksetzen">
-                                <b:commandButton  value="Reset" action="AdminPasswortReset.xhtml?faces-redirect=true&amp;includeViewParams=true"/>
-                            </b:dataTableColumn>
+                                <b:dataTableColumn label="Ändern">
+                                    <b:commandButton value="Ändern" action="#{benutzerverwaltungBean.modify(benutzer)}" rendered="#{!benutzer.editable}" />
+                                    <b:commandButton value="Speichern" action="#{benutzerverwaltungBean.save(benutzer)}" rendered="#{benutzer.editable}" />
+                                </b:dataTableColumn>
 
-                        </b:dataTable>    
+                                <b:dataTableColumn label="Passwort zurücksetzen">
+                                    <b:commandButton  value="Reset" action="AdminPasswortReset.xhtml?faces-redirect=true&amp;includeViewParams=true"/>
+                                </b:dataTableColumn>
 
-                    </b:form>    
+                            </b:dataTable>    
+
+                        </b:form>  
+
+                    </div>
 
                 </div>
 
                 <div id="neuerb" class="neuerb">
-                    
-                     <h:form id="belemente">
+
+                    <h:form id="belemente">
                         <h4>Neuer Benutzer anlegen</h4>
                         <b:commandButton value="Neuer Benutzer" action="#{benutzerverwaltungBean.showNewUser()}" rendered="#{!benutzerverwaltungBean.newUser}"/>
-                        
-                        
+
+
                         <div id="panelgrid" style="margin-left: 80px;">
                             <b:panelGrid colSpans="1,4,7" columns="3">
                                 <h:outputLabel style="margin-left: -80px;" id="oUsername" value="Username: " for="username" rendered="#{benutzerverwaltungBean.newUser}" />
@@ -144,17 +149,17 @@ and open the template in the editor.
                             </b:panelGrid>
 
                             <h:outputText value="#{benutzerverwaltungBean.message}" style="color: red"/>
-                            
+
                             <br></br>
                             <b:commandButton value="Benutzer speichern" action="#{benutzerverwaltungBean.saveUser()}"  rendered="#{benutzerverwaltungBean.newUser}"/>
                             <b:commandButton value="Abbrechen" action="#{benutzerverwaltungBean.cancelUser()}" immediate="true" rendered="#{benutzerverwaltungBean.newUser}"/>
                             <b:button value="Benutzerdaten zurücksetzen"  onclick="reset()" rendered="#{benutzerverwaltungBean.newUser}"/>
 
-                           
+
                         </div>
                     </h:form>
-                   
-                    
+
+
                 </div>
 
             </div>

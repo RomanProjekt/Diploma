@@ -54,7 +54,10 @@
                                     <b:inputSecret label="Altes Passwort" value="#{passwortresetBean.bestaetigtesAltesPasswort}"  labelStyle="width:80p;"  rendered="#{meinKontoBean.isAltesPasswortInputTextF}" required="true" requiredMessage=""/>    
                                     <h:outputText value="#{passwortresetBean.message}" style="color: red" />
                                     <br></br>
-                                    <b:inputSecret label="Sicherheitsantwort" value="#{passwortresetBean.eingabeSicherheitsantwort}"  labelStyle="width:80p;"  rendered="#{emailsecuritycodeBean.sicherheitsAntwortFeld}" required="false" requiredMessage=""/>    
+                                    
+                                    <h5 id="h3" rendered="#{emailsecuritycodeBean.sicherheitsAntwortFeld}">Hinweis: Der Resetcode befindet sich in Ihrer Email!</h5>
+                                    <br></br>
+                                    <b:inputSecret label="Resetcode" value="#{passwortresetBean.eingabeSicherheitsantwort}"  labelStyle="width:80p;"  rendered="#{emailsecuritycodeBean.sicherheitsAntwortFeld}" required="false" requiredMessage=""/>    
 
 
                                     <b:inputSecret label="Passwort" value="#{passwortresetBean.pw}" labelStyle="width:80p;"  required="true" requiredMessage=""/>
@@ -83,7 +86,7 @@
 
                 </div>
 
-                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+                <div class="footer"><ui:include src="/resources/include/footer.xhtml" /></div>
 
             </div>
 

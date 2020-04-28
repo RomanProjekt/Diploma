@@ -50,7 +50,7 @@
     <managed-bean>
         <managed-bean-name>databaseManagerService</managed-bean-name>
         <managed-bean-class>service.DatabaseManagerService</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
     
     <managed-bean>

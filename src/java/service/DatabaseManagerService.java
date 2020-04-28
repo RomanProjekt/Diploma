@@ -124,13 +124,15 @@ public class DatabaseManagerService {
         diplomarbeitDAO = new DiplomarbeitDAO();
         favDAO = new FavoritenDAO();
         sicherheitsCodeDAO = new SicherheitsCodeDAO();
-        //SchuleList = schuleDAO.read();
+        SchuleList = new ArrayList<>();
+        
     }
     
     @PostConstruct
     private void init() {    
             //Fehler Nullpoint Exception
-            //loggedInBenutzer = new Benutzer();    
+            //loggedInBenutzer = new Benutzer();
+            SchuleList = new ArrayList<>();
     }
     
     private boolean passwortOK;
@@ -142,11 +144,7 @@ public class DatabaseManagerService {
     public void setPasswortOK(boolean passwortOK) {
         this.passwortOK = passwortOK;
     }
-    
-    
-   
-    
-    
+
     //Verschlüsselung:
 
     public SecretKeySpec getSecretKey() {
@@ -173,7 +171,9 @@ public class DatabaseManagerService {
         this.secondEnc = secondEnc;
     }
     
-    
+    public void getSchulList() {
+        SchuleList = schuleDAO.read();
+    }
     
     
     
@@ -296,7 +296,7 @@ public class DatabaseManagerService {
         this.loggedInBenutzer = loggedInBenutzer;
     }
 
-    //Diplomarbeit
+    //------------------------Diplomarbeit--------------------------------------
     public List<Diplomarbeit> getDplist() {
         return dplist;
     }
@@ -986,10 +986,7 @@ public class DatabaseManagerService {
         return benutzerDAO.updateAdminNewPasswort(pw, benutzerid);
     }
 
-    public List<Diplomarbeit> weitereSuche(String titel, String autor, String datum, String schlagwort) {
-        return diplomarbeitDAO.WeitereSuchleiste(titel, autor, datum, schlagwort);
-    }
-
+  
     public boolean compare(String email) {
         return benutzerDAO.compareEmail(email);
     }

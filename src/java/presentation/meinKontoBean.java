@@ -7,8 +7,11 @@ package presentation;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import java.io.File;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import pojo.Benutzer;
 import service.DatabaseManagerService;
 import pojo.Diplomarbeit;
@@ -66,7 +69,11 @@ public class meinKontoBean {
     }
     
     public void delteDip(Diplomarbeit dip) {
+        
         dbService.deleteDiplomarbeit(dip);
+        this.deleteFile(dip.getPdf());
+        
+        
     }
 
     //Getter-Setter
@@ -176,6 +183,21 @@ public class meinKontoBean {
     
     public void setRedList(List<Diplomarbeit> redList) {
         this.redList = redList;
+    }
+    
+     public boolean deleteFile(String filepath) {
+        
+        
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        String server_pdf_path = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + filepath;
+         
+        boolean del = false;
+        File file = new File(server_pdf_path);
+        if (file.exists()) {
+            del = file.delete();
+        }
+        return del;
     }
     
     

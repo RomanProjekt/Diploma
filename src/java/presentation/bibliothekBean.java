@@ -25,10 +25,13 @@ public class bibliothekBean {
     private String Titel;
     private String autor;
     private String date;
+    private String schlagwort;
+    private String schule;
+    
+    
     private String speech;
     private String fachgebiet;
-    private String schlagwort;
-    
+
     private List<Diplomarbeit> indexSortList;
     
     
@@ -201,6 +204,17 @@ public class bibliothekBean {
     public void setDbService(DatabaseManagerService dbService) {
         this.dbService = dbService;
     }
+
+    public String getSchule() {
+        return schule;
+    }
+
+    public void setSchule(String schule) {
+        this.schule = schule;
+    }
+    
+    
+    
     
     
     
@@ -344,15 +358,7 @@ public class bibliothekBean {
         this.allindexList = allindexList;
     }
     
-    
-    //Index---------------------------------------------------------------------
 
-    
-    
-    //--------------------------------------------------------------------------
-    
-    
-    
     //aktueller Benutzer
     public void aktullerBenutzer() {
         dbService.getLoggedInBenutzer();
@@ -370,6 +376,7 @@ public class bibliothekBean {
     public void FromBibliothek(ActionEvent event) {
 
         alldiplomarbeiten = dbService.ListeAllDiplomarbeiten();
+        
         System.out.println(this.alldiplomarbeiten.isEmpty());
             this.isFromBibliothek = true;
             this.isFromIndex = false;
@@ -381,14 +388,19 @@ public class bibliothekBean {
     }
 
     public void FromIndex(ActionEvent event, String key) { 
-        this.allindexList = this.dipDAO.Suchleiste(key);
+        
+        this.diplist = this.dipDAO.Suchleiste(key);
         System.out.println("----------------------------" + this.allindexList.size());
+        
+        
         this.isFromIndex = true;
         this.isFromBibliothek = false;
         this.seitenanzahl = 1;
         this.showIndexDiplomarbeit(this.seitenanzahl, this.allindexList);
         this.createListeSize(this.allindexList); 
+        
     }
+    
     
     public void forward(ActionEvent event) {
  
@@ -957,7 +969,29 @@ public class bibliothekBean {
      
        
        
+       public Object suche() {
+          
+           if(this.Titel != null) {
+              this.diplist = da.SucheTitel(this.Titel);
+           }
+           else if(this.autor != null) {
+               this.diplist = da.SucheAutor(this.autor);
+           }
+           else if(this.date != null) {
+               this.diplist = da.SucheDatum(this.date);
+           }
+           else if(this.schule != null) {
+               this.diplist = da.SucheSchule(this.schule);
+           }
+           
+           return null;
+           
        
+       }      
+       
+       
+       
+        
    
        
        

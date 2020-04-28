@@ -14,10 +14,12 @@ and open the template in the editor.
     <h:head>
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
-        <h:outputStylesheet library= "css" name= "bibliothek.css" />
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "upload.css" />
         <h:outputStylesheet library= "css" name= "include_footer.css" />
+        <h:outputStylesheet library= "css" name= "responsiveFooter.css" />
+        <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
+        <h:outputStylesheet library= "css" name= "responsiveUpload.css" />
 
     </h:head>
     <f:metadata>
@@ -122,7 +124,7 @@ and open the template in the editor.
 
                             <div class="thirdTable" enctype="multipart/form-data">
 
-
+                                
                                 <b:dateTimePicker placeholder="Datum auswählen" format="DD.MM.YYYY" value="#{uploadBean.datum}" label="Datum" />
                                 <br/>
                                 <h:outputLabel value="Wähle Sie ihre Schule aus"></h:outputLabel>
@@ -157,7 +159,7 @@ and open the template in the editor.
 
 
                 
-                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+                <div class="footer"><ui:include src="/resources/include/footer.xhtml" /></div>
             </div>
             
         </div>        
