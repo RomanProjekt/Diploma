@@ -215,9 +215,9 @@ public class DiplomarbeitDAO {
         queryList.add("select * from diplomarbeit where upper(titel) like upper('%" + key + "%') order by titel desc");
         queryList.add("select * from diplomarbeit natural join autoren where upper(fullname) like upper('%" + key + "%') order by titel desc");
         queryList.add("select * from diplomarbeit where datum like '" + key + "%' order by titel desc");
-        queryList.add("select * from diplomarbeit d, schlagwort_diplomarbeit sd, schlagwort s"
-                + "where d.da_id = sd.da_id"
-                + "and sd.sw_id = s.id"
+        queryList.add("select * from diplomarbeit d, schlagwort_diplomarbeit sd, schlagwort s "
+                + "where d.da_id = sd.da_id "
+                + "and sd.sw_id = s.id "
                 + "and upper(s.name) like upper('%" + key + "%') order by titel desc");
         queryList.add("select * from diplomarbeit natural join schule where upper(name) like upper('%" + key + "%') order by titel desc");
         for (String s : queryList) {
@@ -251,6 +251,9 @@ public class DiplomarbeitDAO {
             } catch (Exception e) {
                 System.out.println("This be some Exception: " + e);
             }
+        }
+        for(Diplomarbeit d : dipList) {
+           System.out.println(d.toString());
         }
         return dipList;
     }
