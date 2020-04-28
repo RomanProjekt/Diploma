@@ -86,13 +86,12 @@
                     <file>${file.reference.pdflib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-            </web-module-libraries>
-            <web-module-additional-libraries>
                 <library dirs="200">
-                    <file>${libs.PDFLib.classpath}</file>
-                    <path-in-war>/</path-in-war>
+                    <file>${file.reference.pdflib.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-            </web-module-additional-libraries>
+            </web-module-libraries>
+            <web-module-additional-libraries/>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

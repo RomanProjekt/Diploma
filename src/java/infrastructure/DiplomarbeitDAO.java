@@ -209,66 +209,21 @@ public class DiplomarbeitDAO {
     }
     //-------------------------Allg Suchleistenfunktion-----------------------------
     public List Suchleiste(String k) { //allgemeine suche
-        char[] matcher = k.toCharArray();
-        String catcher = "";
-        int idx = -1;
-        for (char c : matcher) {
-            idx++;
-            if (idx == 0) {
-                if (k.toUpperCase().charAt(idx) == c) {
-                    catcher = "" + catcher + c;
-                } else {
-                    if (k.toLowerCase().charAt(idx) == c) {
-                        catcher = "" + catcher + ("" + c).toUpperCase();
-                    } else {
-                        catcher = "" + catcher + c;
-                        //break;
-                    }
-                }
-            } else {
-                if (k.toUpperCase().charAt(idx) == c) {
-                    catcher = "" + catcher + ("" + c).toLowerCase();
-                } else {
-                    if (k.toLowerCase().charAt(idx) == c) {
-                        catcher = "" + catcher + c;
-                    } else {
-                        catcher = "" + catcher + c;
-                        //break;
-                    }
-                }
-            }
-        }
-        //precaching
-        String key = catcher;
-        key = k; //test
-        //StringBuilder sb = null;
-        //if(key.length()>=4){
-        //sb = new StringBuilder(key.charAt(0) + key.charAt(1) + key.charAt(2) + key.charAt(3));
-        //}
-        //String yearKey = catcher.substring(0, 3);
-        //if(sb.getClass().equals(String.class)) {
-        //String yearKey = sb.toString();
-        //}
+        String key = k;
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
-        //queryList.add("select * from diplomarbeit where da_id like '" + key + "' order by titel desc"); //order by, switch für einzelne kriterien suche
-        queryList.add("select * from diplomarbeit where upper(titel) like upper('" + key + "%') order by titel desc");
-        queryList.add("select * from diplomarbeit natural join autoren where upper(fullname) like upper('" + key + "') order by titel desc");
-        //queryList.add("select * from diplomarbeit natural join autoren where id like '" + key + "' order by titel desc");
-        queryList.add("select * from diplomarbeit where datum like '" + key + "' order by titel desc");
+        queryList.add("select * from diplomarbeit where upper(titel) like upper('%" + key + "%') order by titel desc");
+        queryList.add("select * from diplomarbeit natural join autoren where upper(fullname) like upper('%" + key + "%') order by titel desc");
+        queryList.add("select * from diplomarbeit where datum like '" + key + "%' order by titel desc");
         queryList.add("select * from diplomarbeit d, schlagwort_diplomarbeit sd, schlagwort s"
                 + "where d.da_id = sd.da_id"
                 + "and sd.sw_id = s.id"
-                + "and upper(s.name) like upper('" + key + "') order by titel desc");
-        queryList.add("select * from diplomarbeit natural join schule where upper(name) like upper('" + key + "%') order by titel desc");
-        //queryList.add("select * from diplomarbeit natural join benutzer where benutzername like '" + key + "'"
-        //        + "or vorname like '" + key + "' or nachname '" + key + "' order by titel desc");
+                + "and upper(s.name) like upper('%" + key + "%') order by titel desc");
+        queryList.add("select * from diplomarbeit natural join schule where upper(name) like upper('%" + key + "%') order by titel desc");
         for (String s : queryList) {
             try (
                     Connection con = ConnectionManager.getInst().getConn();
                     Statement stmt = con.createStatement();
-                    //PreparedStatement ps = con.prepareStatement(s);
-                    //ResultSet rs = ps.executeQuery();
                     ResultSet rs = stmt.executeQuery(s);
                     ) {
                 while (rs.next()) {
@@ -276,7 +231,7 @@ public class DiplomarbeitDAO {
                     help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
                             rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
                             rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
-                    int cs = 0;
+                    int cs=0;
                     if (!dipList.isEmpty()) {
                         for (Diplomarbeit ar : dipList) {
                             if (ar.getDa_id() == help.getDa_id()) {
@@ -305,7 +260,7 @@ public class DiplomarbeitDAO {
         String key = k;
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
-        queryList.add("select * from diplomarbeit where upper(titel) like upper('" + key + "%') order by titel desc");
+        queryList.add("select * from diplomarbeit where upper(titel) like upper('%" + key + "%') order by titel desc");
         for (String s : queryList) {
             try (
                     Connection con = ConnectionManager.getInst().getConn();
@@ -344,7 +299,7 @@ public class DiplomarbeitDAO {
         String key = k;
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
-        queryList.add("select * from diplomarbeit natural join autoren where upper(fullname) like upper('" + key + "') order by titel desc");
+        queryList.add("select * from diplomarbeit natural join autoren where upper(fullname) like upper('%" + key + "%') order by titel desc");
         for (String s : queryList) {
             try (
                     Connection con = ConnectionManager.getInst().getConn();
@@ -386,7 +341,7 @@ public class DiplomarbeitDAO {
         queryList.add("select * from diplomarbeit d, schlagwort_diplomarbeit sd, schlagwort s"
                 + "where d.da_id = sd.da_id"
                 + "and sd.sw_id = s.id"
-                + "and upper(s.name) like upper('" + key + "') order by titel desc");
+                + "and upper(s.name) like upper('%" + key + "%') order by titel desc");
         for (String s : queryList) {
             try (
                     Connection con = ConnectionManager.getInst().getConn();
@@ -425,7 +380,7 @@ public class DiplomarbeitDAO {
         String key = k;
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
-        queryList.add("select * from diplomarbeit natural join schule where upper(name) like upper('" + key + "%') order by titel desc");
+        queryList.add("select * from diplomarbeit natural join schule where upper(name) like upper('%" + key + "%') order by titel desc");
         for (String s : queryList) {
             try (
                     Connection con = ConnectionManager.getInst().getConn();
@@ -464,7 +419,7 @@ public class DiplomarbeitDAO {
         String key = k;
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<String> queryList = new ArrayList<>();
-        queryList.add("select * from diplomarbeit where datum like '" + key + "' order by titel desc");
+        queryList.add("select * from diplomarbeit where datum like '" + key + "%' order by titel desc");
         for (String s : queryList) {
             try (
                     Connection con = ConnectionManager.getInst().getConn();
