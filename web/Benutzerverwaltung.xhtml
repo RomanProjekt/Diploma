@@ -95,8 +95,8 @@ and open the template in the editor.
                                     <b:commandButton value="Speichern" action="#{benutzerverwaltungBean.save(benutzer)}" rendered="#{benutzer.editable}" />
                                 </b:dataTableColumn>
 
-                                <b:dataTableColumn label="Passwort zurücksetzen">
-                                    <b:commandButton  value="Reset" action="AdminPasswortReset.xhtml?faces-redirect=true&amp;includeViewParams=true"/>
+                                <b:dataTableColumn label="Passwort zurücksetzen" >
+                                    <b:commandButton  value="Reset" action="#{benutzerverwaltungBean.sendToPasswortReset(benutzer)}"/>
                                 </b:dataTableColumn>
 
                             </b:dataTable>    

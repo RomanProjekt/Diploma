@@ -10,14 +10,16 @@
 
         <title>title> Diplomarbeiten-Bibliothek </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <h:outputStylesheet library= "css" name= "bibliothek.css" />
-        <h:outputStylesheet library="css"  name= "table-style.css"  />
+        <h:outputStylesheet library= "css" name= "bibliothek.css" /> 
         <h:outputStylesheet library= "css" name= "Navbar.css" />
-        <h:outputStylesheet library= "css" name= "include_footer.css" />
+        <h:outputStylesheet library= "css" name= "Footer.css" />
+        
         <h:outputStylesheet library= "css" name= "responsiveBibliothek.css" />
+        
         <h:outputStylesheet library= "css" name= "responsiveFooter.css" />
         <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
-        <h:outputStylesheet library= "css" name= "grid.css" />
+<!--        <h:outputStylesheet library= "css" name= "grid.css" />-->
+        <h:outputStylesheet library= "css" name= "suchleisteBibliothek.css" />
 
     </h:head>
 
@@ -42,82 +44,37 @@
                 <div id="main" class="mainindex">
 
 
-                    <div class="grid-container">
-
-
-                        
-
-
-                        <div class="item1" id="mySidebar">
-
-                            <h:form id="form">
-
-                                <div id="content" class="content">  
+                           <div id="content" class="content">  
 
 
                                     <div class="uberschrift_ws">Weitere Suche</div>
 
 
-                                    <div class="titel">Titel</div>
-
-
                                     <div class="tftitel">
-                                        <b:form horizontal="true">
-
-                                            <b:inputText class="input"  value="#{bibliothekBean.titel}" placeholder="Titel" typeahead="true"  />
-
+                                        <b:form>
+                                            <b:inputText label="Titel" class="input"  value="#{bibliothekBean.titel}" placeholder="Titel" typeahead="true"  />
                                         </b:form>
                                     </div>
 
 
-
-                                    <div class="autor">Autor</div>  
                                     <div class="tfautor">
-
-                                        <div class="tfa">
-                                            <b:form horizontal="true">
-
-                                                <b:inputText class="input" value="#{bibliothekBean.autor}" placeholder="Autor" typeahead="true"  />
-
-                                            </b:form>
-                                        </div>    
-
-                                    </div>
-
-
-                                    <div class="datum">Datum</div> 
-                                    <div class="tfdatum">
-
-                                        <div class="tfd">
                                             <b:form>
-                                                <b:dateTimePicker value="#{dateTimeBean.justNow}"
-                                                                  allow-input-toggle="#{dateTimeBean.allowInputToggle}"
-                                                                  icon-position="#{dateTimeBean.iconPosition}"
-                                                                  mode="#{dateTimeBean.mode}"
-                                                                  side-by-side="#{dateTimeBean.sideBySide}"
-                                                                  show-date="#{dateTimeBean.showDate}"
-                                                                  show-time="#{dateTimeBean.showTime}"
-                                                                  show-icon="#{dateTimeBean.showIcon}"
-                                                                  use-current="#{dateTimeBean.useCurrent}" />
-                                            </b:form>
-                                        </div>    
+                                                <b:inputText label="Autor" class="input" value="#{bibliothekBean.autor}" placeholder="Autor" typeahead="true"  />
+                                            </b:form>    
                                     </div>
 
 
+                                    <div class="tfdatum">
+                                            <b:form>
+                                                <b:dateTimePicker label="Datum" placeholder="Datum auswählen" format="DD.MM.YYYY" value="#{uploadBean.datum}" />
+                                            </b:form>                                     
+                                    </div>
 
 
-                                    <div class="schlagwort">Schlagwort</div>
-                                    <div class="tfschlagwort">
-
-
-                                        <div class="tfs">
-                                            <b:form horizontal="true">
-
-                                                <b:inputText class="input" value="#{bibliothekBean.schlagwort}" placeholder="Schlagwort" typeahead="true"  />
-
-                                            </b:form>
-                                        </div>
-
+                                    <div class="tfschlagwort">                                    
+                                            <b:form>
+                                                <b:inputText label="Schlagwort" class="input" value="#{bibliothekBean.schlagwort}" placeholder="Schlagwort" typeahead="true"  />
+                                            </b:form>                                   
                                     </div> 
 
 
@@ -125,7 +82,7 @@
                                     <div class="button_suche">
                                         <td>
                                             <h:form>
-                                                <b:commandButton class="input" value="Suche" action="#{bibliothekBean.suche}" look="danger"/>
+                                                <b:commandButton style="background-color: red; color: white;" class="input" value="Suche" action="#{bibliothekBean.suche}"/>
                                             </h:form>
 
                                         </td>
@@ -134,50 +91,47 @@
 
                                 </div> 
 
-                            </h:form>  
+                           
 
-                        </div>
-
-
-
-                        <div class="item2">
+                   
 
 
-
-
-                            <div class="bilddiplomarbeit">
-
-                                <h:form>
-
-                                    <p:commandButton type="button" onclick="PF('switcher').previous();"
-                                                     value="zurück" id="prev" style="margin-bottom: 5px;"/>
-                                    <p:commandButton type="button" onclick="PF('switcher').next();"
-                                                     value="weiter" id="next" style="margin-bottom: 5px;"/>
-
-                                    <p:imageSwitch effect="wipe" widgetVar="switcher" id="manuelSwitcher"
-                                                   slideshowAuto="false">
-                                        <ui:repeat value="#{bibliothekBean.diplist}" var="var" id="manuelSwitcherImages">
-                                            <h:commandLink id="link" action="#{dipansehenBean.werteanzeigen(var)}">
-                                                <p:graphicImage class="picture" value="#{var.bild}" alt="Bild1" id="image" style=" margin-left: 100px;"/>
-                                            </h:commandLink>
-                                        </ui:repeat>
-
-                                    </p:imageSwitch>
-
-                                </h:form>
-
-                            </div>    
-
-                        </div>
-                    </div>
+                      
+                    
                 </div>
+                
+                 <div class="bdiplomarbeit">
+
+                        
+
+                            <p:commandButton type="button" onclick="PF('switcher').previous();"
+                                             value="zurück" id="prev" style="margin-bottom: 5px;"/>
+                            <p:commandButton type="button" onclick="PF('switcher').next();"
+                                             value="weiter" id="next" style="margin-bottom: 5px;"/>
+
+                            <p:imageSwitch effect="wipe" widgetVar="switcher" id="manuelSwitcher"
+                                           slideshowAuto="false">
+                                <ui:repeat value="#{bibliothekBean.diplist}" var="var" id="manuelSwitcherImages">
+                                    <h:form>
+                                        <h:commandLink id="link" action="#{dipansehenBean.werteanzeigen(var)}">
+                                            <p:graphicImage class="picture" value="#{var.bild}" alt="Bild1" id="image" style=" margin-left: 100px;"/>
+                                        </h:commandLink>
+                                    </h:form>
+                                </ui:repeat>
+
+                            </p:imageSwitch>
+
+                        
+
+                    </div>    
+
 
                 <div class="footer">
-                        <ui:include src="/resources/include/footer.xhtml" />
-                    </div>
-
+                    <ui:include src="/resources/include/footer.xhtml" />
                 </div>
 
+            </div>
+          
 
 
             </div>

@@ -1,182 +1,373 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 23.04.2020, 13:56:51
-    Author     : hp
-*/
 
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 23.04.2020, 12:45:10
-    Author     : hp
-*/
+@media only screen and (max-width: 1600px) {
 
-@media only screen and (max-width: 1500px) {
     
-    .mainindex {
-        
+    .footer {
+        height: 150px;   
     }
 
-    .footer {   
-        width: 100%;
-        height: auto;
+    .addresse1 {    
+        margin: 0 0 0 25%;
+        padding-top:10px; 
     }
 
-
-    .addresse {
+    .addresse2 { 
         margin: 0 0 0 0;
-        width: 600px;
-        color: white;
-        font-size: 15px;
-    }
-
-    .youtube {
-        margin: 0 0 0 1%;
-        color: white;
-    }
-
-    .addresse1 {
-        margin: 0 0 0 auto;
-        width: auto;
-        color: white;
-        font-size: 15px;
-    }
-
-    .addresse2 {
-        margin: 0 0 0 auto;
-        width: auto;
-        color: white;
-        font-size: 15px;
+        padding-top:10px; 
     }
 
     .addresse3 {
-        margin: 0 0 0 auto;
-        width: auto;
-        color: white;
-        font-size: 15px;
+        margin: 0 0 0 0;
+        padding-top:10px; 
     }
 
+
     .impressum {
-        font-size: 15px;
-        width: auto;
-        margin: 0 0 0 0;
-        color: white;
+        margin: 0 0 0 31%; 
     }
 
     .datenschutz {
-        font-size: 15px;
-        width: auto;
-        margin: 0 0 0 auto;
-        color: white;
+        margin: 0 0 0 0;   
     }
 
     .youtube {
-        margin: 0 0 0 1%;
-        color: white;
+        margin: 0 0 0 0;
     }
 
     .facebook {
-        margin: 0 0 0 1%;
-        width: auto;
-        color: white;
+        margin: 0 0 0 0;
     }
 
     .twitter {
-        margin: 0 0 0 1%;
-        width: auto;
-        color: white;
+        margin: 0 0 0 0;
     }
 
-    .rsfeed {
-        margin: 0 0 0 1%;
-        color: white;
+    .rssfeed {
+        margin: 0 0 0 0;
     }
-
-
-
 
 
 
 }
 
 
-/*@media only screen and (min-width: 1200px) {
+@media only screen and (max-width: 1400px) {
 
-    .mainindex {
-        background-color: blue;
-        width: 100%;
-        height: 750px;
-        
+    
+    .footer {
+        height: 150px;   
     }
 
-    .addresse1 {
-        margin: 0 0 0 10%;
-        width: auto;
-        color: white;
-        font-size: 15px;
+    .addresse1 {    
+        margin: 0 0 0 25%;
+        padding-top:10px; 
     }
 
-    .addresse2 {
-        margin: 0 0 0 auto;
-        width: auto;
-        color: white;
-        font-size: 15px;
+    .addresse2 { 
+        margin: 0 0 0 0;
+        padding-top:10px; 
     }
 
     .addresse3 {
-        margin: 0 0 0 auto;
-        width: auto;
-        color: white;
-        font-size: 15px;
+        margin: 0 0 0 0;
+        padding-top:10px; 
     }
 
-    .impressum {
-        font-size: 15px;
-        width: auto;
-        margin: -10px 0 0 1%;
-        color: white;
 
+    .impressum {
+        margin: 0 0 0 32%; 
     }
 
     .datenschutz {
-        font-size: 15px;
-        width: auto;
-        margin: 0 0 0 2%;
-        color: white;
+        margin: 0 0 0 0;   
     }
 
     .youtube {
-        margin: 0 0 0 10%;
-        color: white;
+        margin: 0 0 0 0;
     }
 
     .facebook {
         margin: 0 0 0 0;
-        width: auto;
-        color: white;
     }
 
     .twitter {
         margin: 0 0 0 0;
-        width: auto;
-        color: white;
     }
 
-    .rsfeed {
+    .rssfeed {
         margin: 0 0 0 0;
-        color: white;
+    }
+
+    
+
+}
+
+
+@media only screen and (max-width: 1200px) {
+
+   .footer {
+        height: 150px;   
+    }
+
+    .addresse1 {    
+        margin: 0 0 0 25%;
+        padding-top:10px; 
+    }
+
+    .addresse2 { 
+        margin: 0 0 0 0;
+        padding-top:10px; 
+    }
+
+    .addresse3 {
+        margin: 0 0 0 0;
+        padding-top:10px; 
     }
 
 
+    .impressum {
+        margin: 0 0 0 32%; 
+    }
+
+    .datenschutz {
+        margin: 0 0 0 0;   
+    }
+
+    .youtube {
+        margin: 0 0 0 0;
+    }
+
+    .facebook {
+        margin: 0 0 0 0;
+    }
+
+    .twitter {
+        margin: 0 0 0 0;
+    }
+
+    .rssfeed {
+        margin: 0 0 0 0;
+    }
+    
+
+}
 
 
 
+@media only screen and (max-width: 1200px) {
 
-}*/
+   .footer {
+        height: 150px;   
+    }
+
+    .addresse1 {    
+        margin: 0 0 0 25%;
+        padding-top:10px; 
+    }
+
+    .addresse2 { 
+        margin: 0 0 0 0;
+        padding-top:10px; 
+    }
+
+    .addresse3 {
+        margin: 0 0 0 28%;
+        padding-top:10px; 
+    }
+
+
+    .impressum {
+        margin: 0 0 0 0; 
+    }
+
+    .datenschutz {
+        margin: 0 0 0 0;   
+    }
+
+    .youtube {
+        margin: 0 0 0 40%;
+    }
+
+    .facebook {
+        margin: 0 0 0 0;
+    }
+
+    .twitter {
+        margin: 0 0 0 0;
+    }
+
+    .rssfeed {
+        margin: 0 0 0 0;
+    }
+    
+
+}
+
+
+
+@media only screen and (max-width: 1050px) {
+
+  
+     .footer {
+        height: 300px;   
+    }
+
+    .addresse1 {    
+        margin: 0 0 0 35%;
+        width: 100%;
+    }
+
+    .addresse2 { 
+        margin: 0 0 0 28%;
+        width: 100%;
+    }
+
+    .addresse3 {
+        margin: 0 0 0 37%;
+        width: 100%;
+    }
+
+
+    .impressum {
+       margin: 0 0 0 37%;
+       width: 100%; 
+    }
+
+    .datenschutz {
+        margin: 0 0 0 37%;
+        width: 100%;
+    }
+
+    .youtube {
+        margin: 0 0 0 32%;
+    
+    }
+
+    .facebook {
+        margin: 0 0 0 0;
+    }
+
+    .twitter {
+        margin: 0 0 0 0;
+    }
+
+    .rssfeed {
+         margin: 0 0 0 0;
+    }
+    
+    
+
+}
+
+
+@media only screen and (max-width: 850px) {
+
+  
+   .footer {
+        height: 300px;   
+    }
+
+    .addresse1 {    
+        margin: 0 0 0 35%;
+        width: 100%;
+    }
+
+    .addresse2 { 
+        margin: 0 0 0 28%;
+        width: 100%;
+    }
+
+    .addresse3 {
+        margin: 0 0 0 37%;
+        width: 100%;
+    }
+
+
+    .impressum {
+       margin: 0 0 0 37%;
+       width: 100%; 
+    }
+
+    .datenschutz {
+        margin: 0 0 0 37%;
+        width: 100%;
+    }
+
+    .youtube {
+        margin: 0 0 0 32%;
+    
+    }
+
+    .facebook {
+        margin: 0 0 0 0;
+    }
+
+    .twitter {
+        margin: 0 0 0 0;
+    }
+
+    .rssfeed {
+         margin: 0 0 0 0;
+    }
+    
+    
+
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+  
+   .footer {
+        height: 300px;   
+    }
+
+    .addresse1 {    
+        margin: 0 0 0 30%;
+        width: 100%;
+    }
+
+    .addresse2 { 
+        margin: 0 0 0 22%;
+        width: 100%;
+    }
+
+    .addresse3 {
+        margin: 0 0 0 35%;
+        width: 100%;
+    }
+
+
+    .impressum {
+       margin: 0 0 0 35%;
+       width: 100%; 
+    }
+
+    .datenschutz {
+        margin: 0 0 0 35%;
+        width: 100%;
+    }
+
+    .youtube {
+        margin: 0 0 0 30%;
+    
+    }
+
+    .facebook {
+        margin: 0 0 0 0;
+    }
+
+    .twitter {
+        margin: 0 0 0 0;
+    }
+
+    .rssfeed {
+         margin: 0 0 0 0;
+    }
+    
+    
+
+}
+
+

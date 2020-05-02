@@ -48,6 +48,7 @@ public class uploadBean implements Serializable {
     private List<Schlagwort> insSchlagList;
     private List<Schule> schulList;
     private Schule realSchule;
+    
     private Date datum;
 
     private String titel;

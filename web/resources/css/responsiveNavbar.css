@@ -3,58 +3,32 @@
 
 
 
-/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
 
-    .headerindex {
-/*        background-color: orange;*/
-        height: 100px;
+
+
+    .navbarHeader {
+        height: auto;
     }
-
-    .navbar form ul {
-/*        background-color: red;*/
-        float: left;
-        list-style: none;
-        color: #464a56;
-        text-decoration: none;
-        margin-left: -45px;
-        width: 100%;
-    }
-    
-    
-
-    .red {
-        width:  100%;
-        height: 5px;
-        margin-top: -20px;
-    }
-
-
-
-
-}
-
-
-
-@media screen and (max-width: 1000px) {
-
 
     .headerindex {
         height: 100px;
     }
-    
-    .navbar form ul {
-/*        background-color: greenyellow;*/
+
+    .navbarHeader form ul {
+        float:left;
         list-style: none;
         color: #464a56;
         text-decoration: none;
         width: 80%;
-        margin: 0 0 0 60px; 
+        margin: 15px 0 0 60px; 
+        margin-left: -45px;
     }
-    
-    li a {
+
+    navbarHeader li a {
+        float:left;
         display: block;
         width: 150px;
         margin: 0 0 0 -20px;
@@ -64,8 +38,11 @@
     .red {
         width:  100%;
         height: 5px;
-         margin-top: -20px;
+        margin: 50px 0 0 0;
+
     }
+
+
 
 
 
@@ -74,44 +51,176 @@
 
 
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1050px) {
 
-  
-  .benutzername {
-       margin-left: 20%; 
-   }
-   
-/*   .logo {
-       margin-left: 20%; 
-   }*/
-   
-   .contentindex {
-       width: 500px;
-   }
-   
-    .navbar form ul {
+
+    .headerindex {
+        height: auto;
+    }
+
+    .navbarHeader form ul {
+        list-style: none;
+        color: #464a56;
+        text-decoration: none;
+        width: 80%;
+        margin: 15px 0 0 60px;
+        margin-left: -45px;
+    }
+
+    navbarHeader li a {
+        display: block;
+        width: 150px;
+        margin: 0 0 0 -20px;
+        width: 100%;    
+    }
+
+    .red {
+        width:  100%;
+        height: 5px;
+        margin: 50px 0 0 0;
+    }
+
+
+
+
+
+
+}
+
+
+
+@media screen and (max-width: 1050px) {
+
+
+    .logo {
+        margin-left: 20%; 
+    }
+
+    .contentindex {
+        width: 500px;
+    }
+
+    .navbarHeader form ul {
         list-style: none;
         color: #464a56;
         text-decoration: none;
         width: 100%;
         margin: 0 0 0 0;
     }
-   
-   
-    li a {
+
+
+    .navbarHeader li a {
         display: block;
         width: 100%; 
     }
-    
+
     .red {
         width:  100%;
         height: 5px;
-        margin-top: -20px;
+        margin: 250px 0 0 0;
     }
-       
-       
 
-  
+
+
+
+
+}
+
+
+
+@media screen and (max-width: 830px) {
+
+
+    .benutzername {
+        margin-left: 20%; 
+    }
+
+    .logo {
+        margin-left: 20%; 
+    }
+
+    .contentindex {
+        width: 500px;
+    }
+
+    .navbarHeader form ul {
+        list-style: none;
+        color: #464a56;
+        text-decoration: none;
+        width: 100%;
+        margin: 0 0 0 0;
+    }
+
+
+    .navbarHeader li a {
+        display: block;
+        width: 100%; 
+    }
+
+    .red {
+        width:  100%;
+        height: 5px;
+        margin: 250px 0 0 0;
+    }
+
+    .benutzername {
+        padding-top: 10px;
+        margin:  0 0 0 42%;
+
+    }
+
+
+
+
+
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+
+    .logo {
+        margin-left: 20%; 
+    }
+
+    .contentindex {
+        width: 500px;
+    }
+
+    .navbarHeader form ul {
+        list-style: none;
+        color: #464a56;
+        text-decoration: none;
+        width: 100%;
+        margin: 0 0 0 0;
+    }
+
+
+    .navbarHeader li a {
+        display: block;
+        width: 100%; 
+    }
+
+    .red {
+        width:  100%;
+        height: 5px;
+        margin: 250px 0 0 0;
+    }
+
+    .benutzername {
+        margin: 0 0 0 37%;
+    }
+    
+    .diplomarbeit {
+/*        background-color: red;*/
+        margin: 0 0 0 37%;
+         
+    }
+
+
+
+
 
 }
 

@@ -189,7 +189,7 @@
         <managed-bean-name>passwortresetBean</managed-bean-name>
         <managed-bean-class>presentation.passwortresetBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
+         <managed-property>
            <property-name>dbService</property-name>
            <value>#{databaseManagerService}</value>
         </managed-property>
@@ -204,26 +204,34 @@
            <value>#{databaseManagerService}</value>
         </managed-property>  
     </managed-bean>
-    <managed-bean>
-        <managed-bean-name>adminpasswortresetBean</managed-bean-name>
-        <managed-bean-class>presentation.adminpasswortresetBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+   
    
     <managed-bean>
         <managed-bean-name>updateBean</managed-bean-name>
         <managed-bean-class>presentation.updateBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+           <property-name>dbService</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>alertBean</managed-bean-name>
         <managed-bean-class>presentation.alertBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+           <property-name>dbService</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>navBarBean</managed-bean-name>
         <managed-bean-class>presentation.NavBarBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+           <property-name>dbService</property-name>
+           <value>#{databaseManagerService}</value>
+        </managed-property>
     </managed-bean>
    
 </faces-config>

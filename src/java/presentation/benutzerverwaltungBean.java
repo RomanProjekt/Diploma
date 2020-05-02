@@ -19,7 +19,9 @@ import de.mkammerer.argon2.Argon2Factory;
 public class benutzerverwaltungBean {
 
     private int user_id;
+    
     private Benutzer benutzer;
+    
     private String username;
     private String firstname;
     private String lastname;
@@ -28,6 +30,7 @@ public class benutzerverwaltungBean {
     private String password;
     private ArrayList<Benutzer> benutzerList;
     private DatabaseManagerService dbService;
+    
     private int result;
     private boolean newUser;
     private String message;
@@ -58,6 +61,7 @@ public class benutzerverwaltungBean {
 
     public Object delete(int id) {
         result = dbService.deleteBenutzer(id);
+        dbService.deleteSicherheitsCode(id);
         benutzerList = dbService.getAllBenutzer();
         return null;
     }
@@ -209,5 +213,118 @@ public class benutzerverwaltungBean {
     public void setMessage(String message) {
         this.message = message;
     }
+    
+    
+    
+    public String sendToPasswortReset(Benutzer b) {
+        this.benutzer = b;
+        return "AdminPasswortReset.xhtml?faces-redirect=true&amp;includeViewParams=true";
+    }
+    
+    
+    
+     private String pw;
+    private String bestaetigtespw;
+   
+    private String benutzerid;
+    private String isUserfound;
+    private String messagePasswort;
+
+
+  
+
+    public String getPw() {
+        return pw;
+    }
+
+    public void setPw(String pw) {
+        this.pw = pw;
+    }
+
+    public String getBestaetigtespw() {
+        return bestaetigtespw;
+    }
+
+    public void setBestaetigtespw(String bestaetigtespw) {
+        this.bestaetigtespw = bestaetigtespw;
+    }
+
+    
+
+    public String getBenutzerid() {
+        return benutzerid;
+    }
+
+    public void setBenutzerid(String benutzerid) {
+        this.benutzerid = benutzerid;
+    }
+    
+    public String loggout() {
+        dbService.loggout();
+        this.pw = "";
+        this.bestaetigtespw = "";
+        return "login.xhtml?faces-redirect=true";
+    }
+
+    public String getIsUserfound() {
+        return isUserfound;
+    }
+
+    public void setIsUserfound(String isUserfound) {
+        this.isUserfound = isUserfound;
+    }
+
+    public String getMessagePasswort() {
+        return messagePasswort;
+    }
+
+    public void setMessagePasswort(String messagePasswort) {
+        this.messagePasswort = messagePasswort;
+    }
+    
+    
+    
+    
+    
+    public String speichernPasswortAdmin() {
+        
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        this.pw = argon2.hash(4, 1024 * 1024, 8, pw.toCharArray());
+        
+        System.out.println("Du wurdest als Admin angemeldet!");
+
+             if(this.benutzer != null) {
+                      
+                if (argon2.verify(this.pw, this.bestaetigtespw.toCharArray())) {
+                    
+                    //System.out.println("Du bist als Benutzer angemeldet!!");
+                    //System.out.println("Passwort eingabe richtig!!!");
+                    //System.out.println(this.pw);
+                    System.out.println("-------------------------" + this.benutzer.getFirstname() + this.benutzer.getLastname());
+                    
+                    int reset = dbService.updateAdminNewPasswort(this.pw, this.benutzer.getUser_id());
+                    
+                    if (reset > 0) {
+                        System.out.println("Passwort wurde erfolgreich zurückgesetzt!" + dbService.getLoggedInBenutzer().getUsername());
+                        return this.loggout();
+                    } else {
+                        System.out.println("Passwort konnte nicht gespeichert werden!!!!");
+
+                    }
+
+                } else {
+                    this.messagePasswort = "Geben sie ein neues Passwort ein!";
+                    System.out.println("Geben sie ein neues Passwort ein!");
+                }
+             }else {
+                 System.out.println("Benutzer ist nicht vorhanden");
+             }
+           
+          
+        
+        return "AdminPasswortReset.xhtml?includeViewParams=true";
+
+    }
+
 
 }

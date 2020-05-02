@@ -61,22 +61,28 @@
 
 
 .mainTable {
+/*    background-color: red;*/
     width: 100%;
     height: auto;
     margin: 0 0 0 0;
+    padding-bottom: 50px;
     
 }
 
 .firstTable {
+/*    background-color: red;*/
     width: 300px;
     margin: 0 0 0 37%;
+    padding-bottom: 50px;
 
 
 }
 
 .secondTable {
+/*    background-color: red;*/
     width: 300px; 
     margin: 10px 0 0 37%;
+    padding-bottom: 50px;
 
 }
 
@@ -90,3 +96,4 @@
 .uberschrift {
     margin: 0 0 0 37%;
 }
+

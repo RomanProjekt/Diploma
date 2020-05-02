@@ -392,13 +392,12 @@ public class bibliothekBean {
         
         this.diplist = this.dipDAO.Suchleiste(key);
         System.out.println("----------------------------" + this.allindexList.size());
-        
-        
         this.isFromIndex = true;
         this.isFromBibliothek = false;
         this.seitenanzahl = 1;
         this.showIndexDiplomarbeit(this.seitenanzahl, this.allindexList);
         this.createListeSize(this.allindexList); 
+        
         
     }
     

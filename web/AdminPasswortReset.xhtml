@@ -11,9 +11,14 @@
         <h:outputStylesheet library= "css" name="adminpwreset.css" />
         <h:outputStylesheet library= "css" name="include_footer.css" />
 
+       <f:metadata>
+        <f:viewAction action="#{databaseManagerService.isAdminRedirect()}" />
+       </f:metadata>
+        
         <f:metadata>
-            <f:viewParam name="Benutzer" value="#{benutzerverwaltungBean.benutzer}"/>  
+            <f:viewParam name="benutzer" value="#{emailpasswortBean.fullAdditiveCodeSalt}"/>
         </f:metadata>
+  
 
     </h:head>
     
@@ -51,12 +56,12 @@
                                     <h4>Lieber Admin, #{meinKontoBean.dbService.loggedInBenutzer.username} </h4> 
                                     <br></br>
 
-                                    <b:inputSecret label="Passwort" value="#{adminpasswortresetBean.pw}" labelStyle="width:80p;"  required="true" requiredMessage=""/>
+                                    <b:inputSecret label="Passwort" value="#{benutzerverwaltungBean.pw}" labelStyle="width:80p;"  required="true" requiredMessage=""/>
 
-                                    <b:inputSecret label="Passwort bestätigen" value="#{adminpasswortresetBean.bestaetigtespw}" labelStyle="width:80px;"/>
+                                    <b:inputSecret label="Passwort bestätigen" value="#{benutzerverwaltungBean.bestaetigtespw}" labelStyle="width:80px;"/>
 
                                     <br></br>
-                                    <b:commandButton value="Passort speichern"  action="#{adminpasswortresetBean.speichernPasswortAdmin(benutzerverwaltungBean.benutzer)}" ></b:commandButton>                         
+                                    <b:commandButton value="Passort speichern"  action="#{benutzerverwaltungBean.speichernPasswortAdmin()}" ></b:commandButton>                         
 
                                 </h:panelGrid>
 

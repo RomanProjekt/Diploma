@@ -13,21 +13,9 @@ import service.DatabaseManagerService;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 
-//import Email-zurücksetzen
-import java.util.Properties;
-import java.util.regex.Pattern;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+
+
 
 /**
  *

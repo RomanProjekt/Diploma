@@ -7,20 +7,22 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
+        
 
     </h:head>
     <h:body class="body">
         <ui:composition>
-            <nav class="navbar">
+            
+            <nav class="navbarHeader">
                 <h:form>
                     
                     
                         <b:image class="logo" value="/resources/images/AK-Logo.png" height="50px" width="120px"  onclick="index.xhtml" />
-                        <h:link outcome="index.xhtml">Diplomarbeiten</h:link>
+                        <h:link class="diplomarbeit" outcome="index.xhtml">Diplomarbeiten</h:link>
                         <h:outputLabel class="benutzername" value="#{databaseManagerService.loggedInBenutzer.role}:   #{databaseManagerService.loggedInBenutzer.username}" rendered="#{databaseManagerService.loggedIn()}"></h:outputLabel>
+                         
 
-
-                        <ul class="navgroup">
+                        <ul class="navbarHeader">
                                                       
                             <li><h:link class="navLink" value="Hochladen" outcome="uploadDip.xhtml" rendered="#{!databaseManagerService.isUser()}" /></li>
                             <li><h:link class="navLink" value="Mein Konto"  outcome="meinKonto.xhtml" rendered="#{databaseManagerService.loggedIn()}" /></li>
@@ -37,6 +39,7 @@
 
                 </h:form>
             </nav>
+            
             
             
         </ui:composition>

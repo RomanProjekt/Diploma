@@ -133,6 +133,7 @@ public class DatabaseManagerService {
             //Fehler Nullpoint Exception
             //loggedInBenutzer = new Benutzer();
             SchuleList = new ArrayList<>();
+            SchuleList = schuleDAO.read();
     }
     
     private boolean passwortOK;
@@ -261,11 +262,6 @@ public class DatabaseManagerService {
     public void ReadRole() {
         this.loggedInBenutzer.getRole();
     }
-    
-    
-    
-    
-    
 
     ////Getter-Setter
     public Benutzer getB() {
@@ -527,16 +523,9 @@ public class DatabaseManagerService {
     public List<Diplomarbeit> getRedList() {
         return diplomarbeitDAO.getRedList(loggedInBenutzer.getUser_id());
     }
-    
-//    public ínt getUserId() {
-//        return benutzerDAO.Read
-//    }
 
     //Favouriten einfügen
     public int insertFavouriten(int dp_id, int b_id) {
-         System.out.println("---------------------------------- dipid " + dp_id);
-         System.out.println("---------------------------------- benutzerid" + b_id);
-       
         return this.favDAO.insert(dp_id, this.loggedInBenutzer.getUser_id());
     }
     
@@ -644,10 +633,7 @@ public class DatabaseManagerService {
     
     public String composeAdditiveCodeSalt(String composeResetCodeSalt, String composeCompareCodeSalt) {
         return composeResetCodeSalt + composeCompareCodeSalt;
-    }
-    
-
-    
+    } 
     
     public String composeResetCode(String sicherheitsantwort, String date, String time) {
          return sicherheitsantwort + date + time;
@@ -664,10 +650,7 @@ public class DatabaseManagerService {
     public String entcryptionCompareCode(String sicherheitsantwort, String date, String time, String dbCompareCodeSalt) {
         return this.manipulationCode(this.encrypt(this.composeCompareCode(sicherheitsantwort, date, time), dbCompareCodeSalt));
     }
-    
-    
-    
-    
+
     //Verschlüsselung von Parametern:
     
     private String ReturnEncCompCodeSalt;
@@ -707,15 +690,9 @@ public class DatabaseManagerService {
     public void setMainKey(String mainKey) {
         this.mainKey = mainKey;
     }
-    
-    
-    
-    
-    
 
     public String entcryptionSecurityAnswer(String securityanswer, int id) {
         String schlüssel = securityanswer + String.valueOf(id);
-        //String firstEnc =  this.manipulationCode(this.encrypt(this.composeSecurityAnswer(securityanswer, benutzername, date, time), this.mainEncryption()));
         return this.secondEnc = this.manipulationCode(this.encrypt(schlüssel, this.mainEncryption(securityanswer, id)));
   
     } 
@@ -849,16 +826,7 @@ public class DatabaseManagerService {
          return diplomarbeitDAO.Suchleiste(key);
     }  
      
-    
-     
-     
-
-    
-    
-   
-    
-    
-    
+ 
     //Email zurückseten 
      
         
@@ -919,8 +887,7 @@ public class DatabaseManagerService {
                         "<html>"
                         + "<head>"
                         + "</head>"
-                        + "<body>"     
-                                
+                        + "<body>"          
                         + "<h3>Hinweis: Ihr Passwort wurde vor einiger Zeit zurückgesetzt!</h3>"
                         + "<h5>Ihr Passwort wurde am " + this.FullTimeFormat() + " zurückgesetzt." + "</h5>"
                         + " <div class=\"navbox\">"
@@ -989,6 +956,14 @@ public class DatabaseManagerService {
   
     public boolean compare(String email) {
         return benutzerDAO.compareEmail(email);
+    }
+
+    public int insertBenutzer(Benutzer b, SicherheitsCode c) {
+       return benutzerDAO.insert(b,c);
+    }
+    
+    public void deleteSicherheitsCode(int id) {
+        sicherheitsCodeDAO.deleteSicherheitsCode(id);
     }
 
     

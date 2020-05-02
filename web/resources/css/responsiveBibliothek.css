@@ -1,0 +1,182 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 02.05.2020, 01:26:23
+    Author     : hp
+*/
+
+@media only screen and (max-width: 1650px) {
+
+    .mainindex {
+        background-color: red;
+        margin: 0 0 0 0;
+        height: 750px;
+    }
+
+
+    .bdiplomarbeit {
+        /*    background-color: blue;*/
+        width: 800px;
+        height: 750px;
+        padding: 5px;
+        margin: 20px 0 0 0;
+
+    }
+
+    .picture {
+        margin: 0 0 0 500px;
+        width: 80%;
+        height: 650px;
+    }
+
+
+    .content {
+        background-color: yellow;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: white;
+        margin: 40px 0 0 0;
+        width: 210px;
+        height: auto;
+    }
+
+
+
+
+}
+
+
+
+@media only screen and (max-width: 1500px) {
+
+    .mainindex {
+        margin: 0 0 0 0;
+        height: 750px;
+    }
+
+
+    .bdiplomarbeit {
+        /*    background-color: blue;*/
+        width: 800px;
+        height: 750px;
+        padding: 5px;
+        margin: 20px 0 0 0px;
+
+    }
+
+    .picture {
+        margin: 0 0 0 500px;
+        width: 80%;
+        height: 650px;
+    }
+
+
+    .content {
+
+        display: flex;
+        flex-wrap: wrap;
+        background-color: white;
+        margin: 40px 0 0 0;
+        width: 310px;
+        height: auto;
+    }
+
+
+
+
+}
+
+
+
+
+@media only screen and (max-width: 800px) {
+
+    .mainindex {
+        background-color: red;
+        height: 750px;
+    }
+
+    .content {
+        background-color: red;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: white;
+        margin: 0 0 0 0;
+        width: 100%;
+        height: auto;
+    }
+
+    .content > div {
+
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-size: 18px;
+        width: 100%;
+        
+
+    }
+
+
+    .uberschrift_ws {
+        margin: 0 0 0 10%;
+    }
+
+
+    .tftitel {
+        margin: 100px 0 0 10%;
+    }
+
+
+    .tfautor {
+        margin: 200px 0 0 10%;
+    }
+
+
+    .datum {
+        margin: 300px 0 0 10%;
+    }
+
+    .tfdatum {
+        margin: 300px 0 0 10%;
+
+    }
+
+    .schlagwort {
+        margin: 400px 0 0 10%;
+    }
+
+    .tfschlagwort {
+        margin: 400px 0 0 10%;
+    }
+
+
+    .button_suche {
+        margin: 550px 0 0 10%;
+    }
+
+
+
+    .bdiplomarbeit {
+        /*    background-color: blue;*/
+        width: 500px;
+        height: 750px;
+        padding: 5px;
+        margin: 0 0 0 0;
+
+    }
+
+    .picture {
+        margin: 0 0 0 0;
+        width: 400px;
+        height: 650px;
+    }
+
+
+
+
+
+}

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pojo.SicherheitsCode;
 import service.ConnectionManager;
 
 /**
@@ -163,10 +164,12 @@ public class BenutzerDAO {
     
     public int updateNewPassword(String npw, Benutzer b) {
         
+        System.out.println("-------------------------" + b.getFirstname() + b.getLastname() + b.getPassWd());
+        
         //String query = "update benutzer set vorname = ?,nachname = ?,benutzername = ?, rolle = ?  where benutzer_id = ?";
         //"select * from benutzer where email = '" + reset + "'"
         //String query = "UPDATE benutzer SET passwort = ? WHERE benutzer_id = ?";
-        String query = "update benutzer SET passwort = ? where benutzer_id = '" + b.getUser_id() + "'";
+        String query = "UPDATE benutzer SET passwort = ? WHERE benutzer_id = '" + b.getUser_id() + "'";
         System.out.println(b.getUser_id());
         int result = 0;
 
@@ -410,6 +413,32 @@ public class BenutzerDAO {
 
         return nofoundemail;
         
+    }
+
+    public int insert(Benutzer b, SicherheitsCode c) {
+     
+        String query = "insert into benutzer(`benutzer_id`, `benutzername`, `vorname`, `nachname`, `email`, `passwort`, `salt`, `rolle`, `sicherheitscode` ) values(NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement(query);) {
+
+            pstmt.setString(1, b.getUsername());
+            pstmt.setString(2, b.getFirstname());
+            pstmt.setString(3, b.getLastname());
+            pstmt.setString(4, b.geteMail());
+            pstmt.setString(5, b.getPassWd());
+            pstmt.setString(6, b.getSalt());
+            pstmt.setString(7, b.getRole());
+            pstmt.setInt(7, c.getSicherheitscode_id());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(BenutzerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+        return result;
+    
     }
 
   

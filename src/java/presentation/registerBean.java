@@ -42,6 +42,7 @@ public class registerBean {
 
     private SicherheitsCode c;
     private String message;
+    private int result;
 
     private String securityanswer;
     private String compareCodeSalt;
@@ -75,9 +76,14 @@ public class registerBean {
 
                 if (this.compareEmailAddress()) {
                     b = new Benutzer(0, username, firstName, lastName, hash, "salt", "User", email);
-                    int result = dbService.insertBenutzer(b);
+                    
+                    //Neu Verknüpfung der SicherheitsCode Id mit dem Benutzer
+                    b = new Benutzer(0, username, firstName, lastName, hash, "salt", "User", email, 0 );
+                    
+                    result = dbService.insertBenutzer(b);
 
                     if (result == 1) {
+                        
                         b = dbService.load(username);
 
                         if (this.securityanswer != null) {
@@ -87,14 +93,30 @@ public class registerBean {
                                     dbService.entcyptioncompareCodeSalt(this.securityanswer, this.NowDayBefore(), this.NowTimeBefore()),
                                     dbService.entcyptioncompareResetCodeSalt(username, this.NowDayBefore(), this.NowTimeBefore()),
                                     dbService.additiveCodeSalt());
+                            
+//                            result = dbService.insertBenutzer(b,c);
+//                            
+//                            if (result == 1) {
+//                                dbService.setLoggedInBenutzer(b);
+//                                dbService.insertSicherheitsCode(c, b);
+//                                clearLogin();
+//                                this.emailfail = false;
+//                                return "success";
+//                            }
 
                         }
-
+                        else {
+                            System.out.println("User konnte sich nicht registrieren!");
+                            return "fail";
+                        }
+                        
                         dbService.setLoggedInBenutzer(b);
                         dbService.insertSicherheitsCode(c, b);
                         clearLogin();
                         this.emailfail = false;
                         return "success";
+                        
+                                     
 
                     }
 
@@ -330,5 +352,16 @@ public class registerBean {
         }
 
     }
+
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
+    
+    
+    
 
 }

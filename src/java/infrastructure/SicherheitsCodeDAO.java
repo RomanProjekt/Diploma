@@ -158,6 +158,26 @@ public class SicherheitsCodeDAO {
         return retVal;
     }
 
+    public void deleteSicherheitsCode(int userid) {
+        
+        String query = "delete from sicherheitsCode where benutzer_id = ?";
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt = con.prepareStatement(query);) {
+
+            pstmt.setInt(1, userid);
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        
+        
+    }
+
    
 
   
