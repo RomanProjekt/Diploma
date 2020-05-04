@@ -71,6 +71,7 @@ public class uploadBean implements Serializable {
     private DatabaseManagerService dbService;
     List<Autor> listautor;
     List<Diplomarbeit> listdiplomarbeit;
+    private dipSuchenBean dsb;
 
     private String result;
     
@@ -168,18 +169,22 @@ public class uploadBean implements Serializable {
 
     //-------------------GET- und SET-Methoden--------------------------
     public Date getDatum() {
+        dsb.setChoiceDatum();
         return datum;
     }
 
     public void setDatum(Date datum) {
+        dsb.setChoiceDatum();
         this.datum = datum;
     }
 
     public Schule getRealSchule() {
+        dsb.setChoiceSchule();
         return realSchule;
     }
 
     public void setRealSchule(Schule realSchule) {
+        dsb.setChoiceSchule();
         this.realSchule = realSchule;
     }
 

@@ -165,7 +165,21 @@ public class dipSuchenBean {
         this.choice = choice;
     }
     
-    
+    public void setChoiceTitel() {
+        this.choice = "Titel";
+    }
+    public void setChoiceAutor() {
+        this.choice = "Autor";
+    }
+    public void setChoiceDatum() {
+        this.choice = "Datum";
+    }
+    public void setChoiceSw() {
+        this.choice = "Schlagwort";
+    }
+    public void setChoiceSchule() {
+        this.choice = "Schule";
+    }
     
     //Test----------------------------------------------------------------------
             

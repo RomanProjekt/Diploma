@@ -85,6 +85,7 @@ public class bibliothekBean {
     private DiplomarbeitDAO dipDAO;
     private boolean isFromIndex;
     private boolean isFromBibliothek;
+    private dipSuchenBean dsb;
 
     public bibliothekBean() {
 
@@ -134,35 +135,44 @@ public class bibliothekBean {
     }
 
     public List<Diplomarbeit> getDiplist() {
+        
         return diplist;
+        
     }
 
     public void setDiplist(List<Diplomarbeit> diplist) {
+       
         this.diplist = diplist;
     }
 
     //Anfang Get- und Setmethoden, Weitere Suche
     public String getTitel() {
+        dsb.setChoiceTitel();
         return Titel;
     }
 
     public void setTitel(String titel) {
+        dsb.setChoiceTitel();
         this.Titel = titel;
     }
 
     public String getAutor() {
+        dsb.setChoiceAutor();
         return autor;
     }
 
     public void setAutor(String autor) {
+        dsb.setChoiceAutor();
         this.autor = autor;
     }
 
     public String getDate() {
+        //dsb.setChoiceDatum();
         return date;
     }
 
     public void setDate(String date) {
+        //dsb.setChoiceDatum();
         this.date = date;
     }
 
@@ -183,10 +193,12 @@ public class bibliothekBean {
     }
 
     public String getSchlagwort() {
+        dsb.setChoiceSw();
         return schlagwort;
     }
 
     public void setSchlagwort(String schlagwort) {
+        dsb.setChoiceSw();
         this.schlagwort = schlagwort;
     }
 
