@@ -1519,9 +1519,6 @@ exists or setup the property manually. For example like this:
     <target depends="init,undeploy-clean,deps-clean,do-clean,check-clean,-post-clean" description="Clean build products." name="clean"/>
     <target depends="clean" description="Clean build products." name="clean-ear"/>
 	
-	
-	
-	
 	<target name="init">
 	<mkdir dir="build/classes"/>
 	<mkdir dir="dist"/>
@@ -1550,6 +1547,5 @@ exists or setup the property manually. For example like this:
 	<target name ="clean">
 	<delete dir ="dist"/>
 	<delete dir ="build"/>
-	</target>
-	
+	</target>	
 </project>
