@@ -50,35 +50,35 @@
 
                         <div class="tftitel">
                             <b:form>
-                                <b:inputText label="Titel" class="input"  value="#{bibliothekBean.titel}" placeholder="Titel" typeahead="true"  />
+                                <b:inputText label="Titel" class="input"  value="#{bibliothekBean.titel} #{dipSuchenBean.choice="Titel"}" placeholder="Titel" typeahead="true"  />
                             </b:form>
                         </div>
 
 
                         <div class="tfautor">
                             <b:form>
-                                <b:inputText label="Autor" class="input" value="#{bibliothekBean.autor}" placeholder="Autor" typeahead="true"  />
+                                <b:inputText label="Autor" class="input" value="#{bibliothekBean.autor} #{dipSuchenBean.choice="Autor"}" placeholder="Autor" typeahead="true"  />
                             </b:form>    
                         </div>
 
 
                         <div class="tfdatum">
                             <b:form>
-                                <b:dateTimePicker label="Datum" placeholder="Datum auswählen" format="DD.MM.YYYY" value="#{uploadBean.datum}" />
+                                <b:dateTimePicker label="Datum" placeholder="Datum auswählen" format="DD.MM.YYYY" value="#{uploadBean.datum} #{dipSuchenBean.choice="Datum"}" />
                             </b:form>                                     
                         </div>
 
 
                         <div class="tfschlagwort">                                    
                             <b:form>
-                                <b:inputText label="Schlagwort" class="input" value="#{bibliothekBean.schlagwort}" placeholder="Schlagwort" typeahead="true"  />
+                                <b:inputText label="Schlagwort" class="input" value="#{bibliothekBean.schlagwort} #{dipSuchenBean.choice="Schlagwort"}" placeholder="Schlagwort" typeahead="true"  />
                             </b:form>                                   
                         </div> 
                         
                         
                         <div class="tfschule">                                    
                             <b:form>
-                                <b:selectOneMenu label="Schule" value="#{uploadBean.realSchule}"  >
+                                <b:selectOneMenu label="Schule" value="#{uploadBean.realSchule} #{dipSuchenBean.choice="Schule"}"  >
                                     <f:selectItems value="Schule auswählen" itemValue="Schule auswählen" itemLabel="Schule auswählen" />
                                     <f:selectItems value="#{uploadBean.schulList}" var="schule" itemValue="#{schule}" itemLabel="#{schule.name}" />
                                 </b:selectOneMenu>

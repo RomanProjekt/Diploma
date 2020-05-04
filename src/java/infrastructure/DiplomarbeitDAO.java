@@ -335,6 +335,21 @@ public class DiplomarbeitDAO {
         }
         return dipList2;
     }
+    
+    public List SucheAlternativ(String k, String c) {
+        List<Diplomarbeit> dipList = new ArrayList<>();
+        List<Diplomarbeit> dipList2 = new ArrayList<>();
+        dipList = this.Suchleiste(k);
+        switch(c) {
+            case "Titel": dipList2 = this.SucheTitel(k); break;
+            case "Autor": dipList2 = this.SucheAutor(k); break;
+            case "Datum": dipList2 = this.SucheDatum(k); break;
+            case "Schlagwort": dipList2 = this.SucheSw(k); break;
+            case "Schule": dipList2 = this.SucheSchule(k); break;
+            default: dipList2 = dipList;
+        }
+        return dipList2;
+    }
 
     public boolean read(String titel) {
 

@@ -21,6 +21,7 @@ public class dipSuchenBean {
     //Alter Code
 
     String key = "";
+    String choice = "";
     DiplomarbeitDAO obj;
     List<Diplomarbeit> daList;
     Diplomarbeit selectedDa;
@@ -155,6 +156,16 @@ public class dipSuchenBean {
     public void setObj(DiplomarbeitDAO obj) {
         this.obj = obj;
     }
+
+    public String getChoice() {
+        return choice;
+    }
+
+    public void setChoice(String choice) {
+        this.choice = choice;
+    }
+    
+    
     
     //Test----------------------------------------------------------------------
             
