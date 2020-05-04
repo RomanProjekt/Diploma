@@ -35,11 +35,11 @@ public class meinKontoBean {
     private String message;
     private List<Diplomarbeit> redList;
     private DatabaseManagerService dbService;
-    
-    
-       
+
     //Passowort zurücksetzen:
     private boolean isAltesPasswortInputTextF;
+    
+    
     
     public meinKontoBean() {
     }
@@ -71,7 +71,9 @@ public class meinKontoBean {
     public void delteDip(Diplomarbeit dip) {
         
         dbService.deleteDiplomarbeit(dip);
-        this.deleteFile(dip.getPdf());
+        this.deletePDFFile(dip.getPdf());
+        this.deleteImageFile(dip.getBild());
+        this.deleteTextFile(dip.getTextname());
         
         
     }
@@ -185,7 +187,39 @@ public class meinKontoBean {
         this.redList = redList;
     }
     
-     public boolean deleteFile(String filepath) {
+     public boolean deletePDFFile(String filepath) {
+        
+        
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        String server_pdf_path = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + filepath;
+         
+        boolean del = false;
+        File file = new File(server_pdf_path);
+        if (file.exists()) {
+            del = file.delete();
+        }
+        return del;
+    }
+     
+     
+      public boolean deleteImageFile(String filepath) {
+        
+        
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        String server_pdf_path = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + filepath;
+         
+        boolean del = false;
+        File file = new File(server_pdf_path);
+        if (file.exists()) {
+            del = file.delete();
+        }
+        return del;
+    }
+      
+      
+        public boolean deleteTextFile(String filepath) {
         
         
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
@@ -232,6 +266,8 @@ public class meinKontoBean {
   
         
     }
+
+   
 
    
     

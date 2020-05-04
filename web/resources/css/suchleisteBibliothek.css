@@ -40,15 +40,19 @@ and open the template in the editor.
     margin: 200px 0 0 10%;
 }
 
-.tfdatum {
+.tfschule {
     margin: 300px 0 0 10%;
 }
 
-.tfschlagwort {
+.tfdatum {
     margin: 400px 0 0 10%;
 }
 
-.tfschule {
+.tfschlagwort {
+    margin: 500px 0 0 10%;
+}
+
+.tfsprache {
     margin: 500px 0 0 10%;
 }
 

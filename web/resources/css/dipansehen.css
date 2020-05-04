@@ -44,11 +44,7 @@ html, body {
     background-color: #292c33;
 }
 
-
-
-
 .view {
-    /*    background-color: red;*/
     width: auto;
     height: auto;
 }
@@ -57,7 +53,7 @@ html, body {
 .bilddiplomarbeit {
     /*  width: 500px;
         height: 750px;*/
-    margin: 20px 0 0 5%;
+    margin: 80px 0 0 5%;
     padding: 20px;
 }
 
@@ -71,21 +67,20 @@ html, body {
 }
 
 .gestextlist {
-   background-color: blue;
     width: 570px;
-    height: 710px;
-    margin: -950px 0 0 700px;
+    height: 900px;
+    margin: -1050px 0 0 700px;
     padding: 10px;
 
 }
 
 .datenliste {
-    background-color: greenyellow;
-    display: fixed;
+    
     width: 90%;
     height: 500px;
-    margin: 100px 0 0 10%;
+    margin: 40px 0 0 6%;
     background-color: buttonface;
+    
 
 }
 
@@ -112,6 +107,7 @@ html, body {
     background-color: buttonface;
     width: 550px;
     height: auto;
+    
 }
 
 
@@ -132,6 +128,16 @@ html, body {
     width: 200px;
     height: auto;
     padding-bottom: 150px;
+}
+
+.pdffile {
+    width: 1000px; 
+    height: 1000px;
+}
+
+.dipansehenimage {
+    width: 550px; 
+    height: 700px;
 }
 
 

@@ -40,6 +40,7 @@
                 
 
                 <div id="main" class="mainindex">
+                    
                     <h:outputLabel></h:outputLabel>
                     
                     <div id="content" class="content">  
@@ -60,6 +61,15 @@
                                 <b:inputText label="Autor" class="input" value="#{bibliothekBean.autor}" placeholder="Autor" typeahead="true"  />
                             </b:form>    
                         </div>
+                        
+                        <div class="tfschule">                                    
+                            <b:form>
+                                <b:selectOneMenu label="Schule" value="#{uploadBean.realSchule}"  >
+                                    <f:selectItems value="Schule auswählen" itemValue="Schule auswählen" itemLabel="Schule auswählen" />
+                                    <f:selectItems value="#{uploadBean.schulList}" var="schule" itemValue="#{schule}" itemLabel="#{schule.name}" />
+                                </b:selectOneMenu>
+                            </b:form>                                   
+                        </div>
 
 
                         <div class="tfdatum">
@@ -74,16 +84,8 @@
                                 <b:inputText label="Schlagwort" class="input" value="#{bibliothekBean.schlagwort}" placeholder="Schlagwort" typeahead="true"  />
                             </b:form>                                   
                         </div> 
+
                         
-                        
-                        <div class="tfschule">                                    
-                            <b:form>
-                                <b:selectOneMenu label="Schule" value="#{uploadBean.realSchule}"  >
-                                    <f:selectItems value="Schule auswählen" itemValue="Schule auswählen" itemLabel="Schule auswählen" />
-                                    <f:selectItems value="#{uploadBean.schulList}" var="schule" itemValue="#{schule}" itemLabel="#{schule.name}" />
-                                </b:selectOneMenu>
-                            </b:form>                                   
-                        </div> 
 
 
 
@@ -121,13 +123,13 @@
                             <h:column>
                                 <f:facet name="header"></f:facet>
                                 <!-- row record -->
-                                <div  style="width: 80px;" ></div>
+                                <div  class="abstanddiv"  ></div>
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header"></f:facet>
                                 <h5 style="font-family: Verdana; font-size: 15px;" > Titel: <h:outputLabel style="font-family: Verdana; font-size: 15px;" >  #{diplomarbeit.title}  </h:outputLabel></h5>                 
-                                <h5 style="font-family: Verdana; font-size: 15px;" >Autoren: <h:outputLabel style="font-family: Verdana; font-size: 15px;">  #{bibliothekBean.autorList(diplomarbeit.da_id)} , </h:outputLabel> </h5>
+                                <h5 style="font-family: Verdana; font-size: 15px;" >Autoren: <h:outputLabel style="font-family: Verdana; font-size: 15px;">  #{bibliothekBean.autorList(diplomarbeit.da_id)}</h:outputLabel> </h5>
                                 <h5 style="font-family: Verdana; font-size: 15px;" >Schule: <h:outputLabel style="font-family: Verdana; font-size: 15px;">   #{bibliothekBean.getOneSchule(diplomarbeit.da_id)} </h:outputLabel></h5> 
                                 <h5 style="font-family: Verdana; font-size: 15px;" >Veröffentlichung: <h:outputLabel style="font-family: Verdana; font-size: 15px;">    #{diplomarbeit.datum} </h:outputLabel></h5> 
                                 <h5 style="font-family: Verdana; font-size: 15px;" >Schlagwörter: <h:outputLabel style="font-family: Verdana; font-size: 15px;" > #{bibliothekBean.schlagwortList(diplomarbeit.da_id)} </h:outputLabel></h5>

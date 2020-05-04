@@ -29,7 +29,7 @@ public class FavoritenDAO {
         try (
                 Connection con = ConnectionManager.getInst().getConn();
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select diplomarbeit.da_id, titel, autor_id, schule_id, pdf, diplomarbeit.benutzer_id, datum, bild, download_count, click_count "
+                ResultSet rs = stmt.executeQuery("select diplomarbeit.da_id, titel, textname, schule_id, pdf, diplomarbeit.benutzer_id, datum, bild, download_count, click_count "
                         + "from favoriten join diplomarbeit on favoriten.da_id = diplomarbeit.da_id "
                         + "where favoriten.benutzer_id = " + id)) {
             while (rs.next()) {

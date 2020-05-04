@@ -18,14 +18,14 @@ and open the template in the editor.
     .bilddiplomarbeit {    
         width: 70%;
         height: auto;
-        margin: 0 0 0 25%;
+        margin: 50px 0 0 25%;
         padding: 50px;
     }
 
     .gestextlist {
-        background-color: blue;
+        
         width: 570px;
-        height: 710px;
+        height: auto;
         margin: -150px 0 0 25%;
         padding-bottom: 10px;
 
@@ -51,14 +51,14 @@ and open the template in the editor.
     .bilddiplomarbeit {    
         width: 70%;
         height: auto;
-        margin: 0 0 0 20%;
+        margin: 50px 0 0 20%;
         padding: 50px;
     }
 
     .gestextlist {
-        background-color: blue;
+       
         width: 570px;
-        height: 710px;
+        height: auto;
         margin: -150px 0 0 20%;
         padding-bottom: 10px;
 
@@ -86,14 +86,14 @@ and open the template in the editor.
     .bilddiplomarbeit {    
         width: 70%;
         height: auto;
-        margin: 0 0 0 15%;
+        margin: 50px 0 0 15%;
         padding: 50px;
     }
 
     .gestextlist {
-        background-color: blue;
+       
         width: 570px;
-        height: 710px;
+        height: auto;
         margin: -150px 0 0 15%;
         padding-bottom: 10px;
 
@@ -121,14 +121,14 @@ and open the template in the editor.
     .bilddiplomarbeit {    
         width: 70%;
         height: auto;
-        margin: 0 0 0 5%;
+        margin: 50px 0 0 5%;
         padding: 50px;
     }
 
     .gestextlist {
-        background-color: blue;
+        
         width: 570px;
-        height: 710px;
+        height: auto;
         margin: -150px 0 0 5%;
         padding-bottom: 10px;
 
@@ -137,8 +137,14 @@ and open the template in the editor.
     .datenliste {
         width: 250px;
         height: 600px;
-        margin: 50px 0 0 5%;
+        margin: 50px 0 0 10%;
         padding-bottom: 10%;
+    }
+    
+    .dipansehenimage {
+        width: 400px; 
+        height: 500px;
+        margin: 0 0 0 5%;
     }
 
 
@@ -156,14 +162,14 @@ and open the template in the editor.
     .bilddiplomarbeit {    
         width: 70%;
         height: auto;
-        margin: 0 0 0 0;
+        margin: 160px 0 0 0;
         padding: 50px;
     }
 
     .gestextlist {
-        background-color: blue;
+       
         width: 570px;
-        height: 710px;
+        height: auto;
         margin: -150px 0 0 0;
         padding-bottom: 10px;
 
@@ -171,9 +177,14 @@ and open the template in the editor.
 
     .datenliste {
         width: 250px;
-        height: 600px;
-        margin: 50px 0 0 0;
+        height: auto;
+        margin: 50px 0 0 5%;
         padding-bottom: 10%;
+    }
+    
+    .dipansehenimage {
+        width: 400px; 
+        height: 500px;
     }
 
 

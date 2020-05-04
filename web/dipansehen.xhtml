@@ -51,21 +51,24 @@ and open the template in the editor.
                     <div class="bilddiplomarbeit">
                         <p:lightBox id="lighbox2" class="lightbox">
                             <h:outputLink value="#">
-                                <h:graphicImage style="width: 500px; height: 700px" class="image"  value ="#{dipansehenBean.aktDip.bild}"/> 
+                                <h:graphicImage  class="dipansehenimage"  value ="#{dipansehenBean.aktDip.bild}"/> 
                             </h:outputLink>
 
                             <f:facet name="inline">
-                                <p:media value="#{dipansehenBean.aktDip.pdf}" class="pdfdip" style="width: 1000px; height: 1000px" ></p:media>  
+                                <p:media value="#{dipansehenBean.aktDip.pdf}" class="pdffile"  ></p:media>  
                             </f:facet>
                         </p:lightBox>
-                        <div class="buttonleiste">
-                            <b:form>
+                        <div id="buttonleiste" class="buttonleiste">
+                            <b:form id="buttonform">
                                 <br></br>
+                                <h4 style="width: 300px;">Downloaden der Diplomarbeit</h4>
                                 <b:commandButton class="downloadbutton" id="submitButton" value="Download" action="#{dipansehenBean.download()}"/>
                                 <br></br><br></br>
-                                <b:commandButton class="safebutton" value="Favoriten speichern" action="#{dipansehenBean.favspeichern()}" rendered="#{databaseManagerService.redakteurOrHigher}"/>
+                                <h:outputLabel style="width: 300px;" rendered="#{databaseManagerService.redakteurOrHigher}" value="Speichern der Favoriten"/>
+                                <b:commandButton id="safebutton" class="safebutton" value="Favoriten speichern" action="#{dipansehenBean.favspeichern()}" rendered="#{databaseManagerService.redakteurOrHigher}"/>
                                 <br></br><br></br>
-                                <b:commandButton class="löschenbutton" value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}" rendered="#{databaseManagerService.redakteurOrHigher}" />
+                                <h:outputLabel style="width: 300px;" rendered="#{databaseManagerService.redakteurOrHigher}" value="Löschen der Diplomarbeit"/>
+                                <b:commandButton id="löschenbutton" class="löschenbutton" value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}" rendered="#{databaseManagerService.redakteurOrHigher}" />
                             </b:form>
                         </div>
 
@@ -93,26 +96,12 @@ and open the template in the editor.
 
                             <div class="textfield" >
 
-                                
-                                
-                                
-                                
-                                <p id="t1">
-                                    
-                                    <h:outputText value="#{dipansehenBean.text1}"></h:outputText>
+                                <h:outputText id="dots" value="#{dipansehenBean.text1}"/>
+                                <h:outputText id="more" value="#{dipansehenBean.text2}"></h:outputText>    
+                                <br></br>
+                                <br></br>
 
-                                    <span id="dots">...</span><span id="more">
-
-                                    <h:outputText value="#{dipansehenBean.text2}"></h:outputText>    
-
-                                    </span></p>
-                                    <button onclick="myFunction()" id="myBtn">Read more</button>
-
-                                
-
-
-
-
+<!--                                <h:button onclick="myFunction()" value="Read more" id="myBtn"></h:button>-->
                             </div>
 
                         </div>
@@ -128,15 +117,16 @@ and open the template in the editor.
                         <b:form id="diplomarbeitansehen" >
                             
                             
+                            <h3>Diplomarbeitdetails</h3>
+                            <h:panelGrid id="pgrid" columns="2" cellpadding="5">
 
-                            <h:panelGrid id="pgrid" columns="1" cellpadding="5">
-
-                                <h4>Diplomarbeitdetails</h4>
-                                <br/>
-                                <h4>Seitenanzahl: <h:outputLabel value="TestSeitenzahl"/> </h4> 
-                                <h:outputLabel>Schule: <h:outputText value="#{dipansehenBean.schule}" /></h:outputLabel> 
-                                <h:outputLabel> Eröffnungdatum: <h:outputLabel value="#{dipansehenBean.aktDip.datum}"/></h:outputLabel>
-                                <h:outputLabel> Sprache: <h:outputLabel value="TestSprache"/></h:outputLabel>
+                                <h:outputText style="font-size: 18px" value="Seitenanzahl: #{dipansehenBean.numberofpages}" ></h:outputText> 
+                                <br></br><br></br>
+                                <h:outputText style="font-size: 18px" value="Schule: #{dipansehenBean.schule}"></h:outputText> 
+                                <br></br><br></br>
+                                <h:outputText style="font-size: 18px" value="Eröffnungdatum: #{dipansehenBean.aktDip.datum}"/>
+                                <br></br><br></br>
+                                <h:outputText style="font-size: 18px" value="Sprache: TestSprache"/>
                                 
                                 
 

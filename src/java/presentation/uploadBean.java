@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -73,26 +71,21 @@ public class uploadBean implements Serializable {
     List<Diplomarbeit> listdiplomarbeit;
 
     private String result;
-    
     private String text;
     
     
+    private String server_pdf_pfad;
+
+    public String getServer_pdf_pfad() {
+        return server_pdf_pfad;
+    }
+
+    public void setServer_pdf_pfad(String server_pdf_pfad) {
+        this.server_pdf_pfad = server_pdf_pfad;
+    }
+   
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 
     //---------------Fail------------------------
     private String bilddatei_fail;
@@ -165,8 +158,11 @@ public class uploadBean implements Serializable {
         schlagList.remove(schlagwort);
         return null;
     }
+    //--------------------------------------------------------------------------
+    
+    
 
-    //-------------------GET- und SET-Methoden--------------------------
+    //-------------------GET- und SET-Methoden----------------------------------
     public Date getDatum() {
         return datum;
     }
@@ -224,11 +220,6 @@ public class uploadBean implements Serializable {
     }
 
     public Part getDiplomarbeit() {
-//        try {
-//            this.showPDF();
-//        } catch (IOException ex) {
-//            Logger.getLogger(uploadBean.class.getName()).log(Level.SEVERE, null, ex);
-//        }
         return diplomarbeit;
     }
 
@@ -403,43 +394,34 @@ public class uploadBean implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
+
+  
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    //--------------------------------------------------------------------------
+
 
     public String upload_diplomarbeit() throws FileNotFoundException, IOException {
 
         String vartitel = getTitel();
 
         java.sql.Date realDate = new java.sql.Date(datum.getTime());
-
-//        boolean isgleich = this.titel_vergleichen(vartitel);
+ 
         if (diplomarbeit != null) {
-
-//              String submittedFileName = varimage.getSubmittedFileName();
+ 
             String user_id = String.valueOf(dbService.getLoggedInBenutzer().getUser_id());
             System.out.println(user_id);
-//                boolean image_standartformat = this.überprüfuen_Image_StandardFormat(submittedFileName);
-
             boolean diplomarbeit_dateiformat = this.überprüfen_PDF_StandardFormat(diplomarbeit.getSubmittedFileName());
+            
             if (diplomarbeit_dateiformat) {
 
                 String pdfpfad = this.savePdfFile(vartitel);
                 String imagepfad = this.showImageFromPDF(vartitel);
                 String textnamepfad = this.speichernTextDocument(vartitel);
-                String fullname = vartitel;
-                
 
-                //3.Funktionen: Hochladen der Diplomarbeit
                 if (!(autList.size() <= 0 && realDate == null)) {
+                    
                     dbService.hochladen(vartitel, autList, textnamepfad, realSchule, schlagList, pdfpfad, imagepfad, realDate);
+                    
                     return "index.xhtml?faces-redirect=true";
                 } else {
                     this.autoralert = true;
@@ -460,17 +442,12 @@ public class uploadBean implements Serializable {
         return "uploadDip.xhtml";
 
     }
+    
+    
+    //--------------------------------------------------------------------------
 
-    //-----------------------Bild aus der pdf Datei anzeigen-------------------------------------
-    private String server_pdf_pfad;
-
-    public String getServer_pdf_pfad() {
-        return server_pdf_pfad;
-    }
-
-    public void setServer_pdf_pfad(String server_pdf_pfad) {
-        this.server_pdf_pfad = server_pdf_pfad;
-    }
+    //-----------------------Bild aus der pdf Datei anzeigen--------------------
+    
 
     public String showImageFromPDF(String name) throws IOException {
 
@@ -509,12 +486,9 @@ public class uploadBean implements Serializable {
 
     }
 
-    public static void main(String[] args) throws IOException {
-        uploadBean up = new uploadBean();
-//        up.showImageFromPDF();
-    }
+ 
 
-    //-----------Funktion pdf-Datei hochladen----------------------
+    //-----------Funktion pdf-Datei hochladen-----------------------------------
     public String savePdfFile(String filename) {
 
         File f;
@@ -554,7 +528,14 @@ public class uploadBean implements Serializable {
         return aktuellerpfad;
 
     }
+    
+    
+    
+    //------------------------------------------------------------------------------
 
+    
+    
+    
     public boolean titel_vergleichen(String titel) {
         return dbService.diplomarbeit(titel);
     }
@@ -624,44 +605,7 @@ public class uploadBean implements Serializable {
     public void setAutoralert(boolean autoralert) {
         this.autoralert = autoralert;
     }
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
-//    public void saveImage(String user_id, String vartitel, String submittedFileName, Part varimage) {
-//
-//        FileImageOutputStream outputStream;
-//        String change_image_title = this.dateiformatieren(user_id, vartitel, submittedFileName);
-//
-//        try (InputStream in = varimage.getInputStream()) {
-//
-//            //Verknüpfen der user_id mit dem Bildtitel
-//            String image_pfad = "/resources/images/images_diplomarbeiten/";
-//
-//            FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
-//            ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
-//            String server_images_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + image_pfad;
-//
-//            File f = new File(server_images_pfad + change_image_title);
-//
-//            //Pfad zum Suchen des aktuellen Bildes:
-//            String server_pfad = image_pfad + change_image_title;
-//            aktuellerimagepfad(server_pfad);
-//
-//            f.createNewFile();
-//            outputStream = new FileImageOutputStream(f);
-//            byte[] buffer = new byte[1024];
-//            int length;
-//            while ((length = in.read(buffer)) > 0) {
-//                outputStream.write(buffer, 0, length);
-//            }
-//            outputStream.close();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace(System.out);
-//        }
-//
-//    }
-    
-    
+   
     private String show_images_pfad = "";
 
     public String getShow_images_pfad() {
@@ -678,8 +622,6 @@ public class uploadBean implements Serializable {
     
     public String showPDF() throws IOException {
 
-        
-        
         if (this.diplomarbeit != null) {
             
             System.out.println("Neues Bild geladen!!!");
@@ -690,8 +632,6 @@ public class uploadBean implements Serializable {
             String show_pdf_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/images/showpdf/" + this.diplomarbeit.getName()  + ".pdf";
 
             File f = new File(show_pdf_pfad);
-            
-
             f.createNewFile();
             FileOutputStream outputStream = new FileOutputStream(f);
 
@@ -715,6 +655,7 @@ public class uploadBean implements Serializable {
 
                 //Instantiating the PDFRenderer class
                 try (PDDocument document = PDDocument.load(pdf)) {
+                    document.getNumberOfPages();
                     //Instantiating the PDFRenderer class
                     PDFRenderer renderer = new PDFRenderer(document);
                     //Rendering an image from the PDF document
@@ -746,7 +687,7 @@ public class uploadBean implements Serializable {
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
         String textpfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/einleitung/" + fullname;
         
-        String server_textpfad = "/resources/einleitung/" + fullname;
+        String server_textpfad = "resources/einleitung/" + fullname;
         PrintWriter pWriter = null;
         try {
             pWriter = new PrintWriter(new BufferedWriter(new FileWriter(textpfad)));
@@ -787,5 +728,10 @@ public class uploadBean implements Serializable {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "select", (String) event.getObject()));
     }
+    
+    
+    
+    
 
+            
 }

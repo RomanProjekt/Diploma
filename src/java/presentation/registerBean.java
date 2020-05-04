@@ -5,16 +5,10 @@
  */
 package presentation;
 
-import java.nio.charset.Charset;
-import java.util.Random;
+
 import pojo.Benutzer;
 import javax.annotation.PostConstruct;
 import service.DatabaseManagerService;
-import java.nio.charset.StandardCharsets.*;
-import static java.nio.charset.StandardCharsets.UTF_16;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import java.time.Duration;
-import java.time.Instant;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import java.time.LocalDate;
@@ -22,7 +16,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import pojo.SicherheitsCode;
-import static presentation.EmailProvider.mbenutzername;
+
 
 /**
  *

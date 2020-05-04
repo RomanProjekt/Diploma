@@ -69,18 +69,11 @@ public class DatabaseManagerService {
     private SW_DA_DAO schlagwort_verknuepfungDAO;
     private SchuleDAO schuleDAO;
     private SicherheitsCodeDAO sicherheitsCodeDAO;
-    
-    
     private List<Schule> SchuleList;
-    private int rCode;
-    
+    private int rCode;  
     private DiplomarbeitDAO diplomarbeitDAO;
-    private List<Diplomarbeit> dplist;
-    
+    private List<Diplomarbeit> dplist; 
     private Autor autoren;
-    
-    
-    
     
     //Passwort verschlüsseln
     private SecretKeySpec secretKey;
@@ -486,7 +479,7 @@ public class DatabaseManagerService {
         int var_da_id = diplomarbeitDAO.insert(title, var_user_id, fullname, schule.getSchule_id(), pdfpath, imagepath, datum);
         autorDAO.insertAutorList(autorList, var_da_id);
         schlagwort_verknuepfungDAO.readInsertList(schlagwoerter, var_da_id);
-
+    
     }
     
     

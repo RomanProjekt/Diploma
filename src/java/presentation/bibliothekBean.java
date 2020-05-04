@@ -861,13 +861,13 @@ public class bibliothekBean {
         for(int i = 0; i < varList.size(); i++) {
             
             if(i == 0) {
-                autorListefirst = "" + varList.get(i).getFullName();
+                autorListefirst = varList.get(i).getFullName();                                                                                                                                                                                   
             }
-            else {
-                autorListesecond += " , " + varList.get(i).getFullName();
+            else if(i < varList.size()) {
+                autorListesecond +=  " , " + varList.get(i).getFullName();
             }
             
-            fullautorListe = autorListefirst + autorListesecond;
+            fullautorListe = (autorListefirst + autorListesecond);
             
             
         }
@@ -878,8 +878,26 @@ public class bibliothekBean {
     
     
     
-        String schlagwortfirst;
-        String schlagwortsecond;
+    private String schlagwortfirst;
+    private String schlagwortsecond;
+
+    public String getSchlagwortfirst() {
+        return schlagwortfirst;
+    }
+
+    public void setSchlagwortfirst(String schlagwortfirst) {
+        this.schlagwortfirst = schlagwortfirst;
+    }
+
+    public String getSchlagwortsecond() {
+        return schlagwortsecond;
+    }
+
+    public void setSchlagwortsecond(String schlagwortsecond) {
+        this.schlagwortsecond = schlagwortsecond;
+    }
+    
+    
         
 
     public String schlagwortList(int da_id) {

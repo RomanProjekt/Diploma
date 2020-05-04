@@ -47,7 +47,7 @@
                             <b:form id="table1">
                                 <div class="favoriten" >
                                     <h3 style="padding-bottom: 10px;">Ihre Favoriten</h3>
-                                    <b:dataTable  id="favTable" style="width: 1000px" value="#{meinKontoBean.favList}"  var="diplomarbeit" class="favoritenTable"  rendered="#{!meinKontoBean.favIsEmpty()}">
+                                    <b:dataTable  id="favTable" value="#{meinKontoBean.favList}"  var="diplomarbeit" class="favoritenTable"  rendered="#{!meinKontoBean.favIsEmpty()}">
                                         <b:dataTableColumn label="Logo" >
                                             <h:graphicImage value="#{diplomarbeit.bild}" height="50px" width="50px" />
                                         </b:dataTableColumn>

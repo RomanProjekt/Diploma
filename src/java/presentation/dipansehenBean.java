@@ -7,7 +7,6 @@ package presentation;
 
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -23,6 +22,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import pojo.Autor;
 import pojo.Diplomarbeit;
 import service.DatabaseManagerService;
@@ -63,6 +63,7 @@ public class dipansehenBean {
 
     private String autorListe;
     private List<Autor> varList;
+    private int numberofpages;
 
     public dipansehenBean() {
 
@@ -269,19 +270,27 @@ public class dipansehenBean {
     public void setServer_text_pfad(String server_text_pfad) {
         this.server_text_pfad = server_text_pfad;
     }
+
+    public int getNumberofpages() {
+        return numberofpages;
+    }
+
+    public void setNumberofpages(int numberofpages) {
+        this.numberofpages = numberofpages;
+    }
     
     
     
-    
-    //--------------------Werteanzeigen-----------------------------------------
     
     
     
 
+    //--------------------Werteanzeigen-----------------------------------------
     public String werteanzeigen(Diplomarbeit dip) {
-        this.manipulationText();
+        this.manipulationText(dip);
+        this.getNumberofpages();
         this.aktDip = dip;
-        this.autor = dbService.getOneAutor(aktDip.getDa_id()).getFullName();
+        this.autor = dbService.getOneAutor(dip.getDa_id()).getFullName();
 
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
@@ -295,14 +304,8 @@ public class dipansehenBean {
 
         return "dipansehen.xhtml";
     }
-    
-    
-//------------------------------------------------------------------------------   
-    
-    
-    
-    
 
+//------------------------------------------------------------------------------   
     public String show(Diplomarbeit dip) {
 
         dbService.ListeAllDiplomarbeiten();
@@ -491,9 +494,6 @@ public class dipansehenBean {
         return this.imagepath;
     }
 //------------------------------------------------------------------------------  
-    
-    
-    
 
     //----------------------------Favouriten------------------------------------
     public void favspeichern() {
@@ -531,38 +531,35 @@ public class dipansehenBean {
     }
 
 //------------------------------------------------------------------------------    
-    
-    
-    
-    
-    
-    private String ladeDatei() {
-
-//          Diplomarbeit dip = dbService.getDiplomarbeit(this.aktDip.getDa_id());
-        System.out.println(this.server_text_pfad);
-
-//         this.server_text_pfad
-        File file = new File("C:/Users/hp/Desktop/text.txt");
-
-        if (!file.canRead() || !file.isFile()) {
-            System.exit(0);
-        }
-
+    private String ladeDatei(Diplomarbeit dip) {
         FileReader fr = null;
         int c;
-        StringBuffer buff = new StringBuffer();
-        try {
-            fr = new FileReader(file);
-            while ((c = fr.read()) != -1) {
-                buff.append((char) c);
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        this.server_text_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + dip.getTextname();
+
+        System.out.println("--------------------" + this.server_text_pfad);
+
+//        File file = new File(this.server_text_pfad);
+        File file = new File(this.server_text_pfad);
+
+        if (file.exists()) {
+            StringBuilder buff = new StringBuilder();
+            try {
+                fr = new FileReader(file);
+                while ((c = fr.read()) != -1) {
+                    buff.append((char) c);
+                }
+                fr.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            fr.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            return buff.toString();
+        } else {
+            return "";
         }
-
-        return buff.toString();
 
     }
 
@@ -585,26 +582,20 @@ public class dipansehenBean {
         this.text2 = text2;
     }
 
-    public void manipulationText() {
+    public void manipulationText(Diplomarbeit dip) {
 
-        String fullText = this.ladeDatei();
+        String fullText = this.ladeDatei(dip);
 
-        if (text1 != null && text2 != null) {
+        if (fullText != null & fullText == "") {
             this.text1 = fullText.substring(0, (fullText.length() / 2));
             this.text2 = fullText.substring((fullText.length() / 2), fullText.length());
         } else {
-            this.text1 = "";
+            this.text1 = "Keine Einleitung vorhanden!";
             this.text2 = "";
         }
 
         System.out.println(text1);
         System.out.println(text2);
-
-    }
-
-    public static void main(String[] args) {
-        dipansehenBean d = new dipansehenBean();
-        d.manipulationText();
 
     }
 
@@ -644,8 +635,7 @@ public class dipansehenBean {
     public String showAllAutor() {
 
         varList = dbService.getAllAutor(this.getAktDip().getDa_id());
-        System.out.println("Liste -----------" + varList);
-
+        
         String autorListefirst = "";
         String autorListesecond = "";
         String fullautorListe = "";
@@ -661,7 +651,39 @@ public class dipansehenBean {
             fullautorListe = autorListefirst + autorListesecond;
 
         }
+        
         return fullautorListe;
     }
+    
+    
+    
+    
+    public void getNumberOfPages(Diplomarbeit dip) throws IOException {
+        
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        this.server_text_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + dip.getTextname();
+
+        File pdf = new File(this.server_text_pfad);
+
+        if (pdf.exists()) {
+
+            //Instantiating the PDFRenderer class
+            try (PDDocument document = PDDocument.load(pdf)) {
+                System.out.println(document);
+                
+                this.numberofpages = document.getNumberOfPages();
+                
+                
+            }
+
+        } else {
+            System.out.println("PDf ist nicht vorhanden!");
+        }
+
+    }
+    
+    
+    
 
 }

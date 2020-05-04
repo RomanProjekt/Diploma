@@ -50,12 +50,12 @@ and open the template in the editor.
 
                     <div id="main" class="mainindex">
 
-                        <div class="mainTable">   
+                        <div id="mainTabl" class="mainTable">   
 
                             <div id="firstTable" class="firstTable">
 
   
-                                <br/>
+                                    <br/>
 
                                     <br/>    
                                     <b:inputText label="Titel" value="#{uploadBean.titel}" placeholder="Titel eingeben" />
@@ -70,8 +70,8 @@ and open the template in the editor.
 
                                     <br/><br/>
         
-
-                                    <p:dataTable  class="noborder" value="#{uploadBean.autList}" var="autor" >
+                                    <p:dataTable  id="datatableAutor" class="noborder" value="#{uploadBean.autList}" var="autor" >
+                                        
                                         <p:column headerText="Autor">
                                             <h:outputText value="#{autor.fullName}" rendered="#{!uploadBean.editAutor}" />
                                             <h:inputText value="#{autor.fullName}" rendered="#{uploadBean.editAutor}" /> 
@@ -88,13 +88,8 @@ and open the template in the editor.
 
                                     </p:dataTable>
                                     
+                                    
                                     <b:alert value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
-
-
-
-
-                             
-
 
                             </div>
 
@@ -110,18 +105,18 @@ and open the template in the editor.
 
                                 <br/><br/>
 
-                                <p:dataTable style="width: 100%" scrollWidth="auto" class="table2" value="#{uploadBean.schlagList}" var="schlagwort" >
+                                <p:dataTable id="datatableSecondTable" style="width: 100%" scrollWidth="auto" class="table2" value="#{uploadBean.schlagList}" var="schlagwort" >
                                     <p:column headerText="Schlagwort">
                                         <h:outputText value="#{schlagwort.word}"  />  
                                     </p:column>
 
                                     <p:column headerText="Löschen">
-                                         <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" />
+                                            <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" />
                                     </p:column>
 
                                     <p:column headerText="Edit">
-                                        <b:commandButton value="Edit" action="#{uploadBean.editAutor(autor)}"  rendered="#{!uploadBean.editAutor}" />
-                                        <b:commandButton value="Save" action="#{uploadBean.editAutor(autor)}" rendered="#{uploadBean.editAutor}" />
+                                        <b:commandButton id="edit" value="Edit" action="#{uploadBean.editAutor(autor)}"  rendered="#{!uploadBean.editAutor}" />
+                                        <b:commandButton id="safe" value="Save" action="#{uploadBean.editAutor(autor)}" rendered="#{uploadBean.editAutor}" />
                                     </p:column>
 
                                 </p:dataTable>
