@@ -120,6 +120,8 @@ public class uploadBean implements Serializable {
         });
         schulList = dbService.getSchuleList();
         datum = new Date();
+        
+        dsb = new dipSuchenBean();
     }
 
     public Object addAutor() {

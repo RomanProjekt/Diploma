@@ -100,6 +100,8 @@ public class bibliothekBean {
         allindexList = new ArrayList<>();
         this.seitenList = new ArrayList<>();
         this.indexSortList = new ArrayList<>();
+        
+        dsb = new dipSuchenBean();
     }
 
     public DiplomarbeitDAO getDipDAO() {
