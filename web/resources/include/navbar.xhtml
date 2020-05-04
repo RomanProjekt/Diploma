@@ -8,6 +8,7 @@
     <h:head>
         <title>Facelet Title</title>
         
+        
 
     </h:head>
     <h:body class="body">
@@ -18,27 +19,26 @@
                     
                     
                         <b:image class="logo" value="/resources/images/AK-Logo.png" height="50px" width="120px"  onclick="index.xhtml" />
-                        <h:link class="diplomarbeit" outcome="index.xhtml">Diplomarbeiten</h:link>
+                        <h:link class="akdiplomarbeiten" outcome="index.xhtml">Diplomarbeiten</h:link>
                         <h:outputLabel class="benutzername" value="#{databaseManagerService.loggedInBenutzer.role}:   #{databaseManagerService.loggedInBenutzer.username}" rendered="#{databaseManagerService.loggedIn()}"></h:outputLabel>
-                         
-
-                        <ul class="navbarHeader">
-                                                      
-                            <li><h:link class="navLink" value="Hochladen" outcome="uploadDip.xhtml" rendered="#{!databaseManagerService.isUser()}" /></li>
-                            <li><h:link class="navLink" value="Mein Konto"  outcome="meinKonto.xhtml" rendered="#{databaseManagerService.loggedIn()}" /></li>
-                            <li><h:link class="navLink" value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" rendered="#{databaseManagerService.isAdmin()}" /></li>
-                            <li><h:commandLink id="ToBibliothek" class="navLink" value="Bibliothek" action="dipbibliothek.xhtml" actionListener="#{bibliothekBean.FromBibliothek}" ></h:commandLink></li>
-                            <li><h:commandLink class="navLink" value="Registrieren" action="register.xhtml" rendered="#{!databaseManagerService.loggedIn()}" /> </li>
-                            <li><h:commandLink class="navLink" value="Abmelden" action="#{loginBean.loggout}" rendered="#{databaseManagerService.loggedIn()}"  /></li>
-                            <li><h:commandLink class="navLink" value="Anmelden" action="#{loginBean.loggin}" rendered="#{!databaseManagerService.loggedIn()}"  /></li>
-                            
-                        </ul>
-
-
                     
+
+                    <ul id="navbarHeader" class="navbarHeader">
+
+                        <li><h:link class="navLink" value="Hochladen" outcome="uploadDip.xhtml" rendered="#{!databaseManagerService.isUser()}" /></li>
+                        <li><h:link class="navLink" value="Mein Konto"  outcome="meinKonto.xhtml" rendered="#{databaseManagerService.loggedIn()}" /></li>
+                        <li><h:link class="navLink" value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" rendered="#{databaseManagerService.isAdmin()}" /></li>
+                        <li><h:commandLink id="ToBibliothek" class="navLink" value="Bibliothek" action="bibliothek.xhtml" actionListener="#{bibliothekBean.FromBibliothek}" ></h:commandLink></li>
+                        <li><h:commandLink class="navLink" value="Registrieren" action="register.xhtml" rendered="#{!databaseManagerService.loggedIn()}" /> </li>
+                        <li><h:commandLink class="navLink" value="Abmelden" action="#{loginBean.loggout}" rendered="#{databaseManagerService.loggedIn()}"  /></li>
+                        <li><h:commandLink class="navLink" value="Anmelden" action="#{loginBean.loggin}" rendered="#{!databaseManagerService.loggedIn()}"  /></li>
+
+                    </ul>
 
                 </h:form>
             </nav>
+            
+            
             
             
             

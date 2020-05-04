@@ -9,19 +9,23 @@
         <title>Facelet Title</title>
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name="adminpwreset.css" />
-        <h:outputStylesheet library= "css" name="include_footer.css" />
-
-       <f:metadata>
-        <f:viewAction action="#{databaseManagerService.isAdminRedirect()}" />
-       </f:metadata>
         
+        <h:outputStylesheet library= "css" name= "responsiveIndex.css" />
+
+        <h:outputStylesheet library= "css" name= "Footer.css" />
+        <h:outputStylesheet library= "css" name= "responsiveFooter.css" /> 
+
+        <f:metadata>
+            <f:viewAction action="#{databaseManagerService.isAdminRedirect()}" />
+        </f:metadata>
+
         <f:metadata>
             <f:viewParam name="benutzer" value="#{emailpasswortBean.fullAdditiveCodeSalt}"/>
         </f:metadata>
-  
+
 
     </h:head>
-    
+
     <h:body>
 
 
@@ -44,7 +48,7 @@
 
                         <div class="passwort">
 
-                            
+
 
                             <div class="pw-grid">
 

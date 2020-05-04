@@ -12,15 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 //import javafx.event.ActionEvent;
 import javax.faces.event.ActionEvent;
+import pojo.Autor;
 import pojo.Diplomarbeit;
+import pojo.SW_DA;
+import pojo.Schlagwort;
+import pojo.Schule;
 import service.DatabaseManagerService;
 
 //import service.DatabaseManagerService;
 //testdatebank:
 //import static testdatenbank.DatabaseManagerService.dplist;
 public class bibliothekBean {
-    
-  
 
     //Variablen der weiteren Suche
     private String Titel;
@@ -28,14 +30,12 @@ public class bibliothekBean {
     private String date;
     private String schlagwort;
     private String schule;
-    
-    
+
     private String speech;
     private String fachgebiet;
 
     private List<Diplomarbeit> indexSortList;
-    
-    
+
     //Variablen: Diplomarbeit
     private int da_id;
     private String title;
@@ -46,7 +46,7 @@ public class bibliothekBean {
     private String datum;
     private String bild;
     private int download_count;
-    
+
     //---------------
     private int zahl;
     private String summe;
@@ -58,10 +58,8 @@ public class bibliothekBean {
     public void setSumme(String summe) {
         this.summe = summe;
     }
-    
-    
+
     //-------------------
-    
     private String pfad;
     DiplomarbeitDAO da;
 
@@ -71,11 +69,10 @@ public class bibliothekBean {
     //Variablenb der Seitenleiste der Bibliothek
     private int seitenanzahl;
     private String aktuelleseitenanzahl;
-    
+
     //Aktueller Benutzer
     private String aktuellerBenutzer;
-    
-    
+
     //Liste aller Diplomarbeiten
     private List<Diplomarbeit> alldiplomarbeiten;
     private List<Diplomarbeit> diplist;
@@ -88,21 +85,19 @@ public class bibliothekBean {
     private DiplomarbeitDAO dipDAO;
     private boolean isFromIndex;
     private boolean isFromBibliothek;
-    
-    
-    
+
     public bibliothekBean() {
-            
+
     }
 
     @PostConstruct
-    void init() { 
+    void init() {
         dbService = new DatabaseManagerService();
         diplist = new ArrayList<>();
         dipDAO = new DiplomarbeitDAO();
         this.alldiplomarbeiten = new ArrayList<>();
         allindexList = new ArrayList<>();
-        this.seitenList= new ArrayList<>();
+        this.seitenList = new ArrayList<>();
         this.indexSortList = new ArrayList<>();
     }
 
@@ -137,9 +132,6 @@ public class bibliothekBean {
     public void setIndexSortList(List<Diplomarbeit> indexSortList) {
         this.indexSortList = indexSortList;
     }
-    
-    
-    
 
     public List<Diplomarbeit> getDiplist() {
         return diplist;
@@ -213,14 +205,8 @@ public class bibliothekBean {
     public void setSchule(String schule) {
         this.schule = schule;
     }
-    
-    
-    
-    
-    
-    
-    //Ende Get- und Set-Methoden, Weitere Suche
 
+    //Ende Get- und Set-Methoden, Weitere Suche
     public int getZahl() {
         return zahl;
     }
@@ -228,12 +214,7 @@ public class bibliothekBean {
     public void setZahl(int zahl) {
         this.zahl = zahl;
     }
-    
-    
-    
-    
-    
-    
+
     //Anfang Get- und Setmethoden: Variablen Diplomarbeit
     public int getDa_id() {
         return da_id;
@@ -299,7 +280,6 @@ public class bibliothekBean {
         this.bild = bild;
     }
 
-    
     //DiplomarbeitenDAO
     public DiplomarbeitDAO getDa() {
         return da;
@@ -316,8 +296,6 @@ public class bibliothekBean {
     public void setAlldiplomarbeiten(List<Diplomarbeit> alldiplomarbeiten) {
         this.alldiplomarbeiten = alldiplomarbeiten;
     }
-    
-
 
     public String getAktuelleseitenanzahl() {
         return aktuelleseitenanzahl;
@@ -358,106 +336,84 @@ public class bibliothekBean {
     public void setAllindexList(List<Diplomarbeit> allindexList) {
         this.allindexList = allindexList;
     }
-    
 
     //aktueller Benutzer
     public void aktullerBenutzer() {
         dbService.getLoggedInBenutzer();
     }
-    
-    
+
     //Neu-----------------------------------------------------------------------
-    
-    
-    
-     public String isFromBiblothek() {
+    public String isFromBiblothek() {
         return "dipbibliothek.xhtml";
     }
-     
+
     public void FromBibliothek(ActionEvent event) {
 
         alldiplomarbeiten = dbService.ListeAllDiplomarbeiten();
-        
+
         System.out.println(this.alldiplomarbeiten.isEmpty());
-            this.isFromBibliothek = true;
-            this.isFromIndex = false;
-            this.seitenanzahl = 1;
-            System.out.println("------------------------" + this.alldiplomarbeiten.size());
-            this.showBibDiplomarbeit(this.seitenanzahl, alldiplomarbeiten);
+        this.isFromBibliothek = true;
+        this.isFromIndex = false;
+        this.seitenanzahl = 1;
+        System.out.println("------------------------" + this.alldiplomarbeiten.size());
+        this.showBibDiplomarbeit(this.seitenanzahl, alldiplomarbeiten);
 //            this.createListeSize(this.alldiplomarbeiten);
-            this.fullstatList(this.alldiplomarbeiten);
+        this.fullstatList(this.alldiplomarbeiten);
     }
 
-    public void FromIndex(ActionEvent event, String key) { 
-        
+    public void FromIndex(ActionEvent event, String key) {
+
         this.diplist = this.dipDAO.Suchleiste(key);
         System.out.println("----------------------------" + this.allindexList.size());
         this.isFromIndex = true;
         this.isFromBibliothek = false;
         this.seitenanzahl = 1;
         this.showIndexDiplomarbeit(this.seitenanzahl, this.allindexList);
-        this.createListeSize(this.allindexList); 
-        
-        
+        this.createListeSize(this.allindexList);
+
     }
-    
-    
+
     public void forward(ActionEvent event) {
- 
+
         if (this.isFromBibliothek) {
 
-            
             int size = (this.berechnenMaxSeitenanzahl(this.alldiplomarbeiten));
-           
-            if (this.seitenanzahl < (size) ) {
+
+            if (this.seitenanzahl < (size)) {
                 this.seitenanzahl = this.seitenanzahl + 1;
-                
-                
-                
+
                 int anfangListeDip = this.seitenanzahl;
                 this.diplist = this.showBibDiplomarbeit(anfangListeDip, this.alldiplomarbeiten);
-            
+
             } else {
-                
-                
+
                 int anfangListeDip = this.seitenanzahl;
                 this.diplist = this.showBibDiplomarbeit(anfangListeDip, this.alldiplomarbeiten);
-               
 
             }
 
-        } else if(this.isFromIndex) {
-            
+        } else if (this.isFromIndex) {
 
-             if (this.seitenanzahl < (this.berechnenMaxSeitenanzahl(this.allindexList))) {
+            if (this.seitenanzahl < (this.berechnenMaxSeitenanzahl(this.allindexList))) {
                 this.seitenanzahl = this.seitenanzahl + 1;
                 int anfangListeDip = this.seitenanzahl;
                 this.diplist = this.showBibDiplomarbeit(anfangListeDip, this.allindexList);
-                
+
             } else {
                 //Anzeigen der Diplomarbeiten
                 int anfangListeDip = this.seitenanzahl;
                 this.diplist = this.showBibDiplomarbeit(anfangListeDip, this.allindexList);
-              
 
             }
 
         }
-       
-        
-        
 
-        
-        
-        
-        
-    }    
-    
-    
-    public void back(ActionEvent event) {   
-        
-          if (this.isFromBibliothek) {
-              
+    }
+
+    public void back(ActionEvent event) {
+
+        if (this.isFromBibliothek) {
+
             if (this.seitenanzahl > 1) {
                 this.seitenanzahl = this.seitenanzahl - 1;
                 int anfangListeDip = this.seitenanzahl;
@@ -467,26 +423,26 @@ public class bibliothekBean {
                 this.diplist = this.showBibDiplomarbeit(anfangListeDip, this.alldiplomarbeiten);
             }
 
-        } else if(this.isFromIndex) {
-            
-             if (this.seitenanzahl > 1) {
+        } else if (this.isFromIndex) {
+
+            if (this.seitenanzahl > 1) {
                 this.seitenanzahl = this.seitenanzahl - 1;
-              
+
                 int anfangListeDip = this.seitenanzahl;
                 this.diplist = this.showBibDiplomarbeit(anfangListeDip, this.allindexList);
             } else {
                 //Anzeigen der Diplomarbeiten
                 int anfangListeDip = this.seitenanzahl;
-                this.diplist = this.showBibDiplomarbeit(anfangListeDip, this.allindexList);           
+                this.diplist = this.showBibDiplomarbeit(anfangListeDip, this.allindexList);
             }
         }
-    }    
-        
+    }
+
     public final int berechnenMaxSeitenanzahl(List<Diplomarbeit> diplist) {
 
         int size = diplist.size();
         int maxszahl = 0;
-       
+
         if (size % 10 == 0) {
             System.out.println("Lasst sich Teilen!");
             maxszahl = (int) (size / 10);
@@ -505,14 +461,8 @@ public class bibliothekBean {
         return maxszahl;
 
     }
-    
-    
-       
-    
-
 
 //Seitenleiste neu
-
     public String getSeitenzahl() {
         return seitenzahl;
     }
@@ -529,16 +479,10 @@ public class bibliothekBean {
         this.seitenList = seitenList;
     }
 
-    
-    
-    
-
-   
-
     private void createListeSize(List<Diplomarbeit> diplist) {
-        int i; 
+        int i;
         this.seitenList.clear();
-        
+
         for (i = 1; i < (this.berechnenMaxSeitenanzahl(diplist) + 1); i++) {
             Seitenzahl seitz = new Seitenzahl(i);
             this.seitenList.add(seitz);
@@ -547,15 +491,14 @@ public class bibliothekBean {
 
     }
 
-    
     public class Seitenzahl {
-        
+
         int seitenzahl;
 
         public Seitenzahl(int seitenzahl) {
             this.seitenzahl = seitenzahl;
         }
-        
+
         public int getSeitenzahl() {
             return seitenzahl;
         }
@@ -563,21 +506,17 @@ public class bibliothekBean {
         public void setSeitenzahl(int seitenzahl) {
             this.seitenzahl = seitenzahl;
         }
-        
-        
+
     }
 
-    
     public List<Diplomarbeit> showBibDiplomarbeit(int seitenanzahl, List<Diplomarbeit> dibList) {
 
-        
         int maxszahl = this.berechnenMaxSeitenanzahl(dibList);
         int anfang, ende;
         this.seitenanzahl = seitenanzahl;
 
         if (dbService.ListeAllDiplomarbeiten() != null) {
-            
-           
+
             if (dbService.ListeAllDiplomarbeiten().size() % 10 == 0 && dbService.ListeAllDiplomarbeiten().size() > 10) {
 
                 anfang = seitenanzahl * 10;
@@ -590,22 +529,19 @@ public class bibliothekBean {
 
             } else {
 
-               if (seitenanzahl == 1) {
-                    
+                if (seitenanzahl == 1) {
+
                     if (dbService.ListeAllDiplomarbeiten().size() < 10) {
                         anfang = 0;
                         ende = dbService.ListeAllDiplomarbeiten().size();
-                    }
-                    else {
+                    } else {
                         anfang = 0;
                         ende = 10;
                     }
-                    
+
                     this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
 
-                }
-                
-                else if (seitenanzahl < maxszahl) {
+                } else if (seitenanzahl < maxszahl) {
                     anfang = seitenanzahl * 10;
                     ende = ((seitenanzahl + 1) * 10);
 
@@ -614,35 +550,26 @@ public class bibliothekBean {
 
                     this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
 
-                }
-                else if (seitenanzahl == maxszahl) {
-                    
-                    if(dbService.ListeAllDiplomarbeiten().size() <= 10) {
+                } else if (seitenanzahl == maxszahl) {
+
+                    if (dbService.ListeAllDiplomarbeiten().size() <= 10) {
                         anfang = 0;
                         ende = dbService.ListeAllDiplomarbeiten().size();
                         this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
-                    }else {
-                        anfang = (seitenanzahl-1) * 10;
+                    } else {
+                        anfang = (seitenanzahl - 1) * 10;
                         ende = dbService.ListeAllDiplomarbeiten().size();
                         this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
-                        
-                    }
-                    
-                    
 
-                    
+                    }
 
                 }
             }
         }
         return this.diplist;
     }
-    
-    
-    
-    
-    public List<Diplomarbeit> showIndexDiplomarbeit(int seitenanzahl, List<Diplomarbeit> allindexList) {
 
+    public List<Diplomarbeit> showIndexDiplomarbeit(int seitenanzahl, List<Diplomarbeit> allindexList) {
 
         int maxszahl = this.berechnenMaxSeitenanzahl(allindexList);
         int anfang, ende;
@@ -650,32 +577,30 @@ public class bibliothekBean {
 
         if (maxszahl != 0) {
 
-            if (allindexList.size() % 10 == 0 && allindexList.size() > 10 ) {
+            if (allindexList.size() % 10 == 0 && allindexList.size() > 10) {
 
-                 anfang = seitenanzahl * 10;
-                 ende = ((seitenanzahl + 1) * 10);
+                anfang = seitenanzahl * 10;
+                ende = ((seitenanzahl + 1) * 10);
 
                 System.out.println(anfang);
                 System.out.println(ende);
-                
+
                 return this.diplist = allindexList.subList(anfang, ende);
 
             } else {
 
                 if (seitenanzahl == 1) {
-                    
+
                     if (allindexList.size() < 10) {
                         anfang = 0;
                         ende = allindexList.size();
-                    }
-                    else {
+                    } else {
                         anfang = 0;
                         ende = 10;
                     }
-                    
+
                     return this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
-                }
-                else if (seitenanzahl < maxszahl) {
+                } else if (seitenanzahl < maxszahl) {
                     anfang = seitenanzahl * 10;
                     ende = ((seitenanzahl + 1) * 10);
 
@@ -698,7 +623,6 @@ public class bibliothekBean {
         return this.diplist;
     }
 
-
     public void SeitenanzahlLink(ActionEvent event, int seitenanzahl) {
 
         if (this.isFromBibliothek) {
@@ -712,25 +636,19 @@ public class bibliothekBean {
         }
 
     }
-    
-    
-    
-    
-    
-    
-       public List<Diplomarbeit> showIndexDiplomarbeitLink(int seitenanzahl) {
+
+    public List<Diplomarbeit> showIndexDiplomarbeitLink(int seitenanzahl) {
 
         int maxszahl = this.berechnenMaxSeitenanzahl(allindexList);
         int anfang, ende;
-        
-        
+
         System.out.println(seitenanzahl);
 
         if (maxszahl != 0) {
-            
+
             this.seitenanzahl = seitenanzahl;
 
-            if (allindexList.size() % 10 == 0 && allindexList.size() > 10 ) {
+            if (allindexList.size() % 10 == 0 && allindexList.size() > 10) {
 
                 anfang = seitenanzahl * 10;
                 ende = ((seitenanzahl + 1) * 10);
@@ -744,16 +662,15 @@ public class bibliothekBean {
             } else {
 
                 if (seitenanzahl == 1) {
-                    
+
                     if (allindexList.size() < 10) {
                         anfang = 0;
                         ende = allindexList.size();
-                    }
-                    else {
+                    } else {
                         anfang = 0;
                         ende = 10;
                     }
-                    
+
                     return this.diplist = allindexList.subList(anfang, ende);
 
                 } else if (seitenanzahl < maxszahl) {
@@ -778,13 +695,9 @@ public class bibliothekBean {
 
         return this.diplist;
 
-    }  
-       
-       
-       
-       
-       
-        public List<Diplomarbeit> showBibDiplomarbeitLink(int seitenanzahl) {
+    }
+
+    public List<Diplomarbeit> showBibDiplomarbeitLink(int seitenanzahl) {
 
         int maxszahl = this.berechnenMaxSeitenanzahl(this.alldiplomarbeiten);
         System.out.println("showlink--------------------" + seitenanzahl);
@@ -793,132 +706,86 @@ public class bibliothekBean {
         if (dbService.ListeAllDiplomarbeiten() != null) {
 
             this.seitenanzahl = seitenanzahl;
-            if (dbService.ListeAllDiplomarbeiten().size() % 10 == 0 && dbService.ListeAllDiplomarbeiten().size() > 10 ) {
+            if (dbService.ListeAllDiplomarbeiten().size() % 10 == 0 && dbService.ListeAllDiplomarbeiten().size() > 10) {
 
                 anfang = seitenanzahl * 10;
                 ende = ((seitenanzahl + 1) * 10);
 
                 System.out.println(anfang);
                 System.out.println(ende);
-               
+
                 this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
 
             } else {
-            
+
                 if (seitenanzahl == 1) {
-                    
+
                     if (dbService.ListeAllDiplomarbeiten().size() < 10) {
                         anfang = 0;
                         ende = dbService.ListeAllDiplomarbeiten().size();
-                    }
-                    else {
+                    } else {
                         anfang = 0;
                         ende = 10;
                     }
-                    
+
                     return this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
-                }
-                
-                else if (seitenanzahl < maxszahl) {
+                } else if (seitenanzahl < maxszahl) {
 
                     anfang = seitenanzahl * 10;
                     ende = ((seitenanzahl + 1) * 10);
                     System.out.println(anfang);
                     System.out.println(ende);
-                    
+
                     this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
 
-                }
-                else if (seitenanzahl == maxszahl) {
-                    
-                    if(dbService.ListeAllDiplomarbeiten().size() <= 10) {
-                    
+                } else if (seitenanzahl == maxszahl) {
+
+                    if (dbService.ListeAllDiplomarbeiten().size() <= 10) {
+
                         anfang = 0;
                         ende = dbService.ListeAllDiplomarbeiten().size();
                         this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
-                    }else {
-                    
-                        anfang = (seitenanzahl-1) * 10;
+                    } else {
+
+                        anfang = (seitenanzahl - 1) * 10;
                         ende = dbService.ListeAllDiplomarbeiten().size();
                         this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
-                        
+
                     }
-   
 
                 }
             }
         }
         return this.diplist;
     }
-    
-       
-       
-       
-     List<Seitenzahl> statList = new ArrayList<>(7);
-     
-     
-     public void fullstatList(List<Diplomarbeit> dplist) {
-         
-         //1.Zustand:
-         
-         if(this.seitenanzahl <= 8) {
-             this.createListeSize(dplist);
-         }
-         
-         else {
-             
+
+    List<Seitenzahl> statList = new ArrayList<>(7);
+
+    public void fullstatList(List<Diplomarbeit> dplist) {
+
+        //1.Zustand:
+        if (this.seitenanzahl <= 8) {
+            this.createListeSize(dplist);
+        } else {
+
             this.createListeSize(diplist);
             this.statList.set(0, this.seitenList.get(0));
             this.statList.set(1, this.seitenList.get(1));
-            this.statList.set(2, new Seitenzahl(this.seitenanzahl-1));
+            this.statList.set(2, new Seitenzahl(this.seitenanzahl - 1));
             this.statList.set(3, new Seitenzahl(this.seitenanzahl));
-            this.statList.set(4, new Seitenzahl(this.seitenanzahl+1));
-            
-            
-            this.statList.set(5, this.seitenList.get(this.diplist.size()-2));
-            this.statList.set(6, this.seitenList.get(this.diplist.size()-1));
-    
-         }
-         
-     }
-     
-     
-     
-     
-     
-     //Weitere Suche------------------------------------------------------------
-     
-   
-     
-     
-     public void weitereSuche() {
-         
-         List<String> suchelemente = new ArrayList<>();
-         
-       
-         
-        
-         
-         
-         
-     }
-     
-     
-     
-     
-     public List<Diplomarbeit> showIndexSortDiplomarbeit(int seitenanzahl, List<Diplomarbeit> allindexList) {
+            this.statList.set(4, new Seitenzahl(this.seitenanzahl + 1));
 
-        
-//    private String Titel;
-//    private String autor;
-//    private String date;
-//    private String speech;
-//    private String fachgebiet;
-//    private String schlagwort;
-         
-      //this.indexSortList = this.dbService.readIndexSortList(this.Titel, this.autor, this.date,  this.schlagwort);
-    
-      int maxszahl = this.berechnenMaxSeitenanzahl(this.indexSortList);
+            this.statList.set(5, this.seitenList.get(this.diplist.size() - 2));
+            this.statList.set(6, this.seitenList.get(this.diplist.size() - 1));
+
+        }
+
+    }
+
+    public List<Diplomarbeit> showIndexSortDiplomarbeit(int seitenanzahl, List<Diplomarbeit> allindexList) {
+
+
+        int maxszahl = this.berechnenMaxSeitenanzahl(this.indexSortList);
 
         if (maxszahl != 0) {
 
@@ -929,7 +796,7 @@ public class bibliothekBean {
 
                 System.out.println(anfang);
                 System.out.println(ende);
-                
+
                 return this.diplist = allindexList.subList(anfang, ende);
 
             } else {
@@ -961,63 +828,94 @@ public class bibliothekBean {
 
         return this.diplist;
     }
-     
-     
-     
-     
-     
-     
-       
-       
-       public Object suche() {
-          
-           if(this.Titel != null) {
-              this.diplist = da.SucheTitel(this.Titel);
-           }
-           else if(this.autor != null) {
-               this.diplist = da.SucheAutor(this.autor);
-           }
-           else if(this.date != null) {
-               this.diplist = da.SucheDatum(this.date);
-           }
-           else if(this.schule != null) {
-               this.diplist = da.SucheSchule(this.schule);
-           }
-           
-           return null;
-           
-       
-       }      
-       
-       
-       
-        
+
+    public Object suche() {
+
+        if (this.Titel != null) {
+            this.diplist = da.SucheTitel(this.Titel);
+        } else if (this.autor != null) {
+            this.diplist = da.SucheAutor(this.autor);
+        } else if (this.date != null) {
+            this.diplist = da.SucheDatum(this.date);
+        } else if (this.schule != null) {
+            this.diplist = da.SucheSchule(this.schule);
+        }
+
+        return null;
+
+    }
+    
+    
    
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-    
-}  
-    
-    
-    
-    
     
 
-    
-    
-    
-    
+    public String autorList(int da_id) {
+        
+        String autorListefirst = "";
+        String autorListesecond = "";
+        String fullautorListe = "";
 
+        
+        List<Autor> varList = dbService.getAllAutor(da_id);
+ 
+        for(int i = 0; i < varList.size(); i++) {
+            
+            if(i == 0) {
+                autorListefirst = "" + varList.get(i).getFullName();
+            }
+            else {
+                autorListesecond += " , " + varList.get(i).getFullName();
+            }
+            
+            fullautorListe = autorListefirst + autorListesecond;
+            
+            
+        }
+        return fullautorListe;
 
+    }
+    
+    
+    
+    
+        String schlagwortfirst;
+        String schlagwortsecond;
+        
 
+    public String schlagwortList(int da_id) {
+        
+        String fullschlagwListe = "";
+        String var = "";
+        
+        System.out.println(da_id);
+        List<Schlagwort> varList = dbService.getAllSchlagwoerter(da_id);
+        System.out.println(varList);
+
+        
+        for (int i = 0; i < varList.size(); i++) {
+            
+            if(i == 0) {
+                var = varList.get(i).getWord();
+            }
+            else {
+                var = " , " + varList.get(i).getWord();
+                
+            }
+                    
+            
+            fullschlagwListe += var;
+        }
+      
+        return fullschlagwListe;
+    }
+    
+    
+    
+    public String getOneSchule(int da_id) {
+        Schule s = dbService.getOneSchule(dbService.getDiplomarbeit(da_id).getSchule_id());
+        return s.getName();
+    }
+    
+   
+
+}

@@ -31,10 +31,10 @@
 }
 
 .mainindex {
-    background-color: red;
+/*    background-color: red;*/
     margin: 0 0 0 0;
     width: 100%;
-    height: 750px;
+    height: auto;
     
 }
 
@@ -49,8 +49,57 @@
 }
 
 
+
+.diplomarbeitenListe {
+/*    background-color: red;*/
+    width: 750px;
+    height: auto;
+    margin: 50px 0 0 400px;
+}
+
+
+.order-table{
+	border-collapse:collapse;
+}
+
+.order-table-header{
+	text-align: left;
+	background:none repeat scroll 0 0;
+	padding:10px;
+}
+
+.order-table-odd-row{
+	text-align: left;
+	background:none repeat scroll 0 0;
+        padding-bottom: 10px;
+}
+
+.order-table-even-row{
+	text-align: left;
+	background:none repeat scroll 0 0;
+        padding-bottom: 10px;
+}
+
+
+.graphicImage {
+    width: 270px; 
+    height: 300px;
+}
+
+
+
+.bibbutton {
+    background-color: red; 
+    width: 80%; 
+    height: 50px;
+    margin: 0 0 0 10%;
+}
+
+
+
+/*-------------------------------------------------------------------------------*/
 .bdiplomarbeit {
-    background-color: blue;
+/*    background-color: blue;*/
     width: 800px;
     height: 720px;
     padding: 5px;
@@ -62,6 +111,7 @@
     margin: 20px 0 0 500px;
     width: 80%;
     height: 650px;
+    
 }
 
 

@@ -9,12 +9,13 @@ and open the template in the editor.
 */
 
 .content {
+    background-color: greenyellow;
     display: flex;
     flex-wrap: wrap;
     background-color: white;
-    margin: 40px 0 0 0;
+    margin: 100px 0 0 0;
     width: 310px;
-    height: 600px;
+    height: 1000px;
 }
 
 .content > div {
@@ -31,40 +32,27 @@ and open the template in the editor.
     margin: 0 0 0 10%;
 }
 
-
 .tftitel {
     margin: 100px 0 0 10%;
 }
-
 
 .tfautor {
     margin: 200px 0 0 10%;
 }
 
-
-.datum {
-    margin: 300px 0 0 10%;
-}
-
 .tfdatum {
     margin: 300px 0 0 10%;
-
-}
-
-.schlagwort {
-    margin: 400px 0 0 10%;
 }
 
 .tfschlagwort {
     margin: 400px 0 0 10%;
 }
 
+.tfschule {
+    margin: 500px 0 0 10%;
+}
 
 .button_suche {
-    margin: 550px 0 0 10%;
+    margin: 650px 0 0 10%;
 }
 
-
-.input {
-    
-}

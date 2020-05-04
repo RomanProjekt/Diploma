@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 @media screen and (max-width: 1400px) {
 
 
@@ -14,7 +8,7 @@
     }
 
     .headerindex {
-        height: 100px;
+        height: auto;
     }
 
     .navbarHeader form ul {
@@ -22,23 +16,30 @@
         list-style: none;
         color: #464a56;
         text-decoration: none;
-        width: 80%;
-        margin: 15px 0 0 60px; 
-        margin-left: -45px;
+        width: 100%;
+        margin: 20px 0 0 60px; 
+        margin-left: 0;
     }
+    
+    .navbarHeader form a  { 
+        color: #464a56;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
 
     navbarHeader li a {
         float:left;
         display: block;
         width: 150px;
-        margin: 0 0 0 -20px;
+        margin: 0 0 0 0;
         width: 100%;    
     }
 
     .red {
         width:  100%;
         height: 5px;
-        margin: 50px 0 0 0;
 
     }
 
@@ -62,7 +63,7 @@
         list-style: none;
         color: #464a56;
         text-decoration: none;
-        width: 80%;
+        width: 100%;
         margin: 15px 0 0 60px;
         margin-left: -45px;
     }
@@ -77,7 +78,6 @@
     .red {
         width:  100%;
         height: 5px;
-        margin: 50px 0 0 0;
     }
 
 
@@ -89,16 +89,13 @@
 
 
 
-@media screen and (max-width: 1050px) {
+/*@media screen and (max-width: 1050px) {
 
 
     .logo {
         margin-left: 20%; 
     }
 
-    .contentindex {
-        width: 500px;
-    }
 
     .navbarHeader form ul {
         list-style: none;
@@ -117,14 +114,13 @@
     .red {
         width:  100%;
         height: 5px;
-        margin: 250px 0 0 0;
     }
 
 
 
 
 
-}
+}*/
 
 
 
@@ -140,7 +136,7 @@
     }
 
     .contentindex {
-        width: 500px;
+        width: auto;
     }
 
     .navbarHeader form ul {
@@ -160,13 +156,12 @@
     .red {
         width:  100%;
         height: 5px;
-        margin: 250px 0 0 0;
+        
     }
 
     .benutzername {
         padding-top: 10px;
         margin:  0 0 0 42%;
-
     }
 
 
@@ -185,7 +180,7 @@
     }
 
     .contentindex {
-        width: 500px;
+        width: auto;
     }
 
     .navbarHeader form ul {
@@ -205,7 +200,6 @@
     .red {
         width:  100%;
         height: 5px;
-        margin: 250px 0 0 0;
     }
 
     .benutzername {
@@ -213,9 +207,7 @@
     }
     
     .diplomarbeit {
-/*        background-color: red;*/
-        margin: 0 0 0 37%;
-         
+        margin: 0 0 0 37%;  
     }
 
 

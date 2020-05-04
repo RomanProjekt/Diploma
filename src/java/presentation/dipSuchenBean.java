@@ -168,5 +168,18 @@ public class dipSuchenBean {
         
     }
     
+    
+    
+    public String sentToBibliothek(String key) {
+        
+        if(key.equals("")) {
+            return "index.xhtml";
+        }
+        else {
+            return "bibliothek.xhtml";
+        }
+        
+    }
+    
 
 }

@@ -9,12 +9,23 @@
         <title>Meine Diplomarbeiten</title>
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "meinedip.css" />
-        <h:outputStylesheet library= "css" name= "include_footer.css" />
+      
+        <h:outputStylesheet library= "css" name= "responsiveIndex.css" />
+        <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
+        
+        <h:outputStylesheet library= "css" name= "Footer.css" />
+        <h:outputStylesheet library= "css" name= "responsiveFooter.css" /> 
+        
+        <f:metadata>
+            <f:viewAction action="#{databaseManagerService.stillLoggedIn()}" />
+            <f:viewAction action="#{meinKontoBean.init()}" />
+        </f:metadata>
+        
+        
     </h:head>
-    <f:metadata>
-        <f:viewAction action="#{databaseManagerService.stillLoggedIn()}" />
-        <f:viewAction action="#{meinKontoBean.init()}" />
-    </f:metadata>
+    
+    
+    
     <h:body>
 
         <div id="wrapper" class="wrapper">

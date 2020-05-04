@@ -26,6 +26,7 @@ import service.ConnectionManager;
  */
 public class SW_DA_DAO {
 
+    
     public List<SW_DA> getAllSW_DA_Verknüpfungen() {
 
         List<SW_DA> list_sw_da = new ArrayList<>();
@@ -94,8 +95,13 @@ public class SW_DA_DAO {
         return schlagList;
     }
 
+    
+    
+    
     public List<Schlagwort> getAllSchlagwoerter(int id) {
-        List<Schlagwort> listd_schlagwort = new ArrayList<>();
+        List<Schlagwort> schlagwortList = new ArrayList<>();
+        schlagwortList.clear();
+        
 
         try (
                 Connection con = ConnectionManager.getInst().getConn();
@@ -103,16 +109,18 @@ public class SW_DA_DAO {
                 ResultSet rs = stmt.executeQuery("select id, name, sw_id, da_id from schlagwort join schlagwort_diplomarbeit on schlagwort.id = schlagwort_diplomarbeit.sw_id where da_id = " + id)) {
             while (rs.next()) {
                 Schlagwort retVal = new Schlagwort(rs.getInt(1), rs.getString(2));
-                listd_schlagwort.add(retVal);
+                schlagwortList.add(retVal);
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(SW_DA_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
-        return listd_schlagwort;
+        return schlagwortList;
     }
 
+    
+    
     public void insert(List<Schlagwort> schlagwoerter, int da_id) {
 
         for (int i = 0; i < schlagwoerter.size(); i++) {
@@ -121,6 +129,9 @@ public class SW_DA_DAO {
 
     }
 
+    
+    
+    
     public void insert_var(int sw_id, int da_id) {
 
         try (
@@ -139,6 +150,9 @@ public class SW_DA_DAO {
         }  //rs.close(); stmt.close(); con.clo
     }
 
+    
+    
+    
     public void insertHashMap(HashMap<Integer, Schlagwort> insMap, int daId) {
         try (
                 Connection con = ConnectionManager.getInst().getConn();
@@ -160,6 +174,9 @@ public class SW_DA_DAO {
         }
     }
 
+    
+    
+    
     public void deleteSW_DA(HashMap<Integer, Schlagwort> remMap, int da_id) {
         try (
                 Connection con = ConnectionManager.getInst().getConn();
@@ -181,6 +198,9 @@ public class SW_DA_DAO {
         }  //rs.close(); stmt.close(); con.clo
     }
 
+    
+    
+    
     public void deleteDA(int da_id) {
         try (
                 Connection con = ConnectionManager.getInst().getConn();
@@ -196,5 +216,32 @@ public class SW_DA_DAO {
             Logger.getLogger(SW_DA_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    public List<SW_DA> getOneSchlagwortId(int id) {
+        
+        List<SW_DA> list_sw_da = new ArrayList<>();
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from schlagwort_diplomarbeit")) {
+
+            while (rs.next()) {
+                SW_DA retVal = new SW_DA(rs.getInt(1), rs.getInt(2));
+                list_sw_da.add(retVal);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SW_DA_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return list_sw_da;
+
+    }
+
+    
+    
 
 }

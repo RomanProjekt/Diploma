@@ -28,71 +28,110 @@ html, body {
 
 
 .mainindex {
-    background-color: red;
+    /*    background-color: red;*/
     margin: auto 0 0 0;
     width: 100%;
-    height: 750px;  
+    height: auto;
 }
 
 .footer {
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   height: auto;
-   color: white;
-   font-size: 10px;
-   background-color: #292c33;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    color: white;
+    font-size: 10px;
+    background-color: #292c33;
 }
 
 
 
 
 .view {
-/*    background-color: red;*/
+    /*    background-color: red;*/
     width: auto;
     height: auto;
 }
 
 
 .bilddiplomarbeit {
-    
-    width: 700px;
-    height: 750px;
-    margin: 0 0 0 0;
-    padding-bottom: 20px;
+    /*  width: 500px;
+        height: 750px;*/
+    margin: 20px 0 0 5%;
+    padding: 20px;
 }
 
 
 .pdfdip {
-    
     width: 100%;
     height: 650px;
     margin: 40px 0 0 0;
     padding-bottom: 20px;
-    
+
+}
+
+.gestextlist {
+   background-color: blue;
+    width: 570px;
+    height: 710px;
+    margin: -950px 0 0 700px;
+    padding: 10px;
+
 }
 
 .datenliste {
-    width: 250px;
-    height: 600px;
-    margin: -650px 0 0 15%;
-    padding-bottom: 10%;
-/*    background-color: yellow;*/
-/*    background-color: red;*/
+    background-color: greenyellow;
+    display: fixed;
+    width: 90%;
+    height: 500px;
+    margin: 100px 0 0 10%;
+    background-color: buttonface;
+
 }
 
 
 .safebutton {
-   padding-bottom: 10%;
+    padding-bottom: 10%;
 }
 
 
-löschenbutton {
- padding-bottom: 10%;
-   
+.löschenbutton {
+    padding-bottom: 10%;
+
 }
 
-downloadbutton {
+.downloadbutton {
     padding-bottom: 100px;
-   
+
 }
+
+
+.einleitung {
+
+    position: relative;
+    background-color: buttonface;
+    width: 550px;
+    height: auto;
+}
+
+
+.text {
+    font-size: 15px;
+    text-align: justify;
+    color: black;
+    font-family: Verdana;
+
+}
+
+.textfield {
+    padding: 20px;
+}
+
+.buttonleiste {
+    /*    background-color: blue;*/
+    width: 200px;
+    height: auto;
+    padding-bottom: 150px;
+}
+
+

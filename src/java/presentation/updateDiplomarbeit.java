@@ -81,15 +81,14 @@ public class updateDiplomarbeit {
 
     public Object editDiplomarbeit(Diplomarbeit dip) {
         
-        aktDip = new Diplomarbeit(dip.getDa_id(), dip.getTitle(), dip.getAutor_id(), dip.getSchule_id(), dip.getPdf(), dip.getUser_id(), dip.getDatum(), dip.getBild(), 0, 0);
-        oldDip = new Diplomarbeit(dip.getDa_id(), dip.getTitle(), dip.getAutor_id(), dip.getSchule_id(), dip.getPdf(), dip.getUser_id(), dip.getDatum(), dip.getBild(), 0, 0);
+        aktDip = new Diplomarbeit(dip.getDa_id(), dip.getTitle(), dip.getTextname(), dip.getSchule_id(), dip.getPdf(), dip.getUser_id(), dip.getDatum(), dip.getBild(), 0, 0);
+        oldDip = new Diplomarbeit(dip.getDa_id(), dip.getTitle(), dip.getTextname(), dip.getSchule_id(), dip.getPdf(), dip.getUser_id(), dip.getDatum(), dip.getBild(), 0, 0);
         
         this.autList = dbService.getAllAutor(aktDip.getDa_id());
 
         this.datum = aktDip.getDatum();
         this.allSchlagwortMap = dbService.getAllSchlagwoerterHashMap();
 
-//        this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
         this.realSchule = dbService.getOneSchule(aktDip.getSchule_id());
         this.schlagwortList = dbService.getAllSchlagwoerter(aktDip.getDa_id());
         this.allSchlagwortList = dbService.getAllSchlagwörter();

@@ -6,19 +6,25 @@
 package presentation;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.imageio.ImageIO;
@@ -26,6 +32,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import org.primefaces.event.SelectEvent;
 import pojo.Autor;
 import pojo.Diplomarbeit;
 import pojo.Schlagwort;
@@ -48,7 +55,7 @@ public class uploadBean implements Serializable {
     private List<Schlagwort> insSchlagList;
     private List<Schule> schulList;
     private Schule realSchule;
-    
+
     private Date datum;
 
     private String titel;
@@ -66,6 +73,26 @@ public class uploadBean implements Serializable {
     List<Diplomarbeit> listdiplomarbeit;
 
     private String result;
+    
+    private String text;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     //---------------Fail------------------------
     private String bilddatei_fail;
@@ -74,8 +101,6 @@ public class uploadBean implements Serializable {
     private String dateiformat_fail;
     private String diplomarbeitenTitel_fail;
 
-
-   
     //--------------------Derzeitiger Code---------------------------
     public uploadBean() {
         allSchlagwTypeahead = new ArrayList<>();
@@ -115,12 +140,10 @@ public class uploadBean implements Serializable {
         autList.remove(autor);
         return null;
     }
-    
-     public void removeAutoren(ValueChangeEvent event) {
+
+    public void removeAutoren(ValueChangeEvent event) {
         autList.remove(event.getNewValue().toString());
     }
-    
-  
 
     public Object addSchlagwort() {
         if (!"".equals(schlagwort) && schlagwort != null) {
@@ -201,6 +224,11 @@ public class uploadBean implements Serializable {
     }
 
     public Part getDiplomarbeit() {
+//        try {
+//            this.showPDF();
+//        } catch (IOException ex) {
+//            Logger.getLogger(uploadBean.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         return diplomarbeit;
     }
 
@@ -368,62 +396,72 @@ public class uploadBean implements Serializable {
         this.diplomarbeitenTitel_fail = diplomarbeitenTitel_fail;
     }
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
     public String upload_diplomarbeit() throws FileNotFoundException, IOException {
 
         String vartitel = getTitel();
-       
 
         java.sql.Date realDate = new java.sql.Date(datum.getTime());
 
 //        boolean isgleich = this.titel_vergleichen(vartitel);
         if (diplomarbeit != null) {
 
-           
-
-//                String submittedFileName = varimage.getSubmittedFileName();
-                String user_id = String.valueOf(dbService.getLoggedInBenutzer().getUser_id());
-                System.out.println(user_id);
+//              String submittedFileName = varimage.getSubmittedFileName();
+            String user_id = String.valueOf(dbService.getLoggedInBenutzer().getUser_id());
+            System.out.println(user_id);
 //                boolean image_standartformat = this.überprüfuen_Image_StandardFormat(submittedFileName);
 
-                boolean diplomarbeit_dateiformat = this.überprüfen_PDF_StandardFormat(diplomarbeit.getSubmittedFileName());
-                if (diplomarbeit_dateiformat) {
+            boolean diplomarbeit_dateiformat = this.überprüfen_PDF_StandardFormat(diplomarbeit.getSubmittedFileName());
+            if (diplomarbeit_dateiformat) {
 
-                    
-                    String pdfpfad = this.savePdfFile(vartitel);
-                    String imagepfad = this.showImageFromPDF(vartitel);
-                    
-                    
-                    //3.Funktionen: Hochladen der Diplomarbeit
-                    if (!(autList.size() <= 0&& realDate == null)) {
-                        dbService.hochladen(vartitel, autList, realSchule, schlagList, pdfpfad, imagepfad, realDate);
-                        return "index.xhtml?faces-redirect=true";
-                    } else {
-                        this.autoralert = true;
-                    }
-                        
+                String pdfpfad = this.savePdfFile(vartitel);
+                String imagepfad = this.showImageFromPDF(vartitel);
+                String textnamepfad = this.speichernTextDocument(vartitel);
+                String fullname = vartitel;
+                
 
-                    this.titel = "";
-                    this.autor = "";
-                    this.schule = "";
-                    this.schlagwort = "";
-
+                //3.Funktionen: Hochladen der Diplomarbeit
+                if (!(autList.size() <= 0 && realDate == null)) {
+                    dbService.hochladen(vartitel, autList, textnamepfad, realSchule, schlagList, pdfpfad, imagepfad, realDate);
+                    return "index.xhtml?faces-redirect=true";
                 } else {
-                    this.dateiformat_fail = "kein richtiges pdf-Format";
+                    this.autoralert = true;
                 }
 
-           
+                this.titel = "";
+                this.autor = "";
+                this.schule = "";
+                this.schlagwort = "";
+
+            } else {
+                this.dateiformat_fail = "kein richtiges pdf-Format";
+            }
 
         } else {
 //            this.pdfdabei_fail = "Keine PDF-Datei gefunden!";
         }
         return "uploadDip.xhtml";
-        
 
     }
 
     //-----------------------Bild aus der pdf Datei anzeigen-------------------------------------
-    
-    
     private String server_pdf_pfad;
 
     public String getServer_pdf_pfad() {
@@ -433,27 +471,20 @@ public class uploadBean implements Serializable {
     public void setServer_pdf_pfad(String server_pdf_pfad) {
         this.server_pdf_pfad = server_pdf_pfad;
     }
-    
-    
-    
-    
-    
+
     public String showImageFromPDF(String name) throws IOException {
-        
+
         BufferedImage image;
         String image_pfad = "/resources/images/images_diplomarbeiten/" + name + ".png";
 
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
         String server_images_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + image_pfad;
-        
+
 //      File file3 = new File("C:\\Users\\hp\\Desktop\\document.pdf");
         File file3 = new File(this.server_pdf_pfad);
         System.out.println(file3.getAbsolutePath());
         System.out.println(file3.getName());
-       
-        
-        
 
         if (file3.exists()) {
 
@@ -467,35 +498,21 @@ public class uploadBean implements Serializable {
                 ImageIO.write(image, "JPEG", new File(server_images_pfad));
                 System.out.println("Image created");
                 //Closing the document
-                document.close();  
+                document.close();
             }
 
-        }
-        else {
+        } else {
             System.out.println("PDf ist nicht vorhanden!");
         }
 
-        
         return image_pfad;
-       
-        
+
     }
-    
-    
+
     public static void main(String[] args) throws IOException {
         uploadBean up = new uploadBean();
 //        up.showImageFromPDF();
     }
-            
-            
-    
-    
-    
-    
-    
-    
-    
-    
 
     //-----------Funktion pdf-Datei hochladen----------------------
     public String savePdfFile(String filename) {
@@ -516,7 +533,6 @@ public class uploadBean implements Serializable {
             this.aktuellerpdfpfad(aktuellerpfad);
 
             f = new File(this.server_pdf_pfad);
-            
 
             f.createNewFile();
             outputStream = new FileOutputStream(f);
@@ -534,7 +550,7 @@ public class uploadBean implements Serializable {
         } catch (IOException ioex) {
             System.out.println(ioex.getMessage());
         }
-        
+
         return aktuellerpfad;
 
     }
@@ -579,10 +595,6 @@ public class uploadBean implements Serializable {
 
         return new_image_titel;
     }
-    
-     
-    
-    
 
     //--------------------Überpüfen des PDF Formats----------------------
     private boolean überprüfen_PDF_StandardFormat(String submittedFileName) {
@@ -603,7 +615,6 @@ public class uploadBean implements Serializable {
 
     }
 
-  
     private boolean autoralert;
 
     public boolean isAutoralert() {
@@ -614,9 +625,7 @@ public class uploadBean implements Serializable {
         this.autoralert = autoralert;
     }
 
-  
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
-    
 //    public void saveImage(String user_id, String vartitel, String submittedFileName, Part varimage) {
 //
 //        FileImageOutputStream outputStream;
@@ -653,16 +662,130 @@ public class uploadBean implements Serializable {
 //    }
     
     
-    
-    
-    
-  
+    private String show_images_pfad = "";
 
+    public String getShow_images_pfad() {
+        return show_images_pfad;
+    }
+
+    public void setShow_images_pfad(String show_images_pfad) {
+        this.show_images_pfad = show_images_pfad;
+    }
     
     
+    
+    
+    
+    public String showPDF() throws IOException {
+
+        
+        
+        if (this.diplomarbeit != null) {
+            
+            System.out.println("Neues Bild geladen!!!");
+
+            InputStream in = diplomarbeit.getInputStream();
+            FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+            ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+            String show_pdf_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/images/showpdf/" + this.diplomarbeit.getName()  + ".pdf";
+
+            File f = new File(show_pdf_pfad);
+            
+
+            f.createNewFile();
+            FileOutputStream outputStream = new FileOutputStream(f);
+
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = in.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+            in.close();
+            outputStream.close();
+
+            BufferedImage image;
+            
+            String image_pfad = "/resources/images/standardbild/showdiplomarbeit.png";
+            this.show_images_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + image_pfad;
+
+            
+            File pdf = new File(show_pdf_pfad);
+            
+            if (pdf.exists()) {
+
+                //Instantiating the PDFRenderer class
+                try (PDDocument document = PDDocument.load(pdf)) {
+                    //Instantiating the PDFRenderer class
+                    PDFRenderer renderer = new PDFRenderer(document);
+                    //Rendering an image from the PDF document
+                    image = renderer.renderImage(0);
+                    //Writing the image to a file
+                    ImageIO.write(image, "JPEG", new File(this.show_images_pfad));
+                    System.out.println("Image created");
+                    //Closing the document
+                    document.close();
+                }
+
+            } else {
+                System.out.println("PDf ist nicht vorhanden!");
+            }
+
+        }else {
+            System.out.println("StandardBild");
+        }
+
+        return  this.show_images_pfad;
+    }
+    
+    
+    
+    public String speichernTextDocument(String vartitel) {
+        //this.diplomarbeit.getName()
+        String fullname = vartitel + ".txt";
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        String textpfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/einleitung/" + fullname;
+        
+        String server_textpfad = "/resources/einleitung/" + fullname;
+        PrintWriter pWriter = null;
+        try {
+            pWriter = new PrintWriter(new BufferedWriter(new FileWriter(textpfad)));
+            pWriter.println(this.text);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+            if (pWriter != null){
+                pWriter.flush();
+                pWriter.close();
+            }
+        } 
+        
+        return server_textpfad;
+        
+    }
+    
+     public List<String> completeArea(String query) {
+        List<String> results = new ArrayList<String>();
+         
+        if(query.equals("PrimeFaces")) {
+            results.add("PrimeFaces Rocks!!!");
+            results.add("PrimeFaces has 100+ components.");
+            results.add("PrimeFaces is lightweight.");
+            results.add("PrimeFaces is easy to use.");
+            results.add("PrimeFaces is developed with passion!");
+        }
+        else {
+            for(int i = 0; i < 10; i++) {
+                results.add(query + i);
+            }
+        }
+         
+        return results;
+    }
  
-    
-    
-    
+    public void onSelect(SelectEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "select", (String) event.getObject()));
+    }
 
 }

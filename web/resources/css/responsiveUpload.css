@@ -3,17 +3,17 @@
 
     .firstTable {
         width: 300px;
-        margin: 0 0 0 37%;
+        margin: 50px 0 0 10%;
     }
 
     .secondTable {
         width: 300px; 
-        margin: 10px 0 0 37%;
+        margin: 10px 0 0 10%;
     }
 
     .thirdTable {
         width: 300px;
-        margin: 10px 0 0 37%;
+        margin: 10px 0 0 10%;
     }
 
 }
@@ -23,17 +23,17 @@
     
     .firstTable {
         width: 300px;
-        margin: 0 0 0 37%;
+        margin: 50px 0 0 10%;
     }
 
     .secondTable {
         width: 300px; 
-        margin: 10px 0 0 37%;
+        margin: 10px 0 0 10%;
     }
 
     .thirdTable {
         width: 300px;
-        margin: 10px 0 0 37%;
+        margin: 10px 0 0 10%;
     }
 
 
@@ -42,59 +42,68 @@
 
 @media only screen and (max-width: 1000px) {
     
-     .firstTable {
+    .firstTable {
         width: 300px;
-        margin: 250px 0 0 37%;
+        margin: 50px 0 0 25%;
     }
 
     .secondTable {
         width: 300px; 
-        margin: 10px 0 0 37%;
+        margin: 10px 0 0 25%;
     }
 
     .thirdTable {
         width: 300px;
-        margin: 10px 0 0 37%;
+        margin: 10px 0 0 25%;
     }
     
  
 }
 
-@media only screen and (max-width: 900px) {
+
+
+@media only screen and (max-width: 810px) {
     
     .firstTable {
         width: 300px;
-        margin: 250px 0 0 25%;
+        margin: 300px 0 0 10%;
     }
 
     .secondTable {
         width: 300px; 
-        margin: 10px 0 0 25%;
+        margin: 10px 0 0 10%;
     }
 
     .thirdTable {
         width: 300px;
-        margin: 10px 0 0 25%;
+        margin: 10px 0 0 10%;
     }
+    
+    
+  
 }
 
 
-@media only screen and (max-width: 800px) {
+
+@media only screen and (max-width: 600px) {
     
     .firstTable {
         width: 300px;
-        margin: 300px 0 0 25%;
+        margin: 300px 0 0 10%;
     }
 
     .secondTable {
         width: 300px; 
-        margin: 10px 0 0 25%;
+        margin: 10px 0 0 10%;
     }
 
     .thirdTable {
         width: 300px;
-        margin: 10px 0 0 25%;
+        margin: 10px 0 0 10%;
     }
+    
+    
+  
 }
 
                                   

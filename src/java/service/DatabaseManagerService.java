@@ -358,8 +358,11 @@ public class DatabaseManagerService {
     public Autor getOneAutor(int id) {
         return autorDAO.read(id);
     }
+    
+    
+    
 
-    //Schlagwort
+//-----------------------------Schlagwort---------------------------------------
     public SchlagwortDAO getSchlagwDAO() {
         return schlagwDAO;
     }
@@ -477,10 +480,10 @@ public class DatabaseManagerService {
    
     
     //-----------------------Diplomarbeit hochladen:---------------------------
-    public void hochladen(String title, List<Autor> autorList, Schule schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
+    public void hochladen(String title, List<Autor> autorList, String fullname, Schule schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
         int var_user_id = this.getLoggedInBenutzer().getUser_id();
         System.out.println(var_user_id);
-        int var_da_id = diplomarbeitDAO.insert(title, var_user_id, schule.getSchule_id(), pdfpath, imagepath, datum);
+        int var_da_id = diplomarbeitDAO.insert(title, var_user_id, fullname, schule.getSchule_id(), pdfpath, imagepath, datum);
         autorDAO.insertAutorList(autorList, var_da_id);
         schlagwort_verknuepfungDAO.readInsertList(schlagwoerter, var_da_id);
 
@@ -725,8 +728,10 @@ public class DatabaseManagerService {
     
     public static void main(String[] args) {
         DatabaseManagerService db = new DatabaseManagerService();
-        db.mainEncryption("patrick",12);
-        db.mainEncryption("patrick",14);
+//        db.mainEncryption("patrick",12);
+//        db.mainEncryption("patrick",14);
+
+        
     }
     
     
@@ -752,22 +757,7 @@ public class DatabaseManagerService {
         return sicherheitsCodeDAO.readSicherheitsCode(benutzer_id);
     }
 
-
-    public String Zufallszahl() {
-        int min = 1;
-        int range = 10;
-        String zufallscode = "";
-        // generate random numbers within 1 to 10 
-        String[] arr = new String[6];
-        for (int i = 0; i < 6; i++) {
-            int rand = (int) (Math.random() * range) + min;
-            arr[i] = String.valueOf(rand);
-            zufallscode += arr[i];
-        }
-        return zufallscode;
-    }
-    
-    
+  
       
     
     public void setKey(String myKey) 
@@ -967,10 +957,20 @@ public class DatabaseManagerService {
     }
 
     
-
+    
    
+    public List<SW_DA> getOneSchlagwort_id(int da_id) {
+        return schlagwort_verknuepfungDAO.getOneSchlagwortId(da_id);
+    }
     
+    public List<Schlagwort> getAllSchlagworter(int sw_id) {
+        return schlagwDAO.getAllSchlagwörter(sw_id);
+    }
+
     
+
+    
+   
    
   
     

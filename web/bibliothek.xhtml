@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>title> Diplomarbeiten-Bibliothek </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <h:outputStylesheet library= "css" name= "bibliothek.css" /> 
+        <h:outputStylesheet library= "css" name= "Navbar.css" />
+        <h:outputStylesheet library= "css" name= "Footer.css" />
+
+        <h:outputStylesheet library= "css" name= "responsiveBibliothek.css" />
+
+        <h:outputStylesheet library= "css" name= "responsiveFooter.css" />
+        <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
+
+        <h:outputStylesheet library= "css" name= "suchleisteBibliothek.css" />
+    </h:head>
+
+    <h:body>
+
+
+
+        <div id="wrapper" class="wrapper">
+
+
+            <div id="contentindex" class="contentindex">
+
+
+
+                <div id="headindex" class="headerindex">
+                    <div> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
+                </div>
+                
+
+                <div id="main" class="mainindex">
+                    <h:outputLabel></h:outputLabel>
+                    
+                    <div id="content" class="content">  
+
+
+                        <div class="uberschrift_ws">Weitere Suche</div>
+
+
+                        <div class="tftitel">
+                            <b:form>
+                                <b:inputText label="Titel" class="input"  value="#{bibliothekBean.titel}" placeholder="Titel" typeahead="true"  />
+                            </b:form>
+                        </div>
+
+
+                        <div class="tfautor">
+                            <b:form>
+                                <b:inputText label="Autor" class="input" value="#{bibliothekBean.autor}" placeholder="Autor" typeahead="true"  />
+                            </b:form>    
+                        </div>
+
+
+                        <div class="tfdatum">
+                            <b:form>
+                                <b:dateTimePicker label="Datum" placeholder="Datum auswählen" format="DD.MM.YYYY" value="#{uploadBean.datum}" />
+                            </b:form>                                     
+                        </div>
+
+
+                        <div class="tfschlagwort">                                    
+                            <b:form>
+                                <b:inputText label="Schlagwort" class="input" value="#{bibliothekBean.schlagwort}" placeholder="Schlagwort" typeahead="true"  />
+                            </b:form>                                   
+                        </div> 
+                        
+                        
+                        <div class="tfschule">                                    
+                            <b:form>
+                                <b:selectOneMenu label="Schule" value="#{uploadBean.realSchule}"  >
+                                    <f:selectItems value="Schule auswählen" itemValue="Schule auswählen" itemLabel="Schule auswählen" />
+                                    <f:selectItems value="#{uploadBean.schulList}" var="schule" itemValue="#{schule}" itemLabel="#{schule.name}" />
+                                </b:selectOneMenu>
+                            </b:form>                                   
+                        </div> 
+
+
+
+                        <div class="button_suche">
+                            <td>
+                                <h:form>
+                                    <b:commandButton style="background-color: red; color: white;" class="input" value="Suche" action="#{bibliothekBean.suche}"/>
+                                </h:form>
+
+                            </td>
+                        </div>
+
+
+                    </div> 
+
+                    <div id="diplomarbeitenListe" class="diplomarbeitenListe">
+
+
+                        <h:dataTable id="datatable" value="#{bibliothekBean.diplist}" var="diplomarbeit"
+                                     styleClass="order-table"
+                                     headerClass="order-table-header"
+                                     rowClasses="order-table-odd-row,order-table-even-row"
+                                     >
+
+                            <h:column id="column">
+                                <f:facet name="header"></f:facet>
+                                <h:form>
+                                     <h:commandLink id="commandlink" action="#{dipansehenBean.werteanzeigen(diplomarbeit)}">
+                                        <h:graphicImage  class="graphicImage"  value = "#{diplomarbeit.bild}"/>
+                                    </h:commandLink>
+                                    <div style="height: 100px;" ></div>
+                                </h:form>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header"></f:facet>
+                                <!-- row record -->
+                                <div  style="width: 80px;" ></div>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header"></f:facet>
+                                <h5 style="font-family: Verdana; font-size: 15px;" > Titel: <h:outputLabel style="font-family: Verdana; font-size: 15px;" >  #{diplomarbeit.title}  </h:outputLabel></h5>                 
+                                <h5 style="font-family: Verdana; font-size: 15px;" >Autoren: <h:outputLabel style="font-family: Verdana; font-size: 15px;">  #{bibliothekBean.autorList(diplomarbeit.da_id)} , </h:outputLabel> </h5>
+                                <h5 style="font-family: Verdana; font-size: 15px;" >Schule: <h:outputLabel style="font-family: Verdana; font-size: 15px;">   #{bibliothekBean.getOneSchule(diplomarbeit.da_id)} </h:outputLabel></h5> 
+                                <h5 style="font-family: Verdana; font-size: 15px;" >Veröffentlichung: <h:outputLabel style="font-family: Verdana; font-size: 15px;">    #{diplomarbeit.datum} </h:outputLabel></h5> 
+                                <h5 style="font-family: Verdana; font-size: 15px;" >Schlagwörter: <h:outputLabel style="font-family: Verdana; font-size: 15px;" > #{bibliothekBean.schlagwortList(diplomarbeit.da_id)} </h:outputLabel></h5>
+                            </h:column>
+
+
+
+                        </h:dataTable>
+                        
+                        <div style="padding-bottom: 100px;"><h:commandButton class="bibbutton"  value="Weiter"></h:commandButton></div>
+                        
+                    </div>           
+
+
+
+
+                </div>
+
+
+                <div class="footer">
+                    <ui:include src="/resources/include/footer.xhtml" />
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+    </h:body>
+
+</html>
+

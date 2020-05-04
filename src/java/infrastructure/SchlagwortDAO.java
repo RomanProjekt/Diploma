@@ -40,6 +40,9 @@ public class SchlagwortDAO {
 
         return listd_schlagwort;
     }
+    
+    
+    
 
     public void insert(List<Schlagwort> schlagwoerter) {
 
@@ -48,6 +51,9 @@ public class SchlagwortDAO {
         }
 
     }
+    
+    
+    
 
     public void insert_schlagwort(int tag_id, String schlagwort) {
 
@@ -68,6 +74,8 @@ public class SchlagwortDAO {
         }  //rs.close(); stmt.close(); con.clo
 
     }
+    
+    
 
     public void insertSchlagwortList(List<Schlagwort> swList) {
         try (
@@ -89,6 +97,7 @@ public class SchlagwortDAO {
         }  //rs.close(); stmt.close(); con.clo
     }
 
+    
     public List<Schlagwort> getAllSchlagwörter() {
 
         List<Schlagwort> listschlagwort = new ArrayList<>();;
@@ -103,13 +112,6 @@ public class SchlagwortDAO {
 
             }
 
-            int columns = rs.getMetaData().getColumnCount();
-            System.out.println("Zeilengr Datenbank " + columns);
-            System.out.println("Listsize " + listschlagwort.size());
-
-            for (int i = 0; i < listschlagwort.size(); i++) {
-                System.out.println(listschlagwort.get(i).getTag_id() + " " + listschlagwort.get(i).getWord());
-            }
 
         } catch (SQLException ex) {
             Logger.getLogger(SchlagwortDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -118,5 +120,32 @@ public class SchlagwortDAO {
         return listschlagwort;
 
     }
+    
+    
+    public List<Schlagwort> getAllSchlagwörter(int id) {
+
+        List<Schlagwort> listschlagwort = new ArrayList<>();;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from schlagwort WHERE sw_id = " + id)) {
+            while (rs.next()) {
+                Schlagwort retVal = new Schlagwort(rs.getInt(1), rs.getString(2));
+                listschlagwort.add(retVal);
+
+            }
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SchlagwortDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return listschlagwort;
+
+    }
+    
+    
+    
 
 }

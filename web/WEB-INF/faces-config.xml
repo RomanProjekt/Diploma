@@ -215,6 +215,7 @@
            <value>#{databaseManagerService}</value>
         </managed-property>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>alertBean</managed-bean-name>
         <managed-bean-class>presentation.alertBean</managed-bean-class>
@@ -224,6 +225,7 @@
            <value>#{databaseManagerService}</value>
         </managed-property>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>navBarBean</managed-bean-name>
         <managed-bean-class>presentation.NavBarBean</managed-bean-class>
@@ -233,5 +235,5 @@
            <value>#{databaseManagerService}</value>
         </managed-property>
     </managed-bean>
-   
+  
 </faces-config>

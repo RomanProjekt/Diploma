@@ -117,7 +117,7 @@ public class benutzerverwaltungBean {
         return null;
     }
 
-/////////////////////////Getter-Setter
+
     public DatabaseManagerService getDbService() {
         return dbService;
     }
@@ -223,7 +223,7 @@ public class benutzerverwaltungBean {
     
     
     
-     private String pw;
+    private String pw;
     private String bestaetigtespw;
    
     private String benutzerid;

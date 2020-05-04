@@ -10,15 +10,16 @@ and open the template in the editor.
 
 @media only screen and (max-width: 1650px) {
 
+    
     .mainindex {
-        background-color: red;
+/*      background-color: red;*/
         margin: 0 0 0 0;
-        height: 750px;
+        height: auto;
     }
 
 
     .bdiplomarbeit {
-        /*    background-color: blue;*/
+/*        background-color: blue;*/
         width: 800px;
         height: 750px;
         padding: 5px;
@@ -34,7 +35,7 @@ and open the template in the editor.
 
 
     .content {
-        background-color: yellow;
+/*        background-color: yellow;*/
         display: flex;
         flex-wrap: wrap;
         background-color: white;
@@ -54,24 +55,57 @@ and open the template in the editor.
 
     .mainindex {
         margin: 0 0 0 0;
-        height: 750px;
+        height: auto;
+    }
+
+    .diplomarbeitenListe {
+        background-color: red;
+        width: auto;
+        height: auto;
+        margin: 1200px 0 0 0;
+    }
+    
+    .content {
+
+        display: flex;
+        flex-wrap: wrap;
+        background-color: white;
+        margin: 40px 0 0 0;
+        width: 310px;
+        height: auto;
+    }
+
+    
+    
+    .bibbutton {
+        background-color: red; 
+        width: 80%; 
+        height: 50px;
+        margin: 0 0 0 10%;
     }
 
 
-    .bdiplomarbeit {
-        /*    background-color: blue;*/
-        width: 800px;
-        height: 750px;
-        padding: 5px;
-        margin: 20px 0 0 0px;
 
+
+}
+
+
+@media only screen and (max-width: 1200px) {
+
+    
+    
+    .mainindex {
+        margin: 0 0 0 0;
+        height: auto;
     }
 
-    .picture {
-        margin: 0 0 0 500px;
-        width: 80%;
-        height: 650px;
+    .diplomarbeitenListe {
+        background-color: red;
+        width: auto;
+        height: auto;
+        margin: 1200px 0 0 0;
     }
+    
 
 
     .content {
@@ -80,6 +114,40 @@ and open the template in the editor.
         flex-wrap: wrap;
         background-color: white;
         margin: 40px 0 0 0;
+        width: 500px;
+        height: 1000px;
+    }
+
+
+
+
+}
+
+
+
+@media only screen and (max-width: 1050px) {
+
+    .mainindex {
+        margin: 0 0 0 0;
+        height: auto;
+    }
+
+    .diplomarbeitenListe {
+        background-color: red;
+        width: auto;
+        height: auto;
+        margin: 1200px 0 0 0;
+    }
+    
+
+
+    .content {
+
+        background-color: greenyellow;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: white;
+        margin: 0 0 0 0;
         width: 310px;
         height: auto;
     }
@@ -92,11 +160,18 @@ and open the template in the editor.
 
 
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 840px) {
 
     .mainindex {
+/*        background-color: red;*/
+        height: auto;
+    }
+    
+      .diplomarbeitenListe {
         background-color: red;
-        height: 750px;
+        width: auto;
+        height: auto;
+        margin: 1200px 0 0 0;
     }
 
     .content {
@@ -104,8 +179,8 @@ and open the template in the editor.
         display: flex;
         flex-wrap: wrap;
         background-color: white;
-        margin: 0 0 0 0;
-        width: 100%;
+        margin: 80px 0 0 0;
+        width: 500px;
         height: auto;
     }
 
@@ -119,9 +194,21 @@ and open the template in the editor.
         
 
     }
+    
+    .content {
+
+        background-color: greenyellow;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: white;
+        margin: 150px 0 0 0;
+        width: 310px;
+        height: 1000px;
+    }
 
 
-    .uberschrift_ws {
+
+/*    .uberschrift_ws {
         margin: 0 0 0 10%;
     }
 
@@ -156,24 +243,7 @@ and open the template in the editor.
 
     .button_suche {
         margin: 550px 0 0 10%;
-    }
-
-
-
-    .bdiplomarbeit {
-        /*    background-color: blue;*/
-        width: 500px;
-        height: 750px;
-        padding: 5px;
-        margin: 0 0 0 0;
-
-    }
-
-    .picture {
-        margin: 0 0 0 0;
-        width: 400px;
-        height: 650px;
-    }
+    }*/
 
 
 

@@ -34,11 +34,13 @@
             <div id="contentindex" class="contentindex">
 
                 <div id="headindex" class="headerindex">
-                    <div class="secondheader"><ui:include src="/resources/include/navbar.xhtml"/></div>
-                    <div class="red"></div> 
+                    <div class="firsth"><ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
                 </div>
 
+
                 <div id="main" class="mainindex">
+                    
                     <div class="alert"><b:alert value="" rendered="#{loginBean.alert}" severity="success"><strong>Sie haben sich erfolgreich abgemeldet!</strong> </b:alert></div>
                     
                     <b:form id="idform" class="form"> 
@@ -47,9 +49,7 @@
                         <div id="IndexTFeld" class="indexTFeld"> 
                             <b:inputText id="inputText" labelStyle="width:50px;" value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label="">
                                 <f:facet id="fact" name="prepend">
-                                    <b:commandButton id="keyfromindex" value="Suche" action="dipbibliothek.xhtml" actionListener="#{bibliothekBean.FromIndex(event, dipSuchenBean.key)}" >
-
-                                    </b:commandButton>
+                                    <b:commandButton id="keyfromindex" value="Suche" action="#{dipSuchenBean.sentToBibliothek(dipSuchenBean.key)}" actionListener="#{bibliothekBean.FromIndex(event, dipSuchenBean.key)}"/>                                    
                                 </f:facet>
                             </b:inputText>
                         </div> 
@@ -59,7 +59,7 @@
                         <br></br>
                         <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.render}" onchange="submit">
                             <f:selectItems value="#{dipSuchenBean.daList}" var="da"
-                                           itemValue="#{da}" itemLabel="Nr: #{da.da_id} Titel: #{da.title} Autor: #{da.autor_id}" />
+                                           itemValue="#{da}" itemLabel="Nr: #{da.da_id} Titel: #{da.title}" />
                         </b:selectOneMenu>
 
                         

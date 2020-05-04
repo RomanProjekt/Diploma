@@ -44,7 +44,7 @@ public class DiplomarbeitDAO {
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("select * from diplomarbeit")) {
             while (rs.next()) {
-                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
+                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
                 listdip.add(retVal);
             }
 
@@ -57,7 +57,7 @@ public class DiplomarbeitDAO {
     
     
 
-    public int insert(String title, int user_id, int schule_id, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
+    public int insert(String title, int user_id, String textname, int schule_id, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
         int retVal = 0;
         int da_id = 0;
         int click_count = 0;
@@ -68,11 +68,11 @@ public class DiplomarbeitDAO {
                 Connection con = ConnectionManager.getInst().getConn();
                 PreparedStatement pstmt
                 = con.prepareStatement("INSERT INTO diplomarbeit"
-                        + "(da_id, titel, autor_id, schule_id, pdf, benutzer_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ? ,? ,? ,?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);) {
+                        + "(da_id, titel, textname, schule_id, pdf, benutzer_id, datum, bild, download_count, click_count) VALUES (?, ?, ?, ? ,? ,? ,?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);) {
 
             pstmt.setInt(1, da_id);
             pstmt.setString(2, title);
-            pstmt.setInt(3, autor_id);
+            pstmt.setString(3, textname);
             pstmt.setInt(4, schule_id);
             pstmt.setString(5, pdfpath);
             pstmt.setInt(6, user_id);
@@ -178,7 +178,7 @@ public class DiplomarbeitDAO {
                 ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id = " + id)) {
 
             while (rs.next()) {
-                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
+                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
             }
 
         } catch (SQLException ex) {
@@ -200,7 +200,7 @@ public class DiplomarbeitDAO {
                 ResultSet rs = stmt.executeQuery("SELECT da_id, titel, autor_id, schule_id, pdf, benutzer_id, datum, bild, download_count, click_count FROM diplomarbeit WHERE benutzer_id = " + b_id)) {
 
             while (rs.next()) {
-                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
+                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
             }
 
         } catch (SQLException ex) {
@@ -254,7 +254,7 @@ public class DiplomarbeitDAO {
                     ) {
                 while (rs.next()) {
                     Diplomarbeit help;
-                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getString("textname"),
                             rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
                             rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
                     int cs=0;
@@ -283,6 +283,8 @@ public class DiplomarbeitDAO {
         }
         return dipList;
     }
+    
+    
     //-------------------------Suchleistenfunktionen-----------------------------
     
     public List SucheTitel(String k) {
@@ -298,7 +300,7 @@ public class DiplomarbeitDAO {
                     ) {
                 while (rs.next()) {
                     Diplomarbeit help;
-                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getString("textname"),
                             rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
                             rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
                     int cs = 0;
@@ -337,7 +339,7 @@ public class DiplomarbeitDAO {
                     ) {
                 while (rs.next()) {
                     Diplomarbeit help;
-                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getString("textname"),
                             rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
                             rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
                     int cs = 0;
@@ -363,6 +365,9 @@ public class DiplomarbeitDAO {
         }
         return dipList;
     }
+    
+    
+    
     public List SucheSw(String k) {
         String key = k;
         List<Diplomarbeit> dipList = new ArrayList<>();
@@ -379,7 +384,7 @@ public class DiplomarbeitDAO {
                     ) {
                 while (rs.next()) {
                     Diplomarbeit help;
-                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getString("textname"),
                             rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
                             rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
                     int cs = 0;
@@ -405,6 +410,9 @@ public class DiplomarbeitDAO {
         }
         return dipList;
     }
+    
+    
+    
     public List SucheSchule(String k) {
         String key = k;
         List<Diplomarbeit> dipList = new ArrayList<>();
@@ -418,7 +426,7 @@ public class DiplomarbeitDAO {
                     ) {
                 while (rs.next()) {
                     Diplomarbeit help;
-                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getString("textname"),
                             rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
                             rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
                     int cs = 0;
@@ -444,6 +452,9 @@ public class DiplomarbeitDAO {
         }
         return dipList;
     }
+    
+    
+    
     public List SucheDatum(String k) {
         String key = k;
         List<Diplomarbeit> dipList = new ArrayList<>();
@@ -457,7 +468,7 @@ public class DiplomarbeitDAO {
                     ) {
                 while (rs.next()) {
                     Diplomarbeit help;
-                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getString("textname"),
                             rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
                             rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
                     int cs = 0;
@@ -495,7 +506,7 @@ public class DiplomarbeitDAO {
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("select * from diplomarbeit")) {
             while (rs.next()) {
-                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
+                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
             }
             if (retVal.getTitle().equals(titel)) {
                 ist_gleich = true;
@@ -509,6 +520,9 @@ public class DiplomarbeitDAO {
         return ist_gleich;
 
     }
+    
+    
+    
 
     //---------------------------------Test ------------------------------------------
     public int click_count(int click_count, Diplomarbeit dip) {
@@ -531,6 +545,8 @@ public class DiplomarbeitDAO {
 
     }
 
+    
+    
     
     public int download_count(int download_count, Diplomarbeit dip) {
 
@@ -563,7 +579,7 @@ public class DiplomarbeitDAO {
                 ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id =" + dip.getDa_id())) {
 
             while (rs.next()) {
-                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
+                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
             }
 
         } catch (SQLException ex) {
@@ -586,7 +602,7 @@ public class DiplomarbeitDAO {
                 ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id = " + dip.getDa_id())) {
 
             while (rs.next()) {
-                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
+                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
             }
 
         } catch (SQLException ex) {
@@ -861,13 +877,19 @@ public class DiplomarbeitDAO {
 //        }
 //        return dipList;
 //    }
+
+  
+
+    
+
+   
     
     
     
     
-    
-    
-    
+   
+
+
     
 
 }

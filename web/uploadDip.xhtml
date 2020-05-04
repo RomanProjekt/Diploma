@@ -110,7 +110,7 @@ and open the template in the editor.
 
                                 <br/><br/>
 
-                                <p:dataTable style="width: 100%" class="table2" value="#{uploadBean.schlagList}" var="schlagwort" >
+                                <p:dataTable style="width: 100%" scrollWidth="auto" class="table2" value="#{uploadBean.schlagList}" var="schlagwort" >
                                     <p:column headerText="Schlagwort">
                                         <h:outputText value="#{schlagwort.word}"  />  
                                     </p:column>
@@ -142,21 +142,33 @@ and open the template in the editor.
                                 </b:selectOneMenu>
                                 <br/>                   
 
-                                <h5>Diplomarbeit</h5>
-                                <h:inputFile  value="#{uploadBean.diplomarbeit}"  ></h:inputFile>
+                                <h:outputLabel>Diplomarbeit</h:outputLabel>
+                                <h:inputFile label="Diplomarbeit" value="#{uploadBean.diplomarbeit}" >
+                                    <f:ajax execute="foo" render="foo"/>
+                                </h:inputFile>
                                 <h:outputText value="#{uploadBean.pdfdabei_fail}"></h:outputText>
                                 <br/>
                                 <br/>
-
+                                <h:outputLabel>Einleitung der Diplomarbeit</h:outputLabel>
+                                <br/><br/>
+                                <h:form>            
+                                    <p:inputTextarea class="inputtextarea" rows="10" cols="50" value="#{uploadBean.text}" queryDelay="750" minQueryLength="4">
+                                        <p:ajax event="itemSelect" listener="#{inputTextareaView.onSelect}" />
+                                    </p:inputTextarea>
+                                </h:form>
+                                <br/><br/>
                                 <b:commandButton value="Diplomarbeit hochladen" action="#{uploadBean.upload_diplomarbeit()}" />
                                 <br/><br/>
-
+                                
 
                             </div>
 
 
 
-                        </div>    
+                        </div> 
+                        
+                        
+                       
 
 
                     </div>
@@ -164,9 +176,6 @@ and open the template in the editor.
                         
                 </b:form> 
 
-
-
-                
                 <div class="footer"><ui:include src="/resources/include/footer.xhtml" /></div>
             </div>
             

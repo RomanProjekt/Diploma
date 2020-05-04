@@ -33,7 +33,7 @@ public class FavoritenDAO {
                         + "from favoriten join diplomarbeit on favoriten.da_id = diplomarbeit.da_id "
                         + "where favoriten.benutzer_id = " + id)) {
             while (rs.next()) {
-                Diplomarbeit retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
+                Diplomarbeit retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
                 listfav_dip.add(retVal);
             }
 

@@ -1,24 +1,24 @@
+
+package service;
 //
-//package service;
-////
-////import de.mkammerer.argon2.Argon2;
-////import de.mkammerer.argon2.Argon2Factory;
-////import java.awt.image.BufferedImage; 
-////import java.io.File; 
-////import java.io.IOException;
-////
-////import javax.imageio.ImageIO; 
-////import org.apache.pdfbox.pdmodel.PDDocument; 
-////import org.apache.pdfbox.rendering.PDFRenderer;  
-//import java.io.File;
+//import de.mkammerer.argon2.Argon2;
+//import de.mkammerer.argon2.Argon2Factory;
+//import java.awt.image.BufferedImage; 
+//import java.io.File; 
 //import java.io.IOException;
-////import javax.faces.context.FacesContext;
-//import javax.servlet.ServletContext;
-/////**
-//// *
-//// * @author hp
-//// */
-//public class Testklasse {
+//
+//import javax.imageio.ImageIO; 
+//import org.apache.pdfbox.pdmodel.PDDocument; 
+//import org.apache.pdfbox.rendering.PDFRenderer;  
+import java.io.File;
+import java.io.IOException;
+//import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+
+public class Testklasse {
+    
+    
+    
 ////    
 //////    public String mainEncryption(String securityanswer, int id) {
 //////        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
@@ -93,22 +93,22 @@
 //        }
 //        return del;
 //    }
-//   
-// 
-//
-//
-//
-//    
-//    
-//    
-//
-//    public static void main(String[] args) throws IOException {
-//        
-//      Testklasse t = new Testklasse();
+////   Testklasse t = new Testklasse();
 //      String filepath = "C:\\Users\\hp\\Desktop\\document.pdf";
 //      String filename = "TitelTEST";
 //      t.DeleteFile(filename);
+//// 
 //
-//    }
+//
+//
 //    
-//}
+//    
+//    
+
+    public static void main(String[] args) throws IOException {
+        
+       
+
+    }
+    
+}

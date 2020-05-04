@@ -7,18 +7,23 @@ package presentation;
 
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import pojo.Autor;
 import pojo.Diplomarbeit;
 import service.DatabaseManagerService;
 
@@ -54,6 +59,10 @@ public class dipansehenBean {
     private boolean resetcounter;
     private String server_diplomarbeit_pfad;
     private String server_image_pfad;
+    private String server_text_pfad;
+
+    private String autorListe;
+    private List<Autor> varList;
 
     public dipansehenBean() {
 
@@ -61,7 +70,8 @@ public class dipansehenBean {
 
     @PostConstruct
     void init() {
-       
+        varList = new ArrayList<>();
+
     }
 
     public String getTitel() {
@@ -208,8 +218,7 @@ public class dipansehenBean {
     public void setResetcounter(boolean resetcounter) {
         this.resetcounter = resetcounter;
     }
-    
-    
+
     private int zähler = 0;
 
     public int getZähler() {
@@ -235,23 +244,51 @@ public class dipansehenBean {
     public void setServer_image_pfad(String server_image_pfad) {
         this.server_image_pfad = server_image_pfad;
     }
-    
-    
-    
-    
 
+    public String getAutorListe() {
+        autorListe = this.showAllAutor();
+        return autorListe;
+    }
+
+    public void setAutorListe(String autorListe) {
+        this.autorListe = autorListe;
+    }
+
+    public List<Autor> getVarList() {
+        return varList;
+    }
+
+    public void setVarList(List<Autor> varList) {
+        this.varList = varList;
+    }
+
+    public String getServer_text_pfad() {
+        return server_text_pfad;
+    }
+
+    public void setServer_text_pfad(String server_text_pfad) {
+        this.server_text_pfad = server_text_pfad;
+    }
+    
+    
+    
+    
+    //--------------------Werteanzeigen-----------------------------------------
+    
+    
+    
 
     public String werteanzeigen(Diplomarbeit dip) {
-
+        this.manipulationText();
         this.aktDip = dip;
         this.autor = dbService.getOneAutor(aktDip.getDa_id()).getFullName();
+
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+
         this.server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/" + aktDip.getTitle() + ".pdf";
         this.server_image_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + this.aktDip.getBild();
-        
-        //Schule anzeigen funktioniert noch nicht!!!
-        //NullpointExcepiton
+
         this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
         dbService.getAktuellPicture(this.aktDip);
         this.click_count_diplomarbeit(this.aktDip);
@@ -260,10 +297,15 @@ public class dipansehenBean {
     }
     
     
+//------------------------------------------------------------------------------   
     
+    
+    
+    
+
     public String show(Diplomarbeit dip) {
-        
-       dbService.ListeAllDiplomarbeiten();
+
+        dbService.ListeAllDiplomarbeiten();
 
         //Schule anzeigen funktioniert noch nicht!!!
         //NullpointExcepiton
@@ -273,63 +315,49 @@ public class dipansehenBean {
 
         return "dipansehen.xhtml";
     }
-    
-    
-    
-    
-    
-       public String NowDayBefore() {
+
+    public String NowDayBefore() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.now();
         return this.DateBefore = date.format(formatter);
     }
-      
-      public String NowYearLocalBefore() {
+
+    public String NowYearLocalBefore() {
         LocalDate Nowdate = LocalDate.now();
-        String nextyear =  String.valueOf(Nowdate.getYear() + 1);
+        String nextyear = String.valueOf(Nowdate.getYear() + 1);
         return nextyear;
     }
-    
-    
+
     //2. Variable Date 
-    
     public String NowTimeBefore() {
         LocalTime startTime = LocalTime.now();
         System.out.println(startTime);
         return this.TimeBefore = startTime.toString();
     }
-    
+
     public LocalTime NowTimeLocalBefore() {
         LocalTime startTime = LocalTime.now();
         return startTime;
     }
 
-
-
-    
-    
     public String DateBeforFormat() {
-         
-         String vResetdate = "01-01-";
-         String vyear = this.NowYearLocalBefore();
-         return (vResetdate + vyear);
- 
-    }
-    
 
-    
+        String vResetdate = "01-01-";
+        String vyear = this.NowYearLocalBefore();
+        return (vResetdate + vyear);
+
+    }
+
     public boolean ResetCounter() {
         return this.resetcounter = this.NowDayBefore().equals(this.DateBeforFormat());
     }
 
-    
-    
     //------------------------Click-Count----------------------------
     public void click_count_diplomarbeit(Diplomarbeit dip) {
 
         double click_first_grenze = 10E+6;
         double click_second_grenze = 10E+12;
-        
+
         this.click_count = this.readClickCount(dip);
 
         if (!this.ResetCounter()) {
@@ -372,11 +400,6 @@ public class dipansehenBean {
 
         double downlaod_first_grenze = 10E+6;
         double download_second_grenze = 10E+12;
-
-        LocalDate NowDate = LocalDate.now();
-        int thisyear = NowDate.getYear();
-        int nextyear = thisyear + 1;
-        
         this.download_count = this.readDownloadCount(this.aktDip);
 
         if (!this.ResetCounter()) {
@@ -386,28 +409,28 @@ public class dipansehenBean {
                 System.out.println("< als 1 Millionen mal geklickt!!!");
                 download_count += 1;
                 System.out.println("Download count:" + download_count);
-                dbService.downloadt_count(download_count,  this.aktDip);
+                dbService.downloadt_count(download_count, this.aktDip);
 
             } else if (download_count > downlaod_first_grenze) {
 
                 download_count += 1;
                 System.out.println("> als 1 Millionen mal geklickt!!!");
                 System.out.println(download_count);
-                dbService.downloadt_count(download_count,  this.aktDip);
+                dbService.downloadt_count(download_count, this.aktDip);
 
             } else if (download_count <= download_second_grenze) {
 
                 download_count += 1;
                 System.out.println("< 1 Milliarde mal geklickt!!!");
                 System.out.println(download_count);
-                dbService.downloadt_count(download_count,  this.aktDip);
+                dbService.downloadt_count(download_count, this.aktDip);
 
             } else if (download_count > download_second_grenze) {
 
                 download_count += 1;
                 System.out.println("Mehr als 1 Milliarde mal geklickt!!!");
-                System.out.println("Download count:" +download_count);
-                dbService.downloadt_count(download_count,  this.aktDip);
+                System.out.println("Download count:" + download_count);
+                dbService.downloadt_count(download_count, this.aktDip);
             }
 
         } else {
@@ -416,23 +439,15 @@ public class dipansehenBean {
             dbService.downloadt_count(download_count, this.aktDip);
         }
 
-       
     }
-    
-    
-    
+
     public int readClickCount(Diplomarbeit dip) {
         return dbService.read_clickcount(dip);
     }
-    
+
     public int readDownloadCount(Diplomarbeit dip) {
         return dbService.read_downloadcount(dip);
     }
-        
-    
-    
-    
-    
 
     //---------------------Diplomarbeit download---------------------------------
     public Object download() throws IOException {
@@ -468,27 +483,25 @@ public class dipansehenBean {
 
     public String imagepath_auslesen(int id) {
         Diplomarbeit dip = dbService.getDiplomarbeit(id);
-//        System.out.println(dip);
         String var_imagepath = dip.getBild();
-//        System.out.println(var_imagepath);
         return var_imagepath;
     }
 
     public String bildanzeigen() {
         return this.imagepath;
     }
+//------------------------------------------------------------------------------  
+    
+    
+    
 
-    
-    
     //----------------------------Favouriten------------------------------------
- 
     public void favspeichern() {
-        
+
         int b_id = dbService.getLoggedInBenutzer().getUser_id();
-        System.out.println("-------------------- benutzerid"  + b_id);
-        System.out.println("-------------------- dipid"  + aktDip.getDa_id());
-        
-        
+        System.out.println("-------------------- benutzerid" + b_id);
+        System.out.println("-------------------- dipid" + aktDip.getDa_id());
+
         int res = dbService.insertFavouriten(aktDip.getDa_id(), b_id);
         if (res == 1) {
             titel = "Success";
@@ -496,18 +509,15 @@ public class dipansehenBean {
     }
 
     public void löschenDiplomarbeit(ActionEvent event) {
-        
-        
-        
+
         int res = dbService.deleteDiplomarbeit(aktDip);
         if (res == 1) {
             titel = "Success";
             this.DeleteFile(this.server_diplomarbeit_pfad, this.server_image_pfad);
         };
-        
+
     }
-    
-    
+
     public boolean DeleteFile(String filepath, String imagepath) {
         boolean del = false;
         File file = new File(filepath);
@@ -520,22 +530,90 @@ public class dipansehenBean {
         return del;
     }
 
- 
+//------------------------------------------------------------------------------    
     
     
     
     
     
-    
-    
-    
+    private String ladeDatei() {
+
+//          Diplomarbeit dip = dbService.getDiplomarbeit(this.aktDip.getDa_id());
+        System.out.println(this.server_text_pfad);
+
+//         this.server_text_pfad
+        File file = new File("C:/Users/hp/Desktop/text.txt");
+
+        if (!file.canRead() || !file.isFile()) {
+            System.exit(0);
+        }
+
+        FileReader fr = null;
+        int c;
+        StringBuffer buff = new StringBuffer();
+        try {
+            fr = new FileReader(file);
+            while ((c = fr.read()) != -1) {
+                buff.append((char) c);
+            }
+            fr.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return buff.toString();
+
+    }
+
+    private String text1;
+    private String text2;
+
+    public String getText1() {
+        return text1;
+    }
+
+    public void setText1(String text1) {
+        this.text1 = text1;
+    }
+
+    public String getText2() {
+        return text2;
+    }
+
+    public void setText2(String text2) {
+        this.text2 = text2;
+    }
+
+    public void manipulationText() {
+
+        String fullText = this.ladeDatei();
+
+        if (text1 != null && text2 != null) {
+            this.text1 = fullText.substring(0, (fullText.length() / 2));
+            this.text2 = fullText.substring((fullText.length() / 2), fullText.length());
+        } else {
+            this.text1 = "";
+            this.text2 = "";
+        }
+
+        System.out.println(text1);
+        System.out.println(text2);
+
+    }
+
+    public static void main(String[] args) {
+        dipansehenBean d = new dipansehenBean();
+        d.manipulationText();
+
+    }
+
 //----------------Alter Code - Diplomarbeit ansehen-----------------------------
     public void diplomarbeitansehen(Diplomarbeit dip) {
 
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
         String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
-        
 
         try {
 
@@ -563,8 +641,27 @@ public class dipansehenBean {
 
     }
 
- 
+    public String showAllAutor() {
 
-    
+        varList = dbService.getAllAutor(this.getAktDip().getDa_id());
+        System.out.println("Liste -----------" + varList);
+
+        String autorListefirst = "";
+        String autorListesecond = "";
+        String fullautorListe = "";
+
+        for (int i = 0; i < varList.size(); i++) {
+
+            if (i == 0) {
+                autorListefirst = "" + varList.get(i).getFullName();
+            } else {
+                autorListesecond += " , " + varList.get(i).getFullName();
+            }
+
+            fullautorListe = autorListefirst + autorListesecond;
+
+        }
+        return fullautorListe;
+    }
 
 }

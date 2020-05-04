@@ -16,7 +16,7 @@ public class Diplomarbeit {
 
     private int da_id;
     private String title;
-    private int autor_id;
+    private String textname;
     private int schule_id;
     private String pdf;
     private int user_id;
@@ -30,10 +30,10 @@ public class Diplomarbeit {
 
     }
 
-    public Diplomarbeit(int da_id, String title, int autor_id, int schule_id, String pdf, int user_id, Date datum, String bild, int download_count, int click_count) {
+    public Diplomarbeit(int da_id, String title, String textname, int schule_id, String pdf, int user_id, Date datum, String bild, int download_count, int click_count) {
         this.da_id = da_id;
         this.title = title;
-        this.autor_id = autor_id;
+        this.textname = textname;
         this.schule_id = schule_id;
         this.pdf = pdf;
         this.user_id = user_id;
@@ -42,6 +42,8 @@ public class Diplomarbeit {
         this.download_count = download_count;
         this.click_count = click_count;
     }
+
+    
 
     public int getDa_id() {
         return da_id;
@@ -59,13 +61,15 @@ public class Diplomarbeit {
         this.title = title;
     }
 
-    public int getAutor_id() {
-        return autor_id;
+    public String getTextname() {
+        return textname;
     }
 
-    public void setAutor_id(int autor_id) {
-        this.autor_id = autor_id;
+    public void setTextname(String textname) {
+        this.textname = textname;
     }
+
+    
 
 
     public String getPdf() {
@@ -149,13 +153,16 @@ public class Diplomarbeit {
             return false;
         }
         final Diplomarbeit other = (Diplomarbeit) obj;
-        if (this.autor_id != other.autor_id) {
+        if (this.download_count != other.download_count) {
             return false;
         }
-        if (this.schule_id != other.schule_id) {
+        if (this.click_count != other.click_count) {
             return false;
         }
         if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.textname, other.textname)) {
             return false;
         }
         if (!Objects.equals(this.pdf, other.pdf)) {
@@ -164,7 +171,12 @@ public class Diplomarbeit {
         if (!Objects.equals(this.bild, other.bild)) {
             return false;
         }
-        return Objects.equals(this.datum, other.datum);
+        if (!Objects.equals(this.datum, other.datum)) {
+            return false;
+        }
+        return true;
     }
+
+    
 
 }
