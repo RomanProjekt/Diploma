@@ -340,6 +340,7 @@ public class DiplomarbeitDAO {
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<Diplomarbeit> dipList2 = new ArrayList<>();
         dipList = this.Suchleiste(k);
+        //recursive?
         switch(c) {
             case "Titel": dipList2 = this.SucheTitel(k); break;
             case "Autor": dipList2 = this.SucheAutor(k); break;
