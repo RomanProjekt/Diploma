@@ -27,10 +27,6 @@ public class DiplomarbeitDAO {
 
     List<Diplomarbeit> listdp = new ArrayList<>();
     Diplomarbeit retVal;
-    
-    
-    
-    
 
     public List<Diplomarbeit> read() {
 
@@ -51,8 +47,6 @@ public class DiplomarbeitDAO {
 
         return listdip;
     }
-    
-    
 
     public int insert(String title, int user_id, String textname, int schule_id, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
         int retVal = 0;
@@ -92,9 +86,6 @@ public class DiplomarbeitDAO {
         return retVal;
 
     }
-    
-    
-    
 
     public void update(int da_id, int autor_id) {
 
@@ -112,8 +103,6 @@ public class DiplomarbeitDAO {
         }  //rs.close(); stmt.close(); con.clo
 
     }
-    
-    
 
     public void updateTitle(int da_id, String title) {
         try (
@@ -129,9 +118,6 @@ public class DiplomarbeitDAO {
             Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.clo
     }
-    
-    
-    
 
     public void updateSchule(int daId, int schulId) {
         try (
@@ -146,9 +132,6 @@ public class DiplomarbeitDAO {
             Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //
     }
-    
-    
-    
 
     public void updateDatum(int daId, Date datum) {
         try (
@@ -163,9 +146,6 @@ public class DiplomarbeitDAO {
             Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //
     }
-    
-    
-    
 
     public Diplomarbeit getDiplomarbeit(int id) {
 
@@ -185,9 +165,6 @@ public class DiplomarbeitDAO {
         return retVal;
 
     }
-    
-    
-    
 
     public List<Diplomarbeit> getRedList(int b_id) {
         ArrayList<Diplomarbeit> dipList = new ArrayList<>();
@@ -206,9 +183,6 @@ public class DiplomarbeitDAO {
 
         return dipList;
     }
-    
-    
-    
 
     //---------------------------Löschen der Diplomarbeit - nach id---------------------------------------
     public int delete(int id) {
@@ -230,148 +204,8 @@ public class DiplomarbeitDAO {
         return result;
 
     }
-    
-    
-    
-    
-    
-    
 
-    public boolean read(String titel) {
-
-        boolean ist_gleich = false;
-        Diplomarbeit retVal = null;
-
-        try (
-                Connection con = ConnectionManager.getInst().getConn();
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from diplomarbeit")) {
-            while (rs.next()) {
-                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
-            }
-            if (retVal.getTitle().equals(titel)) {
-                ist_gleich = true;
-            } else {
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
-
-        return ist_gleich;
-
-    }
-    
-    
-    
-
-    //---------------------------------Test ------------------------------------------
-    public int click_count(int click_count, Diplomarbeit dip) {
-
-        int result = 0;
-
-        try (
-                Connection con = ConnectionManager.getInst().getConn();
-                PreparedStatement pstmt
-                = con.prepareStatement("UPDATE diplomarbeit SET click_count = ?  WHERE da_id = " + dip.getDa_id())) {
-
-            pstmt.setInt(1, click_count);
-            result = pstmt.executeUpdate();
-            pstmt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
-
-        return result;
-
-    }
-
-    
-    
-    
-    public int download_count(int download_count, Diplomarbeit dip) {
-
-        int result = 0;
-
-        try (
-                Connection con = ConnectionManager.getInst().getConn();
-                PreparedStatement pstmt
-                = con.prepareStatement("UPDATE diplomarbeit SET download_count = ?  WHERE da_id = " + dip.getDa_id())) {
-
-            pstmt.setInt(1, download_count);
-            result = pstmt.executeUpdate();
-            pstmt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
-
-        return result;
-    }
-
-    
-    
-    public int readClickCount(Diplomarbeit dip) {
-
-        ArrayList<Diplomarbeit> dipList = new ArrayList<>();
-
-        try (
-                Connection con = ConnectionManager.getInst().getConn();
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id =" + dip.getDa_id())) {
-
-            while (rs.next()) {
-                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
-
-        return dipList.get(0).getClick_count();
-    }
-
-    
-    
-    
-    public int readDownloadCount(Diplomarbeit dip) {
-
-        ArrayList<Diplomarbeit> dipList = new ArrayList<>();
-
-        try (
-                Connection con = ConnectionManager.getInst().getConn();
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id = " + dip.getDa_id())) {
-
-            while (rs.next()) {
-                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
-
-        return dipList.get(0).getDownload_count();
-    }
-    
- //---------------------------------------------------------------------------------   
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-
-    
-//Suchalgorithmus:-------------------------------------------------------------- 
-
-
-//-------------------------Allg Suchleistenfunktion-----------------------------
+    //-------------------------Allg Suchleistenfunktion-----------------------------
     public List Suchleiste(String k) { //allgemeine suche
         String key = k;
         List<Diplomarbeit> dipList = new ArrayList<>();
@@ -388,14 +222,13 @@ public class DiplomarbeitDAO {
             try (
                     Connection con = ConnectionManager.getInst().getConn();
                     Statement stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery(s);
-                    ) {
+                    ResultSet rs = stmt.executeQuery(s);) {
                 while (rs.next()) {
                     Diplomarbeit help;
                     help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getString("textname"),
                             rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
                             rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
-                    int cs=0;
+                    int cs = 0;
                     if (!dipList.isEmpty()) {
                         for (Diplomarbeit ar : dipList) {
                             if (ar.getDa_id() == help.getDa_id()) {
@@ -416,15 +249,11 @@ public class DiplomarbeitDAO {
                 System.out.println("This be some Exception: " + e);
             }
         }
-        for(Diplomarbeit d : dipList) {
-           System.out.println(d.toString());
+        for (Diplomarbeit d : dipList) {
+            System.out.println(d.toString());
         }
         return dipList;
     }
-    
-   
-//-------------------------Suchleistenfunktionen-----------------------------
-    
 
     //-------------------------Suchleistenfunktionen-----------------------------
     public List SucheTitel(String k) {
@@ -504,11 +333,11 @@ public class DiplomarbeitDAO {
         return dipList2;
     }
     
-    
     public List SucheAlternativ(String k, String c) {
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<Diplomarbeit> dipList2 = new ArrayList<>();
         dipList = this.Suchleiste(k);
+        //recursive?
         switch(c) {
             case "Titel": dipList2 = this.SucheTitel(k); break;
             case "Autor": dipList2 = this.SucheAutor(k); break;
@@ -519,12 +348,361 @@ public class DiplomarbeitDAO {
         }
         return dipList2;
     }
-    
-    
-//------------------------------------------------------------------------------
-   
 
+    public boolean read(String titel) {
 
-    
+        boolean ist_gleich = false;
+        Diplomarbeit retVal = null;
 
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from diplomarbeit")) {
+            while (rs.next()) {
+                retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
+            }
+            if (retVal.getTitle().equals(titel)) {
+                ist_gleich = true;
+            } else {
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return ist_gleich;
+
+    }
+
+    //---------------------------------Test ------------------------------------------
+    public int click_count(int click_count, Diplomarbeit dip) {
+
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt
+                = con.prepareStatement("UPDATE diplomarbeit SET click_count = ?  WHERE da_id = " + dip.getDa_id())) {
+
+            pstmt.setInt(1, click_count);
+            result = pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return result;
+
+    }
+
+    public int download_count(int download_count, Diplomarbeit dip) {
+
+        int result = 0;
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                PreparedStatement pstmt
+                = con.prepareStatement("UPDATE diplomarbeit SET download_count = ?  WHERE da_id = " + dip.getDa_id())) {
+
+            pstmt.setInt(1, download_count);
+            result = pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return result;
+    }
+
+    public int readClickCount(Diplomarbeit dip) {
+
+        ArrayList<Diplomarbeit> dipList = new ArrayList<>();
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id =" + dip.getDa_id())) {
+
+            while (rs.next()) {
+                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return dipList.get(0).getClick_count();
+    }
+
+    public int readDownloadCount(Diplomarbeit dip) {
+
+        ArrayList<Diplomarbeit> dipList = new ArrayList<>();
+
+        try (
+                Connection con = ConnectionManager.getInst().getConn();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM diplomarbeit WHERE da_id = " + dip.getDa_id())) {
+
+            while (rs.next()) {
+                dipList.add(new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10)));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
+
+        return dipList.get(0).getDownload_count();
+    }
+
+    //----------------------------------------------------------------------------
+//       public List SucheTitel(String k) {
+//        String key = k;
+//        List<Diplomarbeit> dipList = new ArrayList<>();
+//        List<String> queryList = new ArrayList<>();
+//        queryList.add("select * from diplomarbeit where upper(titel) like upper('" + key + "%') order by titel desc");
+//        for (String s : queryList) {
+//            try (
+//                    Connection con = ConnectionManager.getInst().getConn();
+//                    Statement stmt = con.createStatement();
+//                    ResultSet rs = stmt.executeQuery(s);
+//                    ) {
+//                while (rs.next()) {
+//                    Diplomarbeit help;
+//                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+//                            rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
+//                            rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
+//                    int cs = 0;
+//                    if (!dipList.isEmpty()) {
+//                        for (Diplomarbeit ar : dipList) {
+//                            if (ar.getDa_id() == help.getDa_id()) {
+//                                cs = 0;
+//                                break;
+//                            } else {
+//                                cs = 1;
+//                            }
+//                        }
+//                    } else {
+//                        cs = 1;
+//                    }
+//                    if (cs == 1) {
+//                        dipList.add(help);
+//                    }
+//                }
+//            } catch (Exception e) {
+//                System.out.println("This be some Exception: " + e);
+//            }
+//        }
+//        return dipList;
+//    }
+//    public List SucheAutor(String k) {
+//        String key = k;
+//        List<Diplomarbeit> dipList = new ArrayList<>();
+//        List<String> queryList = new ArrayList<>();
+//        queryList.add("select * from diplomarbeit natural join autoren where upper(fullname) like upper('" + key + "') order by titel desc");
+//        for (String s : queryList) {
+//            try (
+//                    Connection con = ConnectionManager.getInst().getConn();
+//                    Statement stmt = con.createStatement();
+//                    ResultSet rs = stmt.executeQuery(s);
+//                    ) {
+//                while (rs.next()) {
+//                    Diplomarbeit help;
+//                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+//                            rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
+//                            rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
+//                    int cs = 0;
+//                    if (!dipList.isEmpty()) {
+//                        for (Diplomarbeit ar : dipList) {
+//                            if (ar.getDa_id() == help.getDa_id()) {
+//                                cs = 0;
+//                                break;
+//                            } else {
+//                                cs = 1;
+//                            }
+//                        }
+//                    } else {
+//                        cs = 1;
+//                    }
+//                    if (cs == 1) {
+//                        dipList.add(help);
+//                    }
+//                }
+//            } catch (Exception e) {
+//                System.out.println("This be some Exception: " + e);
+//            }
+//        }
+//        return dipList;
+//    }
+//    public List SucheSw(String k) {
+//        String key = k;
+//        List<Diplomarbeit> dipList = new ArrayList<>();
+//        List<String> queryList = new ArrayList<>();
+//        queryList.add("select * from diplomarbeit d, schlagwort_diplomarbeit sd, schlagwort s"
+//                + "where d.da_id = sd.da_id"
+//                + "and sd.sw_id = s.id"
+//                + "and upper(s.name) like upper('" + key + "') order by titel desc");
+//        for (String s : queryList) {
+//            try (
+//                    Connection con = ConnectionManager.getInst().getConn();
+//                    Statement stmt = con.createStatement();
+//                    ResultSet rs = stmt.executeQuery(s);
+//                    ) {
+//                while (rs.next()) {
+//                    Diplomarbeit help;
+//                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+//                            rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
+//                            rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
+//                    int cs = 0;
+//                    if (!dipList.isEmpty()) {
+//                        for (Diplomarbeit ar : dipList) {
+//                            if (ar.getDa_id() == help.getDa_id()) {
+//                                cs = 0;
+//                                break;
+//                            } else {
+//                                cs = 1;
+//                            }
+//                        }
+//                    } else {
+//                        cs = 1;
+//                    }
+//                    if (cs == 1) {
+//                        dipList.add(help);
+//                    }
+//                }
+//            } catch (Exception e) {
+//                System.out.println("This be some Exception: " + e);
+//            }
+//        }
+//        return dipList;
+//    }
+//    public List SucheSchule(String k) {
+//        String key = k;
+//        List<Diplomarbeit> dipList = new ArrayList<>();
+//        List<String> queryList = new ArrayList<>();
+//        queryList.add("select * from diplomarbeit natural join schule where upper(name) like upper('" + key + "%') order by titel desc");
+//        for (String s : queryList) {
+//            try (
+//                    Connection con = ConnectionManager.getInst().getConn();
+//                    Statement stmt = con.createStatement();
+//                    ResultSet rs = stmt.executeQuery(s);
+//                    ) {
+//                while (rs.next()) {
+//                    Diplomarbeit help;
+//                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+//                            rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
+//                            rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
+//                    int cs = 0;
+//                    if (!dipList.isEmpty()) {
+//                        for (Diplomarbeit ar : dipList) {
+//                            if (ar.getDa_id() == help.getDa_id()) {
+//                                cs = 0;
+//                                break;
+//                            } else {
+//                                cs = 1;
+//                            }
+//                        }
+//                    } else {
+//                        cs = 1;
+//                    }
+//                    if (cs == 1) {
+//                        dipList.add(help);
+//                    }
+//                }
+//            } catch (Exception e) {
+//                System.out.println("This be some Exception: " + e);
+//            }
+//        }
+//        return dipList;
+//    }
+//    public List SucheDatum(String k) {
+//        String key = k;
+//        List<Diplomarbeit> dipList = new ArrayList<>();
+//        List<String> queryList = new ArrayList<>();
+//        queryList.add("select * from diplomarbeit where datum like '" + key + "' order by titel desc");
+//        for (String s : queryList) {
+//            try (
+//                    Connection con = ConnectionManager.getInst().getConn();
+//                    Statement stmt = con.createStatement();
+//                    ResultSet rs = stmt.executeQuery(s);
+//                    ) {
+//                while (rs.next()) {
+//                    Diplomarbeit help;
+//                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+//                            rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
+//                            rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
+//                    int cs = 0;
+//                    if (!dipList.isEmpty()) {
+//                        for (Diplomarbeit ar : dipList) {
+//                            if (ar.getDa_id() == help.getDa_id()) {
+//                                cs = 0;
+//                                break;
+//                            } else {
+//                                cs = 1;
+//                            }
+//                        }
+//                    } else {
+//                        cs = 1;
+//                    }
+//                    if (cs == 1) {
+//                        dipList.add(help);
+//                    }
+//                }
+//            } catch (Exception e) {
+//                System.out.println("This be some Exception: " + e);
+//            }
+//        }
+//        return dipList;
+//    }
+//    
+//    
+//      //-------------------------Allg Suchleistenfunktion-----------------------------
+//    public List Suchleiste(String k) { //allgemeine suche
+//        String key = k;
+//        List<Diplomarbeit> dipList = new ArrayList<>();
+//        List<String> queryList = new ArrayList<>();
+//        queryList.add("select * from diplomarbeit where upper(titel) like upper('%" + key + "%') order by titel desc");
+//        queryList.add("select * from diplomarbeit natural join autoren where upper(fullname) like upper('%" + key + "%') order by titel desc");
+//        queryList.add("select * from diplomarbeit where datum like '" + key + "%' order by titel desc");
+//        queryList.add("select * from diplomarbeit d, schlagwort_diplomarbeit sd, schlagwort s "
+//                + "where d.da_id = sd.da_id "
+//                + "and sd.sw_id = s.id "
+//                + "and upper(s.name) like upper('%" + key + "%') order by titel desc");
+//        queryList.add("select * from diplomarbeit natural join schule where upper(name) like upper('%" + key + "%') order by titel desc");
+//        for (String s : queryList) {
+//            try (
+//                    Connection con = ConnectionManager.getInst().getConn();
+//                    Statement stmt = con.createStatement();
+//                    ResultSet rs = stmt.executeQuery(s);
+//                    ) {
+//                while (rs.next()) {
+//                    Diplomarbeit help;
+//                    help = new Diplomarbeit(rs.getInt("da_id"), rs.getString("titel"), rs.getInt("autor_id"),
+//                            rs.getInt("schule_id"), rs.getString("pdf"), rs.getInt("benutzer_id"), rs.getDate("datum"),
+//                            rs.getString("bild"), rs.getInt("download_count"), rs.getInt("click_count"));
+//                    int cs=0;
+//                    if (!dipList.isEmpty()) {
+//                        for (Diplomarbeit ar : dipList) {
+//                            if (ar.getDa_id() == help.getDa_id()) {
+//                                cs = 0;
+//                                break;
+//                            } else {
+//                                cs = 1;
+//                            }
+//                        }
+//                    } else {
+//                        cs = 1;
+//                    }
+//                    if (cs == 1) {
+//                        dipList.add(help);
+//                    }
+//                }
+//            } catch (Exception e) {
+//                System.out.println("This be some Exception: " + e);
+//            }
+//        }
+//        for(Diplomarbeit d : dipList) {
+//           System.out.println(d.toString());
+//        }
+//        return dipList;
+//    }
 }
