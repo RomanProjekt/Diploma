@@ -47,22 +47,12 @@
 
 
                         <div id="IndexTFeld" class="indexTFeld"> 
-                            <b:inputText id="inputText" labelStyle="width:50px;" value="#{dipSuchenBean.key}" placeholder="Diplomarbeit suchen" label="">
+                            <b:inputText id="inputText" labelStyle="width:50px;" value="#{bibliothekBean.key}" placeholder="Diplomarbeit suchen" label="">
                                 <f:facet id="fact" name="prepend">
-                                    <b:commandButton id="keyfromindex" value="Suche" action="#{dipSuchenBean.sentToBibliothek(dipSuchenBean.key)}" actionListener="#{bibliothekBean.FromIndex(event, dipSuchenBean.key)}"/>                                    
+                                    <b:commandButton id="keyfromindex" value="Suche" action="#{bibliothekBean.sentToBibliothek()}" actionListener="#{bibliothekBean.FromIndex(event)}"/>                               
                                 </f:facet>
                             </b:inputText>
                         </div> 
-
-
-
-                        <br></br>
-                        <b:selectOneMenu value="#{dipSuchenBean.selectedDa}" rendered="#{dipSuchenBean.render}" onchange="submit">
-                            <f:selectItems value="#{dipSuchenBean.daList}" var="da"
-                                           itemValue="#{da}" itemLabel="Nr: #{da.da_id} Titel: #{da.title}" />
-                        </b:selectOneMenu>
-
-                        
 
                     </b:form>  
 

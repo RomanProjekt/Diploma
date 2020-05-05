@@ -1,7 +1,7 @@
 
 @media only screen and (max-width: 1600px) {
 
-    
+
     .footer {
         height: 150px;   
     }
@@ -12,18 +12,18 @@
     }
 
     .addresse2 { 
-        margin: 0 0 0 0;
+        margin: 0 0 0 -20px;
         padding-top:10px; 
     }
 
     .addresse3 {
-        margin: 0 0 0 0;
+        margin: 0 0 0 -20px;
         padding-top:10px; 
     }
 
 
     .impressum {
-        margin: 0 0 0 31%; 
+        margin: 0 0 0 29%; 
     }
 
     .datenschutz {
@@ -45,6 +45,8 @@
     .rssfeed {
         margin: 0 0 0 0;
     }
+
+   
 
 
 
@@ -53,7 +55,7 @@
 
 @media only screen and (max-width: 1400px) {
 
-    
+
     .footer {
         height: 150px;   
     }
@@ -64,18 +66,18 @@
     }
 
     .addresse2 { 
-        margin: 0 0 0 0;
+        margin: 0 0 0 -20px;
         padding-top:10px; 
     }
 
     .addresse3 {
-        margin: 0 0 0 0;
+        margin: 0 0 0 -20px;
         padding-top:10px; 
     }
 
 
     .impressum {
-        margin: 0 0 0 32%; 
+        margin: 0 0 0 29%; 
     }
 
     .datenschutz {
@@ -98,14 +100,14 @@
         margin: 0 0 0 0;
     }
 
-    
+
 
 }
 
 
 @media only screen and (max-width: 1200px) {
 
-   .footer {
+    .footer {
         height: 150px;   
     }
 
@@ -115,18 +117,18 @@
     }
 
     .addresse2 { 
-        margin: 0 0 0 0;
+        margin: 0 0 0 -20px;
         padding-top:10px; 
     }
 
     .addresse3 {
-        margin: 0 0 0 0;
+        margin: 0 0 0 -20px;
         padding-top:10px; 
     }
 
 
     .impressum {
-        margin: 0 0 0 32%; 
+        margin: 0 0 0 30%; 
     }
 
     .datenschutz {
@@ -148,67 +150,19 @@
     .rssfeed {
         margin: 0 0 0 0;
     }
-    
+
 
 }
 
 
 
-@media only screen and (max-width: 1200px) {
-
-   .footer {
-        height: 150px;   
-    }
-
-    .addresse1 {    
-        margin: 10px 0 0 25%;
-        padding-top:10px; 
-    }
-
-    .addresse2 { 
-        margin: 0 0 0 0;
-        padding-top:10px; 
-    }
-
-    .addresse3 {
-        margin: 0 0 0 28%;
-        padding-top:10px; 
-    }
-
-
-    .impressum {
-        margin: 0 0 0 0; 
-    }
-
-    .datenschutz {
-        margin: 0 0 0 0;   
-    }
-
-    .youtube {
-        margin: 0 0 0 40%;
-    }
-
-    .facebook {
-        margin: 0 0 0 0;
-    }
-
-    .twitter {
-        margin: 0 0 0 0;
-    }
-
-    .rssfeed {
-        margin: 0 0 0 0;
-    }
-    
-
-}
 
 
 
 @media only screen and (max-width: 1050px) {
 
-  
-     .footer {
+
+    .footer {
         height: 300px;   
     }
 
@@ -229,8 +183,8 @@
 
 
     .impressum {
-       margin: 0 0 0 40%;
-       width: 100%; 
+        margin: 0 0 0 40%;
+        width: 100%; 
     }
 
     .datenschutz {
@@ -240,7 +194,7 @@
 
     .youtube {
         margin: 0 0 0 37%;
-    
+
     }
 
     .facebook {
@@ -252,18 +206,18 @@
     }
 
     .rssfeed {
-         margin: 0 0 0 0;
+        margin: 0 0 0 0;
     }
-    
-    
+
+
 
 }
 
 
 @media only screen and (max-width: 850px) {
 
-  
-   .footer {
+
+    .footer {
         height: 300px;   
     }
 
@@ -284,8 +238,8 @@
 
 
     .impressum {
-       margin: 0 0 0 37%;
-       width: 100%; 
+        margin: 0 0 0 37%;
+        width: 100%; 
     }
 
     .datenschutz {
@@ -295,7 +249,7 @@
 
     .youtube {
         margin: 0 0 0 32%;
-    
+
     }
 
     .facebook {
@@ -307,10 +261,10 @@
     }
 
     .rssfeed {
-         margin: 0 0 0 0;
+        margin: 0 0 0 0;
     }
-    
-    
+
+
 
 }
 
@@ -318,8 +272,8 @@
 
 @media only screen and (max-width: 600px) {
 
-  
-   .footer {
+
+    .footer {
         height: 300px;   
     }
 
@@ -340,8 +294,8 @@
 
 
     .impressum {
-       margin: 0 0 0 35%;
-       width: 100%; 
+        margin: 0 0 0 35%;
+        width: 100%; 
     }
 
     .datenschutz {
@@ -351,7 +305,7 @@
 
     .youtube {
         margin: 0 0 0 30%;
-    
+
     }
 
     .facebook {
@@ -363,10 +317,10 @@
     }
 
     .rssfeed {
-         margin: 0 0 0 0;
+        margin: 0 0 0 0;
     }
-    
-    
+
+
 
 }
 

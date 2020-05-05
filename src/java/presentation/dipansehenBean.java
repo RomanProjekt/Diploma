@@ -297,6 +297,7 @@ public class dipansehenBean {
 
         this.server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/" + aktDip.getTitle() + ".pdf";
         this.server_image_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + this.aktDip.getBild();
+        this.server_text_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + this.aktDip.getTextname();
 
         this.schule = dbService.getOneSchule(aktDip.getSchule_id()).getName();
         dbService.getAktuellPicture(this.aktDip);
@@ -513,22 +514,51 @@ public class dipansehenBean {
         int res = dbService.deleteDiplomarbeit(aktDip);
         if (res == 1) {
             titel = "Success";
-            this.DeleteFile(this.server_diplomarbeit_pfad, this.server_image_pfad);
+            this.deletePDFFile(this.server_diplomarbeit_pfad);
+            this.deleteImage(this.server_image_pfad);
+            this.deleteTextFile(this.server_text_pfad);
         };
 
     }
-
-    public boolean DeleteFile(String filepath, String imagepath) {
+    
+    
+    public boolean deletePDFFile(String filepath) {
         boolean del = false;
         File file = new File(filepath);
-        File ifile = new File(imagepath);
-        if (file.exists() && ifile.exists()) {
+
+        if (file.exists() && file.exists()) {
             del = file.delete();
-            ifile.delete();
+            file.delete();
             System.out.println("Datei wurde gelöscht!!!");
         }
         return del;
     }
+
+    public boolean deleteImage(String filepath) {
+        boolean del = false;
+        File file = new File(filepath);
+
+        if (file.exists() && file.exists()) {
+            del = file.delete();
+            file.delete();
+            System.out.println("Datei wurde gelöscht!!!");
+        }
+        return del;
+    }
+
+    public boolean deleteTextFile(String filepath) {
+        boolean del = false;
+        File file = new File(filepath);
+
+        if (file.exists() && file.exists()) {
+            del = file.delete();
+            file.delete();
+            System.out.println("Datei wurde gelöscht!!!");
+        }
+        return del;
+    }
+
+
 
 //------------------------------------------------------------------------------    
     private String ladeDatei(Diplomarbeit dip) {
@@ -565,6 +595,17 @@ public class dipansehenBean {
 
     private String text1;
     private String text2;
+    private String fullText;
+
+    public String getFullText() {
+        return fullText;
+    }
+
+    public void setFullText(String fullText) {
+        this.fullText = fullText;
+    }
+    
+    
 
     public String getText1() {
         return text1;
@@ -582,55 +623,31 @@ public class dipansehenBean {
         this.text2 = text2;
     }
 
-    public void manipulationText(Diplomarbeit dip) {
+    public String manipulationText(Diplomarbeit dip) {
 
-        String fullText = this.ladeDatei(dip);
+        fullText = this.ladeDatei(dip);
 
-        if (fullText != null & fullText == "") {
-            this.text1 = fullText.substring(0, (fullText.length() / 2));
-            this.text2 = fullText.substring((fullText.length() / 2), fullText.length());
-        } else {
-            this.text1 = "Keine Einleitung vorhanden!";
-            this.text2 = "";
-        }
+        if (!(fullText == null)) {
 
-        System.out.println(text1);
-        System.out.println(text2);
-
-    }
-
-//----------------Alter Code - Diplomarbeit ansehen-----------------------------
-    public void diplomarbeitansehen(Diplomarbeit dip) {
-
-        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
-        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
-        String server_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
-
-        try {
-
-            //Pfad anpassen
-            File pdfFile = new File(server_diplomarbeit_pfad + aktDip.getTitle() + ".pdf");
-
-            if (pdfFile.exists()) {
-
-                if (Desktop.isDesktopSupported()) {
-                    Desktop.getDesktop().open(pdfFile);
-                } else {
-                    System.out.println("Desktop is not supported!");
-
-                }
-
+            if (this.fullText.length() != 0) {
+                return fullText;
             } else {
-                System.out.println("File is not exists!");
+                return fullText = "Keine Einleitung vorhanden!";
             }
 
-            System.out.println("Done");
+//            this.text1 = fullText.substring(0, (fullText.length() / 2));
+//            this.text2 = fullText.substring((fullText.length() / 2), fullText.length());
+        } else {
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            return this.fullText = "";
+
         }
 
+     
     }
+    
+    
+
 
     public String showAllAutor() {
 
@@ -679,6 +696,62 @@ public class dipansehenBean {
 
         } else {
             System.out.println("PDf ist nicht vorhanden!");
+        }
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //----------------Alter Code - Diplomarbeit ansehen-----------------------------
+    public void diplomarbeitansehen(Diplomarbeit dip) {
+
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        String s_diplomarbeit_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + "/resources/pdf/";
+
+        try {
+
+            //Pfad anpassen
+            File pdfFile = new File(s_diplomarbeit_pfad + aktDip.getTitle() + ".pdf");
+
+            if (pdfFile.exists()) {
+
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(pdfFile);
+                } else {
+                    System.out.println("Desktop is not supported!");
+
+                }
+
+            } else {
+                System.out.println("File is not exists!");
+            }
+
+            System.out.println("Done");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
 
     }

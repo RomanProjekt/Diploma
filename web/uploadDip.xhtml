@@ -17,15 +17,17 @@ and open the template in the editor.
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "upload.css" />
         <h:outputStylesheet library= "css" name= "Footer.css" />
-        
+
         <h:outputStylesheet library= "css" name= "responsiveFooter.css" />
         <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
         <h:outputStylesheet library= "css" name= "responsiveUpload.css" />
 
+        <f:metadata>
+            <f:viewAction action="#{databaseManagerService.isUserRedirect()}" />
+        </f:metadata>
+
     </h:head>
-    <f:metadata>
-        <f:viewAction action="#{databaseManagerService.isUserRedirect()}" />
-    </f:metadata>
+
     <h:body>
 
         <div id="wrapper" class="wrapper">
@@ -50,46 +52,44 @@ and open the template in the editor.
 
                     <div id="main" class="mainindex">
 
-                        <div id="mainTabl" class="mainTable">   
+                        <div id="mainTabl" class="mainTable"> 
+
+
 
                             <div id="firstTable" class="firstTable">
 
-  
-                                    <br/>
 
-                                    <br/>    
-                                    <b:inputText label="Titel" value="#{uploadBean.titel}" placeholder="Titel eingeben" />
 
-                                    <h:outputText value="#{uploadBean.titel_fail}"></h:outputText>
-                                    <br/>
 
-                                    <b:inputText value="#{uploadBean.autor}" label="Autor" placeholder="Autoren eingeben" />
-                                    <b:commandButton value="Add Autor" action="#{uploadBean.addAutor()}">   
-                                    </b:commandButton>
-                                    
+                                <br/><br/>     
+                                <b:inputText label="Titel" value="#{uploadBean.titel}" placeholder="Titel eingeben" />
 
-                                    <br/><br/>
-        
-                                    <p:dataTable  id="datatableAutor" class="noborder" value="#{uploadBean.autList}" var="autor" >
-                                        
-                                        <p:column headerText="Autor">
-                                            <h:outputText value="#{autor.fullName}" rendered="#{!uploadBean.editAutor}" />
-                                            <h:inputText value="#{autor.fullName}" rendered="#{uploadBean.editAutor}" /> 
-                                        </p:column>
+                                <h:outputText value="#{uploadBean.titel_fail}"></h:outputText>
+                                <br/>
 
-                                        <p:column headerText="Löschen">
-                                            <b:commandButton value="X" action="#{uploadBean.removeAutor(autor)}" />
-                                        </p:column>
+                                <b:inputText value="#{uploadBean.autor}" label="Autor" placeholder="Autoren eingeben" />
+                                <b:commandButton value="Add Autor" action="#{uploadBean.addAutor()}">   
+                                </b:commandButton>
 
-                                        <p:column headerText="Edit">
-                                            <b:commandButton value="Edit" action="#{uploadBean.editAutor(autor)}"  rendered="#{!uploadBean.editAutor}" />
-                                            <b:commandButton value="Save" action="#{uploadBean.editAutor(autor)}" rendered="#{uploadBean.editAutor}" />
-                                        </p:column>
 
-                                    </p:dataTable>
-                                    
-                                    
-                                    <b:alert value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
+                                <br/><br/>
+
+                                <p:dataTable  id="datatableAutor" class="noborder" value="#{uploadBean.autList}" var="autor" >
+
+                                    <p:column headerText="Autor">
+                                        <h:outputText value="#{autor.fullName}" rendered="#{!uploadBean.editAutor}" />
+                                        <h:inputText value="#{autor.fullName}" rendered="#{uploadBean.editAutor}" /> 
+                                    </p:column>
+
+                                    <p:column headerText="Löschen">
+                                        <b:commandButton value="X" action="#{uploadBean.removeAutor(autor)}" />
+                                    </p:column>
+
+
+                                </p:dataTable>
+
+
+                                <b:alert value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
 
                             </div>
 
@@ -101,22 +101,19 @@ and open the template in the editor.
 
                                 <b:inputText placeholder="Schlagwort eingeben" label="Schlagwort" value="#{uploadBean.schlagwort}" typeahead="true" typeahead-limit="20"   typeahead-values="#{uploadBean.allSchlagwTypeahead}" />
                                 <br/><br/>
+                                
                                 <b:commandButton value="Add Tag" action="#{uploadBean.addSchlagwort()}" /> 
 
                                 <br/><br/>
 
                                 <p:dataTable id="datatableSecondTable" style="width: 100%" scrollWidth="auto" class="table2" value="#{uploadBean.schlagList}" var="schlagwort" >
-                                    <p:column headerText="Schlagwort">
+                                    
+                                    <p:column id="firstcolumn" headerText="Schlagwort">
                                         <h:outputText value="#{schlagwort.word}"  />  
                                     </p:column>
 
-                                    <p:column headerText="Löschen">
-                                            <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" />
-                                    </p:column>
-
-                                    <p:column headerText="Edit">
-                                        <b:commandButton id="edit" value="Edit" action="#{uploadBean.editAutor(autor)}"  rendered="#{!uploadBean.editAutor}" />
-                                        <b:commandButton id="safe" value="Save" action="#{uploadBean.editAutor(autor)}" rendered="#{uploadBean.editAutor}" />
+                                    <p:column id="secondcolumn" headerText="Löschen">
+                                        <b:form><b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" /></b:form>
                                     </p:column>
 
                                 </p:dataTable>
@@ -126,14 +123,15 @@ and open the template in the editor.
 
 
                             <div class="thirdTable" enctype="multipart/form-data">
-
                                 
+                                 
+
+
                                 <b:dateTimePicker placeholder="Datum auswählen" format="DD.MM.YYYY" value="#{uploadBean.datum}" label="Datum" />
                                 <br/>
                                 <h:outputLabel value="Wähle Sie ihre Schule aus"></h:outputLabel>
                                 <b:selectOneMenu value="#{uploadBean.realSchule}"  >
-                                    <f:selectItems value="Schule auswählen" itemValue="Schule auswählen" itemLabel="Schule auswählen" />
-                                    <f:selectItems value="#{uploadBean.schulList}" var="schule" itemValue="#{schule}" itemLabel="#{schule.name}" />
+                                    <f:selectItems  value="#{uploadBean.schulList}" var="schule" itemValue="#{schule}" itemLabel="#{schule.name}" />
                                 </b:selectOneMenu>
                                 <br/>                   
 
@@ -144,6 +142,8 @@ and open the template in the editor.
                                 <h:outputText value="#{uploadBean.pdfdabei_fail}"></h:outputText>
                                 <br/>
                                 <br/>
+                                
+                                
                                 <h:outputLabel>Einleitung der Diplomarbeit</h:outputLabel>
                                 <br/><br/>
                                 <h:form>            
@@ -154,26 +154,26 @@ and open the template in the editor.
                                 <br/><br/>
                                 <b:commandButton value="Diplomarbeit hochladen" action="#{uploadBean.upload_diplomarbeit()}" />
                                 <br/><br/>
-                                
+
 
                             </div>
 
 
 
                         </div> 
-                        
-                        
-                       
+
+
+
 
 
                     </div>
-                        
-                        
+
+
                 </b:form> 
 
                 <div class="footer"><ui:include src="/resources/include/footer.xhtml" /></div>
             </div>
-            
+
         </div>        
     </h:body>
 </html>

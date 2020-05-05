@@ -73,11 +73,11 @@
         </managed-property>
     </managed-bean>
     
-    <managed-bean>
+<!--    <managed-bean>
         <managed-bean-name>dipSuchenBean</managed-bean-name>
         <managed-bean-class>presentation.dipSuchenBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+    </managed-bean>-->
     
     <managed-bean>
         <managed-bean-name>uploadBean</managed-bean-name>
@@ -136,14 +136,14 @@
     </navigation-rule>
     
    
-<navigation-rule> 
+<!--<navigation-rule> 
    <from-view-id>index.xhtml</from-view-id> 
    <navigation-case> 
       <from-action>#{dipSuchenBean.displaySelectedDa}</from-action> 
       <from-outcome>switchda</from-outcome> 
       <to-view-id>/dipansehen.xhtml</to-view-id> 
    </navigation-case> 
-</navigation-rule>
+</navigation-rule>-->
 
     <managed-bean>
         <managed-bean-name>emailpasswortBean</managed-bean-name>

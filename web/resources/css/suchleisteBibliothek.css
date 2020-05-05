@@ -9,13 +9,17 @@ and open the template in the editor.
 */
 
 .content {
+    
+    position: -webkit-sticky;
+    position: fixed;
     background-color: greenyellow;
     display: flex;
     flex-wrap: wrap;
     background-color: white;
-    margin: 100px 0 0 0;
+    margin: 50px 0 0 0;
     width: 310px;
-    height: 1000px;
+    height: auto;
+    
 }
 
 .content > div {
@@ -28,28 +32,28 @@ and open the template in the editor.
 
 }
 
-.uberschrift_ws {
+/*.uberschrift_ws {
+    margin: 0 0 0 10%;
+}*/
+
+.tftitel {
     margin: 0 0 0 10%;
 }
 
-.tftitel {
+.tfautor {
     margin: 100px 0 0 10%;
 }
 
-.tfautor {
+.tfschule {
     margin: 200px 0 0 10%;
 }
 
-.tfschule {
+.tfdatum {
     margin: 300px 0 0 10%;
 }
 
-.tfdatum {
-    margin: 400px 0 0 10%;
-}
-
 .tfschlagwort {
-    margin: 500px 0 0 10%;
+    margin: 400px 0 0 10%;
 }
 
 .tfsprache {
@@ -57,6 +61,6 @@ and open the template in the editor.
 }
 
 .button_suche {
-    margin: 650px 0 0 10%;
+    margin: 520px 0 0 10%;
 }
 

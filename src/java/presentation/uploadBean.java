@@ -51,6 +51,7 @@ public class uploadBean implements Serializable {
     private List<Autor> autList;
     private List<Schlagwort> schlagList;
     private List<Schlagwort> insSchlagList;
+    
     private List<Schule> schulList;
     private Schule realSchule;
 
@@ -72,6 +73,7 @@ public class uploadBean implements Serializable {
 
     private String result;
     private String text;
+
     
     
     private String server_pdf_pfad;
@@ -110,6 +112,9 @@ public class uploadBean implements Serializable {
             Integer value = entry.getValue();
             allSchlagwTypeahead.add(key);
         });
+        
+        schulList = new ArrayList<>();
+        
         schulList = dbService.getSchuleList();
         datum = new Date();
     }
@@ -178,8 +183,12 @@ public class uploadBean implements Serializable {
     public void setRealSchule(Schule realSchule) {
         this.realSchule = realSchule;
     }
+    
+    
 
     public List<Schule> getSchulList() {
+        schulList = new ArrayList<>();
+        schulList = dbService.getSchuleList();
         return schulList;
     }
 
@@ -418,11 +427,11 @@ public class uploadBean implements Serializable {
                 String imagepfad = this.showImageFromPDF(vartitel);
                 String textnamepfad = this.speichernTextDocument(vartitel);
 
-                if (!(autList.size() <= 0 && realDate == null)) {
+                if (!(autList.size() <= 0)) {
                     
                     dbService.hochladen(vartitel, autList, textnamepfad, realSchule, schlagList, pdfpfad, imagepfad, realDate);
+                    return "index.xhtml";
                     
-                    return "index.xhtml?faces-redirect=true";
                 } else {
                     this.autoralert = true;
                 }
@@ -705,24 +714,7 @@ public class uploadBean implements Serializable {
         
     }
     
-     public List<String> completeArea(String query) {
-        List<String> results = new ArrayList<String>();
-         
-        if(query.equals("PrimeFaces")) {
-            results.add("PrimeFaces Rocks!!!");
-            results.add("PrimeFaces has 100+ components.");
-            results.add("PrimeFaces is lightweight.");
-            results.add("PrimeFaces is easy to use.");
-            results.add("PrimeFaces is developed with passion!");
-        }
-        else {
-            for(int i = 0; i < 10; i++) {
-                results.add(query + i);
-            }
-        }
-         
-        return results;
-    }
+    
  
     public void onSelect(SelectEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();

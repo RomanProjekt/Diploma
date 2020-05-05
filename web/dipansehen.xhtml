@@ -27,10 +27,10 @@ and open the template in the editor.
 
     </h:head>
     <h:body>
-        
-        
-                        
-              <div id="wrapper" class="wrapper">
+
+
+
+        <div id="wrapper" class="wrapper">
 
 
 
@@ -58,7 +58,11 @@ and open the template in the editor.
                                 <p:media value="#{dipansehenBean.aktDip.pdf}" class="pdffile"  ></p:media>  
                             </f:facet>
                         </p:lightBox>
-                        <div id="buttonleiste" class="buttonleiste">
+                       
+
+                    </div> 
+                    
+                     <div id="buttonleiste" class="buttonleiste">
                             <b:form id="buttonform">
                                 <br></br>
                                 <h4 style="width: 300px;">Downloaden der Diplomarbeit</h4>
@@ -70,15 +74,13 @@ and open the template in the editor.
                                 <h:outputLabel style="width: 300px;" rendered="#{databaseManagerService.redakteurOrHigher}" value="Löschen der Diplomarbeit"/>
                                 <b:commandButton id="löschenbutton" class="löschenbutton" value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}" rendered="#{databaseManagerService.redakteurOrHigher}" />
                             </b:form>
-                        </div>
-
-                    </div> 
-
-	
-		<div class="gestextlist">  
+                    </div>
 
 
-                      <div id="einleitung" class="einleitung">
+                    <div class="gestextlist">  
+
+
+                        <div id="einleitung" class="einleitung">
 
                             <h:outputLabel>Titel</h:outputLabel>
                             <br></br>
@@ -88,51 +90,33 @@ and open the template in the editor.
                             <h:outputLabel>Autoren</h:outputLabel>
                             <br></br>
                             <h:outputText value="#{dipansehenBean.autorListe}"/>
+                            <br></br><br></br>
+                            <h:outputLabel value="Seitenanzahl:"/> #{dipansehenBean.numberofpages}
+                            <br></br><br></br>
+                            <h:outputLabel value="Schule:" /> #{dipansehenBean.schule}
+                            <br></br><br></br>
+                            <h:outputLabel value="Eröffnungdatum:"/> #{dipansehenBean.aktDip.datum}
+                            <br></br><br></br>
+                            <h:outputLabel  value="Sprache: TestSprache"/>
 
                             <br/><br/>
                             <h:outputLabel>Einleitung</h:outputLabel>
                             <br></br>
 
 
-                            <div class="textfield" >
 
-                                <h:outputText id="dots" value="#{dipansehenBean.text1}"/>
-                                <h:outputText id="more" value="#{dipansehenBean.text2}"></h:outputText>    
-                                <br></br>
-                                <br></br>
-
-<!--                                <h:button onclick="myFunction()" value="Read more" id="myBtn"></h:button>-->
+                            <div class="dipansehen_textfeld" >
+                                <h:outputText  value="#{dipansehenBean.manipulationText(dipansehenBean.aktDip)}"/>
                             </div>
 
                         </div>
                     </div>
 
 
-                    
-                    
-                  
-                    <div id="datenliste" class="datenliste" >
 
 
-                        <b:form id="diplomarbeitansehen" >
-                            
-                            
-                            <h3>Diplomarbeitdetails</h3>
-                            <h:panelGrid id="pgrid" columns="2" cellpadding="5">
 
-                                <h:outputText style="font-size: 18px" value="Seitenanzahl: #{dipansehenBean.numberofpages}" ></h:outputText> 
-                                <br></br><br></br>
-                                <h:outputText style="font-size: 18px" value="Schule: #{dipansehenBean.schule}"></h:outputText> 
-                                <br></br><br></br>
-                                <h:outputText style="font-size: 18px" value="Eröffnungdatum: #{dipansehenBean.aktDip.datum}"/>
-                                <br></br><br></br>
-                                <h:outputText style="font-size: 18px" value="Sprache: TestSprache"/>
-                                
-                                
 
-                            </h:panelGrid>
-                        </b:form>
-                    </div>
 
 
                 </div>

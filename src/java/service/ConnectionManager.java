@@ -9,7 +9,7 @@ package service;
  *
  * @author dople
  */
-import com.mysql.cj.jdbc.MysqlDataSource;
+
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +23,6 @@ public class ConnectionManager {
     private static final String DATASOURCE = "jdbc/akdb";
     private static ConnectionManager connMgrInst = null;
     private DataSource ds = null;
-    MysqlDataSource dataSource;
 
 
     public static synchronized ConnectionManager getInst() {

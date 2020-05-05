@@ -13,17 +13,11 @@ and open the template in the editor.
     <h:head>
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
-        <h:outputStylesheet library= "css" name= "Navbar.css" />
-        
-        <h:outputStylesheet library= "css" name= "register.css" />
-        
-        <h:outputStylesheet library= "css" name= "Footer.css" />
-        
-        
-        <h:outputStylesheet library= "css" name= "responsiveReg.css" />
-        
-        <h:outputStylesheet library= "css" name= "responsiveFooter.css" />
-        
+        <h:outputStylesheet library= "css" name= "Navbar.css" />      
+        <h:outputStylesheet library= "css" name= "register.css" />      
+        <h:outputStylesheet library= "css" name= "Footer.css" />         
+        <h:outputStylesheet library= "css" name= "responsiveReg.css" />       
+        <h:outputStylesheet library= "css" name= "responsiveFooter.css" />     
         <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
 
 
@@ -60,8 +54,6 @@ and open the template in the editor.
                             
                             <b:inputSecret placeholder="Passwort bestätigen" value="#{registerBean.bestaetigtespw}" required="true" requiredMessage="" />
                             
-                           
-
                             <b:inputText placeholder="Vorname" value="#{registerBean.firstName}" required="true" requiredMessage="" />
 
                             <b:inputText placeholder="Nachname" value="#{registerBean.lastName}" required="true" requiredMessage="" />
@@ -73,7 +65,7 @@ and open the template in the editor.
                             <div class="emailfail"></div><b:alert value="" rendered="#{registerBean.emailfail}" severity="warning"><strong>Email-Addresse ändern!</strong> </b:alert>
                             <h:message for="eMail" style="color: red" />
 
-                            
+                            <br></br>
                             <h5>Bitte gib eine Sicherheitscode ein. Diese wird benötigt, um das Passwort zurückzusetzen</h5>
                             <b:inputText placeholder="Sicherheitscode" value="#{registerBean.securityanswer}" required="true" requiredMessage="" />
                             <br />

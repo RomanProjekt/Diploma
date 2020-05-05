@@ -177,6 +177,7 @@ public class updateDiplomarbeit {
             this.remSchlagMap.put(schlagw.getTag_id(), schlagw);
             
         }
+        
         this.schlagwortList.remove(schlagw);
         
         return null;

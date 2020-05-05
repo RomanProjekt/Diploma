@@ -41,7 +41,7 @@ public class SchuleDAO {
                 listd_schule.add(retVal);
             }
 
-            System.out.println("Listsize" + listd_schule.size());
+            
         } catch (SQLException ex) {
             Logger.getLogger(SchuleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement

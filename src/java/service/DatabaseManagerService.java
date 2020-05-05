@@ -118,7 +118,7 @@ public class DatabaseManagerService {
         favDAO = new FavoritenDAO();
         sicherheitsCodeDAO = new SicherheitsCodeDAO();
         SchuleList = new ArrayList<>();
-        
+
     }
     
     @PostConstruct
@@ -126,7 +126,7 @@ public class DatabaseManagerService {
             //Fehler Nullpoint Exception
             //loggedInBenutzer = new Benutzer();
             SchuleList = new ArrayList<>();
-            SchuleList = schuleDAO.read();
+            SchuleList = this.getListevonSchulen();
     }
     
     private boolean passwortOK;
@@ -961,7 +961,9 @@ public class DatabaseManagerService {
     }
 
     
-
+    public List<Diplomarbeit> getFoundDiplomarbeit(String key) {
+        return diplomarbeitDAO.Suchleiste(key);
+    }
     
    
    
