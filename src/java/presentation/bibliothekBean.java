@@ -495,7 +495,7 @@ public class bibliothekBean {
 
                     System.out.println(anfang);
                     System.out.println(ende);
-
+//                    System.out.println(ende);
                     
                    this.diplist = allindexList.subList(anfang, ende);
 
