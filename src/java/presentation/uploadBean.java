@@ -70,7 +70,7 @@ public class uploadBean implements Serializable {
     private DatabaseManagerService dbService;
     List<Autor> listautor;
     List<Diplomarbeit> listdiplomarbeit;
-    private dipSuchenBean dsb;
+  
 
     private String result;
     private String text;
@@ -86,9 +86,25 @@ public class uploadBean implements Serializable {
     public void setServer_pdf_pfad(String server_pdf_pfad) {
         this.server_pdf_pfad = server_pdf_pfad;
     }
+
+    public Schule getRealSchule() {
+        return realSchule;
+    }
+
+    public void setRealSchule(Schule realSchule) {
+        this.realSchule = realSchule;
+    }
+
+    public Date getDatum() {
+        return datum;
+    }
+
+    public void setDatum(Date datum) {
+        this.datum = datum;
+    }
    
     
-
+    
 
     //---------------Fail------------------------
     private String bilddatei_fail;
@@ -119,7 +135,7 @@ public class uploadBean implements Serializable {
         schulList = dbService.getSchuleList();
         datum = new Date();
         
-        dsb = new dipSuchenBean();
+       
     }
 
     public Object addAutor() {
@@ -171,26 +187,6 @@ public class uploadBean implements Serializable {
     
 
     //-------------------GET- und SET-Methoden----------------------------------
-    public Date getDatum() {
-        dsb.setChoiceDatum();
-        return datum;
-    }
-
-    public void setDatum(Date datum) {
-        dsb.setChoiceDatum();
-        this.datum = datum;
-    }
-
-    public Schule getRealSchule() {
-        dsb.setChoiceSchule();
-        return realSchule;
-    }
-
-    public void setRealSchule(Schule realSchule) {
-        dsb.setChoiceSchule();
-        this.realSchule = realSchule;
-    }
-    
     
 
     public List<Schule> getSchulList() {

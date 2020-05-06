@@ -235,5 +235,9 @@
            <value>#{databaseManagerService}</value>
         </managed-property>
     </managed-bean>
-  
+    <managed-bean>
+        <managed-bean-name>indexBean</managed-bean-name>
+        <managed-bean-class>presentation.indexBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

@@ -20,7 +20,7 @@ import service.DatabaseManagerService;
 public class bibliothekBean {
 
     //Variablen der weiteren Suche
-    private String Titel;
+    private String titel;
     private String autor;
     private String date;
     private String schlagwort;
@@ -60,56 +60,43 @@ public class bibliothekBean {
     private DiplomarbeitDAO dipDAO;
     private boolean isFromIndex;
     private boolean isFromBibliothek;
+    private String choice = "";
+    private String alterantivKey;
     
     
     //Zweite Suchleiste in der Biblitohek---------------------------------------
-   
-    private String choice;
-    private String choiceTitel;
-    private String choiceAutor;
-    private String choiceDatum;
-    private String choiceSchule;
-    private String choiceSw;
-
-    public String getChoiceTitel() {
-        return choiceTitel;
+    public String getChoice() {
+        return choice;
     }
 
-    public void setChoiceTitel(String choiceTitel) {
-        this.choiceTitel = choiceTitel;
+    public void setChoice(String choice) {
+        this.choice = choice;
+    }
+    
+    public void setChoiceTitel() {
+        this.choice = "Titel";
+    }
+    public void setChoiceAutor() {
+        this.choice = "Autor";
+    }
+    public void setChoiceDatum() {
+        this.choice = "Datum";
+    }
+    public void setChoiceSw() {
+        this.choice = "Schlagwort";
+    }
+    public void setChoiceSchule() {
+        this.choice = "Schule";
     }
 
-    public String getChoiceAutor() {
-        return choiceAutor;
+    public String getAlterantivKey() {
+        return alterantivKey;
     }
 
-    public void setChoiceAutor(String choiceAutor) {
-        this.choiceAutor = choiceAutor;
+    public void setAlterantivKey(String alterantivKey) {
+        this.alterantivKey = alterantivKey;
     }
-
-    public String getChoiceDatum() {
-        return choiceDatum;
-    }
-
-    public void setChoiceDatum(String choiceDatum) {
-        this.choiceDatum = choiceDatum;
-    }
-
-    public String getChoiceSchule() {
-        return choiceSchule;
-    }
-
-    public void setChoiceSchule(String choiceSchule) {
-        this.choiceSchule = choiceSchule;
-    }
-
-    public String getChoiceSw() {
-        return choiceSw;
-    }
-
-    public void setChoiceSw(String choiceSw) {
-        this.choiceSw = choiceSw;
-    }
+    
     
     
     
@@ -175,26 +162,23 @@ public class bibliothekBean {
         this.diplist = diplist;
     }
 
-//    //Anfang Get- und Setmethoden, Weitere Suche
-//    public String getTitel() {
-//        dsb.setChoiceTitel();
-//        return Titel;
-//    }
-//
-//    public void setTitel(String titel) {
-//        dsb.setChoiceTitel();
-//        this.Titel = titel;
-//    }
-//
-//    public String getAutor() {
-//        dsb.setChoiceAutor();
-//        return autor;
-//    }
-//
-//    public void setAutor(String autor) {
-//        dsb.setChoiceAutor();
-//        this.autor = autor;
-//    }
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public String getTitel() {
+        return titel;
+    }
+
+    public void setTitel(String titel) {
+        this.titel = titel;
+    }
+
+    
 
     public String getDate() {
         //dsb.setChoiceDatum();
@@ -370,16 +354,7 @@ public class bibliothekBean {
         dbService.getLoggedInBenutzer();
     }
 
-   
 
-    public String getChoice() {
-        return choice;
-    }
-
-    public void setChoice(String choice) {
-        this.choice = choice;
-    }
-    
     private boolean keyreset;
 
     public boolean isKeyreset() {
@@ -495,7 +470,7 @@ public class bibliothekBean {
 
                     System.out.println(anfang);
                     System.out.println(ende);
-//                    System.out.println(ende);
+
                     
                    this.diplist = allindexList.subList(anfang, ende);
 
@@ -622,67 +597,8 @@ public class bibliothekBean {
         this.trefferleiste = trefferleiste;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
     
     
 //------------------------------------------------------------------------------   
@@ -883,8 +799,7 @@ public class bibliothekBean {
 
     public List<Diplomarbeit> showBibDiplomarbeitLink(int seitenanzahl) {
 
-        int maxszahl = this.berechnenMaxSeitenanzahl(this.alldiplomarbeiten);
-        System.out.println("showlink--------------------" + seitenanzahl);
+        int maxszahl = this.berechnenMaxSeitenanzahl(this.alldiplomarbeiten);      
         int anfang = 0, ende = 0;
 
         if (dbService.ListeAllDiplomarbeiten() != null) {
@@ -992,23 +907,8 @@ public class bibliothekBean {
         return this.diplist;
     }
 
-//    public Object suche() {
-//
-//        if (this.Titel != null) {
-//            this.diplist = da.SucheTitel(this.Titel);
-//        } else if (this.autor != null) {
-//            this.diplist = da.SucheAutor(this.autor);
-//        } else if (this.date != null) {
-//            this.diplist = da.SucheDatum(this.date);
-//        } else if (this.schule != null) {
-//            this.diplist = da.SucheSchule(this.schule);
-//        }
-//
-//        return null;
-//
-//    }
     
-    
+
    
     
 
@@ -1097,10 +997,13 @@ public class bibliothekBean {
         return s.getName();
     }
     
+
+   
+    
     
 
-    
-    //Verbinden von dipSuchenBean und bibliothekenBean
+    //--------------------------------------------------------------------------
+    //Alternative Suche
 
     String key = "";
 
@@ -1133,6 +1036,14 @@ public class bibliothekBean {
         }
 
     }
+    
+    
+    public Object suche() {
+        dbService.alternativSuche(this.alterantivKey, this.choice);
+        return null;
+
+    }
+
 }
 
     

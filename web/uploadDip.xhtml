@@ -48,18 +48,18 @@ and open the template in the editor.
 
 
 
-                <b:form id="formtable1" enctype="multipart/form-data">
-
-                    <div id="main" class="mainindex">
-
-                        <div id="mainTabl" class="mainTable"> 
 
 
+                <div id="main" class="mainindex">
 
-                            <div id="firstTable" class="firstTable">
+                    <div id="mainTabl" class="mainTable"> 
 
 
 
+                        <div id="firstTable" class="firstTable">
+
+
+                            <b:form id="formtable1" enctype="multipart/form-data">    
 
                                 <br/><br/>     
                                 <b:inputText label="Titel" value="#{uploadBean.titel}" placeholder="Titel eingeben" />
@@ -91,23 +91,23 @@ and open the template in the editor.
 
                                 <b:alert value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
 
-                            </div>
+                        </div>
+
+                        </b:form>     
 
 
-
-
-                            <div class="secondTable" enctype="multipart/form-data">
-
+                        <div class="secondTable" enctype="multipart/form-data">
+                            <b:form id="formtable2" enctype="multipart/form-data"> 
 
                                 <b:inputText placeholder="Schlagwort eingeben" label="Schlagwort" value="#{uploadBean.schlagwort}" typeahead="true" typeahead-limit="20"   typeahead-values="#{uploadBean.allSchlagwTypeahead}" />
                                 <br/><br/>
-                                
+
                                 <b:commandButton value="Add Tag" action="#{uploadBean.addSchlagwort()}" /> 
 
                                 <br/><br/>
 
                                 <p:dataTable id="datatableSecondTable" style="width: 100%" scrollWidth="auto" class="table2" value="#{uploadBean.schlagList}" var="schlagwort" >
-                                    
+
                                     <p:column id="firstcolumn" headerText="Schlagwort">
                                         <h:outputText value="#{schlagwort.word}"  />  
                                     </p:column>
@@ -119,12 +119,16 @@ and open the template in the editor.
                                 </p:dataTable>
 
                                 <b:alert value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
-                            </div>
+
+                            </b:form> 
+                        </div>
 
 
-                            <div class="thirdTable" enctype="multipart/form-data">
-                                
-                                 
+
+
+                        <div class="thirdTable" enctype="multipart/form-data">
+
+                            <b:form id="formtable3" enctype="multipart/form-data">       
 
 
                                 <b:dateTimePicker placeholder="Datum auswählen" format="DD.MM.YYYY" value="#{uploadBean.datum}" label="Datum" />
@@ -142,8 +146,8 @@ and open the template in the editor.
                                 <h:outputText value="#{uploadBean.pdfdabei_fail}"></h:outputText>
                                 <br/>
                                 <br/>
-                                
-                                
+
+
                                 <h:outputLabel>Einleitung der Diplomarbeit</h:outputLabel>
                                 <br/><br/>
                                 <h:form>            
@@ -154,22 +158,23 @@ and open the template in the editor.
                                 <br/><br/>
                                 <b:commandButton value="Diplomarbeit hochladen" action="#{uploadBean.upload_diplomarbeit()}" />
                                 <br/><br/>
+                            </b:form> 
 
 
-                            </div>
-
-
-
-                        </div> 
+                        </div>
 
 
 
+                    </div> 
 
 
-                    </div>
 
 
-                </b:form> 
+
+                </div>
+
+
+
 
                 <div class="footer"><ui:include src="/resources/include/footer.xhtml" /></div>
             </div>

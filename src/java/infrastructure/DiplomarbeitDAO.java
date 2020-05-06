@@ -132,6 +132,8 @@ public class DiplomarbeitDAO {
             Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //
     }
+    
+    
 
     public void updateDatum(int daId, Date datum) {
         try (
@@ -146,6 +148,9 @@ public class DiplomarbeitDAO {
             Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }  //
     }
+    
+    
+    
 
     public Diplomarbeit getDiplomarbeit(int id) {
 
@@ -165,6 +170,9 @@ public class DiplomarbeitDAO {
         return retVal;
 
     }
+    
+    
+    
 
     public List<Diplomarbeit> getRedList(int b_id) {
         ArrayList<Diplomarbeit> dipList = new ArrayList<>();
@@ -183,6 +191,8 @@ public class DiplomarbeitDAO {
 
         return dipList;
     }
+    
+    
 
     //---------------------------Löschen der Diplomarbeit - nach id---------------------------------------
     public int delete(int id) {
@@ -204,6 +214,8 @@ public class DiplomarbeitDAO {
         return result;
 
     }
+    
+    
 
     //-------------------------Allg Suchleistenfunktion-----------------------------
     public List Suchleiste(String k) { //allgemeine suche
@@ -254,6 +266,8 @@ public class DiplomarbeitDAO {
         }
         return dipList;
     }
+    
+    
 
     //-------------------------Suchleistenfunktionen-----------------------------
     public List SucheTitel(String k) {
@@ -267,6 +281,9 @@ public class DiplomarbeitDAO {
         }
         return dipList2;
     }
+    
+    
+    
 
     public List SucheAutor(String k) {
         List<Diplomarbeit> dipList = new ArrayList<>();
@@ -277,8 +294,12 @@ public class DiplomarbeitDAO {
                 dipList2.add(da);
             }
         }
+       
         return dipList2;
     }
+    
+    
+    
 
     public List SucheSw(String k) {
         List<Diplomarbeit> dipList = new ArrayList<>();
@@ -301,6 +322,8 @@ public class DiplomarbeitDAO {
         }
         return dipList2;
     }
+    
+    
 
     public List SucheSchule(String k) {
         List<Diplomarbeit> dipList = new ArrayList<>();
@@ -320,6 +343,8 @@ public class DiplomarbeitDAO {
         }
         return dipList2;
     }
+    
+    
 
     public List SucheDatum(String k) {
         List<Diplomarbeit> dipList = new ArrayList<>();
@@ -333,7 +358,10 @@ public class DiplomarbeitDAO {
         return dipList2;
     }
     
-    public List SucheAlternativ(String k, String c) {
+    
+    
+    public List<Diplomarbeit> SucheAlternativ(String k, String c) {
+        
         List<Diplomarbeit> dipList = new ArrayList<>();
         List<Diplomarbeit> dipList2 = new ArrayList<>();
         dipList = this.Suchleiste(k);
@@ -348,6 +376,7 @@ public class DiplomarbeitDAO {
         }
         return dipList2;
     }
+    
 
     public boolean read(String titel) {
 
@@ -373,6 +402,7 @@ public class DiplomarbeitDAO {
         return ist_gleich;
 
     }
+    
 
     //---------------------------------Test ------------------------------------------
     public int click_count(int click_count, Diplomarbeit dip) {
@@ -394,6 +424,9 @@ public class DiplomarbeitDAO {
         return result;
 
     }
+    
+    
+    
 
     public int download_count(int download_count, Diplomarbeit dip) {
 
@@ -413,6 +446,9 @@ public class DiplomarbeitDAO {
 
         return result;
     }
+    
+    
+    
 
     public int readClickCount(Diplomarbeit dip) {
 
@@ -433,6 +469,10 @@ public class DiplomarbeitDAO {
 
         return dipList.get(0).getClick_count();
     }
+    
+    
+    
+    
 
     public int readDownloadCount(Diplomarbeit dip) {
 

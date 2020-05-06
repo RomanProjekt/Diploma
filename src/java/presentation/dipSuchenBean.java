@@ -21,7 +21,6 @@ public class dipSuchenBean {
     //Alter Code
 
     String key = "";
-    String choice = "";
     DiplomarbeitDAO obj;
     List<Diplomarbeit> daList;
     Diplomarbeit selectedDa;
@@ -78,20 +77,7 @@ public class dipSuchenBean {
         return null;
     }
 
-    public String displaySelectedDa() { //String navigation, or display with button? auf out of bound prüfen und basisliste bei leer?
-        return "switchda";              //listener für click action
-        //new, weiter an bibliothek
-    }
-
-    //public void displaySelectedDa(ActionEvent e) {
-    //    
-    //}
-    /*public void resetKey() {
-        if(sBool == true) {
-            key="";
-        }
-        sBool=false;
-    }*/
+    
     public String getKey() {
         return key;
     }
@@ -157,54 +143,7 @@ public class dipSuchenBean {
         this.obj = obj;
     }
 
-    public String getChoice() {
-        return choice;
-    }
-
-    public void setChoice(String choice) {
-        this.choice = choice;
-    }
     
-    public void setChoiceTitel() {
-        this.choice = "Titel";
-    }
-    public void setChoiceAutor() {
-        this.choice = "Autor";
-    }
-    public void setChoiceDatum() {
-        this.choice = "Datum";
-    }
-    public void setChoiceSw() {
-        this.choice = "Schlagwort";
-    }
-    public void setChoiceSchule() {
-        this.choice = "Schule";
-    }
-    
-    //Test----------------------------------------------------------------------
-            
-    public String searchList() {
-        
-        if (!this.daList.isEmpty() || !this.key.isEmpty()) {
-            return "dipbibliothek.xhtml";
-        } else  {
-            return "index.xhtml";
-        }
-        
-    }
-    
-    
-    
-    public String sentToBibliothek(String key) {
-        
-        if(key.equals("")) {
-            return "index.xhtml";
-        }
-        else {
-            return "bibliothek.xhtml";
-        }
-        
-    }
     
 
 }

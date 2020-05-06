@@ -125,8 +125,8 @@ public class DatabaseManagerService {
     private void init() {    
             //Fehler Nullpoint Exception
             //loggedInBenutzer = new Benutzer();
-            SchuleList = new ArrayList<>();
-            SchuleList = this.getListevonSchulen();
+//            SchuleList = new ArrayList<>();
+//            SchuleList = this.getListevonSchulen();
     }
     
     private boolean passwortOK;
@@ -967,7 +967,9 @@ public class DatabaseManagerService {
     
    
    
-  
+    public List alternativSuche(String altkey, String choice) {
+        return diplomarbeitDAO.SucheAlternativ(altkey, choice);
+    }
     
     
 }
