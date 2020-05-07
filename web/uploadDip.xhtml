@@ -68,8 +68,8 @@ and open the template in the editor.
                                 <br/>
 
                                 <b:inputText value="#{uploadBean.autor}" label="Autor" placeholder="Autoren eingeben" />
-                                <b:commandButton value="Add Autor" action="#{uploadBean.addAutor()}">   
-                                </b:commandButton>
+                                <b:commandButton value="Add Autor" action="#{uploadBean.addAutor()}"/>   
+
 
 
                                 <br/><br/>
@@ -87,13 +87,12 @@ and open the template in the editor.
 
 
                                 </p:dataTable>
-
-
+                              
                                 <b:alert value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
-
+                           </b:form>     
                         </div>
 
-                        </b:form>     
+                             
 
 
                         <div class="secondTable" enctype="multipart/form-data">
