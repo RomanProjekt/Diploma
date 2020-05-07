@@ -7,6 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Email_Security</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
         
@@ -56,7 +57,7 @@
                                 <br/>
                                 <b:inputText style="width: 200px" placeholder="Sicherheitscode eingeben" value="#{emailsecuritycodeBean.eingaberesetcode}" required="true" requiredMessage=""/>
 
-<!--                             <h:outputText value="#{emailpasswortBean.resetCodeBefore}" ></h:outputText>
+<!--                            <h:outputText value="#{emailpasswortBean.resetCodeBefore}" ></h:outputText>
                                 <h:outputText value="#{emailpasswortBean.sanswere}" ></h:outputText>
                                 <h:outputText value="#{emailpasswortBean.fullTimeBefore}" ></h:outputText>
                                 <h:outputText value="#{emailpasswortBean.var_username}" ></h:outputText>
