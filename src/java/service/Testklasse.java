@@ -12,8 +12,11 @@ package service;
 //import org.apache.pdfbox.rendering.PDFRenderer;  
 import java.io.File;
 import java.io.IOException;
+import javax.faces.context.FacesContext;
 //import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import pojo.Diplomarbeit;
 
 public class Testklasse {
     
@@ -103,11 +106,60 @@ public class Testklasse {
 //
 //    
 //    
-//    
+// 
+    
+    public void getNumberOfPages() throws IOException {
+        
+        String pfad = "F:\\DA_AK\\web\\resources\\pdf\\Agrario.pdf";
+        File pdf1 = new File("C:\\Users\\hp\\Desktop\\Test.pdf");
+        String pdfpfad = "resources/pdf/Test.pdf";
+        
+        FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
+        ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
+        String abs  = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + pdfpfad;
+        System.out.println(abs);
+        
+        
+        
+        File pdf = new File(abs);
+
+        if (pdf.exists()) {
+
+            //Instantiating the PDFRenderer class
+            try (PDDocument document = PDDocument.load(pdf)) {
+                System.out.println(document);
+                
+                int numberofpages = document.getNumberOfPages();
+                System.out.println("Seitenanzahl " + numberofpages);
+                
+            }
+
+        } else {
+            System.out.println("PDf ist nicht vorhanden!");
+        }
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     public static void main(String[] args) throws IOException {
         
-       
+       Testklasse tk = new Testklasse();
+       tk.getNumberOfPages();
 
     }
     

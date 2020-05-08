@@ -163,15 +163,22 @@ public class uploadBean implements Serializable {
     }
 
     public Object addSchlagwort() {
+        
         if (!"".equals(schlagwort) && schlagwort != null) {
 
             if (allSchlagwMap.containsKey(schlagwort)) {
                 Schlagwort schlag = new Schlagwort(allSchlagwMap.get(schlagwort), schlagwort);
-                schlagList.add(schlag);
+//                schlagList.add(schlag);
+                  dbService.SchlagwortListe().add(schlag);
+                  this.schlagList = dbService.SchlagwortListe();
+                  System.out.println(this.schlagList.size());
 
             } else {
                 Schlagwort schlag = new Schlagwort(0, schlagwort);
-                schlagList.add(schlag);
+//                schlagList.add(schlag);
+                  dbService.getSchlagwortList().add(schlag);
+                  this.schlagList = dbService.SchlagwortListe();
+                  System.out.println(this.schlagList.size());
             }
         }
         schlagwort = "";
@@ -412,8 +419,9 @@ public class uploadBean implements Serializable {
     //--------------------------------------------------------------------------
 
 
-    public String upload_diplomarbeit() throws FileNotFoundException, IOException {
+    public String upload() throws FileNotFoundException, IOException {
 
+        System.out.println("upload Funktion wird aufgerufen!!!");
         String vartitel = getTitel();
 
         java.sql.Date realDate = new java.sql.Date(datum.getTime());
@@ -422,7 +430,10 @@ public class uploadBean implements Serializable {
  
             String user_id = String.valueOf(dbService.getLoggedInBenutzer().getUser_id());
             System.out.println(user_id);
+            
+            
             boolean diplomarbeit_dateiformat = this.überprüfen_PDF_StandardFormat(diplomarbeit.getSubmittedFileName());
+            System.out.println(diplomarbeit_dateiformat);
             
             if (diplomarbeit_dateiformat) {
 
@@ -432,7 +443,8 @@ public class uploadBean implements Serializable {
 
                 if (!(autList.size() <= 0)) {
                     
-                    dbService.hochladen(vartitel, autList, textnamepfad, realSchule, schlagList, pdfpfad, imagepfad, realDate);
+                    dbService.hochladen(vartitel, autList, textnamepfad, realSchule, this.schlagList, pdfpfad, imagepfad, realDate);
+                    
                     return "index.xhtml";
                     
                 } else {
@@ -451,7 +463,7 @@ public class uploadBean implements Serializable {
         } else {
 //            this.pdfdabei_fail = "Keine PDF-Datei gefunden!";
         }
-        return "uploadDip.xhtml";
+        return "index.xhtml";
 
     }
     

@@ -59,11 +59,7 @@ and open the template in the editor.
                                 <p:media value="#{dipansehenBean.aktDip.pdf}" class="pdffile"  ></p:media>  
                             </f:facet>
                         </p:lightBox>
-                       
-
-                    </div> 
-                    
-                     <div id="buttonleiste" class="buttonleiste">
+                        <div id="buttonleiste" class="buttonleiste">
                             <b:form id="buttonform">
                                 <br></br>
                                 <h4 style="width: 300px;">Downloaden der Diplomarbeit</h4>
@@ -76,6 +72,10 @@ and open the template in the editor.
                                 <b:commandButton id="löschenbutton" class="löschenbutton" value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}" rendered="#{databaseManagerService.redakteurOrHigher}" />
                             </b:form>
                     </div>
+
+                    </div> 
+                    
+                     
 
 
                     <div class="gestextlist">  
@@ -92,13 +92,17 @@ and open the template in the editor.
                             <br></br>
                             <h:outputText value="#{dipansehenBean.autorListe}"/>
                             <br></br><br></br>
-                            <h:outputLabel value="Seitenanzahl:"/> #{dipansehenBean.numberofpages}
+                            <h:outputLabel value="Seitenanzahl:"/> #{dipansehenBean.getNumberOfPages(dipansehenBean.aktDip)}
                             <br></br><br></br>
                             <h:outputLabel value="Schule:" /> #{dipansehenBean.schule}
                             <br></br><br></br>
                             <h:outputLabel value="Eröffnungdatum:"/> #{dipansehenBean.aktDip.datum}
                             <br></br><br></br>
                             <h:outputLabel  value="Sprache: TestSprache"/>
+                            <br></br><br></br>
+                            <h:outputLabel  value="Klickzahlen: #{dipansehenBean.aktDip.click_count}"/>
+                            <br></br><br></br>
+                            <h:outputLabel  value="Downloadzahlen: #{dipansehenBean.aktDip.download_count}"/>
 
                             <br/><br/>
                             <h:outputLabel>Einleitung</h:outputLabel>

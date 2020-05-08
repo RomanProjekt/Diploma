@@ -156,7 +156,7 @@
     </managed-bean>
     
   <navigation-rule> 
-   <from-view-id>email_passwort.xhtml</from-view-id> 
+   <from-view-id>/email_passwort.xhtml</from-view-id> 
    <navigation-case> 
       <from-action>#{emailpasswortBean.displaySelectedDa}</from-action> 
       <from-outcome>email_securitycode?faces-redirect=true&amp;includeViewParams=true</from-outcome> 
@@ -165,7 +165,7 @@
 </navigation-rule>
 
 <navigation-rule> 
-   <from-view-id>email_securitycode.xhtml</from-view-id> 
+   <from-view-id>/email_securitycode.xhtml</from-view-id> 
    <navigation-case> 
       <from-action>#{email_securitycode.displaySelectedDa}</from-action> 
       <from-outcome>passwort_reset?faces-redirect=true&amp;includeViewParams=true</from-outcome> 
@@ -175,7 +175,7 @@
 
 
 <navigation-rule> 
-   <from-view-id>email_securitycode.xhtml</from-view-id> 
+   <from-view-id>/email_securitycode.xhtml</from-view-id> 
    <navigation-case> 
       <from-action>#{email_securitycode.back}</from-action> 
       <from-outcome>switchda</from-outcome> 
@@ -235,6 +235,7 @@
            <value>#{databaseManagerService}</value>
         </managed-property>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>indexBean</managed-bean-name>
         <managed-bean-class>presentation.indexBean</managed-bean-class>

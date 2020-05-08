@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <div id="wrapper" class="wrapper">
+
+
+            <div id="contentindex" class="contentindex">
+
+
+                <div id="headindex" class="headerindex">
+                    <div class="secondheader"> <ui:include src="/resources/include/navbar.xhtml"/></div>
+                    <div class="red"></div>
+                </div>
+
+
+                <div id="main" class="mainindex">
+
+
+                    <h3>Diplomarbeiten hochladen</h3>
+
+                    <div id="diphochladentab" class="diphochladentab">
+                        <h3></h3>
+                        <b:form id="diplomarbeithochladen" enctype="multipart/form-data">
+
+                            <h:panelGrid columns="1" cellpadding="5">
+
+
+                                <b:inputText label="Titel" value="#{uploadBean.titel}" labelStyle="width:80px;"/>
+                                <br></br>
+                                <h:outputText value="#{uploadBean.titel_fail}"></h:outputText>
+
+                                <h:dataTable value="#{uploadBean.autList}" var="autor" border="2" cellpadding="1" cellspacing="1" >
+                                    <h:column>
+                                        <f:facet name="header">Autor</f:facet>
+                                        <h:outputText value="#{autor.fullName}" rendered="#{!uploadBean.editAutor}" />
+                                        <h:inputText value="#{autor.fullName}" rendered="#{uploadBean.editAutor}" /> 
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Löschen</f:facet>
+                                        <b:commandButton value="X" action="#{uploadBean.removeAutor(autor)}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header" >Edit</f:facet>
+                                        <b:commandButton value="Edit" action="#{uploadBean.editAutor(autor)}"  rendered="#{!uploadBean.editAutor}" />
+                                        <b:commandButton value="Save" action="#{uploadBean.editAutor(autor)}" rendered="#{uploadBean.editAutor}" />
+                                    </h:column>
+                                </h:dataTable>
+                                <b:inputText value="#{uploadBean.autor}" />
+
+                                <b:commandButton  value="Add Autor" action="#{uploadBean.addAutor()}"  />
+                                <br></br>
+
+
+                                <b:dateTimePicker format="DD.MM.YYYY" value="#{uploadBean.datum}" label="Datum" />
+
+                                <br></br>
+                                <b:selectOneMenu label="Schule" value="#{uploadBean.realSchule}" >
+                                    <f:selectItems value="#{uploadBean.schulList}" var="schule" itemValue="#{schule}" itemLabel="#{schule.name}" />
+                                </b:selectOneMenu>
+
+                                <br></br>
+                                <h:dataTable value="#{uploadBean.schlagList}" var="schlagwort" border="2" cellpadding="1" cellspacing="1" >
+                                    <h:column>
+                                        <f:facet name="header">Schlagwort</f:facet>
+                                            #{schlagwort.word}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Löschen</f:facet>
+                                        <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" />
+                                    </h:column>
+                                </h:dataTable>
+                                <b:inputText value="#{uploadBean.schlagwort}" typeahead="true" typeahead-limit="20"   typeahead-values="#{uploadBean.allSchlagwTypeahead}" />
+
+                                <br></br>
+                                <b:commandButton value="Add Tag" action="#{uploadBean.addSchlagwort()}" /> 
+
+
+                                <br></br>
+                                <h5>Diplomarbeit</h5>
+                                <h:inputFile id="diplomarbeit-id" value="#{uploadBean.diplomarbeit}"></h:inputFile>
+                                <h:outputText value="#{uploadBean.pdfdabei_fail}" style="color: red"></h:outputText>
+                                <br></br>
+
+                                <h5>Bild</h5>
+                                <h:inputFile id="image-id" value="#{uploadBean.image}"></h:inputFile>
+                                <h:outputText value="#{uploadBean.bilddatei_fail}" style="color: red"></h:outputText>
+                                <br></br>
+                                <b:commandButton value="Diplomarbeit hochladen" action="#{uploadBean.upload()}" />
+                                <br></br>
+                                <b:commandButton value="Back" action="index.xhtml" />
+                                <br></br>
+                                
+                                <h:outputLabel>Einleitung der Diplomarbeit</h:outputLabel>
+                                <br/><br/>
+                                <h:form>            
+                                    <p:inputTextarea class="inputtextarea" rows="10" cols="50" value="#{uploadBean.text}" queryDelay="750" minQueryLength="4">
+                                        <p:ajax event="itemSelect" listener="#{inputTextareaView.onSelect}" />
+                                    </p:inputTextarea>
+                                </h:form>
+                                
+                            </h:panelGrid>
+                        </b:form>
+                    </div>
+
+                </div>
+
+                <div class="footerindex"><ui:include src="/resources/include/footer.xhtml" /></div>
+
+            </div>
+        </div>
+    </h:body>
+</html>
+

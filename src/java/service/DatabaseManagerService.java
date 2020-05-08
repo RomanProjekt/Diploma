@@ -74,12 +74,14 @@ public class DatabaseManagerService {
     private DiplomarbeitDAO diplomarbeitDAO;
     private List<Diplomarbeit> dplist; 
     private Autor autoren;
+    private List<Schlagwort> schlagwortList;
     
     //Passwort verschlüsseln
     private SecretKeySpec secretKey;
     private byte[] key;
     private String secondEnc;
     private Session mailSession;
+    
 
     
     
@@ -97,6 +99,14 @@ public class DatabaseManagerService {
 
     public void setAutoren(Autor autoren) {
         this.autoren = autoren;
+    }
+
+    public List<Schlagwort> getSchlagwortList() {
+        return schlagwortList;
+    }
+
+    public void setSchlagwortList(List<Schlagwort> schlagwortList) {
+        this.schlagwortList = schlagwortList;
     }
     
     
@@ -118,6 +128,7 @@ public class DatabaseManagerService {
         favDAO = new FavoritenDAO();
         sicherheitsCodeDAO = new SicherheitsCodeDAO();
         SchuleList = new ArrayList<>();
+        schlagwortList = new ArrayList<>();
 
     }
     
@@ -170,7 +181,9 @@ public class DatabaseManagerService {
     }
     
     
-    
+    public List<Schlagwort> SchlagwortListe() {
+        return this.schlagwortList;
+    }
     
     //--------------------------------------------------------------------------
     
@@ -306,9 +319,8 @@ public class DatabaseManagerService {
         return diplomarbeitDAO.read();
     }
     
-    public Diplomarbeit getDiplomarbeit(int id) {
-        Diplomarbeit dip = diplomarbeitDAO.getDiplomarbeit(id);
-        return dip;
+    public Diplomarbeit getDiplomarbeit(int id) { 
+        return diplomarbeitDAO.getDiplomarbeit(id);
     }
 
     //Autor
@@ -470,17 +482,49 @@ public class DatabaseManagerService {
     public void setrCode(int rCode) {
         this.rCode = rCode;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
    
     
-    //-----------------------Diplomarbeit hochladen:---------------------------
+    //-----------------------Diplomarbeit hochladen:-----------------------------
     public void hochladen(String title, List<Autor> autorList, String fullname, Schule schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
+        
         int var_user_id = this.getLoggedInBenutzer().getUser_id();
         System.out.println(var_user_id);
         int var_da_id = diplomarbeitDAO.insert(title, var_user_id, fullname, schule.getSchule_id(), pdfpath, imagepath, datum);
         autorDAO.insertAutorList(autorList, var_da_id);
+        
         schlagwort_verknuepfungDAO.readInsertList(schlagwoerter, var_da_id);
+        
     
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 

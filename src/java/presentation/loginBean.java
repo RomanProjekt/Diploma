@@ -12,16 +12,11 @@ import javax.faces.context.FacesContext;
 import service.DatabaseManagerService;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import java.io.Serializable;
 
 
 
-
-
-/**
- *
- * @author dople
- */
-public class loginBean {
+public class loginBean implements Serializable {
 
     private Benutzer b;
     private DatabaseManagerService dbService;

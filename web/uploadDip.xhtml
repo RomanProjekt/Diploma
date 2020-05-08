@@ -14,6 +14,7 @@ and open the template in the editor.
     <h:head>
 
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "upload.css" />
         <h:outputStylesheet library= "css" name= "Footer.css" />
@@ -95,7 +96,8 @@ and open the template in the editor.
                              
 
 
-                        <div class="secondTable" enctype="multipart/form-data">
+                        <div id="secondTable" class="secondTable" enctype="multipart/form-data">
+                            
                             <b:form id="formtable2" enctype="multipart/form-data"> 
 
                                 <b:inputText placeholder="Schlagwort eingeben" label="Schlagwort" value="#{uploadBean.schlagwort}" typeahead="true" typeahead-limit="20"   typeahead-values="#{uploadBean.allSchlagwTypeahead}" />
@@ -117,7 +119,7 @@ and open the template in the editor.
 
                                 </p:dataTable>
 
-                                <b:alert value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
+                                <b:alert id="alert" value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
 
                             </b:form> 
                         </div>
@@ -155,7 +157,7 @@ and open the template in the editor.
                                     </p:inputTextarea>
                                 </h:form>
                                 <br/><br/>
-                                <b:commandButton value="Diplomarbeit hochladen" action="#{uploadBean.upload_diplomarbeit()}" />
+                                <b:commandButton id="commbutton" value="Diplomarbeit hochladen" actionListener="#{uploadBean.upload(event)}" />
                                 <br/><br/>
                             </b:form> 
 

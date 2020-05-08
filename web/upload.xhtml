@@ -3,35 +3,109 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Diplomarbeitsdatenbank Arbeiterkammer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet library= "css" name= "Navbar.css" />
         <h:outputStylesheet library= "css" name= "upload.css" />
         <h:outputStylesheet library= "css" name= "Footer.css" />
-        
+
         <h:outputStylesheet library= "css" name= "responsiveFooter.css" />
         <h:outputStylesheet library= "css" name= "responsiveNavbar.css" />
         <h:outputStylesheet library= "css" name= "responsiveUpload.css" />
+
+<!--        <f:metadata>
+            <f:viewAction action="#{databaseManagerService.isUserRedirect()}" />
+        </f:metadata>-->
     </h:head>
     <h:body>
-        
+
         <div id="wrapper" class="wrapper">
-            
+
             <div id="headindex" class="headerindex">
 
-                    <div class="firstheader"><ui:include src="/resources/include/navbar.xhtml"/></div>
-                    <div class="red"></div>
+                <div class="firstheader"><ui:include src="/resources/include/navbar.xhtml"/></div>
+                <div class="red"></div>
 
             </div>
-            
-            <b:form id="formtable1" enctype="multipart/form-data">
-                
-                
-            </b:form>
-            
+
+            <div id="main" class="mainindex">
+                <div id="mainTabl" class="mainTable">
+                    <div id="firstTable" class="firstTable">
+
+                        <b:form id="formtable1" enctype="multipart/form-data">    
+
+                            <br/><br/>     
+                            <b:inputText label="Titel" value="#{uploadBean.titel}" placeholder="Titel eingeben" />
+
+                            <h:outputText value="#{uploadBean.titel_fail}"></h:outputText>
+                            <br/>
+
+                            <b:inputText value="#{uploadBean.autor}" label="Autor" placeholder="Autoren eingeben" />
+                            <b:commandButton value="Add Autor" action="#{uploadBean.addAutor()}"/>   
+
+
+
+                            <br/><br/>
+
+                            <p:dataTable  id="datatableAutor" class="noborder" value="#{uploadBean.autList}" var="autor" >
+
+                                <p:column headerText="Autor">
+                                    <h:outputText value="#{autor.fullName}" rendered="#{!uploadBean.editAutor}" />
+                                    <h:inputText value="#{autor.fullName}" rendered="#{uploadBean.editAutor}" /> 
+                                </p:column>
+
+                                <p:column headerText="Löschen">
+                                    <b:commandButton value="X" action="#{uploadBean.removeAutor(autor)}" />
+                                </p:column>
+
+
+                            </p:dataTable>
+
+                            <b:alert value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
+                        </b:form>     
+                    </div>
+                    
+                    <div id="secondTable" class="secondTable" enctype="multipart/form-data">
+                            
+                            <b:form id="formtable2" enctype="multipart/form-data"> 
+
+                                <b:inputText placeholder="Schlagwort eingeben" label="Schlagwort" value="#{uploadBean.schlagwort}" typeahead="true" typeahead-limit="20"   typeahead-values="#{uploadBean.allSchlagwTypeahead}" />
+                                <br/><br/>
+
+                                <b:commandButton value="Add Tag" action="#{uploadBean.addSchlagwort()}" /> 
+
+                                <br/><br/>
+
+                                <p:dataTable id="datatableSecondTable" style="width: 100%" scrollWidth="auto" class="table2" value="#{uploadBean.schlagList}" var="schlagwort" >
+
+                                    <p:column id="firstcolumn" headerText="Schlagwort">
+                                        <h:outputText value="#{schlagwort.word}"  />  
+                                    </p:column>
+
+                                    <p:column id="secondcolumn" headerText="Löschen">
+                                        <b:form><b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" /></b:form>
+                                    </p:column>
+
+                                </p:dataTable>
+
+                                <b:alert id="alert" value="" rendered="#{uploadBean.autoralert}" severity="info"><strong>Sie müssen mindestens einen Autor angeben</strong> </b:alert>
+
+                            </b:form> 
+                        </div>
+
+
+
+
+                </div>
+
+            </div>
+
         </div>
-        
+
     </h:body>
 </html>
 

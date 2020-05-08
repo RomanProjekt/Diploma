@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -31,7 +32,7 @@ import service.DatabaseManagerService;
  *
  * @author hp
  */
-public class dipansehenBean {
+public class dipansehenBean implements Serializable {
 
     private Diplomarbeit aktDip;
 
@@ -675,11 +676,12 @@ public class dipansehenBean {
     
     
     
-    public void getNumberOfPages(Diplomarbeit dip) throws IOException {
+    public int getNumberOfPages(Diplomarbeit dip) throws IOException {
         
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
-        this.server_text_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + dip.getTextname();
+        this.server_text_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + dip.getPdf();
+        System.out.println("PDf pfad ---------------" + this.server_text_pfad);
 
         File pdf = new File(this.server_text_pfad);
 
@@ -697,6 +699,8 @@ public class dipansehenBean {
         } else {
             System.out.println("PDf ist nicht vorhanden!");
         }
+        
+        return this.numberofpages;
 
     }
     

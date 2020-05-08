@@ -40,9 +40,10 @@ public class DiplomarbeitDAO {
                 retVal = new Diplomarbeit(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
                 listdip.add(retVal);
             }
-
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(DiplomarbeitDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
         }  //rs.close(); stmt.close(); con.close(); because of try-with-resources Statement
 
         return listdip;

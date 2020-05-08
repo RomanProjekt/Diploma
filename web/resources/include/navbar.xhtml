@@ -25,7 +25,7 @@
 
                     <ul id="navbarHeader" class="navbarHeader">
 
-                        <li><h:link class="navLink" value="Hochladen" outcome="uploadDip.xhtml" rendered="#{!databaseManagerService.isUser()}" /></li>
+                        <li><h:link class="navLink" value="Hochladen" outcome="uploadTest.xhtml" rendered="#{!databaseManagerService.isUser()}" /></li>
                         <li><h:link class="navLink" value="Mein Konto"  outcome="meinKonto.xhtml" rendered="#{databaseManagerService.loggedIn()}" /></li>
                         <li><h:link class="navLink" value="Benutzerverwaltung" outcome="Benutzerverwaltung.xhtml" rendered="#{databaseManagerService.isAdmin()}" /></li>
                         <li><h:commandLink id="ToBibliothek" class="navLink" value="Bibliothek" action="bibliothek.xhtml" actionListener="#{bibliothekBean.FromBibliothek}" ></h:commandLink></li>

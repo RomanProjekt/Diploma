@@ -166,7 +166,7 @@ public class updateDiplomarbeit {
 
     public Object removeTag(Schlagwort schlagw) {
         
-        System.out.println(schlagw);
+        
 
         if (insSchlagMap.containsKey(schlagw.getTag_id())) {
             
@@ -178,7 +178,8 @@ public class updateDiplomarbeit {
             
         }
         
-        this.schlagwortList.remove(schlagw);
+//        this.schlagwortList.remove(schlagw);
+        dbService.getSchlagwortList().remove(schlagw);
         
         return null;
     }

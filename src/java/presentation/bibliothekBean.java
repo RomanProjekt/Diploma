@@ -6,6 +6,7 @@
 package presentation;
 
 import infrastructure.DiplomarbeitDAO;
+import java.io.Serializable;
 import java.sql.Blob;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import pojo.Schlagwort;
 import pojo.Schule;
 import service.DatabaseManagerService;
 
-public class bibliothekBean {
+public class bibliothekBean implements Serializable {
 
     //Variablen der weiteren Suche
     private String titel;
@@ -243,8 +244,7 @@ public class bibliothekBean {
         this.da_id = da_id;
     }
 
-    public String getTitle() {
-        
+    public String getTitle() { 
         return title;
     }
 
@@ -564,14 +564,12 @@ public class bibliothekBean {
         int maxszahl = 0;
 
         if (size % 10 == 0) {
-            System.out.println("Lasst sich Teilen!");
             maxszahl = (int) (size / 10);
             System.out.println(size + " mit " + maxszahl + " Seiten");
 
         } else {
 
-            if (size % 10 > 0) {
-                System.out.println("groeer 0 Rest");
+            if (size % 10 > 0) {   
                 maxszahl = (int) ((size / 10) + 1);
                 System.out.println(size + " mit " + maxszahl + " Seiten");
             }
