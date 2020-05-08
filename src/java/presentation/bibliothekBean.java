@@ -18,7 +18,7 @@ import pojo.Schlagwort;
 import pojo.Schule;
 import service.DatabaseManagerService;
 
-public class bibliothekBean implements Serializable {
+public class bibliothekBean  {
 
     //Variablen der weiteren Suche
     private String titel;
@@ -382,7 +382,7 @@ public class bibliothekBean implements Serializable {
         this.isFromBibliothek = true;
         this.isFromIndex = false;
         this.seitenanzahl = 0;
-        System.out.println("------------------------" + this.alldiplomarbeiten.size());
+//        System.out.println("------------------------" + this.alldiplomarbeiten.size());
         this.showBibDiplomarbeit(alldiplomarbeiten);
        
     }
@@ -391,7 +391,7 @@ public class bibliothekBean implements Serializable {
         
         this.keyreset = false;
         this.allindexList = dbService.getFoundDiplomarbeit(this.key);
-        System.out.println("----------------------------" + this.allindexList.size());
+//        System.out.println("----------------------------" + this.allindexList.size());
         this.isFromIndex = true;
         this.isFromBibliothek = false;
         this.seitenanzahl = 0;
@@ -438,21 +438,14 @@ public class bibliothekBean implements Serializable {
         if (maxszahl != 0) {
 
             if (allindexList.size() % 10 == 0 && allindexList.size() > 10) {
-                System.out.println("------------------------Lebel 1");
-
                 anfang = 0;
                 ende = ((seitenanzahl + 1) * 10);
-
-                System.out.println(anfang);
-                System.out.println(ende);
-
                 this.diplist = allindexList.subList(anfang, ende);
 
             } else {
 
                 if (seitenanzahl == 1) {
-                     System.out.println("-----------------------Lebel 2");
-
+                     
                     if (allindexList.size() <= 10) {
                         anfang = 0;
                         ende = allindexList.size();
@@ -464,19 +457,14 @@ public class bibliothekBean implements Serializable {
                     this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
                     
                 } else if (seitenanzahl < maxszahl && this.seitenanzahl > 1) {
-                    System.out.println("---------------------------Lebel 3");
+                    
                     anfang = 0;
                     ende = ((seitenanzahl + 1) * 10);
 
-                    System.out.println(anfang);
-                    System.out.println(ende);
-
-                    
                    this.diplist = allindexList.subList(anfang, ende);
 
                 } else if (seitenanzahl == maxszahl && this.seitenanzahl > 1) {
                     
-                    System.out.println("------------------------Lebel 4");
                     anfang = 0;
                     ende = allindexList.size();
 
@@ -505,8 +493,6 @@ public class bibliothekBean implements Serializable {
                 anfang = 0;
                 ende = ((seitenanzahl + 1) * 10);
 
-                System.out.println(anfang);
-                System.out.println(ende);
 
                 this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
 
@@ -530,8 +516,7 @@ public class bibliothekBean implements Serializable {
                     anfang = 0;
                     ende = ((seitenanzahl + 1) * 10);
 
-                    System.out.println(anfang);
-                    System.out.println(ende);
+                    
 
                     this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
 
@@ -565,13 +550,13 @@ public class bibliothekBean implements Serializable {
 
         if (size % 10 == 0) {
             maxszahl = (int) (size / 10);
-            System.out.println(size + " mit " + maxszahl + " Seiten");
+//            System.out.println(size + " mit " + maxszahl + " Seiten");
 
         } else {
 
             if (size % 10 > 0) {   
                 maxszahl = (int) ((size / 10) + 1);
-                System.out.println(size + " mit " + maxszahl + " Seiten");
+//                System.out.println(size + " mit " + maxszahl + " Seiten");
             }
 
         }
@@ -670,52 +655,8 @@ public class bibliothekBean implements Serializable {
 //
 
 
-////Seitenleiste neu
-//    public String getSeitenzahl() {
-//        return seitenzahl;
-//    }
-//
-//    public void setSeitenzahl(String seitenzahl) {
-//        this.seitenzahl = seitenzahl;
-//    }
-//
-//    public List<Seitenzahl> getSeitenList() {
-//        return seitenList;
-//    }
-//
-//    public void setSeitenList(List<Seitenzahl> seitenList) {
-//        this.seitenList = seitenList;
-//    }
-//
-//    private void createListeSize(List<Diplomarbeit> diplist) {
-//        int i;
-//        this.seitenList.clear();
-//
-//        for (i = 1; i < (this.berechnenMaxSeitenanzahl(diplist) + 1); i++) {
-//            Seitenzahl seitz = new Seitenzahl(i);
-//            this.seitenList.add(seitz);
-//            System.out.println("IsfromBibliothek");
-//        }
-//
-//    }
-//
-//    public class Seitenzahl {
-//
-//        int seitenzahl;
-//
-//        public Seitenzahl(int seitenzahl) {
-//            this.seitenzahl = seitenzahl;
-//        }
-//
-//        public int getSeitenzahl() {
-//            return seitenzahl;
-//        }
-//
-//        public void setSeitenzahl(int seitenzahl) {
-//            this.seitenzahl = seitenzahl;
-//        }
-//
-//    }
+
+
 
     
 
@@ -751,9 +692,6 @@ public class bibliothekBean implements Serializable {
                 anfang = seitenanzahl * 10;
                 ende = ((seitenanzahl + 1) * 10);
 
-                System.out.println(anfang);
-                System.out.println(ende);
-
                 this.seitenanzahl = seitenanzahl;
                 return this.diplist = allindexList.subList(anfang, ende);
 
@@ -775,8 +713,7 @@ public class bibliothekBean implements Serializable {
                     anfang = seitenanzahl * 10;
                     ende = ((seitenanzahl + 1) * 10);
 
-                    System.out.println(anfang);
-                    System.out.println(ende);
+                   
 
                     return this.diplist = allindexList.subList(anfang, ende);
 
@@ -808,8 +745,7 @@ public class bibliothekBean implements Serializable {
                 anfang = seitenanzahl * 10;
                 ende = ((seitenanzahl + 1) * 10);
 
-                System.out.println(anfang);
-                System.out.println(ende);
+               
 
                 this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
 
@@ -830,8 +766,7 @@ public class bibliothekBean implements Serializable {
 
                     anfang = seitenanzahl * 10;
                     ende = ((seitenanzahl + 1) * 10);
-                    System.out.println(anfang);
-                    System.out.println(ende);
+                  
 
                     this.diplist = dbService.ListeAllDiplomarbeiten().subList(anfang, ende);
 
@@ -870,8 +805,7 @@ public class bibliothekBean implements Serializable {
                 int anfang = seitenanzahl * 10;
                 int ende = ((seitenanzahl + 1) * 10);
 
-                System.out.println(anfang);
-                System.out.println(ende);
+               
 
                 return this.diplist = allindexList.subList(anfang, ende);
 
@@ -886,8 +820,7 @@ public class bibliothekBean implements Serializable {
                     int anfang = seitenanzahl * 10;
                     int ende = ((seitenanzahl + 1) * 10);
 
-                    System.out.println(anfang);
-                    System.out.println(ende);
+                 
 
                     return this.diplist = allindexList.subList(anfang, ende);
 

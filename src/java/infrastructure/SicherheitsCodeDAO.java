@@ -5,6 +5,7 @@
  */
 package infrastructure;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ import service.ConnectionManager;
  *
  * @author hp
  */
-public class SicherheitsCodeDAO {
+public class SicherheitsCodeDAO  {
 
     
     

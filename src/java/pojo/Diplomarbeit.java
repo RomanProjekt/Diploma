@@ -5,6 +5,7 @@
  */
 package pojo;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ import java.util.Objects;
  *
  * @author patri
  */
-public class Diplomarbeit {
+public class Diplomarbeit implements Serializable {
 
     private int da_id;
     private String title;

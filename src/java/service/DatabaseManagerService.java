@@ -21,6 +21,7 @@ import infrastructure.SchlagwortDAO;
 import infrastructure.SchuleDAO;
 import infrastructure.SicherheitsCodeDAO;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashMap;
 import javax.annotation.PostConstruct;
@@ -55,7 +56,7 @@ import javax.mail.internet.MimeMessage;
 
 
 
-public class DatabaseManagerService {
+public class DatabaseManagerService implements Serializable {
     
     private Benutzer loggedInBenutzer;
     private Benutzer b;
@@ -81,6 +82,7 @@ public class DatabaseManagerService {
     private byte[] key;
     private String secondEnc;
     private Session mailSession;
+    private boolean uploadOk;
     
 
     
@@ -107,6 +109,14 @@ public class DatabaseManagerService {
 
     public void setSchlagwortList(List<Schlagwort> schlagwortList) {
         this.schlagwortList = schlagwortList;
+    }
+
+    public boolean isUploadOk() {
+        return uploadOk;
+    }
+
+    public void setUploadOk(boolean uploadOk) {
+        this.uploadOk = uploadOk;
     }
     
     
@@ -136,8 +146,8 @@ public class DatabaseManagerService {
     private void init() {    
             //Fehler Nullpoint Exception
             //loggedInBenutzer = new Benutzer();
-//            SchuleList = new ArrayList<>();
-//            SchuleList = this.getListevonSchulen();
+            SchuleList = new ArrayList<>();
+            SchuleList = this.getListevonSchulen();
     }
     
     private boolean passwortOK;
@@ -487,24 +497,24 @@ public class DatabaseManagerService {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-   
-    
     //-----------------------Diplomarbeit hochladen:-----------------------------
-    public void hochladen(String title, List<Autor> autorList, String fullname, Schule schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
+    public String hochladen(String title, List<Autor> autorList, String fullname, Schule schule, List<Schlagwort> schlagwoerter, String pdfpath, String imagepath, Date datum) throws FileNotFoundException {
         
         int var_user_id = this.getLoggedInBenutzer().getUser_id();
         System.out.println(var_user_id);
         int var_da_id = diplomarbeitDAO.insert(title, var_user_id, fullname, schule.getSchule_id(), pdfpath, imagepath, datum);
+        System.out.println("------------------ " + var_da_id);
         autorDAO.insertAutorList(autorList, var_da_id);
-        
         schlagwort_verknuepfungDAO.readInsertList(schlagwoerter, var_da_id);
+        
+        if(var_da_id > 0) {
+            this.uploadOk = true;
+            return "bibliothek.xhtml";
+        }
+        else {
+            this.uploadOk = false;
+            return "uploadTest.xhtml";
+        }
         
     
     }
@@ -648,6 +658,11 @@ public class DatabaseManagerService {
 
     
     //--------------------------------------------------------------------------
+    
+    
+    
+//------------------------------------------------------------------------------   
+    
     
     public void insertSicherheitsCode(SicherheitsCode c, Benutzer b) {
         sicherheitsCodeDAO.insertResetCode(c, b);
@@ -857,8 +872,8 @@ public class DatabaseManagerService {
     //Email zurückseten 
      
         
-        static final String absender = "testdiplomarbeit@gmx.at";
-        private String FullDate;
+       static final String absender = "testdiplomarbeit@gmx.at";
+       private String FullDate;
      
        public void login(String smtpHost, String smtpPort, String benutzername, String passwort, Benutzer b) {
 

@@ -7,7 +7,7 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>title> Diplomarbeiten-Bibliothek </title>
+        <title>Diplomarbeiten-Bibliothek</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
         <h:outputStylesheet library= "css" name= "bibliothek.css" /> 
@@ -130,7 +130,7 @@
                                     <h5 style="font-family: Verdana; font-size: 15px;" > Titel: <h:outputLabel style="font-family: Verdana; font-size: 15px;" >  #{diplomarbeit.title}  </h:outputLabel></h5>                 
                                     <h5 style="font-family: Verdana; font-size: 15px;" >Autoren: <h:outputLabel style="font-family: Verdana; font-size: 15px;">  #{bibliothekBean.autorList(diplomarbeit.da_id)}</h:outputLabel> </h5>
                                     <h5 style="font-family: Verdana; font-size: 15px;" >Schule: <h:outputLabel style="font-family: Verdana; font-size: 15px;">   #{bibliothekBean.getOneSchule(diplomarbeit.da_id)} </h:outputLabel></h5> 
-                                    <h5 style="font-family: Verdana; font-size: 15px;" >Veröffentlichung: <h:outputLabel style="font-family: Verdana; font-size: 15px;">    #{diplomarbeit.datum} </h:outputLabel></h5> 
+                                    <h5 style="font-family: Verdana; font-size: 15px;" >Veröffentlichung: <h:outputLabel style="font-family: Verdana; font-size: 15px;">    #{dipansehenBean.convertSQLDateToUtilDate(diplomarbeit.datum)} </h:outputLabel></h5> 
                                     <h5 style="font-family: Verdana; font-size: 15px;" >Schlagwörter: <h:outputLabel style="font-family: Verdana; font-size: 15px;" > #{bibliothekBean.schlagwortList(diplomarbeit.da_id)} </h:outputLabel></h5>
                                 </h:column>
 

@@ -5,6 +5,7 @@
  */
 package infrastructure;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
 import pojo.Diplomarbeit;
 import service.ConnectionManager;
 
-public class FavoritenDAO {
+public class FavoritenDAO  {
     
     
     

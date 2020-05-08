@@ -22,8 +22,8 @@
         
 
 
- 
-
+<!-- driverClassName="com.mysql.jdbc.Driver"-->
+  <!--com.mysql.cj.jdbc.Driver-->
    <!--
    außerhalb des HTL Netzwerkes diese URL benutzen
     url="jdbc:mysql://193.170.45.133/akdb" 

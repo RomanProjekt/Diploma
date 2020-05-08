@@ -5,6 +5,7 @@
  */
 package infrastructure;
 
+import java.io.Serializable;
 import pojo.Benutzer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +23,7 @@ import service.ConnectionManager;
  *
  * @author dople
  */
-public class BenutzerDAO {
+public class BenutzerDAO implements Serializable {
 
     public Benutzer read(String username) {
         Benutzer retVal = null;

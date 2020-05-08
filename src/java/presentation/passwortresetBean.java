@@ -7,6 +7,7 @@ package presentation;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -19,7 +20,7 @@ import service.DatabaseManagerService;
  *
  * @author hp
  */
-public class passwortresetBean {
+public class passwortresetBean implements Serializable {
 
     private String pw;
     private String bestaetigtespw;

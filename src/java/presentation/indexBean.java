@@ -5,11 +5,13 @@
  */
 package presentation;
 
+import java.io.Serializable;
+
 /**
  *
  * @author hp
  */
-public class indexBean {
+public class indexBean  {
 
     /**
      * Creates a new instance of indexBean

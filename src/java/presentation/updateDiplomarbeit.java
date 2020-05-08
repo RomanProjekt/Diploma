@@ -5,6 +5,7 @@
  */
 package presentation;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ import service.DatabaseManagerService;
  *
  * @author dople
  */
-public class updateDiplomarbeit {
+public class updateDiplomarbeit  {
 
     private Diplomarbeit aktDip;
     private Diplomarbeit oldDip;

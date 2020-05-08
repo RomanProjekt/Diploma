@@ -5,11 +5,13 @@
  */
 package pojo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author patri
  */
-public class SW_DA {
+public class SW_DA implements Serializable  {
     
     private int sw_id;
     private int da_id;

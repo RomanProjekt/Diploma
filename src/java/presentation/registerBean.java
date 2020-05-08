@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import service.DatabaseManagerService;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +23,7 @@ import pojo.SicherheitsCode;
  *
  * @author patri
  */
-public class registerBean {
+public class registerBean  {
 
     private Benutzer b;
     private DatabaseManagerService dbService;

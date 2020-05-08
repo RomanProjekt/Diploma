@@ -15,7 +15,7 @@ import pojo.Diplomarbeit;
  *
  * @author patri
  */
-public class dipSuchenBean {
+public class dipSuchenBean  {
     
     
     //Alter Code

@@ -5,11 +5,13 @@
  */
 package pojo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author patri
  */
-public class Favoriten {
+public class Favoriten implements Serializable {
     
     private int user_id;
     private int da_id;

@@ -5,11 +5,13 @@
  */
 package pojo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author patri
  */
-public class Schlagwort {
+public class Schlagwort implements Serializable {
     
     
     private int tag_id;

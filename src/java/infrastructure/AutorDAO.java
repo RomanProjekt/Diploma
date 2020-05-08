@@ -5,6 +5,7 @@
  */
 package infrastructure;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ import service.ConnectionManager;
  *
  * @author hp
  */
-public class AutorDAO {
+public class AutorDAO implements Serializable {
     
     int autor_id;
     

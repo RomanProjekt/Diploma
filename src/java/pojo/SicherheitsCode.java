@@ -5,11 +5,13 @@
  */
 package pojo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author hp
  */
-public class SicherheitsCode {
+public class SicherheitsCode implements Serializable {
     
     private int sicherheitscode_id;
     private int benutzer_id;

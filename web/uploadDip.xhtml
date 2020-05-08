@@ -114,7 +114,7 @@ and open the template in the editor.
                                     </p:column>
 
                                     <p:column id="secondcolumn" headerText="Löschen">
-                                        <b:form><b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" /></b:form>
+                                        <b:commandButton value="X" action="#{updateDiplomarbeit.removeTag(schlagwort)}" />
                                     </p:column>
 
                                 </p:dataTable>
@@ -157,10 +157,10 @@ and open the template in the editor.
                                     </p:inputTextarea>
                                 </h:form>
                                 <br/><br/>
-                                <b:commandButton id="commbutton" value="Diplomarbeit hochladen" actionListener="#{uploadBean.upload(event)}" />
+                                
                                 <br/><br/>
                             </b:form> 
-
+                            <b:form><b:commandButton id="commbutton" value="Diplomarbeit hochladen" actionListener="#{uploadBean.upload()}" /></b:form>
 
                         </div>
 

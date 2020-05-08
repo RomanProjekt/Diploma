@@ -5,11 +5,13 @@
  */
 package pojo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author hp
  */
-public class Schule {
+public class Schule implements Serializable {
     
     private int schule_id;
     private String name;

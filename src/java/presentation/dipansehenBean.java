@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +33,7 @@ import service.DatabaseManagerService;
  *
  * @author hp
  */
-public class dipansehenBean implements Serializable {
+public class dipansehenBean implements Serializable  {
 
     private Diplomarbeit aktDip;
 
@@ -65,6 +66,8 @@ public class dipansehenBean implements Serializable {
     private String autorListe;
     private List<Autor> varList;
     private int numberofpages;
+    private java.util.Date utilDate;
+    private String dateFormat;
 
     public dipansehenBean() {
 
@@ -279,6 +282,25 @@ public class dipansehenBean implements Serializable {
     public void setNumberofpages(int numberofpages) {
         this.numberofpages = numberofpages;
     }
+
+    public java.util.Date getUtilDate() {
+        return utilDate;
+    }
+
+    public void setUtilDate(java.util.Date utilDate) {
+        this.utilDate = utilDate;
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+    
+    
+
     
     
     
@@ -292,6 +314,7 @@ public class dipansehenBean implements Serializable {
         this.getNumberofpages();
         this.aktDip = dip;
         this.autor = dbService.getOneAutor(dip.getDa_id()).getFullName();
+        this.dateFormat = this.convertSQLDateToUtilDate(dip.getDatum());
 
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
@@ -758,6 +781,22 @@ public class dipansehenBean implements Serializable {
             ex.printStackTrace();
         }
 
+    }
+    
+    
+    public String convertSQLDateToUtilDate(java.sql.Date date) {
+        
+        utilDate = new java.util.Date(date.getTime());
+        
+        String pattern = "dd.MM.yyyy";
+        SimpleDateFormat  simpledateformat = new SimpleDateFormat(pattern);
+        dateFormat = simpledateformat.format(utilDate);
+        
+        
+        return dateFormat; 
+        
+        
+        
     }
     
     

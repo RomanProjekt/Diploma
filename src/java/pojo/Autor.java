@@ -5,13 +5,14 @@
  */
 package pojo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author patri
  */
-public class Autor {
+public class Autor implements Serializable {
 
     private int autor_id;
     private String fullName;

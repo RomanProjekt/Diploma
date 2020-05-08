@@ -5,11 +5,10 @@
  */
 package pojo;
 
-/**
- *
- * @author patri
- */
-public class Benutzer {
+import java.io.Serializable;
+
+
+public class Benutzer implements Serializable {
 
     private int user_id;
     private String username;

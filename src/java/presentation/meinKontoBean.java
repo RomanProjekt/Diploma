@@ -8,6 +8,7 @@ package presentation;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -20,7 +21,7 @@ import pojo.Diplomarbeit;
  *
  * @author hp
  */
-public class meinKontoBean {
+public class meinKontoBean  {
     
     private Benutzer loggedInUser;
     private int user_id;

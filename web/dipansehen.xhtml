@@ -33,10 +33,6 @@ and open the template in the editor.
 
         <div id="wrapper" class="wrapper">
 
-
-
-
-
             <div id="contentindex" class="contentindex">
 
                 <div id="headindex" class="headerindex">
@@ -71,7 +67,7 @@ and open the template in the editor.
                                 <h:outputLabel style="width: 300px;" rendered="#{databaseManagerService.redakteurOrHigher}" value="Löschen der Diplomarbeit"/>
                                 <b:commandButton id="löschenbutton" class="löschenbutton" value="Diplomarbeit löschen" actionListener="#{dipansehenBean.löschenDiplomarbeit(event)}" rendered="#{databaseManagerService.redakteurOrHigher}" />
                             </b:form>
-                    </div>
+                        </div>
 
                     </div> 
                     
@@ -81,22 +77,16 @@ and open the template in the editor.
                     <div class="gestextlist">  
 
 
-                        <div id="einleitung" class="einleitung">
-
-                            <h:outputLabel>Titel</h:outputLabel>
-                            <br></br>
-                            <h:outputText value="#{dipansehenBean.aktDip.title}"/>
-                            <br></br>
-                            <br></br>
-                            <h:outputLabel>Autoren</h:outputLabel>
-                            <br></br>
-                            <h:outputText value="#{dipansehenBean.autorListe}"/>
+                        <div style="font-size: 15px" id="einleitung" class="einleitung">
+                            <h:outputLabel value="Titel: "/> <h:outputText value=" #{dipansehenBean.aktDip.title}"/>
+                            <br></br><br></br>                 
+                            <h:outputLabel value="Autoren:"/> #{dipansehenBean.autorListe}
                             <br></br><br></br>
                             <h:outputLabel value="Seitenanzahl:"/> #{dipansehenBean.getNumberOfPages(dipansehenBean.aktDip)}
                             <br></br><br></br>
                             <h:outputLabel value="Schule:" /> #{dipansehenBean.schule}
                             <br></br><br></br>
-                            <h:outputLabel value="Eröffnungdatum:"/> #{dipansehenBean.aktDip.datum}
+                            <h:outputLabel value="Veröffentlichung:"/> #{dipansehenBean.dateFormat}
                             <br></br><br></br>
                             <h:outputLabel  value="Sprache: TestSprache"/>
                             <br></br><br></br>

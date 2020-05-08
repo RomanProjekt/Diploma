@@ -12,6 +12,7 @@ package service;
 //import org.apache.pdfbox.rendering.PDFRenderer;  
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import javax.faces.context.FacesContext;
 //import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -142,10 +143,24 @@ public class Testklasse {
     
     
     
+     
     
     
     
-    
+     public void convertSQLDateToUtilDate(java.sql.Date date) {
+        
+        java.util.Date utilDate = new java.util.Date(date.getTime());
+        
+        String pattern = "dd.MM.yyyy";
+        SimpleDateFormat  simpledateformat = new SimpleDateFormat(pattern);
+        
+        String dateFormat = simpledateformat.format(utilDate);
+        
+        System.out.println(dateFormat);
+        
+        
+        
+    }
     
     
     
@@ -159,7 +174,7 @@ public class Testklasse {
     public static void main(String[] args) throws IOException {
         
        Testklasse tk = new Testklasse();
-       tk.getNumberOfPages();
+       tk.convertSQLDateToUtilDate(new java.sql.Date(12-12-2000));
 
     }
     

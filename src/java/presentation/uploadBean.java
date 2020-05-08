@@ -68,12 +68,14 @@ public class uploadBean implements Serializable {
     private String imagepath;
 
     private DatabaseManagerService dbService;
-    List<Autor> listautor;
-    List<Diplomarbeit> listdiplomarbeit;
+    private List<Autor> listautor;
+    private List<Diplomarbeit> listdiplomarbeit;
+    private BufferedImage buffimage;
   
 
     private String result;
     private String text;
+    private String sendforward;
 
     
     
@@ -102,6 +104,24 @@ public class uploadBean implements Serializable {
     public void setDatum(Date datum) {
         this.datum = datum;
     }
+
+    public String getSendforward() {
+        return sendforward;
+    }
+
+    public void setSendforward(String sendforward) {
+        this.sendforward = sendforward;
+    }
+
+    public BufferedImage getBuffimage() {
+        return buffimage;
+    }
+
+    public void setBuffimage(BufferedImage buffimage) {
+        this.buffimage = buffimage;
+    }
+    
+    
    
     
     
@@ -423,29 +443,27 @@ public class uploadBean implements Serializable {
 
         System.out.println("upload Funktion wird aufgerufen!!!");
         String vartitel = getTitel();
-
         java.sql.Date realDate = new java.sql.Date(datum.getTime());
  
         if (diplomarbeit != null) {
  
-            String user_id = String.valueOf(dbService.getLoggedInBenutzer().getUser_id());
-            System.out.println(user_id);
-            
-            
+//            String user_id = String.valueOf(dbService.getLoggedInBenutzer().getUser_id());
+
             boolean diplomarbeit_dateiformat = this.überprüfen_PDF_StandardFormat(diplomarbeit.getSubmittedFileName());
             System.out.println(diplomarbeit_dateiformat);
             
             if (diplomarbeit_dateiformat) {
 
                 String pdfpfad = this.savePdfFile(vartitel);
+                
+                
                 String imagepfad = this.showImageFromPDF(vartitel);
                 String textnamepfad = this.speichernTextDocument(vartitel);
 
                 if (!(autList.size() <= 0)) {
                     
-                    dbService.hochladen(vartitel, autList, textnamepfad, realSchule, this.schlagList, pdfpfad, imagepfad, realDate);
-                    
-                    return "index.xhtml";
+                    sendforward = dbService.hochladen(vartitel, this.autList, textnamepfad, realSchule, this.schlagList, pdfpfad, imagepfad, realDate);
+                    System.out.println(sendforward);
                     
                 } else {
                     this.autoralert = true;
@@ -457,13 +475,17 @@ public class uploadBean implements Serializable {
                 this.schlagwort = "";
 
             } else {
-                this.dateiformat_fail = "kein richtiges pdf-Format";
+                this.dateiformat_fail = "Kein richtiges pdf-Format";
+                return "uploadTest.xhtml";
             }
 
         } else {
-//            this.pdfdabei_fail = "Keine PDF-Datei gefunden!";
+            this.pdfdabei_fail = "Keine PDF-Datei gefunden!";
+            return "uploadTest.xhtml";
         }
-        return "index.xhtml";
+        
+        
+        return sendforward;
 
     }
     
@@ -475,17 +497,14 @@ public class uploadBean implements Serializable {
 
     public String showImageFromPDF(String name) throws IOException {
 
-        BufferedImage image;
+        
         String image_pfad = "/resources/images/images_diplomarbeiten/" + name + ".png";
-
         FacesContext fc = (FacesContext) FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext) fc.getExternalContext().getContext();
         String server_images_pfad = sc.getRealPath("").replaceAll("\\\\", "/").replaceAll("/build", "") + image_pfad;
-
-//      File file3 = new File("C:\\Users\\hp\\Desktop\\document.pdf");
+        
         File file3 = new File(this.server_pdf_pfad);
-        System.out.println(file3.getAbsolutePath());
-        System.out.println(file3.getName());
+        
 
         if (file3.exists()) {
 
@@ -494,9 +513,9 @@ public class uploadBean implements Serializable {
                 //Instantiating the PDFRenderer class
                 PDFRenderer renderer = new PDFRenderer(document);
                 //Rendering an image from the PDF document
-                image = renderer.renderImage(0);
+                buffimage = renderer.renderImage(0);
                 //Writing the image to a file
-                ImageIO.write(image, "JPEG", new File(server_images_pfad));
+                ImageIO.write(buffimage, "JPEG", new File(server_images_pfad));
                 System.out.println("Image created");
                 //Closing the document
                 document.close();
@@ -564,30 +583,7 @@ public class uploadBean implements Serializable {
         return dbService.diplomarbeit(titel);
     }
 
-    //-----------------Überprüfen des Images-Datei-Formats--------------
-    public boolean überprüfuen_Image_StandardFormat(String submittedFileName) {
 
-        boolean formatvergleich = false;
-        System.out.println("-----------------------------------" + submittedFileName);
-
-        String[] standartformat = {"png", "jpeg", "gif", "jpg"};
-
-        String[] name = submittedFileName.split(Pattern.quote("."));
-        System.out.println(Arrays.toString(name));
-
-        String bildformat = name[name.length - 1];
-        System.out.println(bildformat);
-
-        for (String format : standartformat) {
-            if (bildformat.equalsIgnoreCase(format)) {
-                formatvergleich = true;
-                System.out.println("Das derzeitige Bildformat enstpricht dem Standartformat");
-            }
-        }
-
-        return formatvergleich;
-
-    }
 
     //---------------------Diplomarbeit Titel umformartieren -------------------------
     public String dateiformatieren(String user_id, String diplomarbeit_titel, String submittedFileName) {
@@ -612,8 +608,7 @@ public class uploadBean implements Serializable {
         String PDF_Format = name[name.length - 1];
 
         if (PDF_Format.equalsIgnoreCase("pdf")) {
-            formatvergleich = true;
-            System.out.println("Das derzeitige Bildformat enstpricht dem Standartformat");
+            formatvergleich = true; 
         }
 
         return formatvergleich;

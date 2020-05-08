@@ -90,12 +90,10 @@
                                 <h:outputText value="#{uploadBean.pdfdabei_fail}" style="color: red"></h:outputText>
                                 <br></br>
 
-                                <h5>Bild</h5>
-                                <h:inputFile id="image-id" value="#{uploadBean.image}"></h:inputFile>
-                                <h:outputText value="#{uploadBean.bilddatei_fail}" style="color: red"></h:outputText>
                                 <br></br>
                                 <b:commandButton value="Diplomarbeit hochladen" action="#{uploadBean.upload()}" />
                                 <br></br>
+                                <div class="alert"><b:alert value="" rendered="#{loginBean.alert}" severity="success"><strong>Diplomarbeit wurde erfolgreich hochgeladen!</strong> </b:alert></div>
                                 <b:commandButton value="Back" action="index.xhtml" />
                                 <br></br>
                                 

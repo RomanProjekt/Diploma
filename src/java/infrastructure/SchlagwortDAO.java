@@ -5,6 +5,7 @@
  */
 package infrastructure;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
 import pojo.Schlagwort;
 import service.ConnectionManager;
 
-public class SchlagwortDAO {
+public class SchlagwortDAO  {
 
     int tag_id;
 

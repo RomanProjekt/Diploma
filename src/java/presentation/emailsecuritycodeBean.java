@@ -161,7 +161,7 @@ public class emailsecuritycodeBean {
    
 
     public String displaySelectedDa() { 
-        return "passwort_reset?faces-redirect=true&amp;includeViewParams=true";                 
+        return "fg_passwort_reset?faces-redirect=true&amp;includeViewParams=true";                 
     }
     
     public String back() {
