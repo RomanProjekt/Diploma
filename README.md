@@ -6,11 +6,13 @@ Allgemeine Infos:
 - Zeitraum: 09.2019 - 05.2020
 - Verwendete Technologien: JavaServer Faces 2.0, Java, MySQL, SQL, Netbeans, Bitbucket
 
+
 Meine Aufgaben:
 - Frontend-Design der gesamten Webapplikation
 - Upload und Download der Diplomarbeiten
 - Auslesen und Anzeigen aller Diplomarbeiten
 - Passwort-Rücksetzung per Email
+
 
 Kurzzusammenfassung:
 - Die vorliegende Diplomarbeit beschäftigt sich mit dem Ziel, Diplomarbeiten auf der öffentlich 
