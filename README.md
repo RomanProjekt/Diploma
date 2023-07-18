@@ -5,10 +5,10 @@
 - Verwendete Technologien: JavaServer Faces 2.0, Java, MySQL, SQL, Netbeans, Bitbucket
 
 Meine Aufgaben:
-o Frontend-Design der gesamten Webapplikation
-o Upload und Download der Diplomarbeiten
-o Auslesen und Anzeigen aller Diplomarbeiten
-o Passwort-Rücksetzung per Email
+- Frontend-Design der gesamten Webapplikation
+- Upload und Download der Diplomarbeiten
+- Auslesen und Anzeigen aller Diplomarbeiten
+- Passwort-Rücksetzung per Email
 
 Kurzzusammenfassung:
 Die vorliegende Diplomarbeit beschäftigt sich mit dem Ziel, Diplomarbeiten auf der öffentlich 
