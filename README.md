@@ -1,4 +1,4 @@
-# Abschlussarbeit
+# Abschlussarbeit - Diplomarbeitsbibliothek
 Status: abgeschlossen 
 Zeitraum: 09.2019 - 05.2020
 Webapplication zur Verwaltung von Diplomarbeiten 
