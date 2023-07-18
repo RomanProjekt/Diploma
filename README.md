@@ -4,7 +4,13 @@ Allgemeine Infos:
 - Webapplication zur Verwaltung von Diplomarbeiten 
 - Status: abgeschlossen 
 - Zeitraum: 09.2019 - 05.2020
-- Verwendete Technologien: JavaServer Faces 2.0, Java, MySQL, SQL, Netbeans, Bitbucket
+- Team: 2 Personen
+- Verwendete Technologien:
+  - Frontend: JavaServer Faces 2.0, HTML5, CSS3
+  - Backend-Enwicklung: Java
+  - Datenbank: MySQL, Abfragesprache: SQL
+  - IDE: Netbeans
+  - Versionsverwaltung: Bitbucket
 
 
 Meine Aufgaben:
