@@ -6,7 +6,7 @@ Allgemeine Infos:
 - Zeitraum: 09.2019 - 05.2020
 - Team: 2 Personen
 - Verwendete Technologien:
-  - Frontend: JavaServer Faces 2.0, HTML5, CSS3
+  - Frontend: JavaServer Faces 2.0, Bootsfaces, XHTML, HTML5, CSS3
   - Backend-Enwicklung: Java
   - Datenbank: MySQL, Abfragesprache: SQL
   - IDE: Netbeans
