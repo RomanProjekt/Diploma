@@ -1,8 +1,8 @@
 # Abschlussarbeit - Diplomarbeitsbibliothek
-Status: abgeschlossen 
-Zeitraum: 09.2019 - 05.2020
-Webapplication zur Verwaltung von Diplomarbeiten 
-Verwendete Technologien: JavaServer Faces 2.0, Java, MySQL, SQL, Netbeans, Bitbucket
+- Webapplication zur Verwaltung von Diplomarbeiten 
+- Status: abgeschlossen 
+- Zeitraum: 09.2019 - 05.2020
+- Verwendete Technologien: JavaServer Faces 2.0, Java, MySQL, SQL, Netbeans, Bitbucket
 
 Meine Aufgaben:
 o Frontend-Design der gesamten Webapplikation
