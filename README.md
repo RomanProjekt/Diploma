@@ -8,7 +8,7 @@ Allgemeine Infos:
 - Verwendete Technologien:
   - Frontend: JavaServer Faces 2.0, Bootsfaces, XHTML, HTML5, CSS3
   - Backend-Enwicklung: Java
-  - Webserver: Tomcat 
+  - Webserver: Tomcat - 8 Version 
   - Datenbank: MySQL, Abfragesprache: SQL
   - IDE: Netbeans
   - Versionsverwaltung: Bitbucket
