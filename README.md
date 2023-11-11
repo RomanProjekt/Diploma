@@ -22,8 +22,8 @@ Meine Aufgaben:
 
 
 Kurzzusammenfassung:
-- Die vorliegende Diplomarbeit beschäftigt sich mit dem Ziel, Diplomarbeiten auf der öffentlich 
-zugänglichen Webseite bereitzustellen. Da es heutzutage mit der wandelnden Digitalisierung 
+- Die vorliegende Diplomarbeit beschäftigt sich mit dem Ziel, Diplomarbeiten auf einer öffentlichen
+zugänglichen Website bereitzustellen. Da es heutzutage mit der wandelnden Digitalisierung 
 von Vorteil ist online präsent zu sein, stellt diese Diplomarbeit eine Brücke in die Zukunft 
 dar, welche es ermöglicht, verfasste Diplomarbeiten auf der Erweiterung der Website 
 in die Online Bibliothek aufzunehmen und hochzuladen.
